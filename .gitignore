@@ -1,0 +1,13 @@
+# Mengabaikan folder virtual environment
+.venv/
+venv/
+env/
+ENV/
+
+# Mengabaikan file cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Mengabaikan file konfigurasi database/rahasia
+.env

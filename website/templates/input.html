@@ -1,0 +1,37 @@
+{%extends "base.html"%}
+
+{%block title%}Input Data{%endblock%}
+
+{%block content%}
+<form method="POST">
+  <div class="mb-3">
+    <label for="name" class="form-label">name</label>
+    <input type="text" class="form-control" id="name" name="name" placeholder="your name">
+  </div>
+  <div class="mb-3">
+    <label for="nisn" class="form-label">nisn</label>
+    <input type="text" class="form-control" id="nisn" name="nisn" placeholder="**********">
+  </div>
+  <div class="mb-3">
+    <label for="nis" class="form-label">nis</label>
+    <input type="text" class="form-control" id="nis" name="nis" placeholder="****">
+  </div>
+  <div class="mb-3">
+    <label for="tanggal_lahir" class="form-label">tanggal_lahir</label>
+    <input type="text" class="form-control" id="tanggal_lahir" name="tanggal_lahir" placeholder="yyyy-mm-dd">
+  </div>
+  <div class="mb-3">
+    <label for="alamat" class="form-label">alamat</label>
+    <input type="text" class="form-control" id="alamat" name="alamat" placeholder="alamat murid">
+  </div>
+  <div class="mb-3">
+    <label for="no_hp" class="form-label">no_hp</label>
+    <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="081xxxxxxxxx">
+  </div>
+  <div class="mb-3">
+    <label for="kelas" class="form-label">kelas</label>
+    <input type="text" class="form-control" id="kelas" name="kelas" placeholder="kelas murid">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{%endblock%}
