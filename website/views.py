@@ -4,6 +4,7 @@ from . import db
 from flask_login import login_required, current_user
 from .models import DatabaseSiswa
 import json
+import base64
 
 views = Blueprint("views", __name__)
 
@@ -23,7 +24,14 @@ def home():
 
     database_siswa = DatabaseSiswa.query.all()
 
+
     return render_template("home.html", user=current_user, students=database_siswa)
+
+@views.route("/info_siswa/<int:id>")
+def info(id):
+    database_siswa = DatabaseSiswa.query.get(id)
+
+    return render_template("info.html", user=current_user, student=database_siswa)
 
 @views.route("/delete-student", methods=["POST"])
 def delete_student():

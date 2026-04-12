@@ -3,7 +3,11 @@
 {%block title%}Input Data{%endblock%}
 
 {%block content%}
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label for="gambar" class="form-label">gambar</label>
+    <input type="file" class="form-control" id="gambar" name="gambar" placeholder="pilih gambar">
+  </div>
   <div class="mb-3">
     <label for="name" class="form-label">name</label>
     <input type="text" class="form-control" id="name" name="name" placeholder="your name">

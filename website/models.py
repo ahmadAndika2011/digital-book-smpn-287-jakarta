@@ -1,5 +1,6 @@
 from . import db
 from flask_login import UserMixin
+from sqlalchemy.dialects.mysql import LONGBLOB  
 
 class SecretPassword(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -8,6 +9,7 @@ class SecretPassword(db.Model, UserMixin):
 
 class DatabaseSiswa(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
+    image = db.Column(db.String(255))
     name = db.Column(db.String(150))
     nisn = db.Column(db.String(30))
     nis = db.Column(db.String(30))

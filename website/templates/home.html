@@ -10,12 +10,9 @@
       <th scope="col">Name</th>
       <th scope="col">NISN</th>
       <th scope="col">NIS</th>
-      <th scope="col">Tanggal Lahir</th>
-      <th scope="col">Alamat</th>
-      <th scope="col">No HP</th>
       <th scope="col">Kelas</th>
       {%if user.is_authenticated%}
-      <th scope="col">...</th>
+      <th scope="col"></th>
       {%endif%}
     </tr>
   </thead>
@@ -26,16 +23,20 @@
       <td>{{student.name}}</td>
       <td>{{student.nisn}}</td>
       <td>{{student.nis}}</td>
-      <td>{{student.tanggal_lahir}}</td>
-      <td>{{student.alamat}}</td>
-      <td>{{student.no_hp}}</td>
       <td>{{student.kelas}}</td>
+      <td>
+        <a href="{{ url_for('views.info', id=student.id) }}" class="btn btn-sm btn-info text-white" title="Lihat Keterangan">
+          <i class="fa-solid fa-circle-info"></i>
+        </a>
+      </td>
       {%if user.is_authenticated%}
       <td>
         <button type="button" class="close" onclick="deleteStudent({{student.id}})">
-            <span aria-hidden="true">&times;</span>
+            <i class="fa-solid fa-trash"></i>
         </button>
-        <a href="{{ url_for('auth.update_data', id=student.id) }}" class="btn btn-primary">update</a>
+        <a href="{{ url_for('auth.update_data', id=student.id) }}" class="btn btn-sm btn-primary">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </a>
       </td>
       {%endif%}
     </tr>

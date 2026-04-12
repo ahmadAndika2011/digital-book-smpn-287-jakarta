@@ -1,5 +1,0 @@
-flask
-flask-SQLAlchemy
-flask-login
-flask-WTF
-mysqlclient
