@@ -58,12 +58,19 @@ def input():
         no_hp_input = request.form.get("no_hp")
         kelas_input = request.form.get("kelas")
 
+        check_duplicate_nisn = DatabaseSiswa.query.filter_by(nisn=nisn_input).first()
+        check_duplicate_nis = DatabaseSiswa.query.filter_by(nis=nis_input).first()
+
         try:
             valid_date = datetime.strptime(tanggal_lahir_input, "%Y-%m-%d")
         except Exception as e:
             valid_date = None
 
-        if len(name_input) < 1:
+        if check_duplicate_nisn:
+            pass
+        elif check_duplicate_nis:
+            pass
+        elif len(name_input) < 1:
             pass
         elif len(nisn_input) != 10:
             pass
