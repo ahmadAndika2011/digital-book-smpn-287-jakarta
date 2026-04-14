@@ -2,7 +2,7 @@
 
 {%block title%}Home{%endblock%}
 
-{%block content%}
+{# {%block content%}
 <div class="card" style="width: 18rem;">
   {% if student.image %}
   <img src="{{ url_for('static', filename='uploads/' + student.image) }}" class="card-img-top" alt="...">
@@ -11,27 +11,142 @@
   {% endif %}
 
   <div class="card-body">
-    <h5 class="card-title">{{student.name}}</h5>
+    <h5 class="card-title">{{student.nama}}</h5>
     <p class="card-text">Kelas : {{student.kelas}}</p>
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item">NISN : {{student.nisn}}</li>
     <li class="list-group-item">NIS : {{student.nis}}</li>
     <li class="list-group-item">Tanggal Lahir : {{student.tanggal_lahir}}</li>
-    <li class="list-group-item">Tanggal Lahir : {{student.tanggal_lahir}}</li>
+    <li class="list-group-item">Agama : {{student.agama}}</li>
+    <li class="list-group-item">Sekolah Asal : {{student.sekolah_asal}}</li>
   </ul>
   <div class="card-header">
-    Alamat : {{student.alamat}}
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">AGAMA : {{nilai.agama}}</li>
+      <li class="list-group-item">PPKN : {{nilai.pancasila}}</li>
+      <li class="list-group-item">BAHASA INDONESIA : {{nilai.indonesia}}</li>
+      <li class="list-group-item">MATEMATIKA : {{nilai.matematika}}</li>
+      <li class="list-group-item">ILMU PENGETAHUAN ALAM : {{nilai.ipa}}</li>
+      <li class="list-group-item">ILMU PENGETAHUAN SOSIAL : {{nilai.ips}}</li>
+      <li class="list-group-item">BAHASA INGGRIS : {{nilai.inggris}}</li>
+      <li class="list-group-item">SENI BUDAYA : {{nilai.seni_budaya}}</li>
+      <li class="list-group-item">OLAHRAGA : {{nilai.olahraga}}</li>
+      <li class="list-group-item">PRAKARYA : {{nilai.prakarya}}</li>
+    </ul>
   </div>
   {%if user.is_authenticated%}
   <div class="card-body">
     <a href="{{ url_for('auth.update_data_student', id=student.id) }}" class="btn btn-sm btn-primary">
           <i class="fa-solid fa-pen-to-square"></i>
         </a>
-        <button type="button" class="close" onclick="deleteStudent({{student.id}})">
+        <button type="button" class="close" onclick="deleteStudent({{student.id}}); deleteNilaiStudent({{nilai.nisn}});">
             <i class="fa-solid fa-trash"></i>
         </button>
   </div>
   {%endif%}
+</div>
+{%endblock%} #}
+
+{%block content%}
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+
+      <!-- Card Profil Siswa -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body text-center">
+          {% if student.image %}
+          <img src="{{ url_for('static', filename='uploads/' + student.image) }}"
+               class="rounded-circle mb-3"
+               style="width: 120px; height: 120px; object-fit: cover;"
+               alt="Foto Siswa">
+          {% else %}
+          <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mx-auto mb-3"
+               style="width: 120px; height: 120px;">
+            <i class="fa-solid fa-user fa-3x text-white"></i>
+          </div>
+          {% endif %}
+          <h4 class="card-title fw-bold mb-1">{{student.nama}}</h4>
+          <span class="badge bg-primary">Kelas {{student.kelas}}</span>
+        </div>
+
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex justify-content-between">
+            <span class="text-muted">NISN</span>
+            <strong>{{student.nisn}}</strong>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span class="text-muted">NIS</span>
+            <strong>{{student.nis}}</strong>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span class="text-muted">Tanggal Lahir</span>
+            <strong>{{student.tanggal_lahir}}</strong>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span class="text-muted">Agama</span>
+            <strong>{{student.agama}}</strong>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span class="text-muted">Sekolah Asal</span>
+            <strong>{{student.sekolah_asal}}</strong>
+          </li>
+        </ul>
+
+        {%if user.is_authenticated%}
+        <div class="card-footer d-flex gap-2 justify-content-end">
+          <a href="{{ url_for('auth.update_data_student', id=student.id) }}" class="btn btn-sm btn-primary">
+            <i class="fa-solid fa-pen-to-square"></i> Edit
+          </a>
+          <button type="button" class="btn btn-sm btn-danger"
+                  onclick="deleteStudent({{student.id}}); deleteNilaiStudent({{nilai.nisn}});">
+            <i class="fa-solid fa-trash"></i> Hapus
+          </button>
+        </div>
+        {%endif%}
+      </div>
+
+      <!-- Card Nilai -->
+      <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white fw-bold">
+          <i class="fa-solid fa-book-open me-2"></i>Nilai Akademik
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Agama</span><strong>{{nilai.agama}}</strong>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>PPKN</span><strong>{{nilai.pancasila}}</strong>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Bahasa Indonesia</span><strong>{{nilai.indonesia}}</strong>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Matematika</span><strong>{{nilai.matematika}}</strong>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Ilmu Pengetahuan Alam</span><strong>{{nilai.ipa}}</strong>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Ilmu Pengetahuan Sosial</span><strong>{{nilai.ips}}</strong>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Bahasa Inggris</span><strong>{{nilai.inggris}}</strong>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Seni Budaya</span><strong>{{nilai.seni_budaya}}</strong>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Olahraga</span><strong>{{nilai.olahraga}}</strong>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Prakarya</span><strong>{{nilai.prakarya}}</strong>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
 </div>
 {%endblock%}

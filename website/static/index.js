@@ -6,3 +6,12 @@ function deleteStudent(studentId){
         window.location.href = "/"
     })
 }
+
+function deleteNilaiStudent(nilaiNisn){
+    fetch("/delete-nilai-student", {
+        method: "POST",
+        body: JSON.stringify({nilaiNisn: nilaiNisn})
+    }).then((_res) => {
+        window.location.href = "/"
+    })
+}

@@ -1,8 +1,10 @@
-from flask import Blueprint, render_template, redirect, request, url_for, jsonify
+import os
+
+from flask import Blueprint, current_app, render_template, redirect, request, url_for, jsonify
 from .models import SecretPassword
 from . import db
 from flask_login import login_required, current_user
-from .models import DatabaseSiswa
+from .models import DatabaseSiswa, NilaiSiswa
 import json
 import base64
 
@@ -23,23 +25,45 @@ def home():
     # db.session.commit()
 
     database_siswa = DatabaseSiswa.query.all()
+    nilai_siswa = NilaiSiswa.query.all()
+    students_with_nilai = zip(database_siswa, nilai_siswa)
 
-
-    return render_template("home.html", user=current_user, students=database_siswa)
+    return render_template("home.html", user=current_user, students_with_nilai=students_with_nilai)
 
 @views.route("/info_siswa/<int:id>")
 def info(id):
     database_siswa = DatabaseSiswa.query.get(id)
+    nilai_siswa = NilaiSiswa.query.filter_by(nisn=database_siswa.nisn).first()
 
-    return render_template("info.html", user=current_user, student=database_siswa)
+    return render_template("info.html", user=current_user, student=database_siswa, nilai=nilai_siswa)
 
 @views.route("/delete-student", methods=["POST"])
 def delete_student():
     student = json.loads(request.data)
     studentId = student["studentId"]
     student = DatabaseSiswa.query.get(studentId)
+    
+    # hapus gambar
+    student = DatabaseSiswa.query.get(studentId)
+    if student and student.image:
+        image_path = os.path.join(current_app.root_path, "static/uploads", student.image)
+        if os.path.exists(image_path):
+            os.remove(image_path)
+
+    # hapus data student
     if student:
         db.session.delete(student)
+        db.session.commit()
+
+    return jsonify({})
+
+@views.route("/delete-nilai-student", methods=["POST"])
+def delete_nilai_student():
+    nilai_student = json.loads(request.data)
+    nisn_student = nilai_student["nilaiNisn"]
+    nilai_student = NilaiSiswa.query.filter_by(nisn=nisn_student).first()
+    if nilai_student:
+        db.session.delete(nilai_student)
         db.session.commit()
 
     return jsonify({})
