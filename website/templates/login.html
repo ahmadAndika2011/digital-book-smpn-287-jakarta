@@ -2,7 +2,277 @@
 
 {%block title%}Login{%endblock%}
 
-{%block content%}
+{% block content %}
+<div class="login-wrapper">
+  <div class="login-card">
+    <div class="school-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3L1 9L12 15L21 10.09V17H23V9L12 3Z" fill="currentColor"/>
+        <path d="M5 13.18V17.18L12 21L19 17.18V13.18L12 17L5 13.18Z" fill="currentColor"/>
+      </svg>
+    </div>
+    <h1 class="school-name">SMPN 287</h1>
+    <p class="login-subtitle">Sistem Informasi Sekolah</p>
+
+    <form method="POST" class="login-form">
+      <div class="input-group">
+        <label for="password" class="input-label">Password Admin</label>
+        <div class="input-wrapper">
+          <svg class="input-icon" viewBox="0 0 24 24" fill="none">
+            <path d="M12 1C8.676 1 6 3.676 6 7v1H4v15h16V8h-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v1H8V7c0-2.276 1.724-4 4-4zm0 9a2 2 0 110 4 2 2 0 010-4z" fill="currentColor"/>
+          </svg>
+          <input
+            type="password"
+            class="input-field"
+            id="password"
+            name="password"
+            placeholder="Masukkan password..."
+          >
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">
+        <span>Masuk</span>
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <p class="hint-text">
+        <svg viewBox="0 0 24 24" fill="none" class="hint-icon">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        Pengguna biasa tidak perlu memasukkan password, langsung klik tombol masuk.
+      </p>
+    </form>
+  </div>
+</div>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+  body {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #f0f4ff;
+    min-height: 100vh;
+  }
+
+  .login-wrapper {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #e8eeff 0%, #f5f0ff 50%, #e8f4ff 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .login-wrapper::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    pointer-events: none;
+  }
+
+  .login-wrapper::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%);
+    bottom: -80px;
+    left: -80px;
+    pointer-events: none;
+  }
+
+  .login-card {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.9);
+    border-radius: 24px;
+    padding: 3rem 2.5rem;
+    width: 100%;
+    max-width: 420px;
+    box-shadow:
+      0 4px 6px rgba(0,0,0,0.04),
+      0 20px 60px rgba(99,102,241,0.12),
+      0 0 0 1px rgba(255,255,255,0.6) inset;
+    text-align: center;
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    position: relative;
+    z-index: 1;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .school-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #6366f1, #3b82f6);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+    color: white;
+    box-shadow: 0 8px 24px rgba(99,102,241,0.35);
+  }
+
+  .school-icon svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .school-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1e1b4b;
+    margin: 0 0 0.25rem;
+    letter-spacing: -0.5px;
+  }
+
+  .login-subtitle {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin: 0 0 2rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+
+  .login-form {
+    text-align: left;
+  }
+
+  .input-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .input-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+
+  .input-wrapper {
+    position: relative;
+  }
+
+  .input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: #9ca3af;
+    pointer-events: none;
+  }
+
+  .input-field {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #1f2937;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    box-sizing: border-box;
+  }
+
+  .input-field::placeholder {
+    color: #d1d5db;
+  }
+
+  .input-field:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 0.85rem 1.5rem;
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+    box-shadow: 0 4px 15px rgba(99,102,241,0.4);
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.2px;
+  }
+
+  .submit-btn svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s;
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(99,102,241,0.5);
+    opacity: 0.95;
+  }
+
+  .submit-btn:hover svg {
+    transform: translateX(3px);
+  }
+
+  .submit-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(99,102,241,0.3);
+  }
+
+  .hint-text {
+    font-size: 0.78rem;
+    color: #9ca3af;
+    margin: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+    line-height: 1.5;
+    background: #f9fafb;
+    border-radius: 10px;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid #f3f4f6;
+  }
+
+  .hint-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: #6366f1;
+  }
+</style>
+{% endblock %}
+{# {%block content%}
 <form method="POST">
   <div class="mb-3">
     <label for="password" class="form-label">Password</label>
@@ -11,4 +281,4 @@
   <button type="submit" class="btn btn-primary">Submit</button>
   <div id="emailHelp" class="form-text">jika user biasa tidak perlu masukkan password, cukup klik tombol.</div>
 </form>
-{%endblock%}
+{%endblock%} #}

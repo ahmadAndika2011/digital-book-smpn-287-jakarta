@@ -95,13 +95,13 @@ def input():
         else:
             data_siswa = DatabaseSiswa(
                 image=gambar_input,
-                nama=name_input, 
-                nisn=nisn_input, 
-                nis=nis_input, 
+                nama=name_input,
+                nisn=nisn_input,
+                nis=nis_input,
                 tanggal_lahir=tanggal_lahir_input,
                 tempat_lahir=tempat_lahir_input,
-                agama=agama_input, 
-                sekolah_asal=sekolah_asal_input, 
+                agama=agama_input,
+                sekolah_asal=sekolah_asal_input,
                 kelas=kelas_input
             )
             nilai_siswa = NilaiSiswa(
