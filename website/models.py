@@ -20,7 +20,6 @@ class DatabaseSiswa(db.Model, UserMixin):
     tempat_lahir = db.Column(db.String(150))
     agama = db.Column(db.String(50))
     sekolah_asal = db.Column(db.String(20))
-    kelas = db.Column(db.String(10))
 
 class NilaiSiswa(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)

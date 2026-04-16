@@ -23,8 +23,7 @@ def home():
     # )
     # db.session.add(secret_pw)
     # db.session.commit()
-
-    database_siswa = DatabaseSiswa.query.all()
+    database_siswa = DatabaseSiswa.query.order_by(DatabaseSiswa.nis.asc()).all()
     nilai_siswa = NilaiSiswa.query.all()
     students_with_nilai = zip(database_siswa, nilai_siswa)
 

@@ -1,6 +1,6 @@
 from fileinput import filename
-
-from flask import Blueprint, render_template, redirect, request_started, url_for, request, current_app
+from unicodedata import category
+from flask import Blueprint, render_template, redirect, request_started, url_for, request, current_app, flash
 from flask_login import login_user, login_required, logout_user, current_user
 from .models import SecretPassword, DatabaseSiswa, NilaiSiswa
 from datetime import datetime
@@ -60,20 +60,19 @@ def input():
         tempat_lahir_input = request.form.get("tempat_lahir")
         agama_input = request.form.get("agama")
         sekolah_asal_input = request.form.get("sekolah_asal")
-        kelas_input = request.form.get("kelas")
         check_duplicate_nisn = DatabaseSiswa.query.filter_by(nisn=nisn_input).first()
         check_duplicate_nis = DatabaseSiswa.query.filter_by(nis=nis_input).first()
         # input Nilai Murid
         n_agama_input = request.form.get("n_agama")
-        pancasila_input = request.form.get("pancasila")
-        indonesia_input = request.form.get("indonesia")
-        matematika_input = request.form.get("matematika")
-        ipa_input = request.form.get("ipa")
-        ips_input = request.form.get("ips")
-        inggris_input = request.form.get("inggris")
-        seni_budaya_input = request.form.get("seni_budaya")
-        olahraga_input = request.form.get("olahraga")
-        prakarya_input = request.form.get("prakarya")
+        n_pancasila_input = request.form.get("n_pancasila")
+        n_indonesia_input = request.form.get("n_indonesia")
+        n_matematika_input = request.form.get("n_matematika")
+        n_ipa_input = request.form.get("n_ipa")
+        n_ips_input = request.form.get("n_ips")
+        n_inggris_input = request.form.get("n_inggris")
+        n_seni_budaya_input = request.form.get("n_seni_budaya")
+        n_olahraga_input = request.form.get("n_olahraga")
+        n_prakarya_input = request.form.get("n_prakarya")
 
         try:
             valid_date = datetime.strptime(tanggal_lahir_input, "%Y-%m-%d")
@@ -81,16 +80,19 @@ def input():
             valid_date = None
 
         if check_duplicate_nisn:
+            flash("NISN sudah ada.", category="error")
             pass
         elif check_duplicate_nis:
-            pass
-        elif len(name_input) < 1:
+            flash("NIS sudah ada.", category="error")
             pass
         elif len(nisn_input) != 10:
+            flash("NISN harus 10 digit.", category="error")
             pass
         elif len(nis_input) != 4:
+            flash("NIS harus 4 digit.", category="error")
             pass
         elif not valid_date:
+            flash("Tanggal lahir tidak valid.", category="error")
             pass
         else:
             data_siswa = DatabaseSiswa(
@@ -102,24 +104,24 @@ def input():
                 tempat_lahir=tempat_lahir_input,
                 agama=agama_input,
                 sekolah_asal=sekolah_asal_input,
-                kelas=kelas_input
             )
             nilai_siswa = NilaiSiswa(
                 nisn=nisn_input,
                 agama=n_agama_input,
-                pancasila=pancasila_input,
-                indonesia=indonesia_input,
-                matematika=matematika_input,
-                ipa=ipa_input,
-                ips=ips_input,
-                inggris=inggris_input,
-                seni_budaya=seni_budaya_input,
-                olahraga=olahraga_input,
-                prakarya=prakarya_input
+                pancasila=n_pancasila_input,
+                indonesia=n_indonesia_input,
+                matematika=n_matematika_input,
+                ipa=n_ipa_input,
+                ips=n_ips_input,
+                inggris=n_inggris_input,
+                seni_budaya=n_seni_budaya_input,
+                olahraga=n_olahraga_input,
+                prakarya=n_prakarya_input
             )
             db.session.add(data_siswa)
             db.session.add(nilai_siswa)
             db.session.commit()
+            flash("Berhasil tambah data.", category="success")
 
     return render_template("input.html")
 
@@ -148,6 +150,7 @@ def update_data(id):
                 os.makedirs(upload_path)
             gambar_file.save(os.path.join("website/static/uploads", filename))
             student.image = filename
+            flash("success update gambar.", category="success")
         else:
             pass
 
@@ -158,117 +161,134 @@ def update_data(id):
         tempat_lahir_new = request.form.get("tempat_lahir")
         agama_new = request.form.get("agama")
         sekolah_asal_new = request.form.get("sekolah_asal")
-        kelas_new = request.form.get("kelas")
 
-        # Check name
+        success_update = []
+
         if len(name_new) < 1:
             pass
         else:
+            success_update.append("nama")
             student.nama = name_new
-
-        # Check nisn
         if len(nisn_new) != 10:
             pass
         else:
+            success_update.append("nisn")
             student.nisn = nisn_new
-
-        # Check nis
         if len(nis_new) != 4:
             pass
         else:
+            success_update.append("nis")
             student.nis = nis_new
 
         try:
             valid_tanggal_lahir = datetime.strptime(tanggal_lahir_new, "%Y-%m-%d")
         except:
             valid_tanggal_lahir = None
-        # Check tanggal lahir
         if not valid_tanggal_lahir:
             pass
         else:
+            success_update.append("tanggal lahir")
             student.tanggal_lahir = tanggal_lahir_new
 
-        # Check tempat lahir
         if len(tempat_lahir_new) < 1:
             pass
         else:
-            student.tempat_lahir = tempat_lahir_new
-
-        # Check alamat
+            success_update.append("tempat lahir")
+            student.tempat_lahir = tempat_lahir_new.title()
         if not agama_new:
             pass
         else:
+            success_update.append("agama")
             student.agama = agama_new
-
-        # Check no hp
         if len(sekolah_asal_new) < 1:
             pass
         else:
+            success_update.append("sekolah asal")
             student.sekolah_asal = sekolah_asal_new
-
-        # Check kelas
-        if len(kelas_new) < 1:
-            pass
-        else:
-            student.kelas = kelas_new
+        
+        if len(success_update) >= 1:
+            for i in range(len(success_update)):
+                flash(f"success update {success_update[i]}.", category="success")
 
         """
             Nilai student
         """
         n_agama_new = request.form.get("n_agama")
-        pancasila_new = request.form.get("pancasila")
-        matematika_new = request.form.get("matematika")
-        ipa_new = request.form.get("ipa")
-        ips_new = request.form.get("ips")
-        inggris_new = request.form.get("inggris")
-        seni_budaya_new = request.form.get("seni_budaya")
-        olahraga_new = request.form.get("olahraga")
-        prakarya_new = request.form.get("prakarya")
+        n_pancasila_new = request.form.get("n_pancasila")
+        n_indonesia_new = request.form.get("n_indonesia")
+        n_matematika_new = request.form.get("n_matematika")
+        n_ipa_new = request.form.get("n_ipa")
+        n_ips_new = request.form.get("n_ips")
+        n_inggris_new = request.form.get("n_inggris")
+        n_seni_budaya_new = request.form.get("n_seni_budaya")
+        n_olahraga_new = request.form.get("n_olahraga")
+        n_prakarya_new = request.form.get("n_prakarya")
+
+        success_update_n = []
 
         if len(n_agama_new) < 1:
             pass
         else:
+            success_update_n.append("nilai agama")
             nilai_siswa.agama = n_agama_new
 
-        if len(pancasila_new) < 1:
+        if len(n_pancasila_new) < 1:
             pass
         else:
-            nilai_siswa.pancasila = pancasila_new
+            success_update_n.append("nilai ppkn")
+            nilai_siswa.pancasila = n_pancasila_new
 
-        if len(matematika_new) < 1:
+        if len(n_indonesia_new) < 1:
             pass
         else:
-            nilai_siswa.matematika = matematika_new
+            success_update_n.append("nilai bahasa indonesia")
+            nilai_siswa.indonesia = n_indonesia_new
 
-        if len(ipa_new) < 1:
+        if len(n_matematika_new) < 1:
             pass
         else:
-            nilai_siswa.ipa = ipa_new
+            success_update_n.append("nilai matematika")
+            nilai_siswa.matematika = n_matematika_new
 
-        if len(ips_new) < 1:
+        if len(n_ipa_new) < 1:
             pass
         else:
-            nilai_siswa.ips = ips_new
+            success_update_n.append("nilai ipa")
+            nilai_siswa.ipa = n_ipa_new
 
-        if len(inggris_new) < 1:
+        if len(n_ips_new) < 1:
             pass
         else:
-            nilai_siswa.inggris = inggris_new
+            success_update_n.append("nilai ips")
+            nilai_siswa.ips = n_ips_new
 
-        if len(seni_budaya_new) < 1:
+        if len(n_inggris_new) < 1:
             pass
         else:
-            nilai_siswa.seni_budaya = seni_budaya_new
+            success_update_n.append("nilai bahasa ingrris")
+            nilai_siswa.inggris = n_inggris_new
 
-        if len(olahraga_new) < 1:
+        if len(n_seni_budaya_new) < 1:
             pass
         else:
-            nilai_siswa.olahraga = olahraga_new
+            success_update_n.append("nilai seni budaya")
+            nilai_siswa.seni_budaya = n_seni_budaya_new
 
-        if len(prakarya_new) < 1:
+        if len(n_olahraga_new) < 1:
             pass
         else:
-            nilai_siswa.prakarya = prakarya_new
+            success_update_n.append("nilai olahraga")
+            nilai_siswa.olahraga = n_olahraga_new
+
+        if len(n_prakarya_new) < 1:
+            pass
+        else:
+            success_update_n.append("nilai prakarya")
+            nilai_siswa.prakarya = n_prakarya_new
+
+        if len(success_update_n) >= 1:
+            for i in range(len(success_update_n)):
+                flash(f"success update {success_update_n[i]}.", category="success")
         
         db.session.commit()
         return redirect(url_for("views.home"))
@@ -301,6 +321,7 @@ def update_data_student(id):
                 os.makedirs(upload_path)
             gambar_file.save(os.path.join("website/static/uploads", filename))
             student.image = filename
+            flash("success update gambar.", category="success")
         else:
             pass
 
@@ -311,117 +332,134 @@ def update_data_student(id):
         tempat_lahir_new = request.form.get("tempat_lahir")
         agama_new = request.form.get("agama")
         sekolah_asal_new = request.form.get("sekolah_asal")
-        kelas_new = request.form.get("kelas")
 
-        # Check name
+        success_update = []
+
         if len(name_new) < 1:
             pass
         else:
+            success_update.append("nama")
             student.nama = name_new
-
-        # Check nisn
         if len(nisn_new) != 10:
             pass
         else:
+            success_update.append("nisn")
             student.nisn = nisn_new
-
-        # Check nis
         if len(nis_new) != 4:
             pass
         else:
+            success_update.append("nis")
             student.nis = nis_new
 
         try:
             valid_tanggal_lahir = datetime.strptime(tanggal_lahir_new, "%Y-%m-%d")
         except:
             valid_tanggal_lahir = None
-        # Check tanggal lahir
         if not valid_tanggal_lahir:
             pass
         else:
+            success_update.append("tanggal lahir")
             student.tanggal_lahir = tanggal_lahir_new
 
-        # Check tempat lahir
         if len(tempat_lahir_new) < 1:
             pass
         else:
-            student.tempat_lahir = tempat_lahir_new
-
-        # Check agama
+            success_update.append("tempat lahir")
+            student.tempat_lahir = tempat_lahir_new.title()
         if not agama_new:
             pass
         else:
+            success_update.append("agama")
             student.agama = agama_new
-
-        # Check no hp
         if len(sekolah_asal_new) < 1:
             pass
         else:
+            success_update.append("sekolah asal")
             student.sekolah_asal = sekolah_asal_new
-
-        # Check kelas
-        if len(kelas_new) < 1:
-            pass
-        else:
-            student.kelas = kelas_new
+        
+        if len(success_update) >= 1:
+            for i in range(len(success_update)):
+                flash(f"success update {success_update[i]}.", category="success")
         
         """
             nilai student
         """
         n_agama_new = request.form.get("n_agama")
-        pancasila_new = request.form.get("pancasila")
-        matematika_new = request.form.get("matematika")
-        ipa_new = request.form.get("ipa")
-        ips_new = request.form.get("ips")
-        inggris_new = request.form.get("inggris")
-        seni_budaya_new = request.form.get("seni_budaya")
-        olahraga_new = request.form.get("olahraga")
-        prakarya_new = request.form.get("prakarya")
+        n_pancasila_new = request.form.get("n_pancasila")
+        n_indonesia_new = request.form.get("n_indonesia")
+        n_matematika_new = request.form.get("n_matematika")
+        n_ipa_new = request.form.get("n_ipa")
+        n_ips_new = request.form.get("n_ips")
+        n_inggris_new = request.form.get("n_inggris")
+        n_seni_budaya_new = request.form.get("n_seni_budaya")
+        n_olahraga_new = request.form.get("n_olahraga")
+        n_prakarya_new = request.form.get("n_prakarya")
+
+        success_update_n = []
 
         if len(n_agama_new) < 1:
             pass
         else:
+            success_update_n.append("nilai agama")
             nilai_siswa.agama = n_agama_new
 
-        if len(pancasila_new) < 1:
+        if len(n_pancasila_new) < 1:
             pass
         else:
-            nilai_siswa.pancasila = pancasila_new
+            success_update_n.append("nilai ppkn")
+            nilai_siswa.pancasila = n_pancasila_new
 
-        if len(matematika_new) < 1:
+        if len(n_indonesia_new) < 1:
             pass
         else:
-            nilai_siswa.matematika = matematika_new
+            success_update_n.append("nilai bahasa indonesia")
+            nilai_siswa.indonesia = n_indonesia_new
 
-        if len(ipa_new) < 1:
+        if len(n_matematika_new) < 1:
             pass
         else:
-            nilai_siswa.ipa = ipa_new
+            success_update_n.append("nilai matematika")
+            nilai_siswa.matematika = n_matematika_new
 
-        if len(ips_new) < 1:
+        if len(n_ipa_new) < 1:
             pass
         else:
-            nilai_siswa.ips = ips_new
+            success_update_n.append("nilai ipa")
+            nilai_siswa.ipa = n_ipa_new
 
-        if len(inggris_new) < 1:
+        if len(n_ips_new) < 1:
             pass
         else:
-            nilai_siswa.inggris = inggris_new
+            success_update_n.append("nilai ips")
+            nilai_siswa.ips = n_ips_new
 
-        if len(seni_budaya_new) < 1:
+        if len(n_inggris_new) < 1:
             pass
         else:
-            nilai_siswa.seni_budaya = seni_budaya_new
+            success_update_n.append("nilai bahasa ingrris")
+            nilai_siswa.inggris = n_inggris_new
 
-        if len(olahraga_new) < 1:
+        if len(n_seni_budaya_new) < 1:
             pass
         else:
-            nilai_siswa.olahraga = olahraga_new
+            success_update_n.append("nilai seni budaya")
+            nilai_siswa.seni_budaya = n_seni_budaya_new
 
-        if len(prakarya_new) < 1:
+        if len(n_olahraga_new) < 1:
             pass
         else:
-            nilai_siswa.prakarya = prakarya_new
+            success_update_n.append("nilai olahraga")
+            nilai_siswa.olahraga = n_olahraga_new
+
+        if len(n_prakarya_new) < 1:
+            pass
+        else:
+            success_update_n.append("nilai prakarya")
+            nilai_siswa.prakarya = n_prakarya_new
+
+        if len(success_update_n) >= 1:
+            for i in range(len(success_update_n)):
+                flash(f"success update {success_update_n[i]}.", category="success")
         
         db.session.commit()
         return redirect(url_for("views.info", id=id))

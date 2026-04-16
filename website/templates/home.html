@@ -2,52 +2,6 @@
 
 {%block title%}Home{%endblock%}
 
-{# {%block content%}
-<div class="container-fluid px-4 py-3">
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">No</th>
-          <th scope="col">Nama</th>
-          <th scope="col">NISN</th>
-          <th scope="col">NIS</th>
-          <th scope="col">Kelas</th>
-          {%if user.is_authenticated%}
-          <th scope="col"></th>
-          {%endif%}
-        </tr>
-      </thead>
-      <tbody>
-        {%for student, nilai in students_with_nilai%}
-        <tr>
-          <td>{{loop.index}}</td>
-          <td>{{student.nama}}</td>
-          <td>{{student.nisn}}</td>
-          <td>{{student.nis}}</td>
-          <td>{{student.kelas}}</td>
-          <td>
-            <a href="{{ url_for('views.info', id=student.id) }}" class="btn btn-sm btn-info text-white" title="Lihat Keterangan">
-              <i class="fa-solid fa-circle-info"></i>
-            </a>
-          </td>
-          {%if user.is_authenticated%}
-          <td>
-            <button type="button" class="close" onclick="deleteStudent({{student.id}}); deleteNilaiStudent({{nilai.nisn}})">
-                <i class="fa-solid fa-trash"></i>
-            </button>
-            <a href="{{ url_for('auth.update_data', id=student.id) }}" class="btn btn-sm btn-primary">
-              <i class="fa-solid fa-pen-to-square"></i>
-            </a>
-          </td>
-          {%endif%}
-        </tr>
-        {%endfor%}
-      </tbody>
-    </table>
-  </div>
-</div>
-{%endblock%} #}
 {% block content %}
 <div class="home-wrapper">
 
