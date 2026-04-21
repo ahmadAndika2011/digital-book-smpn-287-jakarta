@@ -23,11 +23,25 @@ def home():
     # )
     # db.session.add(secret_pw)
     # db.session.commit()
-    database_siswa = DatabaseSiswa.query.order_by(DatabaseSiswa.nis.asc()).all()
-    nilai_siswa = NilaiSiswa.query.all()
-    students_with_nilai = zip(database_siswa, nilai_siswa)
 
-    return render_template("home.html", user=current_user, students_with_nilai=students_with_nilai)
+    nilai_siswa = NilaiSiswa.query.all()
+    
+    # search program
+    query = request.args.get("q", "").strip()
+    if query:
+        search = f"%{query}%"
+        database_siswa = DatabaseSiswa.query.filter(
+            db.or_(
+                DatabaseSiswa.nama.ilike(search),
+                DatabaseSiswa.nisn.ilike(search),
+                DatabaseSiswa.nis.ilike(search),
+            )
+        ).all()
+    else:
+        database_siswa = DatabaseSiswa.query.order_by(DatabaseSiswa.nis.asc()).all()
+
+
+    return render_template("home.html", user=current_user, students=database_siswa, nilai=nilai_siswa, query=query)
 
 @views.route("/info_siswa/<int:id>")
 def info(id):

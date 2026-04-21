@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from urllib.parse import quote_plus
+import os
 
 db = SQLAlchemy()
 DB_NAME = "smpn_287"
@@ -11,9 +12,11 @@ def create_app():
     app = Flask(__name__)
     app.config["SECRET_KEY"] = "Secret_Key_09182829291982"
     app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+mysqlconnector://andika:{pw}@187.77.113.166/smpn_287"
-    # app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+mysqlconnector://root:@localhost/{DB_NAME}"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(app)
+
+    app.config["UPLOADS_FOLDER"] = os.path.join(app.root_path, "uploads")
+    os.makedirs(app.config["UPLOADS_FOLDER"], exist_ok=True)
 
     from .views import views
     from .auth import auth

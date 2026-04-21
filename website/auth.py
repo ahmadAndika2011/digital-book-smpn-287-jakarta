@@ -7,6 +7,7 @@ from datetime import datetime
 from . import db
 import os 
 from werkzeug.utils import secure_filename
+import pandas as pd
 
 auth = Blueprint("auth", __name__)
 
@@ -465,3 +466,130 @@ def update_data_student(id):
         return redirect(url_for("views.info", id=id))
 
     return render_template("update_data.html", user=current_user)
+
+ALLOWED_FORMAT = ["xlsx", "xls", "csv"]
+def allowed_file(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_FORMAT
+
+@auth.route("/upload-file", methods=["GET", "POST"])
+@login_required
+def upload_file():
+    if request.method == "POST":
+        file = request.files.get("file")
+
+        if file and file.filename != "":
+            if allowed_file(file.filename):
+                uploads_folder = current_app.config["UPLOADS_FOLDER"]
+                save_path = os.path.join(uploads_folder, file.filename)
+                file.save(save_path)
+                flash("Data berhasil disimpan.", category="success")
+                filename = secure_filename(file.filename)
+                if filename.endswith(".csv"):
+                    df_siswa = pd.read_csv(save_path, dtype={"nis": str, "nisn": str})
+                    df_siswa = df_siswa.fillna("")
+                    for index, row in df_siswa.iterrows():
+                        existing = DatabaseSiswa.query.filter_by(nisn=row["nisn"]).first()
+
+                        if existing:
+                            flash(f"{row["nama"]} sudah ada di database.", category="error")
+                            continue
+
+                        if len(row["nis"].strip()) != 4:
+                            flash(f"{row['nama']} memiliki nis tidak sama dengan 4 digit.", category="error")
+                            continue
+
+                        if len(row["nisn"].strip()) != 10:
+                            flash(f"{row['nama']} memiliki nisn tidak sama dengan 10 digit.", category="error")
+                            continue
+
+                        try:
+                            valid_tanggal_lahir = datetime.strptime(row["tanggal_lahir"], "%Y-%m-%d")
+                        except:
+                            valid_tanggal_lahir = None
+                            flash(f"{row["nama"]} memiliki format tanggal lahir yang salah.", category="error")
+                            continue
+                        data_siswa = DatabaseSiswa(
+                            nama = row["nama"],
+                            nisn = row["nisn"],
+                            nis = row["nis"],
+                            tanggal_lahir = row["tanggal_lahir"],
+                            tempat_lahir = row["tempat_lahir"],
+                            agama = row["agama"],
+                            sekolah_asal = row["sekolah_asal"]
+                        )
+                        db.session.add(data_siswa)
+
+                        nilai_siswa = NilaiSiswa(
+                            nisn=row["nisn"],
+                            agama="",
+                            pancasila="",
+                            indonesia="",
+                            matematika="",
+                            ipa="",
+                            ips="",
+                            inggris="",
+                            seni_budaya="",
+                            olahraga="",
+                            prakarya="",
+                        )
+                        db.session.add(nilai_siswa)
+                else:
+                    df_siswa = pd.read_excel(save_path, dtype={"nis": str, "nisn": str})
+                    df_siswa = df_siswa.fillna("")
+
+                    
+                    for index, row in df_siswa.iterrows():
+                        existing = DatabaseSiswa.query.filter_by(nisn=row["nisn"]).first()
+                        if existing:
+                            flash(f"{row["nama"]} sudah ada di database.", category="error")
+                            continue
+
+                        if len(row["nis"].strip()) != 4:
+                            flash(f"{row['nama']} memiliki nis tidak sama dengan 4 digit.", category="error")
+                            continue
+
+                        if len(row["nisn"].strip()) != 10:
+                            flash(f"{row['nama']} memiliki nisn tidak sama dengan 10 digit.", category="error")
+                            continue
+
+                        try:
+                            valid_tanggal_lahir = datetime.strptime(row["tanggal_lahir"], "%Y-%m-%d")
+                        except:
+                            valid_tanggal_lahir = None
+                            flash(f"{row["nama"]} memiliki format tanggal lahir yang salah.", category="error")
+                            continue
+
+                        data_siswa = DatabaseSiswa(
+                            nama = row["nama"],
+                            nisn = row["nisn"],
+                            nis = row["nis"],
+                            tanggal_lahir = row["tanggal_lahir"],
+                            tempat_lahir = row["tempat_lahir"],
+                            agama = row["agama"],
+                            sekolah_asal = row["sekolah_asal"]
+                        )
+                        db.session.add(data_siswa)
+
+                        nilai_siswa = NilaiSiswa(
+                            nisn=row["nisn"],
+                            agama="",
+                            pancasila="",
+                            indonesia="",
+                            matematika="",
+                            ipa="",
+                            ips="",
+                            inggris="",
+                            seni_budaya="",
+                            olahraga="",
+                            prakarya="",
+                        )
+                        db.session.add(nilai_siswa)
+                db.session.commit()
+                #? Remove kembali file
+                os.remove(save_path)
+                return redirect(url_for("views.home"))
+            else:
+                flash("Format Tidak diizinkan", category="error")
+        else:
+            flash("Tidak ada file yang disimpan", category="error")
+    return render_template("upload_file.html", user=current_user)

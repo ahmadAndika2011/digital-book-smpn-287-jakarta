@@ -1,0 +1,43 @@
+{%extends "base.html"%}
+{%block title%}Upload File{%endblock%}
+
+{%block content%}
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+
+      <h4 class="fw-bold mb-4">
+        <i class="fa-solid fa-user-plus me-2"></i>Upload Data Siswa
+      </h4>
+
+      <form method="POST" enctype="multipart/form-data">
+
+        <!-- SECTION: Data Pribadi -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-header bg-dark text-white fw-bold">
+            <i class="fa-solid fa-id-card me-2"></i>Data Pribadi
+          </div>
+          <div class="card-body">
+
+            <div class="mb-3">
+              <label for="file" class="form-label fw-semibold">Upload File</label>
+              <input type="file" class="form-control" id="file" name="file">
+            </div>
+          </div>
+        </div>
+
+        <!-- Tombol Submit -->
+        <div class="d-flex justify-content-end gap-2 mb-5">
+          <a href="/" class="btn btn-outline-secondary">
+            <i class="fa-solid fa-xmark me-1"></i>Batal
+          </a>
+          <button type="submit" class="btn btn-primary px-4">
+            <i class="fa-solid fa-floppy-disk me-1"></i>Simpan Data
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+{%endblock%}
