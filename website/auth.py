@@ -506,7 +506,7 @@ def upload_file():
                             valid_tanggal_lahir = datetime.strptime(row["tanggal_lahir"], "%Y-%m-%d")
                         except:
                             valid_tanggal_lahir = None
-                            flash(f"{row["nama"]} memiliki format tanggal lahir yang salah.", category="error")
+                            flash(f"{row['nama']} memiliki format tanggal lahir yang salah.", category="error")
                             continue
                         data_siswa = DatabaseSiswa(
                             nama = row["nama"],
