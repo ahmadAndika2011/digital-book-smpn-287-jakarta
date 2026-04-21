@@ -541,7 +541,7 @@ def upload_file():
                     for index, row in df_siswa.iterrows():
                         existing = DatabaseSiswa.query.filter_by(nisn=row["nisn"]).first()
                         if existing:
-                            flash(f"{row["nama"]} sudah ada di database.", category="error")
+                            flash(f"{row['nama']} sudah ada di database.", category="error")
                             continue
 
                         if len(row["nis"].strip()) != 4:
@@ -556,7 +556,7 @@ def upload_file():
                             valid_tanggal_lahir = datetime.strptime(row["tanggal_lahir"], "%Y-%m-%d")
                         except:
                             valid_tanggal_lahir = None
-                            flash(f"{row["nama"]} memiliki format tanggal lahir yang salah.", category="error")
+                            flash(f"{row['nama']} memiliki format tanggal lahir yang salah.", category="error")
                             continue
 
                         data_siswa = DatabaseSiswa(
