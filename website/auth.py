@@ -491,7 +491,7 @@ def upload_file():
                         existing = DatabaseSiswa.query.filter_by(nisn=row["nisn"]).first()
 
                         if existing:
-                            flash(f"{row["nama"]} sudah ada di database.", category="error")
+                            flash(f"{row['nama']} sudah ada di database.", category="error")
                             continue
 
                         if len(row["nis"].strip()) != 4:
