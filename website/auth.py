@@ -2,7 +2,8 @@ from fileinput import filename
 from unicodedata import category
 from flask import Blueprint, render_template, redirect, request_started, url_for, request, current_app, flash
 from flask_login import login_user, login_required, logout_user, current_user
-from .models import SecretPassword, DatabaseSiswa, NilaiSiswa
+from .models import SecretPassword, DatabaseSiswa, NilaiSiswa, AccountSiswa
+from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from . import db
 import os
@@ -603,7 +604,8 @@ def upload_file():
                             tanggal_lahir=row["tanggal_lahir"],
                             tempat_lahir=row["tempat_lahir"],
                             agama=row["agama"],
-                            sekolah_asal=row["sekolah_asal"]
+                            sekolah_asal=row["sekolah_asal"],
+                            lulus=row["lulus"],
                         )
                         db.session.add(data_siswa)
 
@@ -660,7 +662,8 @@ def upload_file():
                             tanggal_lahir=row["tanggal_lahir"],
                             tempat_lahir=row["tempat_lahir"],
                             agama=row["agama"],
-                            sekolah_asal=row["sekolah_asal"]
+                            sekolah_asal=row["sekolah_asal"],
+                            lulus=row["lulus"],
                         )
                         db.session.add(data_siswa)
 
@@ -687,3 +690,55 @@ def upload_file():
         else:
             flash("Tidak ada file yang disimpan", category="error")
     return render_template("upload_file.html", user=current_user)
+
+
+@auth.route("/buat-akun", methods=["GET", "POST"])
+def buat_akun():
+    if request.method == "POST":
+        nis = request.form.get("nis")
+        password = request.form.get("password")
+        check_nis = DatabaseSiswa.query.filter_by(nis=nis).first()
+        check_nis_from_account = AccountSiswa.query.filter_by(nis=nis).first()
+        if check_nis:
+            if not check_nis_from_account:
+                if password:
+                    hash_password = generate_password_hash(password, method="pbkdf2:sha256")
+                    account_siswa = AccountSiswa(
+                        nis=nis,
+                        password=hash_password
+                    )
+                    db.session.add(account_siswa)
+                    db.session.commit()
+                    flash("Akun berhasil dibuat!", category="success")
+                    return redirect(url_for('auth.buat_akun'))
+                else:
+                    flash("Password tidak boleh kosong!", category="error")
+                    return redirect(url_for('auth.buat_akun'))
+            else:
+                flash("Akun untuk NIS ini sudah ada!", category="error")
+                return redirect(url_for('auth.buat_akun'))
+        else:
+            flash("NIS tidak ditemukan di database!", category="error")
+            return redirect(url_for('auth.buat_akun'))
+        
+    return render_template("buat-akun.html")
+
+@auth.route("/check-kelulusan", methods=["GET", "POST"])
+def check_kelulusan():
+    if request.method == "POST":
+        nis = request.form.get("nis")
+        password = request.form.get("password")
+        check_nis = AccountSiswa.query.filter_by(nis=nis).first()
+        if check_nis:
+            check_password_hashing = check_password_hash(check_nis.password, password)
+            if check_password_hashing:
+                stundent = DatabaseSiswa.query.filter_by(nis=nis).first()
+
+                return stundent.lulus
+            else:
+                flash("Pssword Salah!", category="error")
+                return redirect(url_for("auth.check_kelulusan"))
+        else:
+            flash("NIS Salah!", category="error")
+            return redirect(url_for("auth.check_kelulusan"))
+    return render_template("check-kelulusan.html")

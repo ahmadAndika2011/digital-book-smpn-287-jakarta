@@ -81,7 +81,90 @@
           </div>
         </div>
 
-        <!-- SECTION: Nilai -->
+         <!-- SECTION: Nilai -->
+         <div class="card shadow-sm mb-4 card-nilai">
+           <div class="card-header-nilai">
+             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+               <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+               <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+               <line x1="10" y1="8" x2="16" y2="8"/>
+               <line x1="10" y1="12" x2="16" y2="12"/>
+             </svg>
+             Nilai Akademik
+           </div>
+           <div class="card-body p-4">
+             <!-- Upload Area -->
+             <div class="upload-zone mb-4" onclick="document.getElementById('upload_nilai').click()">
+               <div class="upload-icon">
+                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2">
+                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                   <polyline points="17 8 12 3 7 8"/>
+                   <line x1="12" y1="3" x2="12" y2="15"/>
+                 </svg>
+               </div>
+               <div>
+                 <p class="upload-label mb-0"><strong>Upload Nilai Sekaligus</strong></p>
+                 <p class="upload-label mb-0 text-muted" id="upload-filename">Klik untuk memilih file</p>
+               </div>
+               <input type="file" class="d-none" id="upload_nilai" name="upload_nilai"
+                     onchange="document.getElementById('upload-filename').textContent = this.files[0]?.name || 'Klik untuk memilih file'">
+             </div>
+             <!-- Grid Nilai -->
+             <div class="row g-3">
+               <div class="col-md-6">
+                 <label for="n_agama" class="nilai-label">Agama</label>
+                 <input type="number" class="nilai-input form-control" id="n_agama" name="n_agama"
+                       placeholder="0 – 100" min="0" max="100">
+               </div>
+               <div class="col-md-6">
+                 <label for="n_pancasila" class="nilai-label">PPKN / Pancasila</label>
+                 <input type="number" class="nilai-input form-control" id="n_pancasila" name="n_pancasila"
+                       placeholder="0 – 100" min="0" max="100">
+               </div>
+               <div class="col-md-6">
+                 <label for="n_indonesia" class="nilai-label">Bahasa Indonesia</label>
+                 <input type="number" class="nilai-input form-control" id="n_indonesia" name="n_indonesia"
+                       placeholder="0 – 100" min="0" max="100">
+               </div>
+               <div class="col-md-6">
+                 <label for="n_matematika" class="nilai-label">Matematika</label>
+                 <input type="number" class="nilai-input form-control" id="n_matematika" name="n_matematika"
+                       placeholder="0 – 100" min="0" max="100">
+               </div>
+               <div class="col-md-6">
+                 <label for="n_ipa" class="nilai-label">IPA</label>
+                 <input type="number" class="nilai-input form-control" id="n_ipa" name="n_ipa"
+                       placeholder="0 – 100" min="0" max="100">
+               </div>
+               <div class="col-md-6">
+                 <label for="n_ips" class="nilai-label">IPS</label>
+                 <input type="number" class="nilai-input form-control" id="n_ips" name="n_ips"
+                       placeholder="0 – 100" min="0" max="100">
+               </div>
+               <div class="col-md-6">
+                 <label for="n_inggris" class="nilai-label">Bahasa Inggris</label>
+                 <input type="number" class="nilai-input form-control" id="n_inggris" name="n_inggris"
+                       placeholder="0 – 100" min="0" max="100">
+               </div>
+               <div class="col-md-6">
+                 <label for="n_seni_budaya" class="nilai-label">Seni Budaya</label>
+                 <input type="number" class="nilai-input form-control" id="n_seni_budaya" name="n_seni_budaya"
+                       placeholder="0 – 100" min="0" max="100">
+               </div>
+               <div class="col-md-6">
+                 <label for="n_olahraga" class="nilai-label">Olahraga</label>
+                 <input type="number" class="nilai-input form-control" id="n_olahraga" name="n_olahraga"
+                       placeholder="0 – 100" min="0" max="100">
+               </div>
+               <div class="col-md-6">
+                 <label for="n_prakarya" class="nilai-label">Prakarya</label>
+                 <input type="number" class="nilai-input form-control" id="n_prakarya" name="n_prakarya"
+                       placeholder="0 – 100" min="0" max="100">
+               </div>
+             </div>
+           </div>
+         </div>
+        {# <!-- SECTION: Nilai -->
         <div class="card shadow-sm mb-4">
           <div class="card-header bg-dark text-white fw-bold">
             <i class="fa-solid fa-book-open me-2"></i>Nilai Akademik
@@ -136,7 +219,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> #}
 
         <!-- Tombol Submit -->
         <div class="d-flex justify-content-end gap-2 mb-5">
