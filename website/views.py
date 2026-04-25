@@ -74,21 +74,16 @@ def delete_student():
     nis = DatabaseSiswa.query.filter_by(id=studentId).first().nis
     account_siswa = AccountSiswa.query.filter_by(nis=nis).first()
 
+    # hapus nilai
+    nisn = DatabaseSiswa.query.filter_by(id=studentId).first().nisn
+    nilai_siswa = NilaiSiswa.query.filter_by(nisn=nisn).first()
+
     # hapus data student
-    if student:
+    if student and nilai_siswa:
         db.session.delete(student)
-        db.session.delete(account_siswa)
-        db.session.commit()
-
-    return jsonify({})
-
-@views.route("/delete-nilai-student", methods=["POST"])
-def delete_nilai_student():
-    nilai_student = json.loads(request.data)
-    nisn_student = nilai_student["nilaiNisn"]
-    nilai_student = NilaiSiswa.query.filter_by(nisn=nisn_student).first()
-    if nilai_student:
-        db.session.delete(nilai_student)
+        db.session.delete(nilai_siswa)
+        if account_siswa:
+            db.session.delete(account_siswa)
         db.session.commit()
 
     return jsonify({})

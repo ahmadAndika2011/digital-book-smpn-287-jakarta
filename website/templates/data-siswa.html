@@ -92,7 +92,7 @@
                   <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
                 </a>
                 {% if user.is_authenticated %}
-                <button class="action-btn delete-btn" onclick="deleteStudent({{ student.id }}); deleteNilaiStudent({{ nilai.nisn }})" title="Hapus">
+                <button class="action-btn delete-btn" onclick="deleteStudent({{ student.id }})" title="Hapus">
                   <svg viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
                 <a href="{{ url_for('auth.update_data', id=student.id) }}" class="action-btn edit-btn" title="Edit">
