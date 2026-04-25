@@ -1,10 +1,8 @@
 import os
-
 from flask import Blueprint, current_app, render_template, redirect, request, url_for, jsonify
-from .models import SecretPassword
 from . import db
 from flask_login import login_required, current_user
-from .models import DatabaseSiswa, NilaiSiswa, AccountSiswa
+from .models import DatabaseSiswa, NilaiSiswa, AccountSiswa, AdminAccount
 import json
 import base64
 
@@ -12,23 +10,17 @@ views = Blueprint("views", __name__)
 
 @views.route("/")
 def home():
+    # akun_admin = AdminAccount(
+    #     username="Abdul Rohim",
+    #     secret_pw="46du1_R0h1m@d1g1t4l-b00k-smpn-287-jkt-001"
+    # )
+    # db.session.add(akun_admin)
+    # db.session.commit()
     jumlah_siswa = DatabaseSiswa.query.count()
     return render_template("home.html", jumlah_siswa=jumlah_siswa)
 
 @views.route("/data-siswa")
 def data_siswa():
-    # """
-    #     Hanya Dijalankan sekali
-    #     1. *(&^!*((&!!)!*iiaa89aj2882z@@)10@((joeoe9191wkjaahshgsfaya2hwwy72yw
-    #     2. 8172829(*(jjjnkka&^81LLLppa8j111o2oisjsjsehhejaasdhsjhaso))
-    # """
-    # secret_pw = SecretPassword(
-    #   secret_pw_1="*(&^!*((&!!)!*iiaa89aj2882z@@)10@((joeoe9191wkjaahshgsfaya2hwwy72yw", 
-    #   secret_pw_2="8172829(*(jjjnkka&^81LLLppa8j111o2oisjsjsehhejaasdhsjhaso))"
-    # )
-    # db.session.add(secret_pw)
-    # db.session.commit()
-
     nilai_siswa = NilaiSiswa.query.all()
     
     # search program

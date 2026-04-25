@@ -3,7 +3,7 @@ from unicodedata import category
 from click.utils import R
 from flask import Blueprint, render_template, redirect, request_started, url_for, request, current_app, flash
 from flask_login import login_user, login_required, logout_user, current_user
-from .models import SecretPassword, DatabaseSiswa, NilaiSiswa, AccountSiswa
+from .models import AdminAccount, DatabaseSiswa, NilaiSiswa, AccountSiswa
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from . import db
@@ -40,18 +40,28 @@ def login_siswa():
 @auth.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        pw = request.form.get("password")
+        username = request.form.get("username")
+        password = request.form.get("password")
 
-        user = SecretPassword.query.filter(
-            (SecretPassword.secret_pw_1 == pw) |
-            (SecretPassword.secret_pw_2 == pw)
+        check_user = AdminAccount.query.filter(
+            (AdminAccount.username==username) &
+            (AdminAccount.secret_pw==password)
         ).first()
 
-        if user:
-            login_user(user, remember=True)
-            return redirect(url_for('views.data_siswa'))
+        if check_user:
+            login_user(check_user, remember=True)
+            jam = datetime.now().hour
+            if jam >= 1 and jam < 10:
+                greating = "Selamat Pagi"
+            elif jam >= 10 and jam < 14:
+                greating = "Selamat Siang"
+            else:
+                greating = "Selamat Sore"
+            flash(f"{greating} {check_user.username}", category="success")
+            return redirect(url_for("views.data_siswa"))
         else:
-            return redirect(url_for('views.data_siswa'))
+            flash("Username dan Password Salah!", category="error")
+            return redirect(url_for("auth.login"))
 
     return render_template("login.html")
 

@@ -4,10 +4,10 @@ from . import db
 from flask_login import UserMixin
 from sqlalchemy.dialects.mysql import LONGBLOB  
 
-class SecretPassword(db.Model, UserMixin):
+class AdminAccount(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    secret_pw_1 = db.Column(db.String(150))
-    secret_pw_2 = db.Column(db.String(150))
+    username = db.Column(db.String(150))
+    secret_pw = db.Column(db.String(150))
 
 
 class DatabaseSiswa(db.Model, UserMixin):
