@@ -30,7 +30,7 @@ def login_siswa():
                 name = DatabaseSiswa.query.filter_by(nis=check_nis.nis).first().nama.split()[0]
                 lulus = DatabaseSiswa.query.filter_by(nis=check_nis.nis).first().lulus
                 flash(f"Selamat Login.", category="success")
-                return redirect(url_for("views.home", name=name, lulus=lulus))
+                return redirect(url_for("views.data_siswa", name=name, lulus=lulus))
             else:
                 flash("Password salah!", category="error")
         else:
@@ -49,9 +49,9 @@ def login():
 
         if user:
             login_user(user, remember=True)
-            return redirect(url_for('views.home'))
+            return redirect(url_for('views.data_siswa'))
         else:
-            return redirect(url_for('views.home'))
+            return redirect(url_for('views.data_siswa'))
 
     return render_template("login.html")
 
@@ -371,7 +371,7 @@ def update_data(id):
                         f"success update {success_update_n[i]}.", category="success")
 
         db.session.commit()
-        return redirect(url_for("views.home"))
+        return redirect(url_for("views.data_siswa"))
 
     return render_template("update_data.html", user=current_user)
 
@@ -722,7 +722,7 @@ def upload_file():
                 db.session.commit()
                 # ? Remove kembali file
                 os.remove(save_path)
-                return redirect(url_for("views.home"))
+                return redirect(url_for("views.data_siswa"))
             else:
                 flash("Format Tidak diizinkan", category="error")
         else:

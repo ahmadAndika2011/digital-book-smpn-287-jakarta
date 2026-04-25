@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   </head>
   <body style="background: linear-gradient(135deg, #e8f4fd, #dbeafe, #ede9fe);">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    {# <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm" style="position: sticky; top: 0; z-index: 1000;">
       <div class="container">
         <a class="navbar-brand fw-bold" href="/">
           <i class="fa-solid fa-school me-2"></i>SMPN 287
@@ -26,6 +26,11 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="fa-solid fa-house me-1"></i>Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/data-siswa">
+                <i class="fa-solid fa-users me-1"></i>Data Siswa
               </a>
             </li>
             <li>
@@ -55,7 +60,109 @@
           </ul>
         </div>
       </div>
-    </nav>
+    </nav> #}
+    
+<nav class="navbar navbar-expand-lg shadow-sm" style="
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #0a2463;
+  border-bottom: 3px solid #e8b84b;
+  transition: box-shadow 0.3s;
+">
+  <div class="container">
+    <a class="navbar-brand fw-bold text-white" href="/">
+      <i class="fa-solid fa-school me-2" style="color: #e8b84b;"></i>SMPN 287
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation"
+            style="color: white;">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-1">
+        <li class="nav-item">
+          <a class="nav-link text-white-50" href="/"
+             style="transition: color 0.2s;"
+             onmouseover="this.style.color='#e8b84b'"
+             onmouseout="this.style.color='rgba(255,255,255,0.5)'">
+            <i class="fa-solid fa-house me-1"></i>Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white-50" href="/data-siswa"
+             style="transition: color 0.2s;"
+             onmouseover="this.style.color='#e8b84b'"
+             onmouseout="this.style.color='rgba(255,255,255,0.5)'">
+            <i class="fa-solid fa-users me-1"></i>Data Siswa
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white-50" href="/buat-akun"
+             style="transition: color 0.2s;"
+             onmouseover="this.style.color='#e8b84b'"
+             onmouseout="this.style.color='rgba(255,255,255,0.5)'">
+            <i class="fa-solid fa-user-plus me-1"></i>Buat Akun
+          </a>
+        </li>
+
+        {% if current_user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link text-white-50" href="/input"
+             style="transition: color 0.2s;"
+             onmouseover="this.style.color='#e8b84b'"
+             onmouseout="this.style.color='rgba(255,255,255,0.5)'">
+            <i class="fa-solid fa-plus me-1"></i>Input
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-sm px-3 fw-semibold" href="/logout" style="
+            background: transparent;
+            border: 1.5px solid #e8b84b;
+            color: #e8b84b;
+            border-radius: 8px;
+            transition: all 0.2s;
+          "
+          onmouseover="this.style.background='#e8b84b'; this.style.color='#0a2463';"
+          onmouseout="this.style.background='transparent'; this.style.color='#e8b84b';">
+            <i class="fa-solid fa-right-from-bracket me-1"></i>Logout
+          </a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="btn btn-sm px-3 fw-semibold" href="/choose-login" style="
+            background: #e8b84b;
+            border: none;
+            color: #0a2463;
+            border-radius: 8px;
+            transition: all 0.2s;
+          "
+          onmouseover="this.style.background='#f5d98a';"
+          onmouseout="this.style.background='#e8b84b';">
+            <i class="fa-solid fa-right-to-bracket me-1"></i>Login
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Shadow effect saat scroll -->
+<script>
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 10) {
+      nav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+    } else {
+      nav.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+    }
+  });
+</script>
+
 
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}

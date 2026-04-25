@@ -12,6 +12,11 @@ views = Blueprint("views", __name__)
 
 @views.route("/")
 def home():
+    jumlah_siswa = DatabaseSiswa.query.count()
+    return render_template("home.html", jumlah_siswa=jumlah_siswa)
+
+@views.route("/data-siswa")
+def data_siswa():
     # """
     #     Hanya Dijalankan sekali
     #     1. *(&^!*((&!!)!*iiaa89aj2882z@@)10@((joeoe9191wkjaahshgsfaya2hwwy72yw
@@ -42,7 +47,7 @@ def home():
 
     name = request.args.get("name")
     lulus = request.args.get("lulus")
-    return render_template("home.html", user=current_user, students=database_siswa, nilai=nilai_siswa, query=query, name=name, lulus=lulus)
+    return render_template("data-siswa.html", user=current_user, students=database_siswa, nilai=nilai_siswa, query=query, name=name, lulus=lulus)
 
 
 @views.route("/info_siswa/<int:id>")
