@@ -1,5 +1,6 @@
 from fileinput import filename
 from unicodedata import category
+from click.utils import R
 from flask import Blueprint, render_template, redirect, request_started, url_for, request, current_app, flash
 from flask_login import login_user, login_required, logout_user, current_user
 from .models import SecretPassword, DatabaseSiswa, NilaiSiswa, AccountSiswa
@@ -12,6 +13,29 @@ import pandas as pd
 
 auth = Blueprint("auth", __name__)
 
+@auth.route("/choose-login")
+def choose_login():
+    return render_template("choose-login.html")
+
+@auth.route("/login-siswa", methods=["GET", "POST"])
+def login_siswa():
+    if request.method == "POST":
+        nis = request.form.get("nis")
+        password = request.form.get("password")
+        
+        check_nis = AccountSiswa.query.filter_by(nis=nis).first()
+        if check_nis:
+            check_password_hashing = check_password_hash(check_nis.password, password)
+            if check_password_hashing:
+                name = DatabaseSiswa.query.filter_by(nis=check_nis.nis).first().nama.split()[0]
+                lulus = DatabaseSiswa.query.filter_by(nis=check_nis.nis).first().lulus
+                flash(f"Selamat Login.", category="success")
+                return redirect(url_for("views.home", name=name, lulus=lulus))
+            else:
+                flash("Password salah!", category="error")
+        else:
+            flash("NIS tidak ada!", category="error")
+    return render_template("login-siswa.html")
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
@@ -62,6 +86,7 @@ def input():
         tempat_lahir_input = request.form.get("tempat_lahir")
         agama_input = request.form.get("agama")
         sekolah_asal_input = request.form.get("sekolah_asal")
+        lulus_input = request.form.get("lulus")
         check_duplicate_nisn = DatabaseSiswa.query.filter_by(
             nisn=nisn_input).first()
         check_duplicate_nis = DatabaseSiswa.query.filter_by(
@@ -108,6 +133,7 @@ def input():
                 tempat_lahir=tempat_lahir_input,
                 agama=agama_input,
                 sekolah_asal=sekolah_asal_input,
+                lulus=lulus_input.title()
             )
             nilai_siswa = NilaiSiswa(
                 nisn=nisn_input,
@@ -170,6 +196,7 @@ def update_data(id):
         tempat_lahir_new = request.form.get("tempat_lahir")
         agama_new = request.form.get("agama")
         sekolah_asal_new = request.form.get("sekolah_asal")
+        lulus_new = request.form.get("lulus")
 
         success_update = []
 
@@ -215,6 +242,11 @@ def update_data(id):
         else:
             success_update.append("sekolah asal")
             student.sekolah_asal = sekolah_asal_new
+        if len(lulus_new) < 1:
+            pass
+        else:
+            success_update.append("lulus")
+            student.lulus = lulus_new.title()
 
         if len(success_update) >= 1:
             for i in range(len(success_update)):
@@ -381,6 +413,7 @@ def update_data_student(id):
         tempat_lahir_new = request.form.get("tempat_lahir")
         agama_new = request.form.get("agama")
         sekolah_asal_new = request.form.get("sekolah_asal")
+        lulus_new = request.form.get("lulus")
 
         success_update = []
 
@@ -426,6 +459,11 @@ def update_data_student(id):
         else:
             success_update.append("sekolah asal")
             student.sekolah_asal = sekolah_asal_new
+        if len(lulus_new) < 1:
+            pass
+        else:
+            success_update.append("lulus")
+            student.lulus = lulus_new.title()
 
         if len(success_update) >= 1:
             for i in range(len(success_update)):
@@ -723,22 +761,22 @@ def buat_akun():
         
     return render_template("buat-akun.html")
 
-@auth.route("/check-kelulusan", methods=["GET", "POST"])
-def check_kelulusan():
-    if request.method == "POST":
-        nis = request.form.get("nis")
-        password = request.form.get("password")
-        check_nis = AccountSiswa.query.filter_by(nis=nis).first()
-        if check_nis:
-            check_password_hashing = check_password_hash(check_nis.password, password)
-            if check_password_hashing:
-                stundent = DatabaseSiswa.query.filter_by(nis=nis).first()
+# @auth.route("/check-kelulusan", methods=["GET", "POST"])
+# def check_kelulusan():
+#     if request.method == "POST":
+#         nis = request.form.get("nis")
+#         password = request.form.get("password")
+#         check_nis = AccountSiswa.query.filter_by(nis=nis).first()
+#         if check_nis:
+#             check_password_hashing = check_password_hash(check_nis.password, password)
+#             if check_password_hashing:
+#                 stundent = DatabaseSiswa.query.filter_by(nis=nis).first()
 
-                return stundent.lulus
-            else:
-                flash("Pssword Salah!", category="error")
-                return redirect(url_for("auth.check_kelulusan"))
-        else:
-            flash("NIS Salah!", category="error")
-            return redirect(url_for("auth.check_kelulusan"))
-    return render_template("check-kelulusan.html")
+#                 return stundent.lulus
+#             else:
+#                 flash("Pssword Salah!", category="error")
+#                 return redirect(url_for("auth.check_kelulusan"))
+#         else:
+#             flash("NIS Salah!", category="error")
+#             return redirect(url_for("auth.check_kelulusan"))
+#     return render_template("check-kelulusan.html")

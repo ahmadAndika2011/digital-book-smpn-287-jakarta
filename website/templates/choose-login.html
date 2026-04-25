@@ -1,0 +1,126 @@
+{% extends "base.html"%}
+{% block title%} Choose Login {%endblock%}
+
+{% block content%}
+<div class="choose-login-container">
+    <h1>Buat akun anda disini</h1>
+    <p class="subtitle">Pilih jenis akun untuk melanjutkan</p>
+    
+    <div class="card-container">
+        <a href="/login-siswa" class="login-card">
+            <div class="card-icon">🎒</div>
+            <h2>Login Siswa</h2>
+            <p>Masuk sebagai siswa untuk mengakses buku digital dan materi pembelajaran</p>
+            <span class="btn-card">Masuk sebagai Siswa →</span>
+        </a>
+
+        <a href="/login" class="login-card admin-card">
+            <div class="card-icon">👨‍💼</div>
+            <h2>Login Admin</h2>
+            <p>Masuk sebagai admin untuk mengelola data dan konten sekolah</p>
+            <span class="btn-card">Masuk sebagai Admin →</span>
+        </a>
+    </div>
+</div>
+
+<style>
+    .choose-login-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 80vh;
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .choose-login-container h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+        color: #6b7280;
+        font-size: 1rem;
+        margin-bottom: 3rem;
+    }
+
+    .card-container {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .login-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2.5rem 2rem;
+        width: 260px;
+        text-decoration: none;
+        color: inherit;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .login-card:hover {
+        border-color: #2563eb;
+        transform: translateY(-6px);
+        box-shadow: 0 12px 32px rgba(37, 99, 235, 0.15);
+    }
+
+    .card-icon {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .login-card h2 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin: 0;
+    }
+
+    .login-card p {
+        font-size: 0.875rem;
+        color: #6b7280;
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    .btn-card {
+        margin-top: 1rem;
+        background: #2563eb;
+        color: white;
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: background 0.2s ease;
+    }
+
+    .login-card:hover .btn-card {
+        background: #1d4ed8;
+    }
+
+    .admin-card:hover {
+        border-color: #7c3aed;
+        box-shadow: 0 12px 32px rgba(124, 58, 237, 0.15);
+    }
+
+    .admin-card .btn-card {
+        background: #7c3aed;
+    }
+
+    .admin-card:hover .btn-card {
+        background: #6d28d9;
+    }
+</style>
+{%endblock%}

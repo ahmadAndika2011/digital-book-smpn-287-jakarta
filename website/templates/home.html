@@ -34,15 +34,17 @@
           {% endif %}
         </div>
       </form>
+
+      {%if name%}
+      <h2 class="table-title">Hi {{name}}, 
+      {%if lulus == "Ya"%}
+      Anda Lulus
+      {%else%}
+      Anda tidak lulus
+      {%endif%}</h2>
+      {%endif%}
     </div>
 
-    <a href="{{ url_for('auth.check_kelulusan') }}" class="add-btn">
-      <svg viewBox="0 0 24 24" fill="none">
-        <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.5"/>
-      </svg>
-      Check Kelulusan
-    </a>
 
     {% if user.is_authenticated %}
     <div style="display: flex; gap: 12px;">

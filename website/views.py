@@ -4,7 +4,7 @@ from flask import Blueprint, current_app, render_template, redirect, request, ur
 from .models import SecretPassword
 from . import db
 from flask_login import login_required, current_user
-from .models import DatabaseSiswa, NilaiSiswa
+from .models import DatabaseSiswa, NilaiSiswa, AccountSiswa
 import json
 import base64
 
@@ -40,8 +40,10 @@ def home():
     else:
         database_siswa = DatabaseSiswa.query.order_by(DatabaseSiswa.nis.asc()).all()
 
+    name = request.args.get("name")
+    lulus = request.args.get("lulus")
+    return render_template("home.html", user=current_user, students=database_siswa, nilai=nilai_siswa, query=query, name=name, lulus=lulus)
 
-    return render_template("home.html", user=current_user, students=database_siswa, nilai=nilai_siswa, query=query)
 
 @views.route("/info_siswa/<int:id>")
 def info(id):
@@ -62,10 +64,15 @@ def delete_student():
         image_path = os.path.join(current_app.root_path, "static/uploads", student.image)
         if os.path.exists(image_path):
             os.remove(image_path)
+        
+    # Hapus account
+    nis = DatabaseSiswa.query.filter_by(id=studentId).first().nis
+    account_siswa = AccountSiswa.query.filter_by(nis=nis).first()
 
     # hapus data student
     if student:
         db.session.delete(student)
+        db.session.delete(account_siswa)
         db.session.commit()
 
     return jsonify({})
