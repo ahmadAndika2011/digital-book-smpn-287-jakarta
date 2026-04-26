@@ -56,7 +56,7 @@ def info(id):
 
 @views.route("/lihat-berita/<int:id>")
 def lihat_berita(id):
-    berita = ImgName.query.get(id).first()
+    berita = ImgName.query.get(id)
     if not berita:
         return "Berita tidak ditemukan", 404
     return render_template("lihat-berita.html", berita=berita)
