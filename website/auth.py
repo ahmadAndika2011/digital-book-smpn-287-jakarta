@@ -3,7 +3,8 @@ from unicodedata import category
 from click.utils import R
 from flask import Blueprint, render_template, redirect, request_started, url_for, request, current_app, flash
 from flask_login import login_user, login_required, logout_user, current_user
-from .models import AdminAccount, DatabaseSiswa, NilaiSiswa, AccountSiswa
+from flask_wtf import file
+from .models import AdminAccount, DatabaseSiswa, NilaiSiswa, AccountSiswa, ImgName
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from . import db
@@ -161,7 +162,7 @@ def input():
             db.session.add(data_siswa)
             db.session.add(nilai_siswa)
             db.session.commit()
-            flash("Berhasil tambah data.", category="success")
+            flash("Berhasil tambah data.", user=current_user, category="success")
 
     return render_template("input.html")
 
@@ -771,22 +772,65 @@ def buat_akun():
         
     return render_template("buat-akun.html")
 
-# @auth.route("/check-kelulusan", methods=["GET", "POST"])
-# def check_kelulusan():
-#     if request.method == "POST":
-#         nis = request.form.get("nis")
-#         password = request.form.get("password")
-#         check_nis = AccountSiswa.query.filter_by(nis=nis).first()
-#         if check_nis:
-#             check_password_hashing = check_password_hash(check_nis.password, password)
-#             if check_password_hashing:
-#                 stundent = DatabaseSiswa.query.filter_by(nis=nis).first()
+@auth.route("/tambah-berita", methods=["GET", "POST"])
+@login_required
+def tambah_berita():
+    if request.method == "POST":
+        gambar_1_file = request.files.get("gambar_1")
+        if gambar_1_file:
+            filename = secure_filename(gambar_1_file.filename)
+            upload_path = os.path.join("website", "static", "uploads")
+            if not os.path.exists(upload_path):
+                os.makedirs(upload_path)
+            gambar_1_file.save(os.path.join(upload_path, filename))
+            gambar_1_input = filename
+        else:
+            gambar_1_input = None
+            
+        gambar_2_file = request.files.get("gambar_2")
+        if gambar_2_file:
+            filename = secure_filename(gambar_2_file.filename)
+            upload_path = os.path.join("website", "static", "uploads")
+            if not os.path.exists(upload_path):
+                os.makedirs(upload_path)
+            gambar_2_file.save(os.path.join(upload_path, filename))
+            gambar_2_input = filename
+        else:
+            gambar_2_input = ""
 
-#                 return stundent.lulus
-#             else:
-#                 flash("Pssword Salah!", category="error")
-#                 return redirect(url_for("auth.check_kelulusan"))
-#         else:
-#             flash("NIS Salah!", category="error")
-#             return redirect(url_for("auth.check_kelulusan"))
-#     return render_template("check-kelulusan.html")
+        gambar_3_file = request.files.get("gambar_3")
+        if gambar_3_file:
+            filename = secure_filename(gambar_3_file.filename)
+            upload_path = os.path.join("website", "static", "uploads")
+            if not os.path.exists(upload_path):
+                os.makedirs(upload_path)
+            gambar_3_file.save(os.path.join(upload_path, filename))
+            gambar_3_input = filename
+        else:
+            gambar_3_input = ""
+
+        video = request.files.get("video")
+        if video:
+            filename = secure_filename(video.filename)
+            upload_path = os.path.join("website", "static", "uploads")
+            if not os.path.exists(upload_path):
+                os.makedirs(upload_path)
+            video.save(os.path.join(upload_path, filename))
+            video_input = filename
+        else:
+            video_input = ""
+
+        text_input = request.form.get("keterangan")
+
+        input_berita = ImgName(
+            name = text_input,
+            img_1 = gambar_1_input,
+            img_2 = gambar_2_input,
+            img_3 = gambar_3_input,
+            video = video_input
+        )
+        db.session.add(input_berita)
+        db.session.commit()
+        return redirect(url_for("views.home"))
+
+    return render_template("input-berita.html")

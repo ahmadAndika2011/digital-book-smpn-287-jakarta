@@ -1,0 +1,67 @@
+{%extends "base.html"%}
+
+{%block title%}Input Berita{%endblock%}
+
+{%block content%}
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+
+      <h4 class="fw-bold mb-4">
+        <i class="fa-solid fa-user-plus me-2"></i>Input Berita Terkini
+      </h4>
+
+      <form method="POST" enctype="multipart/form-data">
+
+        <!-- SECTION: Data Pribadi -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-header bg-dark text-white fw-bold">
+            <i class="fa-solid fa-id-card me-2"></i>Input di Sini
+          </div>
+          <div class="card-body">
+
+            <!-- Foto -->
+            <div class="mb-3">
+              <label for="gambar_1" class="form-label fw-semibold">Foto 1</label>
+              <input type="file" class="form-control" id="gambar_1" name="gambar_1" accept="image/*">
+            </div>
+            <div class="mb-3">
+              <label for="gambar_2" class="form-label fw-semibold">Foto 2</label>
+              <input type="file" class="form-control" id="gambar_2" name="gambar_2" accept="image/*">
+            </div>
+            <div class="mb-3">
+              <label for="gambar_3" class="form-label fw-semibold">Foto 3</label>
+              <input type="file" class="form-control" id="gambar_3" name="gambar_3" accept="image/*">
+            </div>
+            <div class="mb-3">
+              <label for="video" class="form-label fw-semibold">Video</label>
+              <input type="file" class="form-control" id="video" name="video" accept="video/*">
+            </div>
+
+            <!-- berita -->
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <label for="keterangan" class="form-label fw-semibold">Keterangan</label>
+                    <textarea class="form-control" id="keterangan" name="keterangan" 
+                            placeholder="Masukkan keterangan berita" 
+                            rows="5" style="resize: vertical;"></textarea>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tombol Submit -->
+        <div class="d-flex justify-content-end gap-2 mb-5">
+          <a href="/" class="btn btn-outline-secondary">
+            <i class="fa-solid fa-xmark me-1"></i>Batal
+          </a>
+          <button type="submit" class="btn btn-primary px-4">
+            <i class="fa-solid fa-floppy-disk me-1"></i>Simpan Data
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+{%endblock%}

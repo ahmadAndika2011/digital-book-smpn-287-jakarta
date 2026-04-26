@@ -6,3 +6,12 @@ function deleteStudent(studentId){
         window.location.href = "/data-siswa"
     })
 }
+
+function deleteBerita(beritaId){
+    fetch("/hapus-berita", {
+        method: "POST",
+        body: JSON.stringify({beritaId: beritaId})
+    }).then((_res) => {
+        window.location.href = "/"
+    })
+}

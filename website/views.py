@@ -1,8 +1,11 @@
+from email.utils import unquote
 import os
+from re import I
+from traceback import print_tb
 from flask import Blueprint, current_app, render_template, redirect, request, url_for, jsonify
 from . import db
 from flask_login import login_required, current_user
-from .models import DatabaseSiswa, NilaiSiswa, AccountSiswa, AdminAccount
+from .models import DatabaseSiswa, NilaiSiswa, AccountSiswa, AdminAccount, ImgName
 import json
 import base64
 
@@ -17,7 +20,9 @@ def home():
     # db.session.add(akun_admin)
     # db.session.commit()
     jumlah_siswa = DatabaseSiswa.query.count()
-    return render_template("home.html", jumlah_siswa=jumlah_siswa)
+
+    berita_list = ImgName.query.all()
+    return render_template("home.html", user=current_user, jumlah_siswa=jumlah_siswa, berita_list=berita_list)
 
 @views.route("/data-siswa")
 def data_siswa():
@@ -48,6 +53,30 @@ def info(id):
     nilai_siswa = NilaiSiswa.query.filter_by(nisn=database_siswa.nisn).first()
 
     return render_template("info.html", user=current_user, student=database_siswa, nilai=nilai_siswa)
+
+@views.route("/lihat-berita/<int:id>")
+def lihat_berita(id):
+    berita = ImgName.query.get(id).first()
+    if not berita:
+        return "Berita tidak ditemukan", 404
+    return render_template("lihat-berita.html", berita=berita)
+
+@views.route("/hapus-berita", methods=["POST"])
+@login_required
+def hapus_berita():
+    berita = json.loads(request.data)
+    beritaId = berita["beritaId"]
+    berita = ImgName.query.get(beritaId)
+    
+    if berita:
+        for file_path in [berita.img_1, berita.img_2, berita.img_3, berita.video]:
+            if file_path:
+                full_path = os.path.join(current_app.root_path, "static", "uploads", file_path)
+                if os.path.exists(full_path):
+                    os.remove(full_path)
+        db.session.delete(berita)
+        db.session.commit()
+    return jsonify({})
 
 @views.route("/delete-student", methods=["POST"])
 def delete_student():

@@ -1,0 +1,502 @@
+{%extends "base.html"%}
+{%block title%}Lihat Berita{%endblock%}
+
+{%block content%}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --navy: #1a2744;
+    --gold: #c8922a;
+    --gold-light: #f0c060;
+    --cream: #fdf8f0;
+    --text-dark: #1a1a2e;
+    --text-muted: #6b7280;
+    --white: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* ── Hero Banner ── */
+  .berita-hero {
+    background: linear-gradient(135deg, var(--navy) 0%, #0f1a35 60%, #1e3a6e 100%);
+    padding: 70px 40px 80px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .berita-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(200,146,42,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(30,58,110,0.6) 0%, transparent 70%);
+  }
+
+  .berita-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(200,146,42,0.15);
+    border: 1px solid rgba(200,146,42,0.4);
+    color: var(--gold-light);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--gold-light);
+    border-radius: 50%;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.15;
+    position: relative;
+    margin-bottom: 16px;
+  }
+
+  .hero-title span {
+    color: var(--gold-light);
+  }
+
+  .hero-desc {
+    color: rgba(255,255,255,0.6);
+    font-size: 1rem;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.7;
+    position: relative;
+  }
+
+  /* ── Layout ── */
+  .berita-layout {
+    max-width: 1100px;
+    margin: -30px auto 60px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 10;
+  }
+
+  /* ── Card Utama ── */
+  .berita-card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(26,39,68,0.12), 0 4px 16px rgba(26,39,68,0.06);
+    animation: slide-up 0.6s ease both;
+  }
+
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Judul Berita ── */
+  .berita-header {
+    padding: 36px 40px 24px;
+    border-bottom: 1px solid #f0e8d8;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .berita-icon {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, var(--navy), #1e3a6e);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 22px;
+  }
+
+  .berita-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.2;
+  }
+
+  .berita-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+  }
+
+  /* ── Gallery Grid ── */
+  .gallery-section {
+    padding: 32px 40px;
+  }
+
+  .gallery-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .gallery-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, #e5d9c5, transparent);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .gallery-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #f0ece4, #e8e0d0);
+    border: 2px solid #f0e8d8;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .gallery-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(26,39,68,0.15);
+  }
+
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.06);
+  }
+
+  .gallery-item .overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(26,39,68,0.6) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 14px;
+  }
+
+  .gallery-item:hover .overlay {
+    opacity: 1;
+  }
+
+  .overlay-text {
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .gallery-item.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    color: #bbb;
+    font-size: 13px;
+  }
+
+  .gallery-item.empty .empty-icon {
+    font-size: 28px;
+    opacity: 0.4;
+  }
+
+  /* ── Video Section ── */
+  .video-section {
+    padding: 0 40px 32px;
+  }
+
+  .video-wrapper {
+    border-radius: 14px;
+    overflow: hidden;
+    background: #0a0f1e;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 2px solid #e5d9c5;
+  }
+
+  .video-wrapper video {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  .video-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .play-btn {
+    width: 64px; height: 64px;
+    background: rgba(200,146,42,0.2);
+    border: 2px solid rgba(200,146,42,0.4);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    color: var(--gold-light);
+  }
+
+  /* ── Footer Card ── */
+  .berita-footer {
+    padding: 20px 40px;
+    background: #faf6f0;
+    border-top: 1px solid #f0e8d8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--navy);
+    color: white;
+    text-decoration: none;
+    padding: 10px 22px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .back-btn:hover {
+    background: #1e3a6e;
+    transform: translateX(-3px);
+    color: white;
+    text-decoration: none;
+  }
+
+  .smpn-tag {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .smpn-tag span {
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ── Lightbox ── */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,15,30,0.92);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+  }
+
+  .lightbox.active {
+    display: flex;
+  }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 12px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    animation: zoom-in 0.3s ease;
+  }
+
+  @keyframes zoom-in {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 24px; right: 28px;
+    color: white;
+    font-size: 32px;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .lightbox-close:hover { opacity: 1; }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .berita-hero { padding: 50px 20px 60px; }
+    .berita-header, .gallery-section, .video-section, .berita-footer { padding-left: 20px; padding-right: 20px; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .berita-name { font-size: 1.4rem; }
+  }
+</style>
+
+<!-- Hero Banner -->
+<div class="berita-hero">
+  <div class="hero-badge">📰 Portal Berita Sekolah</div>
+  <h1 class="hero-title">Detail <span>Berita</span></h1>
+  <p class="hero-desc">Informasi terkini dari lingkungan SMPN 287 Jakarta</p>
+</div>
+
+<!-- Main Layout -->
+<div class="berita-layout">
+  <div class="berita-card">
+
+    <!-- Header / Judul -->
+    <div class="berita-header">
+      <div class="berita-icon">📄</div>
+      <div>
+        <h2 class="berita-name">{{berita.name}}</h2>
+        <div class="berita-meta">
+          <span>🏫</span>
+          <span>SMPN 287 Jakarta</span>
+          <span>•</span>
+          <span>Berita Resmi</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gallery Foto -->
+    <div class="gallery-section">
+      <div class="gallery-label">Foto Dokumentasi</div>
+      <div class="gallery-grid">
+
+        {% if berita.img_1 %}
+        <div class="gallery-item" onclick="openLightbox('{{ url_for('static', filename='uploads/' + berita.img_1) }}')">
+            <img src="{{ url_for('static', filename='uploads/' + berita.img_1) }}" alt="Foto 1" >
+            <div class="overlay"><span class="overlay-text">📷 Foto 1</span></div>
+        </div>
+        {% else %}
+        <div class="gallery-item empty">
+          <span class="empty-icon">🖼️</span>
+          <span>Foto 1 kosong</span>
+        </div>
+        {% endif %}
+
+        {% if berita.img_2 %}
+        <div class="gallery-item" onclick="openLightbox('{{url_for('static', filename='uploads/'+berita.img_2)}}')">
+          <img src="{{url_for('static', filename='uploads/' + berita.img_2)}}" alt="Foto 2" loading="lazy">
+          <div class="overlay"><span class="overlay-text">📷 Foto 2</span></div>
+        </div>
+        {% else %}
+        <div class="gallery-item empty">
+          <span class="empty-icon">🖼️</span>
+          <span>Foto 2 kosong</span>
+        </div>
+        {% endif %}
+
+        {% if berita.img_3 %}
+        <div class="gallery-item" onclick="openLightbox('{{url_for('static', filename='uploads/'+berita.img_3)}}')">
+          <img src="{{url_for('static', filename='uploads/' + berita.img_3)}}" alt="Foto 3" loading="lazy">
+          <div class="overlay"><span class="overlay-text">📷 Foto 3</span></div>
+        </div>
+        {% else %}
+        <div class="gallery-item empty">
+          <span class="empty-icon">🖼️</span>
+          <span>Foto 3 kosong</span>
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <!-- Video -->
+    {% if berita.video %}
+    <div class="video-section">
+      <div class="gallery-label">Video</div>
+      <div class="video-wrapper">
+        <video controls preload="metadata">
+          <source src="{{url_for('static', filename='uploads/'+berita.video)}}" type="video/mp4">
+          Browser Anda tidak mendukung video.
+        </video>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Footer Card -->
+    <div class="berita-footer">
+      <a href="{{ url_for('views.home') }}" class="back-btn">← Kembali ke Beranda</a>
+      <div class="smpn-tag">🏫 <span>SMPN 287</span> Jakarta Selatan</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+
+{%endblock%}
