@@ -50,3 +50,14 @@ class ImgName(db.Model, UserMixin):
     img_2 = db.Column(db.String(255))
     img_3 = db.Column(db.String(255))
     video = db.Column(db.String(300))
+
+
+class DataGuru(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(150))
+    image = db.Column(db.String(255))
+    mapel = db.Column(db.String(100))
+    nip = db.Column(db.String(18))
+    status = db.Column(db.String(100))
+    jabatan = db.Column(db.String(100))
+    tahun_masuk = db.Column(db.String(100))

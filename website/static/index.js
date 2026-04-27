@@ -15,3 +15,12 @@ function deleteBerita(beritaId){
         window.location.href = "/"
     })
 }
+
+function deleteGuru(guruId){
+    fetch("/hapus-data-guru", {
+        method: "POST",
+        body: JSON.stringify({guruId: guruId})
+    }).then((_res) => {
+        window.location.href = "/"
+    })
+}

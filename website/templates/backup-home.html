@@ -1,0 +1,1578 @@
+
+{# 
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+
+  :root {
+    --navy: #0a2463;
+    --gold: #e8b84b;
+    --gold-light: #f5d98a;
+    --white: #ffffff;
+    --gray-light: #f4f6fb;
+    --gray-text: #5a6a85;
+    --red-accent: #c0392b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--gray-light);
+    color: #1a2a4a;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0a2463 0%, #1a4a8a 60%, #1565c0 100%);
+    color: white;
+    padding: 80px 40px 70px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(232,184,75,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero p {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.82);
+    max-width: 580px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+  .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: 700;
+    padding: 12px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    border: 2px solid rgba(255,255,255,0.5);
+    color: white;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.08); }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--navy);
+    padding: 0;
+  }
+  .stats-bar-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .stat-item {
+    flex: 1;
+    min-width: 140px;
+    padding: 24px 20px;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    color: white;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.65);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  /* ── SECTIONS ── */
+  .section { padding: 60px 40px; }
+  .section-inner { max-width: 900px; margin: 0 auto; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .section-subtitle {
+    font-size: 0.9rem;
+    color: var(--gray-text);
+    margin-bottom: 36px;
+    padding-bottom: 16px;
+    border-bottom: 3px solid var(--gold);
+    display: inline-block;
+  }
+
+  /* ── KEPALA SEKOLAH ── */
+  .principal-card {
+    background: white;
+    border-radius: 16px;
+    padding: 36px;
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    box-shadow: 0 4px 24px rgba(10,36,99,0.08);
+  }
+  .principal-avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--navy), #1565c0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 4px solid var(--gold);
+  }
+  .principal-avatar svg { width: 56px; height: 56px; fill: white; }
+  .principal-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .principal-info .role {
+    font-size: 0.82rem;
+    color: var(--gold);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+  .principal-info p {
+    font-size: 0.95rem;
+    color: var(--gray-text);
+    line-height: 1.75;
+    font-style: italic;
+  }
+  .principal-info p::before { content: '"'; font-size: 1.4rem; color: var(--gold); line-height: 0; vertical-align: -0.3em; margin-right: 4px; }
+  .principal-info p::after { content: '"'; font-size: 1.4rem; color: var(--gold); line-height: 0; vertical-align: -0.3em; margin-left: 4px; }
+
+  /* ── NEWS GRID ── */
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .news-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(10,36,99,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .news-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(10,36,99,0.13); }
+  .news-card-header {
+    height: 8px;
+    background: linear-gradient(90deg, var(--navy), #1565c0);
+  }
+  .news-card-body { padding: 22px; }
+  .news-tag {
+    display: inline-block;
+    background: #e8f0fe;
+    color: var(--navy);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  .news-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--navy);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .news-card p {
+    font-size: 0.86rem;
+    color: var(--gray-text);
+    line-height: 1.6;
+  }
+  .news-date {
+    font-size: 0.78rem;
+    color: #aab2c0;
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* ── QUICK LINKS ── */
+  .links-section { background: var(--navy); }
+  .links-section .section-title { color: white; }
+  .links-section .section-subtitle { color: rgba(255,255,255,0.5); border-bottom-color: var(--gold); }
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
+  .link-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 24px 18px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .link-card:hover { background: rgba(232,184,75,0.15); border-color: var(--gold); }
+  .link-card svg { width: 36px; height: 36px; fill: var(--gold); margin-bottom: 12px; }
+  .link-card span { display: block; font-size: 0.88rem; font-weight: 600; }
+
+  /* ── FOOTER ── */
+  .home-footer {
+    background: #061533;
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+    padding: 24px 20px;
+    font-size: 0.83rem;
+  }
+  .home-footer strong { color: var(--gold); }
+
+  @media (max-width: 600px) {
+    .hero { padding: 50px 20px 50px; }
+    .section { padding: 40px 20px; }
+    .principal-card { flex-direction: column; align-items: center; text-align: center; }
+    .stat-item { min-width: 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  }
+</style>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🏫 Selamat Datang</div>
+    <h1>SMP Negeri <span>287</span><br>Jakarta</h1>
+    <p>Membentuk generasi cerdas, berkarakter, dan berdaya saing global melalui pendidikan berkualitas dan lingkungan belajar yang kondusif.</p>
+    <div class="hero-buttons">
+      <a href="/data-siswa" class="btn-primary">📋 Data Siswa</a>
+      <a href="/input" class="btn-outline">➕ Input Data</a>
+    </div>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="stat-item">
+      <span class="stat-number">{{jumlah_siswa}}</span>
+      <div class="stat-label">Siswa Aktif</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">28+</span>
+      <div class="stat-label">Tenaga Pendidik</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">20</span>
+      <div class="stat-label">Rombongan Belajar</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">1970</span>
+      <div class="stat-label">Tahun Berdiri</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     VISI & MISI — Paste setelah stats-bar
+     ══════════════════════════════════════ -->
+<style>
+  .visi-misi-section {
+    background: linear-gradient(160deg, #f4f6fb 0%, #eef1f8 100%);
+    padding: 64px 40px;
+  }
+  .visi-misi-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .vm-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .vm-header .vm-label {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--gold);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .vm-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .vm-header p {
+    font-size: 0.9rem;
+    color: var(--gray-text);
+  }
+
+  /* Grid layout */
+  .vm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  /* VISI card — spans full width */
+  .visi-card {
+    grid-column: 1 / -1;
+    background: var(--navy);
+    border-radius: 20px;
+    padding: 40px 48px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+  .visi-card::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(232,184,75,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .visi-card::after {
+    content: '"';
+    position: absolute;
+    bottom: -30px; left: 30px;
+    font-family: 'Playfair Display', serif;
+    font-size: 14rem;
+    color: rgba(255,255,255,0.04);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .visi-icon {
+    width: 72px; height: 72px;
+    border-radius: 16px;
+    background: rgba(232,184,75,0.15);
+    border: 2px solid rgba(232,184,75,0.3);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .visi-icon svg { width: 36px; height: 36px; fill: var(--gold); }
+  .visi-text { position: relative; z-index: 1; }
+  .visi-text .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .visi-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: white;
+    line-height: 1.55;
+    font-weight: 700;
+  }
+
+  /* MISI card */
+  .misi-card {
+    background: white;
+    border-radius: 20px;
+    padding: 36px;
+    box-shadow: 0 4px 24px rgba(10,36,99,0.07);
+    border-top: 5px solid var(--navy);
+  }
+  .misi-card .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .misi-card .card-label svg {
+    width: 18px; height: 18px;
+    fill: var(--gold);
+  }
+  .misi-list { list-style: none; padding: 0; }
+  .misi-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f2f8;
+    font-size: 0.88rem;
+    color: #2a3a5a;
+    line-height: 1.65;
+  }
+  .misi-list li:last-child { border-bottom: none; }
+  .misi-num {
+    width: 26px; height: 26px;
+    background: var(--navy);
+    color: var(--gold);
+    font-size: 0.72rem;
+    font-weight: 800;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* TUJUAN card */
+  .tujuan-card {
+    background: white;
+    border-radius: 20px;
+    padding: 36px;
+    box-shadow: 0 4px 24px rgba(10,36,99,0.07);
+    border-top: 5px solid var(--gold);
+  }
+  .tujuan-card .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tujuan-card .card-label svg {
+    width: 18px; height: 18px;
+    fill: var(--gold);
+  }
+  .tujuan-list { list-style: none; padding: 0; }
+  .tujuan-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid #f0f2f8;
+    font-size: 0.88rem;
+    color: #2a3a5a;
+    line-height: 1.65;
+  }
+  .tujuan-list li:last-child { border-bottom: none; }
+  .tujuan-list li::before {
+    content: '✦';
+    color: var(--gold);
+    font-size: 0.65rem;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 650px) {
+    .visi-misi-section { padding: 44px 20px; }
+    .vm-grid { grid-template-columns: 1fr; }
+    .visi-card { flex-direction: column; align-items: flex-start; padding: 28px 24px; gap: 20px; }
+    .visi-card::after { font-size: 10rem; }
+  }
+</style>
+
+<div class="visi-misi-section">
+  <div class="visi-misi-inner">
+
+    <!-- Header -->
+    <div class="vm-header">
+      <div class="vm-label">🎯 Arah & Tujuan</div>
+      <h2>Visi, Misi & Tujuan Sekolah</h2>
+      <p>Landasan kami dalam membentuk generasi penerus bangsa yang unggul dan berkarakter</p>
+    </div>
+
+    <div class="vm-grid">
+
+      <!-- VISI -->
+      <div class="visi-card">
+        <div class="visi-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+        </div>
+        <div class="visi-text">
+          <div class="card-label">Visi Sekolah</div>
+          <h3>Terwujudnya peserta didik yang beriman, bertaqwa, berakhlak mulia, berprestasi, terampil, berbudaya, dan berwawasan lingkungan hidup</h3>
+        </div>
+      </div>
+
+      <!-- MISI -->
+      <div class="misi-card">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          Misi Sekolah
+        </div>
+        <ul class="misi-list">
+          <li>
+            <span class="misi-num">1</span>
+            Menumbuhkan penghayatan dan pengamalan ajaran agama serta nilai-nilai Pancasila dalam kehidupan sehari-hari
+          </li>
+          <li>
+            <span class="misi-num">2</span>
+            Melaksanakan pembelajaran yang aktif, inovatif, kreatif, efektif, dan menyenangkan (PAIKEM)
+          </li>
+          <li>
+            <span class="misi-num">3</span>
+            Mengembangkan potensi siswa melalui kegiatan ekstrakurikuler yang terstruktur dan terarah
+          </li>
+          <li>
+            <span class="misi-num">4</span>
+            Membangun budaya disiplin, jujur, dan bertanggung jawab di seluruh warga sekolah
+          </li>
+          <li>
+            <span class="misi-num">5</span>
+            Menjalin kerja sama yang harmonis antara sekolah, orang tua, dan masyarakat
+          </li>
+        </ul>
+      </div>
+
+      <!-- TUJUAN -->
+      <div class="tujuan-card">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
+          Tujuan Sekolah
+        </div>
+        <ul class="tujuan-list">
+          <li>Menghasilkan lulusan yang memiliki akhlak mulia dan integritas tinggi</li>
+          <li>Meningkatkan rata-rata nilai akademik siswa secara berkelanjutan</li>
+          <li>Meraih prestasi di tingkat kota, provinsi, dan nasional</li>
+          <li>Mempersiapkan siswa yang siap melanjutkan ke jenjang pendidikan yang lebih tinggi</li>
+          <li>Menciptakan lingkungan sekolah yang bersih, hijau, dan nyaman</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- ══ END VISI & MISI ══ -->
+
+<!-- SAMBUTAN KEPALA SEKOLAH -->
+<div class="section" style="background: white;">
+  <div class="section-inner">
+    <div class="section-title">Sambutan Kepala Sekolah</div>
+    <div class="section-subtitle">Pesan untuk seluruh warga sekolah</div>
+    <div class="principal-card">
+      <div class="principal-avatar">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+        </svg>
+      </div>
+      <div class="principal-info">
+        <h3>Mas'udi M.A.</h3>
+        <div class="role">Kepala SMPN 287 Jakarta</div>
+        <p>Selamat datang di SMPN 287 Jakarta. Kami berkomitmen untuk memberikan pendidikan terbaik bagi putra-putri Bapak/Ibu. Bersama seluruh tenaga pendidik yang berdedikasi, kami terus berupaya menciptakan lingkungan belajar yang menyenangkan, aman, dan berkualitas demi masa depan gemilang generasi bangsa.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDER GURU -->
+<style>
+  .guru-section {
+    background: white;
+    padding: 64px 40px;
+  }
+  .guru-section-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .guru-viewport { overflow: hidden; width: 100%; }
+  .guru-track {
+    display: flex;
+    gap: 22px;
+    transition: transform 0.5s ease-in-out;
+  }
+  .guru-card {
+    flex-shrink: 0;
+    background: var(--gray-light);
+    border-radius: 16px;
+    padding: 28px 20px;
+    text-align: center;
+    box-shadow: 0 2px 16px rgba(10,36,99,0.07);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .guru-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(10,36,99,0.13);
+  }
+  .guru-avatar {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--gold);
+    margin: 0 auto 14px;
+    display: block;
+    background: linear-gradient(135deg, var(--navy), #1565c0);
+  }
+  .guru-avatar-placeholder {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--navy), #1565c0);
+    border: 4px solid var(--gold);
+    margin: 0 auto 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .guru-avatar-placeholder svg { width: 44px; height: 44px; fill: white; opacity: 0.8; }
+  .guru-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .guru-mapel {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(10,36,99,0.07);
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 20px;
+  }
+
+  /* Nav buttons — same style as news slider */
+  .guru-nav-btns { display: flex; gap: 10px; }
+  .guru-nav-btn {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    transition: all 0.25s;
+    border: 2px solid #0a2463;
+  }
+  .guru-nav-btn.prev { background: white; color: #0a2463; }
+  .guru-nav-btn.next { background: #0a2463; color: white; }
+  .guru-nav-btn.prev:hover { background: #0a2463; color: white; }
+  .guru-nav-btn.next:hover { background: white; color: #0a2463; }
+
+  .guru-dots {
+    display: flex; justify-content: center;
+    gap: 8px; margin-top: 28px;
+  }
+  .guru-dot {
+    height: 8px; width: 8px;
+    border-radius: 4px;
+    background: #c8d0e0;
+    border: none; cursor: pointer; padding: 0;
+    transition: all 0.3s;
+  }
+  .guru-dot.active { width: 26px; background: #0a2463; }
+
+  .guru-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  /* Posisi card relatif agar tombol delete bisa absolute */
+.guru-card {
+  position: relative;
+}
+
+/* Tombol delete pojok kanan atas */
+.guru-delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: #fee2e2;
+  color: #dc2626;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;                        /* sembunyi by default */
+  transition: opacity 0.2s, background 0.2s;
+  z-index: 2;
+}
+
+/* Muncul saat card di-hover */
+.guru-card:hover .guru-delete-btn {
+  opacity: 1;
+}
+
+.guru-delete-btn:hover {
+  background: #dc2626;
+  color: white;
+}
+</style>
+
+<div class="guru-section">
+  <div class="guru-section-inner">
+    <div class="guru-header">
+      <div>
+        <div class="section-title">Tenaga Pendidik</div>
+        <div class="section-subtitle">Guru-guru berdedikasi di SMPN 287 Jakarta</div>
+      </div>
+      <div class="guru-nav-btns">
+        <button class="guru-nav-btn prev" id="guruPrev">&#8592;</button>
+        <button class="guru-nav-btn next" id="guruNext">&#8594;</button>
+      </div>
+    </div>
+
+    <div class="guru-viewport" id="guruViewport">
+      <div class="guru-track" id="guruTrack">
+
+        {% if guru_list %}
+          {% for guru in guru_list %}
+          <div class="guru-card">
+
+            <!-- Tombol delete — absolute di pojok kanan atas -->
+            {% if current_user.is_authenticated %}
+            <button class="guru-delete-btn" onclick="deleteGuru({{ guru.id }})" title="Hapus">
+              <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
+                <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"
+                      stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            {% endif %}
+
+            <!-- Avatar -->
+            {% if guru.image %}
+              <img class="guru-avatar"
+                   src="{{ url_for('static', filename='uploads/' + guru.image) }}"
+                   alt="{{ guru.name }}">
+            {% else %}
+              <div class="guru-avatar-placeholder">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                </svg>
+              </div>
+            {% endif %}
+
+            <div class="guru-name">{{ guru.name }}</div>
+            <div class="guru-mapel">{{ guru.mapel }}</div>
+            <a href="{{ url_for('views.lihat_guru', id=guru.id) }}" class="action-btn info-btn">
+                  <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </a>
+          </div>
+          {% endfor %}
+
+        {% else %}
+          <div class="news-empty">
+            <div class="news-empty-icon">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="#c8d0e0">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+              </svg>
+            </div>
+            <h3>Data Guru Belum Ada</h3>
+            <p>Data guru akan tampil di sini setelah ditambahkan.</p>
+          </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <div class="guru-dots" id="guruDots"></div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var vp     = document.getElementById('guruViewport');
+  var track  = document.getElementById('guruTrack');
+  var dotsEl = document.getElementById('guruDots');
+  var btnP   = document.getElementById('guruPrev');
+  var btnN   = document.getElementById('guruNext');
+  if (!track) return;
+
+  var cards = Array.from(track.querySelectorAll('.guru-card'));
+  var total = cards.length;
+  var cur   = 0;
+  var GAP   = 22;
+  var timer = null;
+
+  function getVisible() {
+    var w = vp.offsetWidth;
+    if (w <= 500) return 1;
+    if (w <= 750) return 2;
+    return 4;  // ← ubah sesuai selera (3 atau 4)
+  }
+  function getMax() { return Math.max(0, total - getVisible()); }
+  function setWidths() {
+    var v = getVisible();
+    var cw = (vp.offsetWidth - GAP * (v - 1)) / v;
+    cards.forEach(function(c) { c.style.width = cw + 'px'; });
+  }
+  function getOffset() {
+    var v = getVisible();
+    var cw = (vp.offsetWidth - GAP * (v - 1)) / v;
+    return cur * (cw + GAP);
+  }
+  function go(idx) {
+    cur = Math.max(0, Math.min(idx, getMax()));
+    track.style.transform = 'translateX(-' + getOffset() + 'px)';
+    renderDots();
+  }
+  function renderDots() {
+    dotsEl.innerHTML = '';
+    for (var i = 0; i <= getMax(); i++) {
+      var d = document.createElement('button');
+      d.className = 'guru-dot' + (i === cur ? ' active' : '');
+      (function(idx) { d.onclick = function() { go(idx); }; })(i);
+      dotsEl.appendChild(d);
+    }
+  }
+  function next() { go(cur >= getMax() ? 0 : cur + 1); }
+  function prev() { go(cur <= 0 ? getMax() : cur - 1); }
+  function startAuto() { timer = setInterval(next, 4000); }
+  function stopAuto()  { clearInterval(timer); }
+
+  btnP.onclick = function() { stopAuto(); prev(); startAuto(); };
+  btnN.onclick = function() { stopAuto(); next(); startAuto(); };
+  vp.addEventListener('mouseenter', stopAuto);
+  vp.addEventListener('mouseleave', startAuto);
+
+  // Swipe support
+  var tx = 0;
+  vp.addEventListener('touchstart', function(e) { tx = e.touches[0].clientX; stopAuto(); });
+  vp.addEventListener('touchend', function(e) {
+    var diff = tx - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
+    startAuto();
+  });
+
+  window.addEventListener('resize', function() { setWidths(); go(0); });
+
+  setWidths();
+  renderDots();
+  startAuto();
+});
+</script>
+
+<!-- BERITA & PENGUMUMAN SLIDER -->
+<style>
+.news-section {
+  background: #f4f6fb;
+  padding: 64px 40px;
+}
+.news-section-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.news-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.news-nav-btns { display: flex; gap: 10px; }
+.news-nav-btn {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.25s;
+  flex-shrink: 0;
+  border: 2px solid #0a2463;
+}
+.news-nav-btn.prev { background: white; color: #0a2463; }
+.news-nav-btn.next { background: #0a2463; color: white; }
+.news-nav-btn.prev:hover { background: #0a2463; color: white; }
+.news-nav-btn.next:hover { background: white; color: #0a2463; }
+
+/* Viewport — hides overflow */
+.news-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Track — flex container that moves */
+.news-track {
+  display: flex;
+  gap: 22px;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Card */
+.n-card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(10,36,99,0.07);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s, box-shadow 0.3s;
+  flex-shrink: 0;
+  /* width set by JS */
+}
+.n-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(10,36,99,0.13);
+}
+
+/* Image */
+.n-card-img {
+  width: 100%;
+  height: 190px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0a2463, #1565c0);
+  position: relative;
+  flex-shrink: 0;
+}
+.n-card-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.n-card:hover .n-card-img img { transform: scale(1.06); }
+.n-card-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,36,99,0.3) 0%, transparent 60%);
+  pointer-events: none;
+}
+.n-badge {
+  position: absolute;
+  top: 12px; left: 12px;
+  background: #e8b84b;
+  color: #0a2463;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  z-index: 2;
+}
+.n-img-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+}
+.n-img-placeholder svg { opacity: 0.3; }
+
+/* Body */
+.n-card-body {
+  padding: 20px 22px 22px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.n-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0a2463;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.n-divider {
+  height: 2px; width: 36px;
+  background: #e8b84b;
+  border-radius: 2px;
+}
+.n-card-date {
+  margin-top: auto;
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.78rem;
+  color: #aab2c0;
+}
+.n-card-date svg { width: 13px; height: 13px; fill: #e8b84b; }
+
+/* Dots */
+.news-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 28px;
+}
+.news-dot {
+  height: 8px; width: 8px;
+  border-radius: 4px;
+  background: #c8d0e0;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s;
+}
+.news-dot.active {
+  width: 26px;
+  background: #0a2463;
+}
+
+/* Empty */
+.news-empty {
+  text-align: center;
+  padding: 64px 20px;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px rgba(10,36,99,0.06);
+}
+.news-empty-icon {
+  width: 72px; height: 72px;
+  background: #f0f3fa;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 18px;
+}
+.news-empty h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; color: #0a2463; margin-bottom: 6px;
+}
+.news-empty p { font-size: 0.85rem; color: #8a96a8; }
+
+@media (max-width: 600px) {
+  .news-section { padding: 44px 20px; }
+}
+</style>
+
+<div class="news-section">
+  <div class="news-section-inner">
+
+    <div class="news-header">
+      <div>
+        <div class="section-title">Berita & Pengumuman</div>
+        <div class="section-subtitle">Informasi terkini dari sekolah</div>
+      </div>
+      {% if berita_list %}
+      <div class="news-nav-btns">
+        <button class="news-nav-btn prev" id="btnPrev" aria-label="Sebelumnya">&#8592;</button>
+        <button class="news-nav-btn next" id="btnNext" aria-label="Berikutnya">&#8594;</button>
+      </div>
+      {% endif %}
+    </div>
+
+    {% if berita_list %}
+
+    <div class="news-viewport" id="newsViewport" >
+      <div class="news-track" id="newsTrack">
+        {% for berita in berita_list %}
+        <div class="n-card" id="ncard-{{ loop.index }}">
+          <div class="n-card-img">
+              <span class="n-badge">📢 Berita</span>
+              {% if berita.img_1 %}
+              <img src="{{ url_for('static', filename='uploads/' + berita.img_1) }}" alt="{{ berita.name }}">
+              {% else %}
+              <div class="n-img-placeholder">
+                <svg width="52" height="52" viewBox="0 0 24 24" fill="white">
+                  <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                </svg>
+            </div>
+            {% endif %}
+          </div>
+          <div class="n-card-body">
+            <div class="n-card-title">{{ berita.name }}</div>
+            <div class="n-divider"></div>
+            <div class="n-card-date">
+              {# <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg> #}
+               <a href="{{ url_for('views.lihat_berita', id=berita.id) }}" class="action-btn info-btn">
+                  <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </a>
+              {%if current_user.is_authenticated%}
+              <button class="action-btn delete-btn" onclick="deleteBerita({{ berita.id }})" title="Hapus">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              {%endif%}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="news-dots" id="newsDots"></div>
+
+    {% else %}
+    <div class="news-empty">
+      <div class="news-empty-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="#c8d0e0">
+          <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+        </svg>
+      </div>
+      <h3>Belum Ada Berita</h3>
+      <p>Berita dan pengumuman akan tampil di sini setelah ditambahkan.</p>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var viewport = document.getElementById('newsViewport');
+  var track    = document.getElementById('newsTrack');
+  var dotsEl   = document.getElementById('newsDots');
+  var btnPrev  = document.getElementById('btnPrev');
+  var btnNext  = document.getElementById('btnNext');
+
+  if (!track) return;
+
+  var cards = Array.from(track.querySelectorAll('.n-card'));
+  var total = cards.length;
+  var cur   = 0;
+  var timer = null;
+  var GAP   = 22;
+
+  function getVisible() {
+    var w = viewport.offsetWidth;
+    if (w <= 600) return 1;
+    if (w <= 850) return 2;
+    return 3;
+  }
+
+  function getMax() {
+    return Math.max(0, total - getVisible());
+  }
+
+  function setCardWidths() {
+    var v   = getVisible();
+    var w   = viewport.offsetWidth;
+    var cw  = (w - GAP * (v - 1)) / v;
+    cards.forEach(function (c) {
+      c.style.width = cw + 'px';
+    });
+    return cw;
+  }
+
+  function getOffset() {
+    var v  = getVisible();
+    var w  = viewport.offsetWidth;
+    var cw = (w - GAP * (v - 1)) / v;
+    return cur * (cw + GAP);
+  }
+
+  function go(idx) {
+    cur = Math.max(0, Math.min(idx, getMax()));
+    track.style.transform = 'translateX(-' + getOffset() + 'px)';
+    renderDots();
+  }
+
+  function renderDots() {
+    dotsEl.innerHTML = '';
+    var m = getMax();
+    for (var i = 0; i <= m; i++) {
+      var d = document.createElement('button');
+      d.className = 'news-dot' + (i === cur ? ' active' : '');
+      d.setAttribute('aria-label', 'Slide ' + (i + 1));
+      (function (idx) {
+        d.onclick = function () { go(idx); };
+      })(i);
+      dotsEl.appendChild(d);
+    }
+  }
+
+  function next() { go(cur >= getMax() ? 0 : cur + 1); }
+  function prev() { go(cur <= 0 ? getMax() : cur - 1); }
+
+  function startAuto() { timer = setInterval(next, 4500); }
+  function stopAuto()  { clearInterval(timer); }
+
+  if (btnPrev) btnPrev.onclick = function () { stopAuto(); prev(); startAuto(); };
+  if (btnNext) btnNext.onclick = function () { stopAuto(); next(); startAuto(); };
+
+  viewport.addEventListener('mouseenter', stopAuto);
+  viewport.addEventListener('mouseleave', startAuto);
+
+  // Swipe
+  var tx = 0;
+  viewport.addEventListener('touchstart', function (e) {
+    tx = e.touches[0].clientX;
+    stopAuto();
+  });
+  viewport.addEventListener('touchend', function (e) {
+    var diff = tx - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
+    startAuto();
+  });
+
+  window.addEventListener('resize', function () {
+    setCardWidths();
+    go(0);
+  });
+
+  // Init — set width dulu baru render
+  setCardWidths();
+  renderDots();
+  startAuto();
+});
+</script>
+
+<!-- QUICK LINKS -->
+<div class="section links-section">
+  <div class="section-inner">
+    <div class="section-title">Layanan Sekolah</div>
+    <div class="section-subtitle">Akses cepat ke layanan digital sekolah</div>
+    <div class="links-grid">
+      <a href="/data-siswa" class="link-card">
+        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        <span>Data Siswa</span>
+      </a>
+      <a href="/input" class="link-card">
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+        <span>Input Data</span>
+      </a>
+      <a href="/buat-akun" class="link-card">
+        <svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <span>Buat Akun</span>
+      </a>
+      <a href="#" class="link-card">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <span>Kontak Sekolah</span>
+      </a>
+      <a href="#" class="link-card">
+        <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+        <span>Kalender Akademik</span>
+      </a>
+      <a href="#" class="link-card">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+        <span>Dokumen Sekolah</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<style>
+  .site-footer {
+    background: #061533;
+    color: rgba(255,255,255,0.75);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  /* TOP FOOTER */
+  .footer-top {
+    padding: 56px 40px 40px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .footer-brand .brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .footer-brand .brand-name span { color: var(--gold); }
+  .footer-brand p {
+    font-size: 0.86rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 20px;
+  }
+
+  /* Kontak info */
+  .footer-contact-list { list-style: none; padding: 0; }
+  .footer-contact-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.84rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  .footer-contact-list li svg {
+    width: 16px; height: 16px;
+    fill: var(--gold);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* Column titles */
+  .footer-col h4 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 18px;
+  }
+  .footer-col ul { list-style: none; padding: 0; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul li a {
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    font-size: 0.86rem;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .footer-col ul li a:hover { color: var(--gold); }
+  .footer-col ul li a::before {
+    content: '›';
+    color: var(--gold);
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  /* SOCIAL MEDIA */
+  .footer-social { display: flex; gap: 10px; margin-top: 4px; }
+  .social-btn {
+    width: 38px; height: 38px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none;
+    transition: transform 0.2s, opacity 0.2s;
+    opacity: 0.85;
+  }
+  .social-btn:hover { transform: translateY(-3px); opacity: 1; }
+  .social-btn svg { width: 18px; height: 18px; fill: white; }
+  .social-instagram { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+  .social-facebook  { background: #1877f2; }
+  .social-youtube   { background: #ff0000; }
+  .social-twitter   { background: #1da1f2; }
+
+  /* MIDDLE STRIP */
+  .footer-middle {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 22px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .accreditation-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(232,184,75,0.1);
+    border: 1px solid rgba(232,184,75,0.25);
+    border-radius: 10px;
+    padding: 10px 18px;
+  }
+  .acc-circle {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .acc-text { font-size: 0.8rem; color: rgba(255,255,255,0.7); line-height: 1.4; }
+  .acc-text strong { color: var(--gold); font-size: 0.85rem; }
+
+  .npsn-info {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.45);
+  }
+  .npsn-info strong { color: rgba(255,255,255,0.7); }
+
+  /* BOTTOM BAR */
+  .footer-bottom {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .footer-bottom p {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.35);
+  }
+  .footer-bottom p strong { color: var(--gold); }
+  .footer-bottom p a {
+    color: #a78bfa;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+  .footer-bottom p a:hover { color: #c4b5fd; }
+  .footer-bottom p a.ig-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .footer-bottom p a.ig-link::before {
+    content: '';
+    display: inline-block;
+    width: 13px; height: 13px;
+    background: linear-gradient(135deg, #f09433, #dc2743, #bc1888);
+    border-radius: 3px;
+    vertical-align: middle;
+  }
+
+  @media (max-width: 700px) {
+    .footer-top { grid-template-columns: 1fr; gap: 32px; padding: 40px 20px 28px; }
+    .footer-middle, .footer-bottom { padding: 16px 20px; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+
+<footer class="site-footer">
+  <div class="footer-top">
+
+    <!-- Brand + Kontak -->
+    <div class="footer-brand">
+      <div class="brand-name">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="#e8b84b"><path d="M12 3L1 9l4 2.18V16c0 1.1 3.13 3 7 3s7-1.9 7-3v-4.82L22 9 12 3zm6 13c0 .5-2.13 2-6 2s-6-1.5-6-2v-3.68l6 3.27 6-3.27V16zm-6-2.72L4.53 9 12 5.09 19.47 9 12 13.28z"/></svg>
+        SMP Negeri <span>287</span> Jakarta
+      </div>
+      <p>Mendidik generasi penerus bangsa yang cerdas, berkarakter Pancasila, dan berdaya saing di era global. Bersama kami, masa depan cerah menantimu.</p>
+      <ul class="footer-contact-list">
+        <li>
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+          Jl. Sarbini I, RT.08/RW.05, Kelurahan Pinang Ranti, Kecamatan Makasar, Kota Administrasi Jakarta Timur, Provinsi D.K.I. Jakarta, 13560.
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          (021) 123-4567
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          smpn287jakarta@disdik.jakarta.go.id
+        </li>
+      </ul>
+    </div>
+
+    <!-- Menu Cepat -->
+    <div class="footer-col">
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="/">Beranda</a></li>
+        <li><a href="/data-siswa">Data Siswa</a></li>
+        <li><a href="/input">Input Data</a></li>
+        <li><a href="/buat-akun">Buat Akun</a></li>
+        <li><a href="#">Profil Sekolah</a></li>
+        <li><a href="#">Ekstrakulikuler</a></li>
+      </ul>
+    </div>
+
+    <!-- Media Sosial -->
+    <div class="footer-col">
+      <h4>Ikuti Kami</h4>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/explore/locations/242333863/smpn-287-jakarta/" target="_blank" class="social-btn social-instagram" title="Instagram Pembuat">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162S8.597 18.163 12 18.163s6.162-2.759 6.162-6.162S15.403 5.838 12 5.838zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/p/SMPN-287-Jakarta-100083716860218/" target="_blank" class="social-btn social-facebook" title="Facebook Sekolah">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@smpn287jakartachannel5" target="_blank" class="social-btn social-youtube" title="YouTube Sekolah">
+          <svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+        </a>
+      </div>
+      <p style="font-size:0.75rem; color:rgba(255,255,255,0.35); margin-top:14px; line-height:1.6;">
+        Ikuti media sosial kami untuk informasi & kegiatan terkini sekolah.
+      </p>
+    </div>
+  </div>
+
+  <!-- MIDDLE: Akreditasi + NPSN -->
+  <div class="footer-middle">
+    <div class="accreditation-badge">
+      <div class="acc-circle">A</div>
+      <div class="acc-text">
+        <strong>Akreditasi A (Unggul)</strong><br>
+        BAN-S/M · Berlaku s.d. 2027
+      </div>
+    </div>
+    <div class="npsn-info">
+      NPSN: <strong>20107181</strong> &nbsp;|&nbsp; Di bawah naungan <strong>Disdik DKI Jakarta</strong>
+    </div>
+  </div>
+
+  <!-- BOTTOM BAR -->
+  <div class="footer-bottom">
+    <p>&copy; 2026 <strong>SMPN 287 Jakarta</strong>. Hak cipta dilindungi undang-undang.</p>
+    <p>
+      Dikembangkan oleh
+      <a href="https://www.instagram.com/ahmad_andika110311/" target="_blank" class="ig-link">
+        &nbsp;@ahmad_andika110311
+      </a>
+    </p>
+  </div>
+</footer>
+{# <div class="home-footer">
+  &copy; 2026 <strong>SMPN 287 Jakarta</strong> &mdash; Jl. Pendidikan No. 1, Jakarta &nbsp;|&nbsp; Telp: (021) 123-4567
+</div> #}
+
+{% endblock %} #}

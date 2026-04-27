@@ -1,10 +1,11 @@
 from fileinput import filename
+import re
 from unicodedata import category
 from click.utils import R
 from flask import Blueprint, render_template, redirect, request_started, url_for, request, current_app, flash
 from flask_login import login_user, login_required, logout_user, current_user
 from flask_wtf import file
-from .models import AdminAccount, DatabaseSiswa, NilaiSiswa, AccountSiswa, ImgName
+from .models import AdminAccount, DatabaseSiswa, NilaiSiswa, AccountSiswa, ImgName, DataGuru
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from . import db
@@ -822,15 +823,58 @@ def tambah_berita():
 
         text_input = request.form.get("keterangan")
 
-        input_berita = ImgName(
-            name = text_input,
-            img_1 = gambar_1_input,
-            img_2 = gambar_2_input,
-            img_3 = gambar_3_input,
-            video = video_input
-        )
-        db.session.add(input_berita)
-        db.session.commit()
-        return redirect(url_for("views.home"))
+        if text_input:
+            input_berita = ImgName(
+                name = text_input,
+                img_1 = gambar_1_input,
+                img_2 = gambar_2_input,
+                img_3 = gambar_3_input,
+                video = video_input
+            )
+            db.session.add(input_berita)
+            db.session.commit()
+            flash("Success Tambah berita.", category="success")
+            return redirect(url_for("views.home"))
 
     return render_template("input-berita.html")
+
+
+@auth.route("/tambah-data-guru", methods=["GET", "POST"])
+@login_required
+def tambah_data_guru():
+    if request.method == "POST":
+        gambar_file = request.files.get("gambar")
+        if gambar_file:
+            filename = secure_filename(gambar_file.filename)
+            upload_path = os.path.join("website", "static", "uploads")
+            if not os.path.exists(upload_path):
+                os.makedirs(upload_path)
+            gambar_file.save(os.path.join(upload_path, filename))
+            gambar_file_input = filename
+        else:
+            gambar_file_input = None
+
+        name_input = request.form.get("name")
+        mapel_input = request.form.get("mapel")
+        nip_input = request.form.get("nip")
+        status_input = request.form.get("status")
+        jabatan_input = request.form.get("jabatan")
+        tahun_masuk_input = request.form.get("tahun_masuk")
+
+        if name_input and (len(nip_input) == 0 or len(nip_input) == 18):
+            data_guru = DataGuru(
+                name = name_input,
+                image=gambar_file_input,
+                mapel=mapel_input,
+                nip=nip_input,
+                status=status_input,
+                jabatan=jabatan_input,
+                tahun_masuk=tahun_masuk_input
+            )
+            db.session.add(data_guru)
+            db.session.commit()
+            flash("Success tambah data guru", category="success")
+            return redirect(url_for("auth.tambah_data_guru"))
+        else:
+            flash("Jika NIP tidak lengkap maka bisa dikosongkan untuk mencegah kesalahan", category="error")
+    return render_template("tambah-data-guru.html", user=current_user)

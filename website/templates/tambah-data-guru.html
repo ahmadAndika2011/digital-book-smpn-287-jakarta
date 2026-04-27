@@ -1,0 +1,89 @@
+{%extends "base.html"%}
+
+{%block title%}Tambah Data Guru{%endblock%}
+
+{%block content%}
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+
+      <h4 class="fw-bold mb-4">
+        <i class="fa-solid fa-user-plus me-2"></i>Input Data Guru
+      </h4>
+
+      <form method="POST" enctype="multipart/form-data">
+
+        <!-- SECTION: Data Pribadi -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-header bg-dark text-white fw-bold">
+            <i class="fa-solid fa-id-card me-2"></i>Data Pribadi
+          </div>
+          <div class="card-body">
+
+            <!-- Foto -->
+            <div class="mb-3">
+              <label for="gambar" class="form-label fw-semibold">Foto Siswa</label>
+              <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*">
+            </div>
+
+            <div class="row g-3">
+              <div class="col-md-8">
+                <label for="name" class="form-label fw-semibold">Nama Lengkap</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama lengkap">
+              </div>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-md-8">
+                <label for="mapel" class="form-label fw-semibold">Mapel</label>
+                <input type="text" class="form-control" id="mapel" name="mapel" placeholder="Masukkan mapel">
+              </div>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-md-8">
+                <label for="nip" class="form-label fw-semibold">NIP</label>
+                <input type="text" class="form-control" id="nip" name="nip" placeholder="Masukkan NIP">
+              </div>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-md-8">
+                <label for="status" class="form-label fw-semibold">Status</label>
+                <input type="text" class="form-control" id="status" name="status" placeholder="Masukkan status">
+              </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <label for="jabatan" class="form-label fw-semibold">Jabatan</label>
+                    <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="Masukkan jabatan di sekolah">
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <label for="tahun_masuk" class="form-label fw-semibold">Tahun Masuk</label>
+                    <input type="text" class="form-control" id="tahun_masuk" name="tahun_masuk" placeholder="Masukkan tahun pertama masuk sekolah">
+                </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <!-- Tombol Submit -->
+        <div class="d-flex justify-content-end gap-2 mb-5">
+          <a href="/" class="btn btn-outline-secondary">
+            <i class="fa-solid fa-xmark me-1"></i>Batal
+          </a>
+          <button type="submit" class="btn btn-primary px-4">
+            <i class="fa-solid fa-floppy-disk me-1"></i>Simpan Data
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+{%endblock%}

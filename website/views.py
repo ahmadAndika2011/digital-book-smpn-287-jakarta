@@ -2,10 +2,10 @@ from email.utils import unquote
 import os
 from re import I
 from traceback import print_tb
-from flask import Blueprint, current_app, render_template, redirect, request, url_for, jsonify
+from flask import Blueprint, current_app, flash, render_template, redirect, request, url_for, jsonify
 from . import db
 from flask_login import login_required, current_user
-from .models import DatabaseSiswa, NilaiSiswa, AccountSiswa, AdminAccount, ImgName
+from .models import DatabaseSiswa, NilaiSiswa, AccountSiswa, AdminAccount, ImgName, DataGuru
 import json
 import base64
 
@@ -22,7 +22,8 @@ def home():
     jumlah_siswa = DatabaseSiswa.query.count()
 
     berita_list = ImgName.query.all()
-    return render_template("home.html", user=current_user, jumlah_siswa=jumlah_siswa, berita_list=berita_list)
+    guru_list = DataGuru.query.all()
+    return render_template("home.html", user=current_user, jumlah_siswa=jumlah_siswa, berita_list=berita_list, guru_list=guru_list)
 
 @views.route("/data-siswa")
 def data_siswa():
@@ -61,6 +62,13 @@ def lihat_berita(id):
         return "Berita tidak ditemukan", 404
     return render_template("lihat-berita.html", berita=berita)
 
+@views.route("/lihat-guru/<int:id>")
+def lihat_guru(id):
+    guru = DataGuru.query.get(id)
+    if not guru:
+        return "Data Guru tidak ditemukan", 404
+    return render_template("lihat-guru.html", guru=guru)
+
 @views.route("/hapus-berita", methods=["POST"])
 @login_required
 def hapus_berita():
@@ -76,6 +84,24 @@ def hapus_berita():
                     os.remove(full_path)
         db.session.delete(berita)
         db.session.commit()
+        flash("Success hapus berita.", category="success")
+    return jsonify({})
+
+@views.route("/hapus-data-guru", methods=["POST"])
+@login_required
+def hapus_data_guru():
+    guru = json.loads(request.data)
+    guruId = guru["guruId"]
+    guru = DataGuru.query.get(guruId)
+
+    if guru:
+        if guru.image:
+            image_full_path = os.path.join(current_app.root_path, "static", "uploads", guru.image)
+            if os.path.exists(image_full_path):
+                os.remove(image_full_path)
+        db.session.delete(guru)
+        db.session.commit()
+        flash("Success delete data guru.", category="success")
     return jsonify({})
 
 @views.route("/delete-student", methods=["POST"])

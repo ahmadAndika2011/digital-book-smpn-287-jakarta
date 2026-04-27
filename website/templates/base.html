@@ -55,7 +55,7 @@
              style="transition: color 0.2s;"
              onmouseover="this.style.color='#e8b84b'"
              onmouseout="this.style.color='rgba(255,255,255,0.5)'">
-            <i class="fa-solid fa-user-plus me-1"></i>Buat Akun
+            <i class="fa-solid fa-user-plus me-1"></i>Akun
           </a>
         </li>
 
@@ -74,6 +74,14 @@
              onmouseover="this.style.color='#e8b84b'"
              onmouseout="this.style.color='rgba(255,255,255,0.5)'">
             <i class="fa-solid fa-plus me-1"></i>Berita
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white-50" href="/tambah-data-guru"
+             style="transition: color 0.2s;"
+             onmouseover="this.style.color='#e8b84b'"
+             onmouseout="this.style.color='rgba(255,255,255,0.5)'">
+            <i class="fa-solid fa-plus me-1"></i>Guru
           </a>
         </li>
         <li class="nav-item">
@@ -122,19 +130,19 @@
 </script>
 
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <div id="flash-container" style="position: fixed; top: 1.25rem; right: 1.25rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; max-width: 380px; width: 100%;">
-          {% for category, message in messages %}
-            {% set icon = "✓" if category != "error" else "✕" %}
-            {% set bg_class = "flash-success" if category != "error" else "flash-error" %}
-            <div class="flash-toast {{ bg_class }}" role="alert" aria-live="assertive">
-              <div class="flash-icon">{{ icon }}</div>
-              <span class="flash-message">{{ message }}</span>
-              <button class="flash-close" onclick="this.parentElement.remove()" aria-label="Tutup">&times;</button>
-            </div>
-          {% endfor %}
-        </div>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div id="flash-container" style="position: fixed; top: 1.25rem; right: 1.25rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; max-width: 380px; width: 100%;">
+            {% for category, message in messages %}
+              {% set icon = "✓" if category != "error" else "✕" %}
+              {% set bg_class = "flash-success" if category != "error" else "flash-error" %}
+              <div class="flash-toast {{ bg_class }}" role="alert" aria-live="assertive">
+                <div class="flash-icon">{{ icon }}</div>
+                <span class="flash-message">{{ message }}</span>
+                <button class="flash-close" onclick="this.parentElement.remove()" aria-label="Tutup">&times;</button>
+              </div>
+            {% endfor %}
+          </div>
 
         <style>
           .navbar-toggler {

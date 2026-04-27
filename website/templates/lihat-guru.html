@@ -1,0 +1,426 @@
+{% extends "base.html" %}
+{% block title %}Profil Guru{% endblock %}
+
+{% block content %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --navy: #0f1f3d;
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --cream: #faf7f2;
+    --slate: #4a5568;
+    --white: #ffffff;
+    --shadow: 0 20px 60px rgba(15, 31, 61, 0.12);
+    --radius: 20px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .guru-page {
+    min-height: 100vh;
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    padding: 0 0 80px;
+  }
+
+  /* ── HERO BANNER ── */
+  .guru-hero {
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+    padding: 70px 40px 80px;
+    text-align: center;
+  }
+  .guru-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 20% 50%, rgba(201,168,76,.18) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 70% at 80% 30%, rgba(201,168,76,.10) 0%, transparent 60%);
+  }
+  .guru-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0; right: 0;
+    height: 60px;
+    background: var(--cream);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .guru-hero-label {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,.4);
+    padding: 6px 18px;
+    border-radius: 50px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .guru-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--white);
+    line-height: 1.15;
+    position: relative;
+  }
+  .guru-hero h1 span {
+    color: var(--gold);
+  }
+  .guru-hero p {
+    margin-top: 14px;
+    color: rgba(255,255,255,.55);
+    font-size: 15px;
+    position: relative;
+  }
+
+  /* ── CONTAINER ── */
+  .guru-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 24px 0;
+  }
+
+  /* ── CARD ── */
+  .guru-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 380px;
+    transition: transform .3s ease, box-shadow .3s ease;
+    border: 1px solid rgba(201,168,76,.15);
+  }
+  .guru-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 32px 80px rgba(15,31,61,.18);
+  }
+
+  /* LEFT PANEL */
+  .guru-card-left {
+    background: var(--navy);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 30px;
+    overflow: hidden;
+  }
+  .guru-card-left::before {
+    content: '';
+    position: absolute;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    border: 40px solid rgba(201,168,76,.07);
+    top: -60px; left: -60px;
+  }
+  .guru-card-left::after {
+    content: '';
+    position: absolute;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    border: 30px solid rgba(201,168,76,.05);
+    bottom: -50px; right: -50px;
+  }
+
+  .guru-avatar-wrap {
+    position: relative;
+    margin-bottom: 24px;
+    z-index: 1;
+  }
+  .guru-avatar-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid rgba(201,168,76,.5);
+  }
+  .guru-avatar {
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 4px solid var(--navy);
+  }
+  .guru-avatar-placeholder {
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(201,168,76,.25), rgba(201,168,76,.08));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    color: var(--gold);
+    border: 4px solid rgba(201,168,76,.2);
+    letter-spacing: -2px;
+  }
+
+  .guru-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: var(--white);
+    text-align: center;
+    line-height: 1.3;
+    z-index: 1;
+    position: relative;
+  }
+  .guru-jabatan-badge {
+    margin-top: 10px;
+    display: inline-block;
+    background: rgba(201,168,76,.18);
+    color: var(--gold-light);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 50px;
+    border: 1px solid rgba(201,168,76,.25);
+    z-index: 1;
+    position: relative;
+  }
+
+  /* RIGHT PANEL */
+  .guru-card-right {
+    padding: 50px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .guru-section-title {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(201,168,76,.2);
+  }
+
+  .guru-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 40px;
+  }
+
+  .guru-info-item label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #9aa3b0;
+    margin-bottom: 5px;
+  }
+  .guru-info-item .value {
+    font-size: 15px;
+    color: var(--navy);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .guru-info-item .value.empty {
+    color: #c5cdd8;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* STATUS BADGE */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .status-badge.pns {
+    background: #edf9f0; color: #1a7f4b;
+  }
+  .status-badge.honorer {
+    background: #fff8e6; color: #b07d00;
+  }
+  .status-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  /* DIVIDER */
+  .guru-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,.2), transparent);
+    margin: 32px 0;
+  }
+
+  /* BACK BTN */
+  .btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    margin-bottom: 40px;
+    transition: background .2s, transform .2s;
+    letter-spacing: .3px;
+  }
+  .btn-back:hover {
+    background: #1a3260;
+    transform: translateX(-3px);
+  }
+  .btn-back svg { width: 16px; height: 16px; }
+
+  /* FADE IN */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .guru-card { animation: fadeUp .5s ease both; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .guru-hero { padding: 50px 24px 70px; }
+
+    .guru-card {
+      grid-template-columns: 1fr;
+    }
+    .guru-card-left {
+      padding: 44px 30px 36px;
+      border-radius: 0;
+    }
+    .guru-card-right {
+      padding: 36px 28px;
+    }
+    .guru-info-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .guru-container { padding: 40px 16px 0; }
+    .guru-card-right { padding: 28px 20px; }
+  }
+</style>
+
+<div class="guru-page">
+  <!-- HERO -->
+  <div class="guru-hero">
+    <div class="guru-hero-label">SMPN 287 Jakarta</div>
+    <h1>Profil <span>Guru</span></h1>
+    <p>Informasi lengkap tenaga pendidik</p>
+  </div>
+
+  <!-- MAIN -->
+  <div class="guru-container">
+
+    <a href="/" class="btn-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+      Kembali ke Daftar Guru
+    </a>
+
+    <div class="guru-card">
+      <!-- LEFT -->
+      <div class="guru-card-left">
+        <div class="guru-avatar-wrap">
+          {% if guru.image %}
+            <img class="guru-avatar" src="/static/uploads/{{ guru.image }}" alt="{{ guru.name }}">
+          {% else %}
+            <div class="guru-avatar-placeholder">
+              {{ guru.name[0]|upper if guru.name else '?' }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="guru-name">{{ guru.name }}</div>
+
+        {% if guru.jabatan %}
+          <div class="guru-jabatan-badge">{{ guru.jabatan }}</div>
+        {% endif %}
+      </div>
+
+      <!-- RIGHT -->
+      <div class="guru-card-right">
+        <div class="guru-section-title">Informasi Data Guru</div>
+
+        <div class="guru-info-grid">
+
+          <div class="guru-info-item">
+            <label>Mata Pelajaran</label>
+            {% if guru.mapel %}
+              <div class="value">{{ guru.mapel }}</div>
+            {% else %}
+              <div class="value empty">Belum diisi</div>
+            {% endif %}
+          </div>
+
+          <div class="guru-info-item">
+            <label>NIP</label>
+            {% if guru.nip %}
+              <div class="value">{{ guru.nip }}</div>
+            {% else %}
+              <div class="value empty">Belum diisi</div>
+            {% endif %}
+          </div>
+
+          <div class="guru-info-item">
+            <label>Status Kepegawaian</label>
+            {% if guru.status %}
+              <div class="value">
+                <span class="status-badge {% if guru.status|lower == 'pns' %}pns{% else %}honorer{% endif %}">
+                  {{ guru.status }}
+                </span>
+              </div>
+            {% else %}
+              <div class="value empty">Belum diisi</div>
+            {% endif %}
+          </div>
+
+          <div class="guru-info-item">
+            <label>Jabatan</label>
+            {% if guru.jabatan %}
+              <div class="value">{{ guru.jabatan }}</div>
+            {% else %}
+              <div class="value empty">Belum diisi</div>
+            {% endif %}
+          </div>
+
+          <div class="guru-info-item">
+            <label>Tahun Masuk</label>
+            {% if guru.tahun_masuk %}
+              <div class="value">{{ guru.tahun_masuk }}</div>
+            {% else %}
+              <div class="value empty">Belum diisi</div>
+            {% endif %}
+          </div>
+
+          <div class="guru-info-item">
+            <label>ID Guru</label>
+            <div class="value">#{{ guru.id }}</div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
