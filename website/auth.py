@@ -117,7 +117,7 @@ def upload_file():
                         db.session.rollback() 
                         existing = DatabaseSiswa.query.filter_by(nisn=str(row["nisn"]).strip()).first()
                         if existing:
-                            list_error_update.append(f"{row["nama"]}")
+                            list_error_update.append(f"{row['nama']}")
                             continue
 
                         if len(row["nis"].strip()) != 4:
