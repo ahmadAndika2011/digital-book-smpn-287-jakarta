@@ -20,8 +20,19 @@ def create_app():
 
     from .views import views
     from .auth import auth
+    from .blueprints import login_siswa, login_admin, logout, input_data_siswa, update_data_siswa, update_data_per_siswa, buat_akun_siswa, input_berita, input_data_guru, upload_data_guru
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(auth, url_prefix="/")
+    app.register_blueprint(login_siswa, url_prefix="/")
+    app.register_blueprint(login_admin, url_prefix="/")
+    app.register_blueprint(logout, url_prefix="/")
+    app.register_blueprint(input_data_siswa, url_prefix="/")
+    app.register_blueprint(update_data_siswa, url_prefix="/")
+    app.register_blueprint(update_data_per_siswa, url_prefix="/")
+    app.register_blueprint(buat_akun_siswa, url_prefix="/")
+    app.register_blueprint(input_berita, url_prefix="/")
+    app.register_blueprint(input_data_guru, url_prefix="/")
+    app.register_blueprint(upload_data_guru, url_prefix="/")
 
     from .models import AdminAccount, DatabaseSiswa, NilaiSiswa, AccountSiswa, ImgName, DataGuru
     with app.app_context():

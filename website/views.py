@@ -20,10 +20,11 @@ def home():
     # db.session.add(akun_admin)
     # db.session.commit()
     jumlah_siswa = DatabaseSiswa.query.count()
+    jumlah_guru = DataGuru.query.count()
 
     berita_list = ImgName.query.all()
     guru_list = DataGuru.query.all()
-    return render_template("home.html", user=current_user, jumlah_siswa=jumlah_siswa, berita_list=berita_list, guru_list=guru_list)
+    return render_template("home.html", user=current_user, jumlah_siswa=jumlah_siswa, berita_list=berita_list, guru_list=guru_list, jumlah_guru=jumlah_guru)
 
 @views.route("/data-siswa")
 def data_siswa():

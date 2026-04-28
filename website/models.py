@@ -16,10 +16,15 @@ class DatabaseSiswa(db.Model, UserMixin):
     nama = db.Column(db.String(150))
     nisn = db.Column(db.String(30))
     nis = db.Column(db.String(30))
-    tanggal_lahir = db.Column(db.String(150))
     tempat_lahir = db.Column(db.String(150))
+    tanggal_lahir = db.Column(db.String(150))
     agama = db.Column(db.String(50))
-    sekolah_asal = db.Column(db.String(20))
+    alamat = db.Column(db.String(300))
+    rt = db.Column(db.String(20))
+    rw = db.Column(db.String(20))
+    kelurahan = db.Column(db.String(200))
+    kecamatan = db.Column(db.String(200))
+    sekolah_asal = db.Column(db.String(150))
     lulus = db.Column(db.String(20))
 
 
@@ -54,10 +59,11 @@ class ImgName(db.Model, UserMixin):
 
 class DataGuru(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150))
     image = db.Column(db.String(255))
+    name = db.Column(db.String(150))
     mapel = db.Column(db.String(100))
     nip = db.Column(db.String(18))
+    nrk = db.Column(db.String(6))
     status = db.Column(db.String(100))
     jabatan = db.Column(db.String(100))
     tahun_masuk = db.Column(db.String(100))

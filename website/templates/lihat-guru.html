@@ -67,9 +67,7 @@
     line-height: 1.15;
     position: relative;
   }
-  .guru-hero h1 span {
-    color: var(--gold);
-  }
+  .guru-hero h1 span { color: var(--gold); }
   .guru-hero p {
     margin-top: 14px;
     color: rgba(255,255,255,.55);
@@ -95,6 +93,7 @@
     min-height: 380px;
     transition: transform .3s ease, box-shadow .3s ease;
     border: 1px solid rgba(201,168,76,.15);
+    animation: fadeUp .5s ease both;
   }
   .guru-card:hover {
     transform: translateY(-6px);
@@ -190,7 +189,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 0;
   }
 
   .guru-section-title {
@@ -229,7 +227,7 @@
     font-weight: 400;
   }
 
-  /* STATUS BADGE */
+  /* ── STATUS BADGE — semua kemungkinan status ── */
   .status-badge {
     display: inline-flex;
     align-items: center;
@@ -239,25 +237,24 @@
     font-size: 13px;
     font-weight: 500;
   }
-  .status-badge.pns {
-    background: #edf9f0; color: #1a7f4b;
-  }
-  .status-badge.honorer {
-    background: #fff8e6; color: #b07d00;
-  }
   .status-badge::before {
     content: '';
     width: 6px; height: 6px;
     border-radius: 50%;
     background: currentColor;
   }
-
-  /* DIVIDER */
-  .guru-divider {
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(201,168,76,.2), transparent);
-    margin: 32px 0;
-  }
+  /* PNS */
+  .status-badge.pns       { background: #edf9f0; color: #1a7f4b; }
+  /* PPPK */
+  .status-badge.pppk      { background: #e8f4ff; color: #1565c0; }
+  /* Honorer */
+  .status-badge.honorer   { background: #fff8e6; color: #b07d00; }
+  /* GTT (Guru Tidak Tetap) */
+  .status-badge.gtt       { background: #fef3f2; color: #b91c1c; }
+  /* Kontrak */
+  .status-badge.kontrak   { background: #f3f0ff; color: #6d28d9; }
+  /* Default fallback */
+  .status-badge.lainnya   { background: #f1f5f9; color: #475569; }
 
   /* BACK BTN */
   .btn-back {
@@ -284,37 +281,46 @@
   }
   .btn-back svg { width: 16px; height: 16px; }
 
-  /* FADE IN */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  .guru-card { animation: fadeUp .5s ease both; }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     .guru-hero { padding: 50px 24px 70px; }
-
-    .guru-card {
-      grid-template-columns: 1fr;
-    }
-    .guru-card-left {
-      padding: 44px 30px 36px;
-      border-radius: 0;
-    }
-    .guru-card-right {
-      padding: 36px 28px;
-    }
-    .guru-info-grid {
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
+    .guru-card { grid-template-columns: 1fr; }
+    .guru-card-left { padding: 44px 30px 36px; border-radius: 0; }
+    .guru-card-right { padding: 36px 28px; }
+    .guru-info-grid { grid-template-columns: 1fr; gap: 20px; }
   }
-
   @media (max-width: 480px) {
     .guru-container { padding: 40px 16px 0; }
     .guru-card-right { padding: 28px 20px; }
   }
+
+  .btn-edit {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s, transform .2s;
+  letter-spacing: .3px;
+}
+.btn-edit:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+}
+.btn-edit svg { width: 16px; height: 16px; }  
 </style>
 
 <div class="guru-page">
@@ -328,19 +334,42 @@
   <!-- MAIN -->
   <div class="guru-container">
 
-    <a href="/" class="btn-back">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Tambahkan di bawah btn-back, sebelum guru-card -->
+    <div style="display:flex; gap:12px; margin-bottom:40px; align-items:center;">
+      <a href="/" class="btn-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 5l-7 7 7 7"/>
+        </svg>
+        Kembali ke Daftar Guru
+      </a>
+
+      <a href="{{ url_for('views.home', id=guru.id) }}" class="btn-edit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+        </svg>
+        Edit Profil
+      </a>
+    </div>
+    {# <a href="/" class="btn-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
         <path d="M19 12H5M12 5l-7 7 7 7"/>
       </svg>
       Kembali ke Daftar Guru
-    </a>
+    </a> #}
 
     <div class="guru-card">
+
       <!-- LEFT -->
       <div class="guru-card-left">
         <div class="guru-avatar-wrap">
           {% if guru.image %}
-            <img class="guru-avatar" src="/static/uploads/{{ guru.image }}" alt="{{ guru.name }}">
+            <img class="guru-avatar"
+                 src="/static/uploads/{{ guru.image }}"
+                 alt="{{ guru.name }}">
           {% else %}
             <div class="guru-avatar-placeholder">
               {{ guru.name[0]|upper if guru.name else '?' }}
@@ -361,6 +390,7 @@
 
         <div class="guru-info-grid">
 
+          <!-- Mata Pelajaran -->
           <div class="guru-info-item">
             <label>Mata Pelajaran</label>
             {% if guru.mapel %}
@@ -370,6 +400,7 @@
             {% endif %}
           </div>
 
+          <!-- NIP -->
           <div class="guru-info-item">
             <label>NIP</label>
             {% if guru.nip %}
@@ -379,19 +410,43 @@
             {% endif %}
           </div>
 
+          <!-- NRK — field baru dari database -->
+          <div class="guru-info-item">
+            <label>NRK</label>
+            {% if guru.nrk %}
+              <div class="value">{{ guru.nrk }}</div>
+            {% else %}
+              <div class="value empty">Belum diisi</div>
+            {% endif %}
+          </div>
+
+          <!-- Status Kepegawaian -->
           <div class="guru-info-item">
             <label>Status Kepegawaian</label>
             {% if guru.status %}
+              {% set status_lower = guru.status|lower %}
+              {% if status_lower == 'pns' %}
+                {% set badge_class = 'pns' %}
+              {% elif status_lower == 'pppk' %}
+                {% set badge_class = 'pppk' %}
+              {% elif status_lower == 'honorer' %}
+                {% set badge_class = 'honorer' %}
+              {% elif status_lower == 'gtt' %}
+                {% set badge_class = 'gtt' %}
+              {% elif status_lower == 'kontrak' %}
+                {% set badge_class = 'kontrak' %}
+              {% else %}
+                {% set badge_class = 'lainnya' %}
+              {% endif %}
               <div class="value">
-                <span class="status-badge {% if guru.status|lower == 'pns' %}pns{% else %}honorer{% endif %}">
-                  {{ guru.status }}
-                </span>
+                <span class="status-badge {{ badge_class }}">{{ guru.status }}</span>
               </div>
             {% else %}
               <div class="value empty">Belum diisi</div>
             {% endif %}
           </div>
 
+          <!-- Jabatan -->
           <div class="guru-info-item">
             <label>Jabatan</label>
             {% if guru.jabatan %}
@@ -401,6 +456,7 @@
             {% endif %}
           </div>
 
+          <!-- Tahun Masuk -->
           <div class="guru-info-item">
             <label>Tahun Masuk</label>
             {% if guru.tahun_masuk %}
@@ -410,13 +466,13 @@
             {% endif %}
           </div>
 
+          <!-- ID Guru -->
           <div class="guru-info-item">
             <label>ID Guru</label>
             <div class="value">#{{ guru.id }}</div>
           </div>
 
         </div>
-
       </div>
     </div>
 

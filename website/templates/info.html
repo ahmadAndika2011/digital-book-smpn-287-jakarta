@@ -99,7 +99,7 @@
 
         {%if user.is_authenticated%}
         <div class="card-footer d-flex gap-2 justify-content-end">
-          <a href="{{ url_for('auth.update_data_student', id=student.id) }}" class="btn btn-sm btn-primary">
+          <a href="{{ url_for('update_data_per_siswa.update_data_student', id=student.id) }}" class="btn btn-sm btn-primary">
             <i class="fa-solid fa-pen-to-square"></i> Edit
           </a>
           <button type="button" class="btn btn-sm btn-danger"
