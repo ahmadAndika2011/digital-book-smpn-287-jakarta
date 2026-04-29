@@ -4,6 +4,7 @@ colorama
 et_xmlfile
 Flask
 Flask-Login
+Flask-Mail
 Flask-SQLAlchemy
 Flask-WTF
 greenlet
