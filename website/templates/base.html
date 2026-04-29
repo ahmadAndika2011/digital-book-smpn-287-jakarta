@@ -8,126 +8,6 @@
     </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   </head>
-  <body style="background: linear-gradient(135deg, #e8f4fd, #dbeafe, #ede9fe);">
-{# <nav class="navbar navbar-expand-lg shadow-sm" style="
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: #0a2463;
-  border-bottom: 3px solid #e8b84b;
-  transition: box-shadow 0.3s;
-">
-  <div class="container">
-    <a class="navbar-brand fw-bold text-white" href="/">
-      <i class="fa-solid fa-school me-2" style="color: #e8b84b;"></i>SMPN 287
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false" aria-label="Toggle navigation"
-              style="border: 2px solid #e8b84b; border-radius: 8px; padding: 4px 8px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 30 30">
-          <path stroke="#e8b84b" stroke-linecap="round" stroke-miterlimit="10" 
-                stroke-width="2.5" d="M4 7h22M4 15h22M4 23h22"/>
-        </svg>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-1">
-        <li class="nav-item">
-          <a class="nav-link text-white-50" href="/"
-             style="transition: color 0.2s;"
-             onmouseover="this.style.color='#e8b84b'"
-             onmouseout="this.style.color='rgba(255,255,255,0.5)'">
-            <i class="fa-solid fa-house me-1"></i>Home
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white-50" href="/data-siswa"
-             style="transition: color 0.2s;"
-             onmouseover="this.style.color='#e8b84b'"
-             onmouseout="this.style.color='rgba(255,255,255,0.5)'">
-            <i class="fa-solid fa-users me-1"></i>Data Siswa
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white-50" href="/buat-akun"
-             style="transition: color 0.2s;"
-             onmouseover="this.style.color='#e8b84b'"
-             onmouseout="this.style.color='rgba(255,255,255,0.5)'">
-            <i class="fa-solid fa-user-plus me-1"></i>Akun
-          </a>
-        </li>
-
-        {% if current_user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link text-white-50" href="/tambah-berita"
-             style="transition: color 0.2s;"
-             onmouseover="this.style.color='#e8b84b'"
-             onmouseout="this.style.color='rgba(255,255,255,0.5)'">
-            <i class="fa-solid fa-plus me-1"></i>Berita
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white-50" href="/tambah-data-guru"
-             style="transition: color 0.2s;"
-             onmouseover="this.style.color='#e8b84b'"
-             onmouseout="this.style.color='rgba(255,255,255,0.5)'">
-            <i class="fa-solid fa-plus me-1"></i>Guru
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white-50" href="/upload-data-guru"
-             style="transition: color 0.2s;"
-             onmouseover="this.style.color='#e8b84b'"
-             onmouseout="this.style.color='rgba(255,255,255,0.5)'">
-            <i class="fa-solid fa-plus me-1"></i>upload Guru
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="btn btn-sm px-3 fw-semibold" href="/logout" style="
-            background: transparent;
-            border: 1.5px solid #e8b84b;
-            color: #e8b84b;
-            border-radius: 8px;
-            transition: all 0.2s;
-          "
-          onmouseover="this.style.background='#e8b84b'; this.style.color='#0a2463';"
-          onmouseout="this.style.background='transparent'; this.style.color='#e8b84b';">
-            <i class="fa-solid fa-right-from-bracket me-1"></i>Logout
-          </a>
-        </li>
-        {% else %}
-        <li class="nav-item">
-          <a class="btn btn-sm px-3 fw-semibold" href="/choose-login" style="
-            background: #e8b84b;
-            border: none;
-            color: #0a2463;
-            border-radius: 8px;
-            transition: all 0.2s;
-          "
-          onmouseover="this.style.background='#f5d98a';"
-          onmouseout="this.style.background='#e8b84b';">
-            <i class="fa-solid fa-right-to-bracket me-1"></i>Login
-          </a>
-        </li>
-        {% endif %}
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<!-- Shadow effect saat scroll -->
-<script>
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    if (window.scrollY > 10) {
-      nav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
-    } else {
-      nav.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
-    }
-  });
-</script> #}
 
 <!-- ===== TOP BAR ===== -->
 <div style="
@@ -223,16 +103,6 @@
             <li><a class="dropdown-item-smpn" href="/struktur-organisasi"><i class="fa-solid fa-sitemap"></i> Struktur Organisasi</a></li>
           </ul>
         </li>
-
-        {# <li class="nav-item dropdown">
-          <a class="nav-link-smpn dropdown-toggle" href="#"
-             data-bs-toggle="dropdown" aria-expanded="false">Akademik</a>
-          <ul class="dropdown-menu dropdown-smpn">
-            <li><a class="dropdown-item-smpn" href="/kurikulum"><i class="fa-solid fa-book-open"></i> Kurikulum</a></li>
-            <li><a class="dropdown-item-smpn" href="#"><i class="fa-solid fa-calendar-days"></i> Jadwal Pelajaran</a></li>
-            <li><a class="dropdown-item-smpn" href="/ekstrakurikuler"><i class="fa-solid fa-star"></i> Ekstrakurikuler</a></li>
-          </ul>
-        </li> #}
 
         <li class="nav-item dropdown">
           <a class="nav-link-smpn dropdown-toggle" href="#"
@@ -517,6 +387,277 @@
     {% endwith %}
 
     <div>{%block content%}{%endblock%}</div>
+
+    <footer class="footer-container">
+  <div class="footer-content">
+    
+    <div class="footer-column info-school">
+      <div class="footer-logo">
+        <span class="icon-grad">🎓</span>
+        <h2>SMP Negeri <span class="highlight">287</span> Jakarta</h2>
+      </div>
+      <p class="description">
+        Mendidik generasi penerus bangsa yang cerdas, berkarakter Pancasila, dan berdaya saing di era global. Bersama kami, masa depan cerah menantimu.
+      </p>
+      <ul class="contact-list">
+        <li><span class="icon">📍</span> Jl. Sarbini I, RT.08/RW.05, Kel. Pinang Ranti, Kec. Makasar, Jakarta Timur, 13560</li>
+        <li><span class="icon">📞</span> (021) 123-4567</li>
+        <li><span class="icon">✉️</span> smpn287jakarta@disdik.jakarta.go.id</li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3 class="column-title">MENU</h3>
+      <ul class="footer-links">
+        <li><a href="#">› Beranda</a></li>
+        <li><a href="#">› Data Siswa</a></li>
+        <li><a href="#">› Input Data</a></li>
+        <li><a href="#">› Buat Akun</a></li>
+        <li><a href="#">› Profil Sekolah</a></li>
+        <li><a href="#">› Ekstrakurikuler</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3 class="column-title">IKUTI KAMI</h3>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/smpn287jakarta/" target="_blank" class="social-box ig">IG</a>
+        <a href="https://www.facebook.com/p/SMPN-287-Jakarta-100083716860218/" target="_blank" class="social-box fb">FB</a>
+        <a href="https://www.youtube.com/@smpn287jakartachannel5" target="_blank" class="social-box yt">YT</a>
+      </div>
+      <p class="social-text">Ikuti media sosial kami untuk informasi & kegiatan terkini sekolah.</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="accreditation-row">
+      <div class="accreditation-card">
+        <div class="circle-a">A</div>
+        <div class="acc-text">
+          <strong>Akreditasi A (Unggul)</strong>
+          <span>BAN-S/M · Berlaku s.d. 2027</span>
+        </div>
+      </div>
+      <div class="npsn-info">
+        NPSN: <strong>20107181</strong> | Di bawah naungan <strong>Disdik DKI Jakarta</strong>
+      </div>
+    </div>
+
+    <hr class="separator">
+
+    <div class="copyright-row">
+      <p>© 2026 <strong>SMPN 287 Jakarta</strong>. Hak cipta dilindungi undang-undang.</p>
+      <p>Dikembangkan oleh <span class="dev-name">@ahmad_andika110311</span></p>
+    </div>
+  </div>
+</footer>
+
+<style>
+/* Container Utama */
+.footer-container {
+    background-color: #0a1931; /* Biru Gelap sesuai gambar */
+    color: #ffffff;
+    padding: 60px 5% 30px 5%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Kolom Kiri - Profil */
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.footer-logo h2 {
+    font-size: 24px;
+    font-style: italic;
+    margin: 0;
+}
+
+.highlight {
+    color: #f1c40f; /* Kuning Emas */
+}
+
+.description {
+    color: #bdc3c7;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.contact-list {
+    list-style: none;
+    padding: 0;
+    font-size: 13px;
+    color: #ecf0f1;
+}
+
+.contact-list li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+/* Kolom Tengah - Menu */
+.column-title {
+    color: #f1c40f;
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #bdc3c7;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    color: #f1c40f;
+    padding-left: 5px;
+}
+
+/* Kolom Kanan - Social Media */
+.social-icons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.social-box {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    transition: transform 0.3s;
+}
+
+.social-box:hover { transform: scale(1.1); }
+.ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.fb { background-color: #1877f2; }
+.yt { background-color: #ff0000; }
+
+.social-text {
+    font-size: 12px;
+    color: #7f8c8d;
+    font-style: italic;
+}
+
+/* Bagian Bawah (Akreditasi & Copyright) */
+.footer-bottom {
+    max-width: 1200px;
+    margin: 50px auto 0 auto;
+}
+
+.accreditation-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.accreditation-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 15px 25px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.circle-a {
+    background-color: #f1c40f;
+    color: #0a1931;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.acc-text strong {
+    display: block;
+    color: #f1c40f;
+    font-size: 14px;
+}
+
+.acc-text span {
+    font-size: 12px;
+    color: #bdc3c7;
+}
+
+.npsn-info {
+    font-size: 13px;
+    color: #bdc3c7;
+}
+
+.separator {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+}
+
+.copyright-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #7f8c8d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dev-name {
+    color: #e91e63;
+    font-weight: bold;
+}
+
+/* Responsif Mobile */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+    .accreditation-row {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+    }
+    .copyright-row {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+</style>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
