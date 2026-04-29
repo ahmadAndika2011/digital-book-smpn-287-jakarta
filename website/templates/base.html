@@ -7,6 +7,7 @@
         {% block title %}title{% endblock %}
     </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   </head>
 
 <!-- ===== TOP BAR ===== -->
@@ -120,6 +121,10 @@
           <a class="nav-link-smpn" href="/data-siswa">Siswa</a>
         </li>
 
+        <li class="nav-item">
+          <a class="nav-link-smpn" href="/login-siswa">Cek Kelulusan</a>
+        </li>
+
         <li class="nav-item dropdown">
           <a class="nav-link-smpn dropdown-toggle" href="#"
              data-bs-toggle="dropdown" aria-expanded="false">Media</a>
@@ -136,7 +141,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link-smpn" href="#">Kontak</a>
+          <a class="nav-link-smpn" href="/kontak">Kontak</a>
         </li>
 
       </ul>
@@ -153,9 +158,9 @@
             <i class="fa-solid fa-user-plus"></i>
             <span class="d-none d-xl-inline">Akun</span>
           </a>
-          <a href="/choose-login" class="btn-smpn-solid">
+          <a href="/login" class="btn-smpn-solid">
             <i class="fa-solid fa-right-to-bracket"></i>
-            <span>Login</span>
+            <span>admin</span>
           </a>
         {% endif %}
       </div>
@@ -410,11 +415,10 @@
       <h3 class="column-title">MENU</h3>
       <ul class="footer-links">
         <li><a href="#">› Beranda</a></li>
-        <li><a href="#">› Data Siswa</a></li>
-        <li><a href="#">› Input Data</a></li>
-        <li><a href="#">› Buat Akun</a></li>
-        <li><a href="#">› Profil Sekolah</a></li>
-        <li><a href="#">› Ekstrakurikuler</a></li>
+        <li><a href="/data-guru">› Data Guru</a></li>
+        <li><a href="/data-siswa">› Data Siswa</a></li>
+        <li><a href="/buat-akun">› Buat Akun</a></li>
+        <li><a href="/profil-sekolah">› Profil Sekolah</a></li>
       </ul>
     </div>
 

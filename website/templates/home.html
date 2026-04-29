@@ -7,561 +7,337 @@
 
 :root {
   --navy:       #0a2463;
-  --navy-deep:  #061533;
   --navy-mid:   #0f3080;
   --gold:       #e8b84b;
   --gold-light: #f5d98a;
-  --gold-pale:  rgba(232,184,75,.12);
+  --gold-pale:  #fdf6e3;
   --white:      #ffffff;
   --off-white:  #f7f9fd;
   --gray:       #eef1f8;
+  --blue-soft:  #e8f0fb;
   --text:       #1a2a4a;
   --muted:      #5a6a85;
-  --radius:     16px;
   --shadow-sm:  0 4px 20px rgba(10,36,99,.07);
-  --shadow-md:  0 8px 40px rgba(10,36,99,.12);
-  --shadow-lg:  0 20px 60px rgba(10,36,99,.18);
+  --shadow-md:  0 8px 40px rgba(10,36,99,.11);
   --transition: .3s cubic-bezier(.4,0,.2,1);
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--off-white);color:var(--text);}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--off-white); color: var(--text); }
 
-/* ── FADE-UP ANIMATION ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease;}
-.reveal.visible{opacity:1;transform:none;}
+/* ── REVEAL ── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
+.reveal { opacity:0; transform:translateY(24px); transition: opacity .55s ease, transform .55s ease; }
+.reveal.visible { opacity:1; transform:none; }
 
 /* ════════════════════════════════
-   HERO
+   HERO — kept navy but shorter
 ════════════════════════════════ */
-.hero{
-  position:relative;
-  background:var(--navy);
-  overflow:hidden;
-  padding:100px 40px 120px;
+.hero {
+  position: relative;
+  background: var(--navy);
+  overflow: hidden;
+  padding: 80px 40px 100px;
 }
-/* Animated mesh background */
-.hero-bg{
-  position:absolute;inset:0;
+.hero-bg {
+  position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 70% 80% at 80% 20%, rgba(232,184,75,.14) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 60% at 10% 80%, rgba(21,101,192,.35) 0%, transparent 55%),
-    linear-gradient(140deg, #0a2463 0%, #0d3070 50%, #0f4090 100%);
+    radial-gradient(ellipse 60% 70% at 85% 15%, rgba(232,184,75,.16) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 55% at 5%  85%, rgba(21,101,192,.28) 0%, transparent 50%),
+    linear-gradient(140deg, #0a2463 0%, #0d3070 60%, #0f4090 100%);
 }
-.hero-grid{
-  position:absolute;inset:0;
+.hero-grid {
+  position: absolute; inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-  background-size:60px 60px;
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 56px 56px;
 }
-/* Gold accent line */
-.hero::after{
-  content:'';position:absolute;
-  bottom:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+/* softer gold line */
+.hero::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
 }
-.hero-inner{
-  max-width:1000px;margin:0 auto;
-  position:relative;z-index:1;
-  display:grid;grid-template-columns:1fr auto;
-  gap:40px;align-items:center;
+.hero-inner {
+  max-width: 1000px; margin: 0 auto;
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 40px; align-items: center;
 }
-.hero-content{animation:fadeUp .7s ease both;}
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(232,184,75,.15);
-  border:1px solid rgba(232,184,75,.35);
-  color:var(--gold);
-  font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
-  padding:7px 18px;border-radius:50px;margin-bottom:24px;
+.hero-content { animation: fadeUp .65s ease both; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(232,184,75,.15);
+  border: 1px solid rgba(232,184,75,.35);
+  color: var(--gold);
+  font-size: .7rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+  padding: 6px 16px; border-radius: 50px; margin-bottom: 22px;
 }
-.hero-eyebrow::before{content:'';width:6px;height:6px;background:var(--gold);border-radius:50%;}
-.hero h1{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2.4rem,5vw,3.8rem);
-  font-weight:900;line-height:1.1;
-  color:var(--white);margin-bottom:20px;
+.hero-eyebrow::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; }
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 900; line-height: 1.12;
+  color: var(--white); margin-bottom: 18px;
 }
-.hero h1 em{color:var(--gold);font-style:normal;}
-.hero-desc{
-  font-size:1.05rem;color:rgba(255,255,255,.7);
-  line-height:1.8;max-width:520px;margin-bottom:40px;
+.hero h1 em { color: var(--gold); font-style: normal; }
+.hero-desc {
+  font-size: 1rem; color: rgba(255,255,255,.68);
+  line-height: 1.8; max-width: 500px; margin-bottom: 36px;
 }
-.hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
-.btn-hero-primary{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--gold);color:var(--navy);
-  font-weight:700;font-size:.92rem;
-  padding:14px 30px;border-radius:50px;
-  text-decoration:none;transition:var(--transition);
-  box-shadow:0 4px 20px rgba(232,184,75,.4);
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold); color: var(--navy);
+  font-weight: 700; font-size: .9rem;
+  padding: 13px 28px; border-radius: 50px;
+  text-decoration: none; transition: var(--transition);
+  box-shadow: 0 4px 18px rgba(232,184,75,.38);
 }
-.btn-hero-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(232,184,75,.5);}
-.btn-hero-outline{
-  display:inline-flex;align-items:center;gap:8px;
-  border:2px solid rgba(255,255,255,.3);color:var(--white);
-  font-weight:600;font-size:.92rem;
-  padding:14px 30px;border-radius:50px;
-  text-decoration:none;transition:var(--transition);
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(232,184,75,.48); color: var(--navy); }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 2px solid rgba(255,255,255,.28); color: var(--white);
+  font-weight: 600; font-size: .9rem;
+  padding: 13px 28px; border-radius: 50px;
+  text-decoration: none; transition: var(--transition);
 }
-.btn-hero-outline:hover{border-color:rgba(255,255,255,.7);background:rgba(255,255,255,.08);}
+.btn-outline:hover { border-color: rgba(255,255,255,.65); background: rgba(255,255,255,.08); color: var(--white); }
 
-/* Hero badge card */
-.hero-badge-card{
-  background:rgba(255,255,255,.07);
-  backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:20px;padding:28px 24px;
-  text-align:center;min-width:160px;
-  animation:fadeUp .7s .2s ease both;
-  flex-shrink:0;
+.hero-badge-card {
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 20px; padding: 26px 22px;
+  text-align: center; min-width: 155px;
+  animation: fadeUp .65s .18s ease both; flex-shrink: 0;
 }
-.hero-badge-card .badge-num{
-  font-family:'Playfair Display',serif;
-  font-size:2.8rem;font-weight:900;
-  color:var(--gold);display:block;line-height:1;
+.badge-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem; font-weight: 900;
+  color: var(--gold); display: block; line-height: 1;
 }
-.hero-badge-card .badge-label{
-  font-size:.72rem;color:rgba(255,255,255,.55);
-  text-transform:uppercase;letter-spacing:2px;
-  margin-top:8px;display:block;
+.badge-label {
+  font-size: .7rem; color: rgba(255,255,255,.5);
+  text-transform: uppercase; letter-spacing: 2px;
+  margin-top: 8px; display: block;
 }
-.hero-badge-card .badge-sub{
-  font-size:.8rem;color:rgba(255,255,255,.4);margin-top:4px;
-}
+.badge-sub { font-size: .78rem; color: rgba(255,255,255,.35); margin-top: 4px; }
 
-/* Wave divider */
-.hero-wave{display:block;background:var(--off-white);}
-
-/* ════════════════════════════════
-   STATS BAR
-════════════════════════════════ */
-.stats-bar{
-  background:var(--navy-deep);
-  border-top:1px solid rgba(255,255,255,.06);
-}
-.stats-bar-inner{
-  max-width:1000px;margin:0 auto;
-  display:grid;grid-template-columns:repeat(4,1fr);
-}
-.stat-item{
-  padding:28px 20px;text-align:center;
-  border-right:1px solid rgba(255,255,255,.08);
-  position:relative;overflow:hidden;
-  transition:background var(--transition);
-}
-.stat-item:last-child{border-right:none;}
-.stat-item:hover{background:rgba(232,184,75,.06);}
-.stat-item::after{
-  content:'';position:absolute;bottom:0;left:50%;
-  transform:translateX(-50%) scaleX(0);
-  width:60%;height:2px;background:var(--gold);
-  transition:transform var(--transition);
-}
-.stat-item:hover::after{transform:translateX(-50%) scaleX(1);}
-.stat-number{
-  font-family:'Playfair Display',serif;
-  font-size:2.2rem;font-weight:800;
-  color:var(--gold);display:block;
-  animation:countUp .5s ease both;
-}
-.stat-label{
-  font-size:.7rem;color:rgba(255,255,255,.5);
-  text-transform:uppercase;letter-spacing:1.5px;margin-top:5px;
+/* wave into LIGHT background */
+.hero-wave {
+  display: block; position: absolute;
+  bottom: 0; left: 0; width: 100%; height: 56px;
 }
 
 /* ════════════════════════════════
-   SECTION COMMONS
+   STATS BAR — light blue-gray, NOT dark
 ════════════════════════════════ */
-.section-wrap{padding:80px 40px;}
-.section-inner{max-width:1000px;margin:0 auto;}
-.section-tag{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--navy);color:var(--gold);
-  font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  padding:6px 16px;border-radius:50px;margin-bottom:16px;
+.stats-bar {
+  background: var(--blue-soft);
+  border-top: 1px solid rgba(10,36,99,.08);
+  border-bottom: 1px solid rgba(10,36,99,.08);
 }
-.section-heading{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(1.7rem,3vw,2.4rem);
-  font-weight:800;color:var(--navy);margin-bottom:12px;
+.stats-bar-inner {
+  max-width: 1000px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr);
 }
-.section-sub{font-size:.92rem;color:var(--muted);margin-bottom:48px;}
-
-/* ════════════════════════════════
-   VISI MISI
-════════════════════════════════ */
-.visi-misi-wrap{background:var(--gray);}
-.vm-header{text-align:center;margin-bottom:56px;}
-.vm-header .section-heading{margin-bottom:10px;}
-
-.vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
-
-/* VISI */
-.visi-card{
-  grid-column:1/-1;
-  background:var(--navy);border-radius:24px;
-  padding:44px 52px;display:flex;gap:36px;align-items:center;
-  position:relative;overflow:hidden;
-  box-shadow:var(--shadow-lg);
+.stat-item {
+  padding: 30px 20px; text-align: center;
+  border-right: 1px solid rgba(10,36,99,.08);
+  position: relative; overflow: hidden;
+  transition: background var(--transition);
 }
-.visi-card::before{
-  content:'';position:absolute;
-  top:-80px;right:-80px;width:320px;height:320px;
-  background:radial-gradient(circle,rgba(232,184,75,.15) 0%,transparent 70%);
-  border-radius:50%;pointer-events:none;
+.stat-item:last-child { border-right: none; }
+.stat-item:hover { background: rgba(232,184,75,.1); }
+.stat-item::after {
+  content: ''; position: absolute; bottom: 0; left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 50%; height: 2px; background: var(--gold);
+  transition: transform var(--transition);
 }
-.visi-card::after{
-  content:'"';position:absolute;
-  bottom:-40px;left:32px;
-  font-family:'Playfair Display',serif;
-  font-size:16rem;color:rgba(255,255,255,.04);line-height:1;
+.stat-item:hover::after { transform: translateX(-50%) scaleX(1); }
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.1rem; font-weight: 800;
+  color: var(--navy); display: block;
 }
-.visi-icon-wrap{
-  width:80px;height:80px;flex-shrink:0;
-  background:rgba(232,184,75,.12);
-  border:2px solid rgba(232,184,75,.25);
-  border-radius:20px;
-  display:flex;align-items:center;justify-content:center;
-  position:relative;z-index:1;
-}
-.visi-icon-wrap svg{width:40px;height:40px;fill:var(--gold);}
-.visi-body{position:relative;z-index:1;}
-.visi-body .card-tag{
-  font-size:.68rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
-  color:var(--gold);margin-bottom:12px;display:block;
-}
-.visi-body h3{
-  font-family:'Playfair Display',serif;
-  font-size:1.3rem;color:var(--white);line-height:1.6;font-weight:700;
-}
-
-/* Misi / Tujuan cards */
-.vm-sub-card{
-  background:var(--white);border-radius:20px;
-  padding:36px;box-shadow:var(--shadow-sm);
-  border-top:4px solid var(--navy);
-  transition:transform var(--transition),box-shadow var(--transition);
-}
-.vm-sub-card.tujuan{border-top-color:var(--gold);}
-.vm-sub-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
-.vm-card-title{
-  display:flex;align-items:center;gap:10px;
-  font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  color:var(--navy);margin-bottom:20px;
-}
-.vm-card-title svg{width:18px;height:18px;fill:var(--gold);}
-
-.misi-list,.tujuan-list{list-style:none;padding:0;}
-.misi-list li{
-  display:flex;align-items:flex-start;gap:12px;
-  padding:11px 0;border-bottom:1px solid #f0f2f8;
-  font-size:.875rem;color:#2a3a5a;line-height:1.7;
-}
-.misi-list li:last-child{border-bottom:none;}
-.misi-num{
-  width:26px;height:26px;flex-shrink:0;
-  background:var(--navy);color:var(--gold);
-  font-size:.7rem;font-weight:800;
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  margin-top:1px;
-}
-.tujuan-list li{
-  display:flex;align-items:flex-start;gap:10px;
-  padding:10px 0;border-bottom:1px solid #f0f2f8;
-  font-size:.875rem;color:#2a3a5a;line-height:1.7;
-}
-.tujuan-list li:last-child{border-bottom:none;}
-.tujuan-list li::before{
-  content:'✦';color:var(--gold);font-size:.65rem;
-  margin-top:5px;flex-shrink:0;
+.stat-label {
+  font-size: .68rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 1.5px; margin-top: 5px;
 }
 
 /* ════════════════════════════════
-   PRINCIPAL
+   BERITA — white bg, clean grid
 ════════════════════════════════ */
-.principal-section{background:var(--white);}
-.principal-card{
-  background:linear-gradient(135deg,#f7f9fd 0%,var(--white) 100%);
-  border-radius:24px;padding:40px;
-  display:flex;gap:36px;align-items:flex-start;
-  box-shadow:var(--shadow-sm);
-  border:1px solid rgba(10,36,99,.07);
-  position:relative;overflow:hidden;
+.news-section { background: var(--white); padding: 80px 40px; }
+.news-section-inner { max-width: 1000px; margin: 0 auto; }
+
+.section-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue-soft); color: var(--navy);
+  border: 1px solid rgba(10,36,99,.1);
+  font-size: .68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 6px 16px; border-radius: 50px; margin-bottom: 14px;
 }
-.principal-card::before{
-  content:'';position:absolute;
-  top:0;left:0;width:6px;height:100%;
-  background:linear-gradient(to bottom,var(--gold),var(--navy));
+.section-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800; color: var(--navy); margin-bottom: 10px;
 }
-.principal-avatar-wrap{flex-shrink:0;}
-.principal-avatar{
-  width:120px;height:120px;border-radius:50%;
-  background:linear-gradient(135deg,var(--navy),#1565c0);
-  display:flex;align-items:center;justify-content:center;
-  border:5px solid var(--white);
-  box-shadow:0 0 0 3px var(--gold),var(--shadow-sm);
+.section-sub { font-size: .9rem; color: var(--muted); margin-bottom: 40px; }
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
 }
-.principal-avatar svg{width:60px;height:60px;fill:rgba(255,255,255,.85);}
-.principal-text h3{
-  font-family:'Playfair Display',serif;
-  font-size:1.45rem;color:var(--navy);margin-bottom:4px;
+
+.n-card {
+  background: var(--white);
+  border: 1px solid rgba(10,36,99,.08);
+  border-radius: 18px; overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex; flex-direction: column;
+  transition: transform var(--transition), box-shadow var(--transition);
 }
-.principal-role{
-  font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  color:var(--gold);margin-bottom:18px;
+.n-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+
+.n-img {
+  width: 100%; height: 180px; flex-shrink: 0;
+  background: linear-gradient(135deg, #c8d8f0 0%, #a0bce8 100%);
+  position: relative; overflow: hidden;
 }
-.principal-quote{
-  font-size:1rem;color:var(--muted);line-height:1.85;font-style:italic;
-  position:relative;padding-left:20px;
+.n-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .4s ease; display: block;
 }
-.principal-quote::before{
-  content:'"';position:absolute;left:0;top:-4px;
-  font-family:'Playfair Display',serif;
-  font-size:2rem;color:var(--gold);line-height:1;
+.n-card:hover .n-img img { transform: scale(1.05); }
+.n-img::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,36,99,.25) 0%, transparent 55%);
 }
+.n-badge {
+  position: absolute; top: 12px; left: 12px; z-index: 2;
+  background: var(--gold); color: var(--navy);
+  font-size: .63rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 4px 11px; border-radius: 50px;
+}
+.n-img-ph {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+}
+.n-img-ph svg { width: 48px; height: 48px; fill: rgba(10,36,99,.18); }
+
+.n-body { padding: 20px 22px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.n-title {
+  font-family: 'Playfair Display', serif;
+  font-size: .98rem; font-weight: 700; color: var(--navy);
+  line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.n-divider { height: 2px; width: 32px; background: var(--gold); border-radius: 2px; }
+.n-actions { margin-top: auto; display: flex; align-items: center; gap: 8px; }
+.n-info-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--blue-soft); color: var(--navy);
+  font-size: .76rem; font-weight: 600;
+  padding: 7px 15px; border-radius: 50px;
+  text-decoration: none; transition: var(--transition);
+  border: 1px solid rgba(10,36,99,.1);
+}
+.n-info-btn:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
+.n-del-btn {
+  display: inline-flex; align-items: center;
+  background: #fee2e2; color: #dc2626;
+  font-size: .76rem; font-weight: 600;
+  padding: 7px 12px; border-radius: 50px;
+  border: none; cursor: pointer; transition: var(--transition);
+}
+.n-del-btn:hover { background: #dc2626; color: var(--white); }
+
+.news-empty {
+  background: var(--off-white); border-radius: 18px;
+  padding: 60px 20px; text-align: center;
+  border: 1px dashed rgba(10,36,99,.15);
+  grid-column: 1 / -1;
+}
+.empty-icon {
+  width: 68px; height: 68px; border-radius: 50%;
+  background: var(--blue-soft);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 18px;
+}
+.empty-icon svg { width: 32px; height: 32px; fill: var(--muted); }
+.news-empty h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--navy); margin-bottom: 5px; }
+.news-empty p { font-size: .84rem; color: var(--muted); }
 
 /* ════════════════════════════════
-   GURU SLIDER
+   QUICK LINKS — soft gold-pale bg, NOT dark navy
 ════════════════════════════════ */
-.guru-section{background:var(--off-white);padding:80px 40px;}
-.guru-section-inner{max-width:1000px;margin:0 auto;}
-.slider-header{
-  display:flex;align-items:flex-end;
-  justify-content:space-between;flex-wrap:wrap;gap:20px;
-  margin-bottom:40px;
-}
-.nav-btns{display:flex;gap:10px;}
-.nav-btn{
-  width:46px;height:46px;border-radius:50%;
-  border:2px solid var(--navy);cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1rem;transition:var(--transition);
-  background:var(--white);color:var(--navy);
-}
-.nav-btn.next,.nav-btn:hover{background:var(--navy);color:var(--white);}
-.nav-btn.prev:hover{background:var(--navy);color:var(--white);}
+.links-section { background: var(--off-white); padding: 80px 40px; }
+.links-section .section-heading { color: var(--navy); }
+.links-section .section-sub { color: var(--muted); }
 
-.slider-viewport{overflow:hidden;width:100%;}
-.slider-track{display:flex;gap:20px;transition:transform .5s cubic-bezier(.4,0,.2,1);}
-
-/* Guru card */
-.g-card{
-  flex-shrink:0;
-  background:var(--white);border-radius:20px;
-  padding:30px 20px 24px;text-align:center;
-  box-shadow:var(--shadow-sm);
-  border:1px solid rgba(10,36,99,.06);
-  position:relative;overflow:hidden;
-  transition:transform var(--transition),box-shadow var(--transition);
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
 }
-.g-card::before{
-  content:'';position:absolute;
-  top:0;left:0;right:0;height:4px;
-  background:linear-gradient(90deg,var(--gold),var(--navy));
-  transform:scaleX(0);transform-origin:left;
-  transition:transform var(--transition);
+.link-card {
+  background: var(--white);
+  border: 1px solid rgba(10,36,99,.09);
+  border-radius: 16px; padding: 26px 14px;
+  text-align: center; text-decoration: none; color: var(--text);
+  transition: var(--transition); display: block;
+  box-shadow: var(--shadow-sm);
 }
-.g-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);}
-.g-card:hover::before{transform:scaleX(1);}
-
-.g-avatar{
-  width:92px;height:92px;border-radius:50%;
-  object-fit:cover;margin:0 auto 16px;display:block;
-  border:4px solid var(--white);box-shadow:0 0 0 3px var(--gold);
+.link-card:hover {
+  background: var(--navy);
+  border-color: var(--navy);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  color: var(--white);
 }
-.g-avatar-ph{
-  width:92px;height:92px;border-radius:50%;
-  background:linear-gradient(135deg,var(--navy),#1565c0);
-  border:4px solid var(--white);box-shadow:0 0 0 3px var(--gold);
-  margin:0 auto 16px;
-  display:flex;align-items:center;justify-content:center;
+.link-icon {
+  width: 50px; height: 50px; border-radius: 13px;
+  background: var(--blue-soft);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 12px; transition: var(--transition);
 }
-.g-avatar-ph svg{width:46px;height:46px;fill:rgba(255,255,255,.8);}
-.g-name{
-  font-family:'Playfair Display',serif;
-  font-size:.98rem;font-weight:700;color:var(--navy);
-  margin-bottom:8px;line-height:1.3;
-}
-.g-mapel{
-  display:inline-block;
-  background:rgba(10,36,99,.08);color:var(--navy);
-  font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-  padding:4px 12px;border-radius:50px;
-  margin-bottom:16px;
-}
-.g-info-btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:6px;
-  background:var(--navy);color:var(--white);
-  font-size:.78rem;font-weight:600;
-  padding:8px 20px;border-radius:50px;
-  text-decoration:none;transition:var(--transition);
-  border:none;cursor:pointer;
-}
-.g-info-btn:hover{background:var(--navy-mid);transform:translateY(-1px);}
-.g-del-btn{
-  position:absolute;top:10px;right:10px;
-  width:30px;height:30px;border-radius:50%;
-  background:#fee2e2;color:#dc2626;
-  border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;transition:opacity var(--transition),background var(--transition);
-}
-.g-card:hover .g-del-btn{opacity:1;}
-.g-del-btn:hover{background:#dc2626;color:var(--white);}
-
-/* slider dots */
-.slider-dots{display:flex;justify-content:center;gap:8px;margin-top:28px;}
-.s-dot{
-  height:8px;width:8px;border-radius:4px;
-  background:#c8d0e0;border:none;cursor:pointer;padding:0;
-  transition:all .3s;
-}
-.s-dot.active{width:28px;background:var(--navy);}
-
-/* Empty state */
-.slider-empty{
-  background:var(--white);border-radius:20px;
-  padding:64px 20px;text-align:center;
-  box-shadow:var(--shadow-sm);width:100%;
-}
-.empty-icon{
-  width:72px;height:72px;border-radius:50%;
-  background:var(--gray);
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 20px;
-}
-.empty-icon svg{width:34px;height:34px;fill:#c8d0e0;}
-.slider-empty h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--navy);margin-bottom:6px;}
-.slider-empty p{font-size:.85rem;color:var(--muted);}
-
-/* ════════════════════════════════
-   NEWS SLIDER
-════════════════════════════════ */
-.news-section{background:var(--gray);padding:80px 40px;}
-.news-section-inner{max-width:1000px;margin:0 auto;}
-
-/* news card */
-.n-card{
-  flex-shrink:0;background:var(--white);
-  border-radius:20px;overflow:hidden;
-  box-shadow:var(--shadow-sm);
-  display:flex;flex-direction:column;
-  transition:transform var(--transition),box-shadow var(--transition);
-}
-.n-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);}
-.n-img{
-  width:100%;height:190px;flex-shrink:0;
-  background:linear-gradient(135deg,var(--navy),#1565c0);
-  position:relative;overflow:hidden;
-}
-.n-img img{
-  width:100%;height:100%;object-fit:cover;
-  transition:transform .4s ease;display:block;
-}
-.n-card:hover .n-img img{transform:scale(1.06);}
-.n-img::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(10,36,99,.35) 0%,transparent 60%);
-}
-.n-badge{
-  position:absolute;top:12px;left:12px;z-index:2;
-  background:var(--gold);color:var(--navy);
-  font-size:.65rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
-  padding:4px 12px;border-radius:50px;
-}
-.n-img-ph{
-  width:100%;height:100%;
-  display:flex;align-items:center;justify-content:center;
-}
-.n-img-ph svg{width:52px;height:52px;fill:rgba(255,255,255,.2);}
-.n-body{padding:22px 24px;flex:1;display:flex;flex-direction:column;gap:10px;}
-.n-title{
-  font-family:'Playfair Display',serif;
-  font-size:1rem;font-weight:700;color:var(--navy);
-  line-height:1.45;
-  display:-webkit-box;-webkit-line-clamp:2;
-  -webkit-box-orient:vertical;overflow:hidden;
-}
-.n-divider{height:2px;width:36px;background:var(--gold);border-radius:2px;}
-.n-actions{
-  margin-top:auto;
-  display:flex;align-items:center;gap:10px;
-}
-.n-info-btn{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(10,36,99,.07);color:var(--navy);
-  font-size:.78rem;font-weight:600;
-  padding:7px 16px;border-radius:50px;
-  text-decoration:none;transition:var(--transition);
-}
-.n-info-btn:hover{background:var(--navy);color:var(--white);}
-.n-del-btn{
-  display:inline-flex;align-items:center;gap:5px;
-  background:#fee2e2;color:#dc2626;
-  font-size:.78rem;font-weight:600;
-  padding:7px 14px;border-radius:50px;
-  border:none;cursor:pointer;transition:var(--transition);
-}
-.n-del-btn:hover{background:#dc2626;color:var(--white);}
-
-/* ════════════════════════════════
-   QUICK LINKS
-════════════════════════════════ */
-.links-section{background:var(--navy);padding:80px 40px;}
-.links-section .section-heading{color:var(--white);}
-.links-section .section-sub{color:rgba(255,255,255,.5);}
-.links-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-  gap:16px;
-}
-.link-card{
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:18px;padding:28px 16px;
-  text-align:center;text-decoration:none;color:var(--white);
-  transition:var(--transition);display:block;
-}
-.link-card:hover{
-  background:rgba(232,184,75,.15);
-  border-color:rgba(232,184,75,.4);
-  transform:translateY(-4px);
-}
-.link-icon{
-  width:52px;height:52px;border-radius:14px;
-  background:rgba(232,184,75,.12);
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 14px;transition:var(--transition);
-}
-.link-card:hover .link-icon{background:rgba(232,184,75,.25);}
-.link-icon svg{width:26px;height:26px;fill:var(--gold);}
-.link-card span{font-size:.86rem;font-weight:600;}
+.link-card:hover .link-icon { background: rgba(232,184,75,.2); }
+.link-icon svg { width: 24px; height: 24px; fill: var(--navy); transition: var(--transition); }
+.link-card:hover .link-icon svg { fill: var(--gold); }
+.link-card span { font-size: .84rem; font-weight: 600; }
 
 /* ════════════════════════════════
    RESPONSIVE
 ════════════════════════════════ */
-@media(max-width:900px){
-  .hero-inner{grid-template-columns:1fr;}
-  .hero-badge-card{display:none;}
-  .stats-bar-inner{grid-template-columns:repeat(2,1fr);}
-  .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);}
-  .stat-item:nth-child(odd){border-right:1px solid rgba(255,255,255,.08);}
-  .vm-grid{grid-template-columns:1fr;}
-  .footer-top{grid-template-columns:1fr;gap:36px;}
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-badge-card { display: none; }
+  .stats-bar-inner { grid-template-columns: repeat(2, 1fr); }
+  .stat-item { border-right: none; border-bottom: 1px solid rgba(10,36,99,.08); }
+  .stat-item:nth-child(odd) { border-right: 1px solid rgba(10,36,99,.08); }
+  .stat-item:nth-child(3),
+  .stat-item:last-child { border-bottom: none; }
+  .news-grid { grid-template-columns: repeat(2, 1fr); }
 }
-@media(max-width:600px){
-  .hero{padding:60px 20px 80px;}
-  .section-wrap,.guru-section,.news-section,.links-section{padding:56px 20px;}
-  .principal-card{flex-direction:column;align-items:center;text-align:center;}
-  .principal-card::before{display:none;}
-  .footer-top{padding:44px 20px 32px;}
-  .footer-mid,.footer-bottom{padding:16px 20px;flex-direction:column;align-items:flex-start;}
-  .visi-card{flex-direction:column;padding:28px 24px;}
-  .visi-card::after{font-size:10rem;}
+
+@media (max-width: 600px) {
+  .hero { padding: 56px 20px 72px; }
+  .news-section, .links-section { padding: 56px 20px; }
+  .stats-bar-inner { padding: 0 4px; }
+  .news-grid { grid-template-columns: 1fr; }
+  .links-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-actions { flex-direction: column; }
+  .btn-primary, .btn-outline { justify-content: center; text-align: center; }
+}
+
+@media (max-width: 360px) {
+  .links-grid { grid-template-columns: 1fr; }
+  .stats-bar-inner { grid-template-columns: 1fr; }
+  .stat-item { border-right: none !important; }
 }
 </style>
 
@@ -575,12 +351,12 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--off-white);colo
       <h1>SMP Negeri <em>287</em><br>Jakarta</h1>
       <p class="hero-desc">Membentuk generasi cerdas, berkarakter, dan berdaya saing global melalui pendidikan berkualitas dan lingkungan belajar yang kondusif.</p>
       <div class="hero-actions">
-        <a href="/data-siswa" class="btn-hero-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        <a href="/data-siswa" class="btn-primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
           Data Siswa
         </a>
-        <a href="/input" class="btn-hero-outline">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+        <a href="/input" class="btn-outline">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
           Input Data
         </a>
       </div>
@@ -591,8 +367,8 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--off-white);colo
       <span class="badge-sub">Tahun Ajaran 2025/2026</span>
     </div>
   </div>
-  <svg class="hero-wave" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;position:absolute;bottom:0;left:0;width:100%;height:60px;">
-    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#f7f9fd"/>
+  <svg class="hero-wave" viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,28 C360,56 1080,0 1440,28 L1440,56 L0,56 Z" fill="#e8f0fb"/>
   </svg>
 </div>
 
@@ -604,7 +380,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--off-white);colo
       <div class="stat-label">Siswa Aktif</div>
     </div>
     <div class="stat-item reveal">
-      <span class="stat-number">{{jumlah_guru}}</span>
+      <span class="stat-number">{{ jumlah_guru }}</span>
       <div class="stat-label">Tenaga Pendidik</div>
     </div>
     <div class="stat-item reveal">
@@ -618,160 +394,19 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--off-white);colo
   </div>
 </div>
 
-<!-- ══ VISI MISI ══ -->
-<div class="section-wrap visi-misi-wrap">
-  <div class="section-inner">
-    <div class="vm-header reveal">
-      <div class="section-tag">🎯 Arah &amp; Tujuan</div>
-      <h2 class="section-heading">Visi, Misi &amp; Tujuan Sekolah</h2>
-      <p class="section-sub">Landasan kami dalam membentuk generasi penerus bangsa yang unggul dan berkarakter</p>
-    </div>
-    <div class="vm-grid">
-      <!-- VISI -->
-      <div class="visi-card reveal">
-        <div class="visi-icon-wrap">
-          <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-        </div>
-        <div class="visi-body">
-          <span class="card-tag">Visi Sekolah</span>
-          <h3>Terwujudnya peserta didik yang beriman, bertaqwa, berakhlak mulia, berprestasi, terampil, berbudaya, dan berwawasan lingkungan hidup</h3>
-        </div>
-      </div>
-      <!-- MISI -->
-      <div class="vm-sub-card reveal">
-        <div class="vm-card-title">
-          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-          Misi Sekolah
-        </div>
-        <ul class="misi-list">
-          <li><span class="misi-num">1</span>Menumbuhkan penghayatan dan pengamalan ajaran agama serta nilai-nilai Pancasila dalam kehidupan sehari-hari</li>
-          <li><span class="misi-num">2</span>Melaksanakan pembelajaran yang aktif, inovatif, kreatif, efektif, dan menyenangkan (PAIKEM)</li>
-          <li><span class="misi-num">3</span>Mengembangkan potensi siswa melalui kegiatan ekstrakurikuler yang terstruktur dan terarah</li>
-          <li><span class="misi-num">4</span>Membangun budaya disiplin, jujur, dan bertanggung jawab di seluruh warga sekolah</li>
-          <li><span class="misi-num">5</span>Menjalin kerja sama yang harmonis antara sekolah, orang tua, dan masyarakat</li>
-        </ul>
-      </div>
-      <!-- TUJUAN -->
-      <div class="vm-sub-card tujuan reveal">
-        <div class="vm-card-title">
-          <svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
-          Tujuan Sekolah
-        </div>
-        <ul class="tujuan-list">
-          <li>Menghasilkan lulusan yang memiliki akhlak mulia dan integritas tinggi</li>
-          <li>Meningkatkan rata-rata nilai akademik siswa secara berkelanjutan</li>
-          <li>Meraih prestasi di tingkat kota, provinsi, dan nasional</li>
-          <li>Mempersiapkan siswa yang siap melanjutkan ke jenjang pendidikan yang lebih tinggi</li>
-          <li>Menciptakan lingkungan sekolah yang bersih, hijau, dan nyaman</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ SAMBUTAN ══ -->
-<div class="section-wrap principal-section">
-  <div class="section-inner">
-    <div class="reveal">
-      <div class="section-tag">🎓 Kepala Sekolah</div>
-      <h2 class="section-heading">Sambutan Kepala Sekolah</h2>
-      <p class="section-sub">Pesan untuk seluruh warga sekolah</p>
-    </div>
-    <div class="principal-card reveal">
-      <div class="principal-avatar-wrap">
-        <div class="principal-avatar">
-          <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
-        </div>
-      </div>
-      <div class="principal-text">
-        <h3>Mas'udi M.A.</h3>
-        <div class="principal-role">Kepala SMPN 287 Jakarta</div>
-        <p class="principal-quote">Selamat datang di SMPN 287 Jakarta. Kami berkomitmen untuk memberikan pendidikan terbaik bagi putra-putri Bapak/Ibu. Bersama seluruh tenaga pendidik yang berdedikasi, kami terus berupaya menciptakan lingkungan belajar yang menyenangkan, aman, dan berkualitas demi masa depan gemilang generasi bangsa.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ GURU SLIDER ══ -->
-<div class="guru-section">
-  <div class="guru-section-inner">
-    <div class="slider-header reveal">
-      <div>
-        <div class="section-tag">👩‍🏫 Tenaga Pendidik</div>
-        <h2 class="section-heading" style="margin-bottom:4px;">Guru-Guru Kami</h2>
-        <p class="section-sub" style="margin-bottom:0;">Guru berdedikasi di SMPN 287 Jakarta</p>
-      </div>
-      <div class="nav-btns">
-        <button class="nav-btn prev" id="guruPrev">&#8592;</button>
-        <button class="nav-btn next" id="guruNext">&#8594;</button>
-      </div>
-    </div>
-
-    <div class="slider-viewport" id="guruViewport">
-      <div class="slider-track" id="guruTrack">
-        {% if guru_list %}
-          {% for guru in guru_list %}
-          <div class="g-card">
-            {% if current_user.is_authenticated %}
-            <button class="g-del-btn" onclick="deleteGuru({{ guru.id }})" title="Hapus">
-              <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
-                <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-            {% endif %}
-            {% if guru.image %}
-              <img class="g-avatar" src="{{ url_for('static', filename='uploads/' + guru.image) }}" alt="{{ guru.name }}">
-            {% else %}
-              <div class="g-avatar-ph">
-                <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
-              </div>
-            {% endif %}
-            <div class="g-name">{{ guru.name }}</div>
-            {% if guru.mapel %}<div class="g-mapel">{{ guru.mapel }}</div>{% endif %}
-            <a href="{{ url_for('views.lihat_guru', id=guru.id) }}" class="g-info-btn">
-              <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
-                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-              Lihat Profil
-            </a>
-          </div>
-          {% endfor %}
-        {% else %}
-          <div class="slider-empty">
-            <div class="empty-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
-            <h3>Belum Ada Data Guru</h3>
-            <p>Data guru akan tampil di sini setelah ditambahkan.</p>
-          </div>
-        {% endif %}
-      </div>
-    </div>
-    <div class="slider-dots" id="guruDots"></div>
-  </div>
-</div>
-
-<!-- ══ BERITA ══ -->
+<!-- ══ BERITA (3 terakhir) ══ -->
 <div class="news-section">
   <div class="news-section-inner">
-    <div class="slider-header reveal">
-      <div>
-        <div class="section-tag">📰 Informasi</div>
-        <h2 class="section-heading" style="margin-bottom:4px;">Berita &amp; Pengumuman</h2>
-        <p class="section-sub" style="margin-bottom:0;">Informasi terkini dari sekolah</p>
-      </div>
-      {% if berita_list %}
-      <div class="nav-btns">
-        <button class="nav-btn prev" id="newsPrev">&#8592;</button>
-        <button class="nav-btn next" id="newsNext">&#8594;</button>
-      </div>
-      {% endif %}
+    <div class="reveal">
+      <div class="section-tag">📰 Informasi</div>
+      <h2 class="section-heading">Berita &amp; Pengumuman</h2>
+      <p class="section-sub">Informasi terkini dari SMPN 287 Jakarta</p>
     </div>
 
-    {% if berita_list %}
-    <div class="slider-viewport" id="newsViewport">
-      <div class="slider-track" id="newsTrack">
-        {% for berita in berita_list %}
-        <div class="n-card">
+    <div class="news-grid">
+      {% if berita_list %}
+        {% for berita in berita_list[-  3:] %}
+        <div class="n-card reveal">
           <div class="n-img">
             <span class="n-badge">📢 Berita</span>
             {% if berita.img_1 %}
@@ -794,7 +429,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--off-white);colo
                 Baca Selengkapnya
               </a>
               {% if current_user.is_authenticated %}
-              <button class="n-del-btn" onclick="deleteBerita({{ berita.id }})" title="Hapus">
+              <button class="n-del-btn" onclick="deleteBerita({{ berita.id }})">
                 <svg viewBox="0 0 24 24" fill="none" width="13" height="13">
                   <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -804,27 +439,24 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--off-white);colo
           </div>
         </div>
         {% endfor %}
-      </div>
+      {% else %}
+        <div class="news-empty reveal">
+          <div class="empty-icon">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          </div>
+          <h3>Belum Ada Berita</h3>
+          <p>Berita dan pengumuman akan tampil di sini setelah ditambahkan.</p>
+        </div>
+      {% endif %}
     </div>
-    <div class="slider-dots" id="newsDots"></div>
-
-    {% else %}
-    <div class="slider-empty reveal">
-      <div class="empty-icon">
-        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-      </div>
-      <h3>Belum Ada Berita</h3>
-      <p>Berita dan pengumuman akan tampil di sini setelah ditambahkan.</p>
-    </div>
-    {% endif %}
   </div>
 </div>
 
 <!-- ══ QUICK LINKS ══ -->
 <div class="links-section">
-  <div class="section-inner">
+  <div class="section-inner" style="max-width:1000px;margin:0 auto;">
     <div class="reveal">
-      <div class="section-tag" style="background:rgba(232,184,75,.15);color:var(--gold);">⚡ Layanan</div>
+      <div class="section-tag">⚡ Layanan</div>
       <h2 class="section-heading">Layanan Sekolah</h2>
       <p class="section-sub">Akses cepat ke layanan digital sekolah</p>
     </div>
@@ -841,94 +473,26 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--off-white);colo
         <div class="link-icon"><svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
         <span>Buat Akun</span>
       </a>
-      <a href="#" class="link-card">
+      <a href="/kontak" class="link-card">
         <div class="link-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
         <span>Kontak Sekolah</span>
       </a>
-      <a href="#" class="link-card">
-        <div class="link-icon"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg></div>
-        <span>Kalender Akademik</span>
-      </a>
-      <a href="#" class="link-card">
-        <div class="link-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></div>
-        <span>Dokumen Sekolah</span>
+      <a href="/login-siswa" class="link-card">
+        <div class="link-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+        <span>Cek Kelulusan</span>
       </a>
     </div>
   </div>
 </div>
 
-<!-- ══ SCRIPTS ══ -->
 <script>
-/* Scroll reveal */
-(function(){
-  var els=document.querySelectorAll('.reveal');
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');}});
-  },{threshold:.12});
-  els.forEach(function(el){io.observe(el);});
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: .1 });
+  els.forEach(function (el) { io.observe(el); });
 })();
-
-/* Generic slider factory */
-function makeSlider(vpId,trackId,dotsId,prevId,nextId,visibleFn){
-  var vp=document.getElementById(vpId);
-  var track=document.getElementById(trackId);
-  var dotsEl=document.getElementById(dotsId);
-  var btnP=document.getElementById(prevId);
-  var btnN=document.getElementById(nextId);
-  if(!track)return;
-  var cards=Array.from(track.children);
-  var total=cards.length;
-  var cur=0;var timer=null;var GAP=20;
-
-  function vis(){return visibleFn(vp.offsetWidth);}
-  function maxIdx(){return Math.max(0,total-vis());}
-  function cw(){return(vp.offsetWidth-GAP*(vis()-1))/vis();}
-  function setW(){cards.forEach(function(c){c.style.width=cw()+'px';});}
-  function offset(){return cur*(cw()+GAP);}
-  function go(idx){
-    cur=Math.max(0,Math.min(idx,maxIdx()));
-    track.style.transform='translateX(-'+offset()+'px)';
-    dots();
-  }
-  function dots(){
-    if(!dotsEl)return;
-    dotsEl.innerHTML='';
-    for(var i=0;i<=maxIdx();i++){
-      var d=document.createElement('button');
-      d.className='s-dot'+(i===cur?' active':'');
-      (function(i){d.onclick=function(){go(i);};})(i);
-      dotsEl.appendChild(d);
-    }
-  }
-  function next(){go(cur>=maxIdx()?0:cur+1);}
-  function prev(){go(cur<=0?maxIdx():cur-1);}
-  function startA(){timer=setInterval(next,4500);}
-  function stopA(){clearInterval(timer);}
-
-  if(btnP)btnP.onclick=function(){stopA();prev();startA();};
-  if(btnN)btnN.onclick=function(){stopA();next();startA();};
-  vp.addEventListener('mouseenter',stopA);
-  vp.addEventListener('mouseleave',startA);
-
-  var tx=0;
-  vp.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;stopA();});
-  vp.addEventListener('touchend',function(e){
-    var d=tx-e.changedTouches[0].clientX;
-    if(Math.abs(d)>50)d>0?next():prev();
-    startA();
-  });
-  window.addEventListener('resize',function(){setW();go(0);});
-  setW();dots();startA();
-}
-
-document.addEventListener('DOMContentLoaded',function(){
-  makeSlider('guruViewport','guruTrack','guruDots','guruPrev','guruNext',function(w){
-    if(w<=480)return 1;if(w<=720)return 2;return 4;
-  });
-  makeSlider('newsViewport','newsTrack','newsDots','newsPrev','newsNext',function(w){
-    if(w<=560)return 1;if(w<=820)return 2;return 3;
-  });
-});
 </script>
 
 {% endblock %}

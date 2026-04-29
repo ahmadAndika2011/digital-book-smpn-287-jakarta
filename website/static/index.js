@@ -12,7 +12,7 @@ function deleteBerita(beritaId){
         method: "POST",
         body: JSON.stringify({beritaId: beritaId})
     }).then((_res) => {
-        window.location.href = "/"
+        window.location.href = "/berita"
     })
 }
 

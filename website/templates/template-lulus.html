@@ -1,0 +1,445 @@
+{%extends "base.html"%}
+{%block title%}Check Kelulusan – SMPN 287 Jakarta{%endblock%}
+
+{%block content%}
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --blue-dark:  #1a3a5c;
+    --blue-mid:   #2c5f8a;
+    --blue-light: #e8f2fb;
+    --gold:       #f0a500;
+    --gold-light: #fff8e6;
+    --green:      #1a7a4a;
+    --green-bg:   #edfbf3;
+    --red:        #c0392b;
+    --red-bg:     #fdf0ef;
+    --gray:       #6b7c93;
+    --border:     #dce8f3;
+    --white:      #ffffff;
+    --text:       #1a2d40;
+  }
+
+  /* ── page wrapper ── */
+  .kl-page {
+    background: #f4f8fc;
+    min-height: 80vh;
+    padding: 3rem 1rem 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ── breadcrumb ── */
+  .kl-breadcrumb {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: .8rem;
+    color: var(--gray);
+    margin-bottom: 1.5rem;
+    align-self: flex-start;
+    max-width: 680px;
+    width: 100%;
+    animation: fadeDown .5s ease both;
+  }
+  .kl-breadcrumb a { color: var(--blue-mid); text-decoration: none; }
+  .kl-breadcrumb a:hover { text-decoration: underline; }
+  .kl-breadcrumb span { margin: 0 .4rem; }
+
+  /* ── main card ── */
+  .kl-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    max-width: 680px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(26,58,92,.08), 0 1px 3px rgba(26,58,92,.06);
+    animation: cardUp .6s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  @keyframes cardUp {
+    from { opacity:0; transform:translateY(28px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  @keyframes fadeDown {
+    from { opacity:0; transform:translateY(-8px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(12px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  /* ── card header band ── */
+  .kl-header {
+    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 100%);
+    padding: 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .kl-header::after {
+    content: '';
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.05);
+    pointer-events: none;
+  }
+  .kl-header-tag {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: .6rem;
+    animation: fadeDown .5s .2s ease both;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+  .kl-header-title {
+    font-family: 'Merriweather', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.25;
+    animation: fadeDown .5s .3s ease both;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+  .kl-header-sub {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: .85rem;
+    color: rgba(255,255,255,.65);
+    margin-top: .35rem;
+    animation: fadeDown .5s .4s ease both;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+
+  /* gold accent line below header */
+  .kl-accent-line {
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), #ffd166, var(--gold));
+    animation: lineExpand .8s .5s ease both;
+    transform-origin: left;
+    transform: scaleX(0);
+    animation-fill-mode: forwards;
+  }
+  @keyframes lineExpand {
+    to { transform: scaleX(1); }
+  }
+
+  /* ── card body ── */
+  .kl-body {
+    padding: 2rem 2.5rem;
+  }
+
+  /* info row */
+  .kl-info-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.75rem;
+    animation: fadeUp .5s .45s ease both;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+
+  .kl-info-box {
+    flex: 1;
+    min-width: 150px;
+    background: var(--blue-light);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: .9rem 1.1rem;
+  }
+  .kl-info-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--blue-mid);
+    margin-bottom: .3rem;
+  }
+  .kl-info-value {
+    font-family: 'Merriweather', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    word-break: break-word;
+  }
+
+  /* divider */
+  .kl-hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0 0 1.75rem;
+  }
+
+  /* ── status section ── */
+  .kl-status-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: .75rem;
+    animation: fadeUp .5s .55s ease both;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+
+  .kl-status-card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.25rem;
+    animation: statusPop .6s .65s cubic-bezier(.34,1.46,.64,1) both;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+  @keyframes statusPop {
+    from { opacity:0; transform:scale(.92); }
+    to   { opacity:1; transform:scale(1); }
+  }
+
+  .kl-status-card.lulus {
+    background: var(--green-bg);
+    border: 1.5px solid rgba(26,122,74,.3);
+  }
+  .kl-status-card.tidak {
+    background: var(--red-bg);
+    border: 1.5px solid rgba(192,57,43,.3);
+  }
+
+  .kl-status-icon {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  .kl-status-card.lulus .kl-status-icon {
+    background: rgba(26,122,74,.12);
+    border: 2px solid rgba(26,122,74,.25);
+  }
+  .kl-status-card.tidak .kl-status-icon {
+    background: rgba(192,57,43,.12);
+    border: 2px solid rgba(192,57,43,.25);
+  }
+
+  .kl-status-verdict {
+    font-family: 'Merriweather', serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+  }
+  .kl-status-card.lulus .kl-status-verdict { color: var(--green); }
+  .kl-status-card.tidak .kl-status-verdict { color: var(--red); }
+
+  .kl-status-desc {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: .85rem;
+    color: var(--gray);
+    margin-top: .2rem;
+    line-height: 1.5;
+  }
+
+  /* pulse dot */
+  .kl-pulse {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: .4rem;
+    vertical-align: middle;
+    animation: pulseDot 2s 1.2s ease-in-out infinite;
+  }
+  @keyframes pulseDot {
+    0%,100% { transform:scale(1); opacity:1; }
+    50%      { transform:scale(1.8); opacity:.4; }
+  }
+  .kl-status-card.lulus .kl-pulse { background: var(--green); }
+  .kl-status-card.tidak .kl-pulse { background: var(--red); }
+
+  /* message notice */
+  .kl-notice {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: .88rem;
+    line-height: 1.7;
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    animation: fadeUp .5s .75s ease both;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+  .kl-notice.lulus {
+    background: var(--green-bg);
+    border-left: 3px solid var(--green);
+    color: #155a35;
+  }
+  .kl-notice.tidak {
+    background: var(--red-bg);
+    border-left: 3px solid var(--red);
+    color: #8b2219;
+  }
+
+  /* ── footer actions ── */
+  .kl-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: .75rem;
+    padding: 1.25rem 2.5rem;
+    background: #f9fbfd;
+    border-top: 1px solid var(--border);
+    animation: fadeUp .5s .85s ease both;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+  .kl-footer-note {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: .78rem;
+    color: var(--gray);
+  }
+  .kl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    padding: .6rem 1.3rem;
+    border-radius: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: .85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all .18s ease;
+  }
+  .kl-btn-outline {
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    color: var(--blue-dark);
+  }
+  .kl-btn-outline:hover {
+    border-color: var(--blue-mid);
+    background: var(--blue-light);
+    color: var(--blue-dark);
+    text-decoration: none;
+  }
+  .kl-btn-primary {
+    border: none;
+    background: var(--blue-dark);
+    color: var(--white);
+  }
+  .kl-btn-primary:hover {
+    background: var(--blue-mid);
+    color: var(--white);
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(26,58,92,.25);
+  }
+
+  /* responsive */
+  @media (max-width: 520px) {
+    .kl-header, .kl-body { padding: 1.5rem; }
+    .kl-footer { padding: 1rem 1.5rem; }
+    .kl-status-card { flex-direction: column; align-items: flex-start; gap: .75rem; }
+    .kl-header-title { font-size: 1.2rem; }
+    .kl-footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+
+<div class="kl-page">
+
+  <!-- breadcrumb -->
+  <nav class="kl-breadcrumb">
+    <a href="/">Beranda</a>
+    <span>›</span>
+    <a href="/check-kelulusan">Check Kelulusan</a>
+    <span>›</span>
+    Hasil
+  </nav>
+
+  <div class="kl-card">
+
+    <!-- header band -->
+    <div class="kl-header">
+      <div class="kl-header-tag">📋 Pengumuman Kelulusan</div>
+      <div class="kl-header-title">Hasil Pemeriksaan Kelulusan</div>
+      <div class="kl-header-sub">SMP Negeri 287 Jakarta &mdash; Tahun Ajaran 2024/2025</div>
+    </div>
+    <div class="kl-accent-line"></div>
+
+    <!-- body -->
+    <div class="kl-body">
+
+      <!-- student name -->
+      <div class="kl-info-row">
+        <div class="kl-info-box">
+          <div class="kl-info-label">Nama Siswa</div>
+          <div class="kl-info-value">{{ name }}</div>
+        </div>
+      </div>
+
+      <hr class="kl-hr">
+
+      <!-- status -->
+      <div class="kl-status-label">Status Kelulusan</div>
+
+      {% if lulus == "Ya" %}
+
+        <div class="kl-status-card lulus">
+          <div class="kl-status-icon">🎓</div>
+          <div>
+            <div class="kl-status-verdict">
+              <span class="kl-pulse"></span>LULUS
+            </div>
+            <div class="kl-status-desc">Dinyatakan lulus berdasarkan hasil evaluasi sekolah.</div>
+          </div>
+        </div>
+
+        <div class="kl-notice lulus">
+          🎉 Selamat, <strong>{{ name }}</strong>! Kamu telah berhasil menyelesaikan pendidikan di SMPN 287 Jakarta.
+          Semoga sukses melanjutkan ke jenjang pendidikan berikutnya. Terus semangat dan berprestasi!
+        </div>
+
+      {% else %}
+
+        <div class="kl-status-card tidak">
+          <div class="kl-status-icon">📄</div>
+          <div>
+            <div class="kl-status-verdict">
+              <span class="kl-pulse"></span>BELUM LULUS
+            </div>
+            <div class="kl-status-desc">Data belum menunjukkan kelulusan pada periode ini.</div>
+          </div>
+        </div>
+
+        <div class="kl-notice tidak">
+          Mohon maaf, <strong>{{ name }}</strong> belum dinyatakan lulus pada periode ini.
+          Silakan hubungi pihak sekolah di <strong>(021) 4891-287</strong> atau datang langsung untuk informasi dan langkah selanjutnya.
+        </div>
+
+      {% endif %}
+
+    </div>
+
+    <!-- footer -->
+    <div class="kl-footer">
+      <span class="kl-footer-note">📅 Data diperbarui secara resmi oleh sekolah.</span>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap;">
+        <a href="{{ url_for('views.data_siswa') }}" class="kl-btn kl-btn-outline">← Cek Siswa Lain</a>
+        <a href="/" class="kl-btn kl-btn-primary">Kembali ke Beranda</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{%endblock%}

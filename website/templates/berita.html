@@ -138,10 +138,7 @@ Data Berita
                     <tr>
                         <th>No</th>
                         <th>Judul Berita</th>
-                        <th>Img 1</th>
-                        <th>Img 2</th>
-                        <th>Img 3</th>
-                        <th>Video</th>
+                        <th>Gambar</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -161,44 +158,17 @@ Data Berita
                             {% endif %}
                         </td>
 
-                        <!-- Img 2 -->
-                        <td>
-                            {% if berita.img_2 %}
-                            <img src="{{ url_for('static', filename='uploads/' + berita.img_2) }}" class="berita-img">
-                            {% else %}
-                            -
-                            {% endif %}
-                        </td>
-
-                        <!-- Img 3 -->
-                        <td>
-                            {% if berita.img_3 %}
-                            <img src="{{ url_for('static', filename='uploads/' + berita.img_3) }}" class="berita-img">
-                            {% else %}
-                            -
-                            {% endif %}
-                        </td>
-
-                        <!-- Video -->
-                        <td>
-                            {% if berita.video %}
-                            <a href="{{ berita.video }}" target="_blank" class="btn-video">
-                                Lihat
-                            </a>
-                            {% else %}
-                            -
-                            {% endif %}
-                        </td>
-
                         <!-- Aksi -->
                         <td>
                             <a href="{{ url_for('views.lihat_berita', id=berita.id) }}" class="btn-info-custom">
                                 Info
                             </a>
 
-                            <button onclick="deleteBerita({{ berita.id }})" class="btn-delete">
-                                Hapus
-                            </button>
+                            {%if current_user.is_authenticated%}
+                                <button onclick="deleteBerita({{ berita.id }})" class="btn-delete">
+                                    Hapus
+                                </button>
+                            {%endif%}
                         </td>
                     </tr>
                     {% endfor %}

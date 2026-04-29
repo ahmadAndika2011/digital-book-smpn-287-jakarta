@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Kontak - SMP Negeri 287 Jakarta{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-5 text-white">
+        <h2 class="fw-bold" style="color: #FFC107;">Hubungi Kami</h2>
+        <p>Kami siap membantu Anda. Silakan hubungi kami melalui formulir di bawah atau informasi kontak resmi kami.</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-4">
+    <div class="card h-100 border-0 shadow-sm" style="background: #f8f9fa;"> <div class="card-body p-4">
+            <h4 class="mb-4 fw-bold" style="color: #FFC107;">Informasi Resmi</h4>
+            
+            <div class="d-flex mb-3">
+                <div class="me-3">
+                    <i class="fas fa-map-marker-alt fa-lg" style="color: #FFC107;"></i>
+                </div>
+                <div>
+                    <h6 class="mb-1 fw-bold" style="color: #001F3F;">Alamat</h6>
+                    <p class="small text-muted">Jl. Raya Jakarta No. 123, Jakarta Timur, DKI Jakarta</p>
+                </div>
+            </div>
+
+            <div class="d-flex mb-3">
+                <div class="me-3">
+                    <i class="fas fa-phone-alt fa-lg" style="color: #FFC107;"></i>
+                </div>
+                <div>
+                    <h6 class="mb-1 fw-bold" style="color: #001F3F;">Telepon</h6>
+                    <p class="small text-muted">(021) 4891-287</p>
+                </div>
+            </div>
+
+            <div class="d-flex mb-3">
+                <div class="me-3">
+                    <i class="fas fa-envelope fa-lg" style="color: #FFC107;"></i>
+                </div>
+                <div>
+                    <h6 class="mb-1 fw-bold" style="color: #001F3F;">Email</h6>
+                    <p class="small text-muted">info@smpn287-jkt.sch.id</p>
+                </div>
+            </div>
+
+            <div class="d-flex">
+                <div class="me-3">
+                    <i class="fas fa-clock fa-lg" style="color: #FFC107;"></i>
+                </div>
+                <div>
+                    <h6 class="mb-1 fw-bold" style="color: #001F3F;">Jam Operasional</h6>
+                    <p class="small text-muted">Senin - Jumat: 07.00 - 15.00 WIB</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm p-4">
+                <form action="/kontak" method="POST">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Nama Lengkap</label>
+                            <input type="text" name="nama" class="form-control" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Subjek</label>
+                        <input type="text" name="subjek" class="form-control">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Pesan Anda</label>
+                        <textarea name="pesan" class="form-control" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn fw-bold px-4 py-2" style="background-color: #FFC107;">
+                        Kirim Pesan
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

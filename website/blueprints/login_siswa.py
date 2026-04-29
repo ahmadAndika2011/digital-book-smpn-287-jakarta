@@ -17,7 +17,7 @@ def login_siswa():
                 name = DatabaseSiswa.query.filter_by(nis=check_nis.nis).first().nama.split()[0]
                 lulus = DatabaseSiswa.query.filter_by(nis=check_nis.nis).first().lulus
                 flash(f"Selamat Login.", category="success")
-                return redirect(url_for("views.data_siswa", name=name, lulus=lulus))
+                return redirect(url_for("views.template_lulus", name=name, lulus=lulus))
             else:
                 flash("Password salah!", category="error")
         else:

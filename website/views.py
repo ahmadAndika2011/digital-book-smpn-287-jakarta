@@ -193,3 +193,15 @@ def kurikulum():
 @views.route("/ekstrakurikuler")
 def ekstrakurikuler():
     return render_template("ekstrakurikuler.html")
+
+#? template lulus
+@views.route("/check-kelulusan")
+def template_lulus():
+    name = request.args.get("name")
+    lulus = request.args.get("lulus")
+    return render_template("template-lulus.html", name=name, lulus=lulus)
+
+# #? Kontak
+# @views.route("/kontak")
+# def kontak():
+#     return render_template("kontak.html")
