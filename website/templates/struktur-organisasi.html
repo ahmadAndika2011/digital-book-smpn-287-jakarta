@@ -1,0 +1,121 @@
+{%extends "base.html"%}
+{%block title%}Struktur Organisasi{%endblock%}
+
+{%block content%}
+    <div class="org-container">
+        <h2 style="text-align: center; margin-bottom: 40px; color: #1a3c6d;">Struktur Organisasi SMPN 287 Jakarta</h2>
+
+        <div class="org-chart">
+            <div class="node-group">
+                <div class="node leader">
+                    <p class="role">Kepala Sekolah</p>
+                    <p class="name">{{nama_kepsek.name}}</p>
+                </div>
+            </div>
+
+            <div class="node-group-row">
+                <div class="node staff">
+                    <p class="role">Komite Sekolah</p>
+                    <p class="name">Ketua Komite</p>
+                </div>
+                <div class="node staff">
+                    <p class="role">Kepala Tata Usaha</p>
+                    <p class="name">Nama Kepala TU</p>
+                </div>
+            </div>
+
+            <div class="node-group-row">
+                <div class="node sub-leader">
+                    <p class="role">Wakil Akademik</p>
+                    <p class="name">{{akademik.name}}</p>
+                </div>
+                <div class="node sub-leader">
+                    <p class="role">Wakil Kesiswaan</p>
+                    <p class="name">{{kesiswaan.name}}</p>
+                </div>
+                <div class="node sub-leader">
+                    <p class="role">Wakil Sarana Prasarana</p>
+                    <p class="name">{{sarpras.name}}</p>
+                </div>
+                <div class="node sub-leader">
+                    <p class="role">Wakil Humas</p>
+                    <p class="name">{{humas.name}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .org-container {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 50px 20px;
+            background-color: #f4f7f9;
+        }
+
+        .org-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .node-group-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .node {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px 25px;
+            min-width: 200px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .node:hover {
+            transform: translateY(-5px);
+        }
+
+        .role {
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #555;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .name {
+            font-size: 1.1rem;
+            color: #1a3c6d;
+            margin: 5px 0 0 0;
+            font-weight: 600;
+        }
+
+        /* Warna Khusus per Tingkatan */
+        .leader {
+            border-top: 5px solid #ffc107; /* Kuning seperti logo Anda */
+            background-color: #fffbef;
+        }
+
+        .sub-leader {
+            border-top: 5px solid #1a3c6d; /* Biru gelap */
+        }
+
+        .staff {
+            border-top: 5px solid #6c757d;
+        }
+
+        /* Responsif untuk HP */
+        @media (max-width: 768px) {
+            .node {
+                width: 100%;
+            }
+        }
+    </style>
+{%endblock%}

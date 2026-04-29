@@ -1,0 +1,318 @@
+{% extends "base.html" %}
+{% block title %}Profil SMPN 287 Jakarta{% endblock %}
+
+{% block content %}
+
+<style>
+    :root {
+        --primary-blue: #224abe;
+        --secondary-blue: #4e73df;
+        --soft-bg: #f8f9fc;
+        --transition: all 0.3s ease-in-out;
+    }
+
+    body {
+        background-color: var(--soft-bg);
+    }
+
+    /* CONTAINER LIMITER */
+    .profile-wrapper {
+        max-width: 1140px; /* Membatasi lebar agar tidak nempel ke pinggir */
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* HERO SECTION */
+    .hero {
+        background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+        color: white;
+        padding: 100px 20px;
+        border-radius: 24px;
+        text-align: center;
+        margin-top: 40px;
+        box-shadow: 0 20px 40px rgba(34, 74, 190, 0.2);
+    }
+
+    /* STATS SECTION (TAMBAHAN COCOK) */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: -50px; /* Membuat efek melayang di atas hero */
+        padding: 0 40px;
+    }
+
+    .stat-card {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        transition: var(--transition);
+    }
+
+    .stat-card:hover { transform: translateY(-10px); }
+    .stat-card h3 { color: var(--primary-blue); font-weight: 800; margin-bottom: 5px; }
+    .stat-card p { color: #858796; margin: 0; font-size: 0.9rem; }
+
+    /* CONTENT CARDS */
+    .custom-card {
+        background: white;
+        border: none;
+        border-radius: 20px;
+        padding: 40px;
+        margin-top: 30px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    .section-title {
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 25px;
+        position: relative;
+        display: inline-block;
+    }
+
+    .section-title::after {
+        content: '';
+        display: block;
+        width: 50%;
+        height: 4px;
+        background: var(--secondary-blue);
+        margin-top: 8px;
+        border-radius: 10px;
+    }
+
+    /* VISI MISI */
+    .vm-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-top: 40px;
+    }
+
+    .visi-box {
+        background: var(--primary-blue);
+        color: white;
+        padding: 40px;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .list-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 15px;
+    }
+
+    .icon-box {
+        background: #eef2ff;
+        color: var(--primary-blue);
+        min-width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        margin-right: 15px;
+        font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+        .vm-grid { grid-template-columns: 1fr; }
+        .hero { padding: 60px 20px; }
+    }
+
+    /* EFEK HOVER PADA CARD UTAMA */
+.custom-card {
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+    border-left: 5px solid var(--primary-blue); /* Memberikan aksen garis saat di-hover */
+}
+
+/* EFEK PADA STATS CARD */
+.stat-card {
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.stat-card:hover {
+    background-color: #fff;
+    transform: scale(1.05);
+    border-color: var(--secondary-blue);
+    box-shadow: 0 10px 20px rgba(78, 115, 223, 0.15);
+}
+
+.stat-card:hover h3 {
+    color: var(--secondary-blue);
+    transition: 0.3s;
+}
+
+/* EFEK PADA LIST ITEM (MISI) */
+.list-item {
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.3s;
+    cursor: default;
+}
+
+.list-item:hover {
+    background-color: rgba(78, 115, 223, 0.05);
+    padding-left: 20px; /* Efek bergeser sedikit ke kanan */
+}
+
+.list-item:hover .icon-box {
+    background: var(--primary-blue);
+    color: white;
+    transform: rotate(360deg); /* Ikon angka berputar saat di-hover */
+    transition: 0.5s;
+}
+
+/* EFEK PADA GAMBAR */
+.img-fluid {
+    transition: 0.5s;
+    filter: grayscale(20%);
+}
+
+.img-fluid:hover {
+    filter: grayscale(0%);
+    transform: scale(1.02);
+}
+
+/* EFEK PADA VISI BOX */
+.visi-box {
+    transition: 0.4s;
+}
+
+.visi-box:hover {
+    filter: brightness(1.1);
+    letter-spacing: 0.5px; /* Teks sedikit merenggang pelan */
+}
+</style>
+
+<div class="profile-wrapper">
+    
+    <div class="hero">
+        <h1 class="display-4 fw-bold">Profil Sekolah</h1>
+        <p class="lead">SMPN 287 Jakarta: Cerdas, Berkarakter, Berprestasi</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>{{jumlah_siswa}}</h3>
+            <p>Siswa Aktif</p>
+        </div>
+        <div class="stat-card">
+            <h3>{{jumlah_guru}}</h3>
+            <p>Guru & Staf</p>
+        </div>
+        <div class="stat-card">
+            <h3>A</h3>
+            <p>Akreditasi</p>
+        </div>
+        <div class="stat-card">
+            <h3>24</h3>
+            <p>Ekstrakurikuler</p>
+        </div>
+    </div>
+
+    <div class="custom-card">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <h2 class="section-title">Tentang SMPN 287</h2>
+                <p class="text-muted" style="line-height: 1.8; font-size: 1.1rem;">
+                    SMP Negeri 287 Jakarta berkomitmen untuk menyelenggarakan pendidikan yang inklusif 
+                    dan inovatif. Kami fokus pada pengembangan potensi akademik serta penguatan karakter 
+                    berdasarkan nilai-nilai luhur bangsa untuk menghadapi tantangan global.
+                </p>
+            </div>
+            <div class="col-lg-5 text-center">
+                <img src="https://via.placeholder.com/400x300" alt="Sekolah" class="img-fluid rounded-4 shadow">
+            </div>
+        </div>
+    </div>
+
+    <div class="vm-grid">
+        <div class="visi-box shadow-lg">
+            <h3 class="fw-bold mb-4">Visi</h3>
+            <p class="fs-5 italic" style="opacity: 0.9;">
+                "Terwujudnya peserta didik yang beriman, bertaqwa, berakhlak mulia, berprestasi, 
+                terampil, berbudaya, dan berwawasan lingkungan hidup."
+            </p>
+        </div>
+
+        <div class="custom-card mt-0">
+            <h3 class="section-title">Misi Kami</h3>
+            <div class="list-item">
+                <div class="icon-box">1</div>
+                <p class="mb-0">Meningkatkan pengamalan ajaran agama dalam kehidupan sehari-hari.</p>
+            </div>
+            <div class="list-item">
+                <div class="icon-box">2</div>
+                <p class="mb-0">Menyelenggarakan pembelajaran aktif, kreatif, dan inovatif.</p>
+            </div>
+            <div class="list-item">
+                <div class="icon-box">3</div>
+                <p class="mb-0">Mengembangkan bakat dan minat melalui kegiatan ekstrakurikuler.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="custom-card mb-5">
+        <h2 class="section-title">Fasilitas Unggulan</h2>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="p-3 border rounded-3 text-center">
+                    <i class="fas fa-laptop-code fa-2x text-primary mb-3"></i>
+                    <h6>Lab Komputer Modern</h6>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 border rounded-3 text-center">
+                    <i class="fas fa-book-reader fa-2x text-primary mb-3"></i>
+                    <h6>Perpustakaan Digital</h6>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 border rounded-3 text-center">
+                    <i class="fas fa-microscope fa-2x text-primary mb-3"></i>
+                    <h6>Laboratorium IPA</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    // Efek memudar saat elemen masuk ke layar
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.custom-card, .visi-box, .stat-card').forEach(el => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(30px)";
+        el.style.transition = "all 0.8s ease-out";
+        observer.observe(el);
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+
+{% block title %}
+Data Berita
+{% endblock %}
+
+{% block content %}
+
+<style>
+/* Container */
+.berita-container {
+    background: #f8fafc;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+/* Judul */
+.berita-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 20px;
+}
+
+/* Search */
+.search-berita {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 30px;
+    border: 2px solid #e5e7eb;
+    outline: none;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+.search-berita:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+/* Table */
+.table-berita {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-berita thead {
+    background: #f1f5f9;
+}
+
+.table-berita th {
+    padding: 14px;
+    text-align: left;
+    font-weight: 600;
+    color: #334155;
+}
+
+.table-berita td {
+    padding: 12px;
+    vertical-align: middle;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.table-berita tr:hover {
+    background: #f9fafb;
+}
+
+/* Gambar */
+.berita-img {
+    width: 90px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    transition: 0.3s;
+}
+.berita-img:hover {
+    transform: scale(1.05);
+}
+
+/* Tombol video */
+.btn-video {
+    background: #ef4444;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.btn-video:hover {
+    background: #dc2626;
+}
+
+/* Tombol info */
+.btn-info-custom {
+    background: #3b82f6;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.btn-info-custom:hover {
+    background: #2563eb;
+}
+
+.btn-delete {
+    background: #ef4444;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: 5px;
+}
+
+.btn-delete:hover {
+    background: #dc2626;
+}
+</style>
+
+<div class="container py-5">
+    <div class="berita-container">
+
+        <h2 class="berita-title">Daftar Berita</h2>
+
+        <!-- Search -->
+        <input type="text" class="search-berita" placeholder="Cari berita...">
+
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="table-berita">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Judul Berita</th>
+                        <th>Img 1</th>
+                        <th>Img 2</th>
+                        <th>Img 3</th>
+                        <th>Video</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for berita in list_berita %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ berita.name }}</td>
+
+                        <!-- Img 1 -->
+                        <td>
+                            {% if berita.img_1 %}
+                            <img src="{{ url_for('static', filename='uploads/' + berita.img_1) }}" class="berita-img">
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+
+                        <!-- Img 2 -->
+                        <td>
+                            {% if berita.img_2 %}
+                            <img src="{{ url_for('static', filename='uploads/' + berita.img_2) }}" class="berita-img">
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+
+                        <!-- Img 3 -->
+                        <td>
+                            {% if berita.img_3 %}
+                            <img src="{{ url_for('static', filename='uploads/' + berita.img_3) }}" class="berita-img">
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+
+                        <!-- Video -->
+                        <td>
+                            {% if berita.video %}
+                            <a href="{{ berita.video }}" target="_blank" class="btn-video">
+                                Lihat
+                            </a>
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+
+                        <!-- Aksi -->
+                        <td>
+                            <a href="{{ url_for('views.lihat_berita', id=berita.id) }}" class="btn-info-custom">
+                                Info
+                            </a>
+
+                            <button onclick="deleteBerita({{ berita.id }})" class="btn-delete">
+                                Hapus
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

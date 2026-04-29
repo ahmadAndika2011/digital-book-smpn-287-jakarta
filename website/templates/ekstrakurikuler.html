@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}Ekstrakurikuler - SMPN 287 Jakarta{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">Kegiatan Ekstrakurikuler</h2>
+        <p class="text-muted">Wadah pengembangan bakat, minat, dan karakter siswa SMP Negeri 287 Jakarta.</p>
+        <hr class="mx-auto" style="width: 100px; border: 2px solid #007bff;">
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-person-badge-fill fs-3 text-primary me-3"></i>
+                        <h5 class="card-title mb-0 fw-bold">Pramuka</h5>
+                    </div>
+                    <p class="card-text text-muted small">Ekstrakurikuler wajib untuk membentuk kedisiplinan, kemandirian, dan jiwa kepemimpinan.</p>
+                    <ul class="list-unstyled mb-0 small">
+                        <li><strong>Jadwal:</strong> Jumat, 13.00 WIB</li>
+                        <li><strong>Tempat:</strong> Lapangan Utama</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-flag-fill fs-3 text-danger me-3"></i>
+                        <h5 class="card-title mb-0 fw-bold">Paskibra</h5>
+                    </div>
+                    <p class="card-text text-muted small">Melatih ketangkasan baris-berbaris dan memupuk rasa cinta tanah air.</p>
+                    <ul class="list-unstyled mb-0 small">
+                        <li><strong>Jadwal:</strong> Sabtu, 08.00 WIB</li>
+                        <li><strong>Tempat:</strong> Halaman Sekolah</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-dribbble fs-3 text-warning me-3"></i>
+                        <h5 class="card-title mb-0 fw-bold">Olahraga (Basket)</h5>
+                    </div>
+                    <p class="card-text text-muted small">Mengembangkan kebugaran fisik dan kerja sama tim dalam olahraga basket.</p>
+                    <ul class="list-unstyled mb-0 small">
+                        <li><strong>Jadwal:</strong> Selasa & Kamis</li>
+                        <li><strong>Tempat:</strong> Lapangan Basket</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-music-note-beamed fs-3 text-success me-3"></i>
+                        <h5 class="card-title mb-0 fw-bold">Seni Tari</h5>
+                    </div>
+                    <p class="card-text text-muted small">Melestarikan budaya melalui tarian tradisional dan kreasi modern.</p>
+                    <ul class="list-unstyled mb-0 small">
+                        <li><strong>Jadwal:</strong> Rabu, 15.00 WIB</li>
+                        <li><strong>Tempat:</strong> Aula Sekolah</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-moon-stars-fill fs-3 text-info me-3"></i>
+                        <h5 class="card-title mb-0 fw-bold">Rohis</h5>
+                    </div>
+                    <p class="card-text text-muted small">Memperdalam ilmu agama dan mempererat ukhuwah antar siswa muslim.</p>
+                    <ul class="list-unstyled mb-0 small">
+                        <li><strong>Jadwal:</strong> Jumat, 11.30 WIB</li>
+                        <li><strong>Tempat:</strong> Masjid Sekolah</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm bg-light">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                    <p class="text-muted mb-0">Ekskul Lainnya:</p>
+                    <p class="fw-bold">PMR, KIR, English Club, Futsal</p>
+                    <a href="/kontak" class="btn btn-outline-primary btn-sm mt-2">Tanya Admin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 p-4 bg-primary text-white rounded shadow-sm text-center">
+        <h4>Siap Mengasah Bakatmu?</h4>
+        <p>Pendaftaran ekstrakurikuler dibuka setiap awal semester baru.</p>
+        <button class="btn btn-light fw-bold shadow-sm">Daftar Sekarang</button>
+    </div>
+</div>
+{% endblock %}

@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   </head>
   <body style="background: linear-gradient(135deg, #e8f4fd, #dbeafe, #ede9fe);">
-<nav class="navbar navbar-expand-lg shadow-sm" style="
+{# <nav class="navbar navbar-expand-lg shadow-sm" style="
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -125,6 +125,287 @@
       nav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
     } else {
       nav.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+    }
+  });
+</script> #}
+
+<!-- ===== TOP BAR ===== -->
+<div style="
+  background: #2c5f8a;
+  padding: 6px 0;
+  font-size: 12px;
+  color: rgba(255,255,255,0.88);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div class="d-flex gap-3 align-items-center">
+      <span class="d-flex align-items-center gap-2">
+        <i class="fa-solid fa-phone" style="opacity:0.75; font-size:10px;"></i>
+        (021) 4891-287
+      </span>
+      <span class="d-flex align-items-center gap-2 d-none d-md-flex">
+        <i class="fa-solid fa-envelope" style="opacity:0.75; font-size:10px;"></i>
+        info@smpn287-jkt.sch.id
+      </span>
+      <span class="d-flex align-items-center gap-2 d-none d-xl-flex">
+        <i class="fa-solid fa-clock" style="opacity:0.75; font-size:10px;"></i>
+        Senin–Jumat, 07.00–15.00 WIB
+      </span>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+      <span style="font-size:11px; opacity:0.65;" class="d-none d-md-inline">Ikuti Kami:</span>
+      <a href="#" class="topbar-sosmed"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" class="topbar-sosmed"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" class="topbar-sosmed"><i class="fa-brands fa-youtube"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN NAVBAR ===== -->
+<nav class="navbar navbar-expand-lg" id="mainNavbar" style="
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #f5f8fc;
+  border-bottom: 3px solid #c8a94a;
+  padding: 0;
+  transition: box-shadow 0.3s;
+">
+  <div class="container" style="padding: 0 12px;">
+
+    <!-- Brand / Logo -->
+    <a class="navbar-brand d-flex align-items-center gap-2 py-2" href="/" style="text-decoration:none; margin-right:4px; flex-shrink:0;">
+      <div style="
+        width: 46px; height: 46px; border-radius: 50%;
+        background: white; border: 2px solid #c8a94a;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0; overflow: hidden;
+      ">
+        <img src="{{ url_for('static', filename='img/logo-smpn287.png') }}"
+             alt="Logo SMPN 287"
+             style="width:42px; height:42px; object-fit:contain;">
+      </div>
+      <div style="line-height: 1.2;">
+        <div style="font-size:13.5px; font-weight:700; color:#1c3d5e; letter-spacing:0.2px; white-space:nowrap;">SMPN 287 JAKARTA</div>
+        <div style="font-size:10.5px; color:#6b8aaa; white-space:nowrap;">SMP Negeri 287 Jakarta</div>
+      </div>
+    </a>
+
+    <!-- Toggler -->
+    <button class="navbar-toggler border-0 ms-auto" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navbarMain"
+            aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation"
+            style="padding:6px 10px;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 30 30">
+        <path stroke="#2c5f8a" stroke-linecap="round" stroke-miterlimit="10"
+              stroke-width="2.5" d="M4 7h22M4 15h22M4 23h22"/>
+      </svg>
+    </button>
+
+    <!-- Menu -->
+    <div class="collapse navbar-collapse" id="navbarMain">
+
+      <!-- Separator (desktop) -->
+      <div class="d-none d-lg-block" style="width:1px; height:32px; background:#d6e0ea; margin:0 10px; flex-shrink:0;"></div>
+
+      <ul class="navbar-nav align-items-lg-stretch mb-2 mb-lg-0" style="flex-wrap:nowrap;">
+
+        <li class="nav-item">
+          <a class="nav-link-smpn" href="/">Beranda</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link-smpn dropdown-toggle" href="#"
+             data-bs-toggle="dropdown" aria-expanded="false">Tentang</a>
+          <ul class="dropdown-menu dropdown-smpn">
+            <li><a class="dropdown-item-smpn" href="/profil-sekolah"><i class="fa-solid fa-circle-info"></i> Profil Sekolah</a></li>
+            <li><a class="dropdown-item-smpn" href="/kepala-sekolah"><i class="fa-solid fa-user-tie"></i> Kepala Sekolah</a></li>
+            <li><a class="dropdown-item-smpn" href="/struktur-organisasi"><i class="fa-solid fa-sitemap"></i> Struktur Organisasi</a></li>
+          </ul>
+        </li>
+
+        {# <li class="nav-item dropdown">
+          <a class="nav-link-smpn dropdown-toggle" href="#"
+             data-bs-toggle="dropdown" aria-expanded="false">Akademik</a>
+          <ul class="dropdown-menu dropdown-smpn">
+            <li><a class="dropdown-item-smpn" href="/kurikulum"><i class="fa-solid fa-book-open"></i> Kurikulum</a></li>
+            <li><a class="dropdown-item-smpn" href="#"><i class="fa-solid fa-calendar-days"></i> Jadwal Pelajaran</a></li>
+            <li><a class="dropdown-item-smpn" href="/ekstrakurikuler"><i class="fa-solid fa-star"></i> Ekstrakurikuler</a></li>
+          </ul>
+        </li> #}
+
+        <li class="nav-item dropdown">
+          <a class="nav-link-smpn dropdown-toggle" href="#"
+             data-bs-toggle="dropdown" aria-expanded="false">Guru/Staf</a>
+          <ul class="dropdown-menu dropdown-smpn">
+            <li><a class="dropdown-item-smpn" href="/data-guru"><i class="fa-solid fa-chalkboard-user"></i> Data Guru</a></li>
+            {%if current_user.is_authenticated%}
+            <li><a class="dropdown-item-smpn" href="/tambah-data-guru"><i class="fa-solid fa-upload"></i> Tambah Data Guru</a></li>
+            <li><a class="dropdown-item-smpn" href="/upload-data-guru"><i class="fa-solid fa-upload"></i> Upload Data Guru</a></li>
+            {%endif%}
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link-smpn" href="/data-siswa">Siswa</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link-smpn dropdown-toggle" href="#"
+             data-bs-toggle="dropdown" aria-expanded="false">Media</a>
+          <ul class="dropdown-menu dropdown-smpn">
+            <li><a class="dropdown-item-smpn" href="/berita"><i class="fa-solid fa-newspaper"></i> Berita</a></li>
+            {%if current_user.is_authenticated%}
+            <li><a class="dropdown-item-smpn" href="/tambah-berita"><i class="fa-solid fa-newspaper"></i> Tambah Berita</a></li>
+            {%endif%}
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link-smpn" href="#">Layanan</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link-smpn" href="#">Kontak</a>
+        </li>
+
+      </ul>
+
+      <!-- Right actions -->
+      <div class="d-flex align-items-center gap-2 mb-2 mb-lg-0 ms-lg-auto">
+        {% if current_user.is_authenticated %}
+          <a href="/logout" class="btn-smpn-solid">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+          </a>
+        {% else %}
+          <a href="/buat-akun" class="btn-smpn-outline">
+            <i class="fa-solid fa-user-plus"></i>
+            <span class="d-none d-xl-inline">Akun</span>
+          </a>
+          <a href="/choose-login" class="btn-smpn-solid">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            <span>Login</span>
+          </a>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+<!-- ===== STYLES ===== -->
+<style>
+  .topbar-sosmed {
+    width: 24px; height: 24px; border-radius: 4px;
+    background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    color: white; text-decoration: none; font-size: 11px;
+    transition: background 0.2s;
+  }
+  .topbar-sosmed:hover { background: rgba(255,255,255,0.28); color: white; }
+
+  .nav-link-smpn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 16px 11px;
+    color: #3a5a7a;
+    text-decoration: none;
+    font-size: 12.5px;
+    font-weight: 500;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav-link-smpn:hover,
+  .nav-link-smpn:focus,
+  .nav-link-smpn.active {
+    color: #1c3d5e;
+    border-bottom-color: #c8a94a;
+    text-decoration: none;
+  }
+
+  .dropdown-smpn {
+    background: white;
+    border: 1px solid #dde8f0;
+    border-top: 2px solid #c8a94a;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 6px 20px rgba(44,95,138,0.12);
+    padding: 4px 0;
+    min-width: 200px;
+    margin-top: 0 !important;
+  }
+  .dropdown-item-smpn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 16px;
+    font-size: 13px;
+    color: #2c5275;
+    text-decoration: none;
+    border-bottom: 1px solid #f0f5fa;
+    transition: background 0.15s, padding-left 0.15s;
+  }
+  .dropdown-item-smpn:last-child { border-bottom: none; }
+  .dropdown-item-smpn i { color: #c8a94a; width: 16px; text-align: center; font-size: 12px; }
+  .dropdown-item-smpn:hover { background: #eef4fb; padding-left: 20px; color: #1c3d5e; }
+
+  .btn-smpn-solid {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 14px;
+    background: #2c5f8a; color: white;
+    border-radius: 6px; font-size: 12.5px; font-weight: 600;
+    text-decoration: none; white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .btn-smpn-solid:hover { background: #1c4a70; color: white; }
+
+  .btn-smpn-outline {
+    display: flex; align-items: center; gap: 6px;
+    padding: 5px 12px;
+    background: transparent; color: #2c5f8a;
+    border: 1.5px solid #2c5f8a; border-radius: 6px;
+    font-size: 12.5px; font-weight: 600;
+    text-decoration: none; white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .btn-smpn-outline:hover { background: #2c5f8a; color: white; }
+
+  /* Mobile */
+  @media (max-width: 991px) {
+    .nav-link-smpn {
+      padding: 9px 6px;
+      border-bottom: none;
+      border-left: 3px solid transparent;
+      margin-bottom: 0;
+    }
+    .nav-link-smpn:hover, .nav-link-smpn.active {
+      border-left-color: #c8a94a;
+      border-bottom-color: transparent;
+      background: #eef4fb;
+      border-radius: 4px;
+      padding-left: 10px;
+    }
+    .dropdown-smpn {
+      border: none;
+      border-left: 3px solid #c8a94a;
+      border-radius: 0;
+      box-shadow: none;
+      background: #f0f5fb;
+    }
+  }
+</style>
+
+<!-- ===== SCROLL SHADOW ===== -->
+<script>
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('mainNavbar');
+    if (window.scrollY > 10) {
+      nav.style.boxShadow = '0 4px 16px rgba(44,95,138,0.15)';
+    } else {
+      nav.style.boxShadow = 'none';
     }
   });
 </script>

@@ -344,6 +344,7 @@
         Kembali ke Daftar Guru
       </a>
 
+      {%if current_user.is_authenticated%}
       <a href="{{ url_for('views.home', id=guru.id) }}" class="btn-edit">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
@@ -352,6 +353,7 @@
         </svg>
         Edit Profil
       </a>
+      {%endif%}
     </div>
     {# <a href="/" class="btn-back">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

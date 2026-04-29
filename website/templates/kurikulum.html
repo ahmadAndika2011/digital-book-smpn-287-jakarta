@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Kurikulum - SMPN 287 Jakarta{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold border-bottom d-inline-block pb-2">Kurikulum Sekolah</h2>
+        <p class="text-muted mt-2">Sistem pendidikan dan struktur pembelajaran di SMP Negeri 287 Jakarta.</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body p-4">
+                    <h4 class="card-title text-primary"><i class="fas fa-book-open me-2"></i>Kurikulum Merdeka</h4>
+                    <p>Saat ini SMPN 287 Jakarta menerapkan <strong>Kurikulum Merdeka</strong> yang berfokus pada pengembangan karakter dan kompetensi siswa melalui pembelajaran intrakurikuler yang beragam dan Proyek Penguatan Profil Pelajar Pancasila (P5).</p>
+                    <hr>
+                    <h5>Struktur Mata Pelajaran:</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Pendidikan Agama dan Budi Pekerti</li>
+                        <li class="list-group-item">Pendidikan Pancasila</li>
+                        <li class="list-group-item">Bahasa Indonesia & Bahasa Inggris</li>
+                        <li class="list-group-item">Matematika, IPA, dan IPS</li>
+                        <li class="list-group-item">PJOK, Seni, dan Prakarya</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-light border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="fw-bold text-dark">Kalender Akademik</h5>
+                    <p class="small text-muted">Unduh jadwal kegiatan belajar mengajar tahun ajaran 2025/2026.</p>
+                    <a href="#" class="btn btn-outline-primary btn-sm w-100 disabled">Download PDF (Segera)</a>
+                </div>
+            </div>
+
+            <div class="card bg-primary text-white border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h6>Tahun Ajaran</h6>
+                    <h3 class="fw-bold">2025/2026</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 p-4 bg-white rounded shadow-sm">
+        <h4 class="fw-bold"><i class="fas fa-users-cog me-2"></i>Proyek Penguatan Profil Pelajar Pancasila (P5)</h4>
+        <p>Program ini dirancang untuk menguatkan upaya pencapaian kompetensi dan karakter sesuai dengan profil pelajar Pancasila melalui tema-tema seperti:</p>
+        <div class="row text-center mt-3">
+            <div class="col-6 col-md-3">
+                <div class="p-3 border rounded">Gaya Hidup Berkelanjutan</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="p-3 border rounded">Kearifan Lokal</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="p-3 border rounded">Bangunlah Jiwa Raganya</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="p-3 border rounded">Suara Demokrasi</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

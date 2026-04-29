@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% block title %}Data Guru{% endblock %}
+
+{% block content %}
+
+<style>
+    body{
+        background: linear-gradient(135deg,#eef5ff,#f8fbff);
+    }
+
+    .hero-section{
+        background: linear-gradient(135deg,#0d6efd,#0a58ca);
+        color:white;
+        padding:50px 30px;
+        border-radius:18px;
+        box-shadow:0 10px 30px rgba(0,0,0,0.15);
+        margin-top:30px;
+    }
+
+    .hero-section h1{
+        font-weight:700;
+        font-size:42px;
+    }
+
+    .hero-section p{
+        opacity:0.9;
+        margin-top:10px;
+    }
+
+    .stat-box{
+        background:white;
+        border-radius:16px;
+        padding:25px;
+        text-align:center;
+        box-shadow:0 8px 20px rgba(0,0,0,0.08);
+        transition:0.3s;
+        height:100%;
+    }
+
+    .stat-box:hover{
+        transform:translateY(-5px);
+    }
+
+    .stat-box h2{
+        font-size:34px;
+        font-weight:700;
+        color:#0d6efd;
+    }
+
+    .stat-box span{
+        color:#6c757d;
+        font-size:15px;
+    }
+
+    .table-card{
+        background:white;
+        border-radius:18px;
+        padding:25px;
+        box-shadow:0 10px 25px rgba(0,0,0,0.08);
+        margin-top:35px;
+    }
+
+    .table thead{
+        background:#0d6efd;
+        color:white;
+    }
+
+    .badge-status{
+        padding:7px 14px;
+        border-radius:50px;
+        font-size:13px;
+        font-weight:600;
+    }
+
+    .pns{background:#d1e7dd;color:#146c43;}
+    .pppk{background:#fff3cd;color:#997404;}
+    .kki{background:#f8d7da;color:#b02a37;}
+
+    .search-box{
+        border-radius:50px;
+        padding:12px 20px;
+        border:1px solid #ddd;
+        width:100%;
+        margin-bottom:20px;
+    }
+</style>
+
+<div class="container py-5">
+
+    <!-- HEADER -->
+    <div class="hero-section">
+        <h1>Data Guru SMPN 287</h1>
+        <p>Informasi tenaga pendidik dan staff sekolah secara lengkap dan profesional.</p>
+    </div>
+
+    <!-- STATISTIK -->
+    <div class="row mt-4 g-4">
+        <div class="col-md-4">
+            <div class="stat-box">
+                <h2>{{ jumlah_status_pns }}</h2>
+                <span>Guru Status PNS</span>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="stat-box">
+                <h2>{{ jumlah_status_p3k }}</h2>
+                <span>Guru Status PPPK</span>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="stat-box">
+                <h2>{{ jumlah_status_kki }}</h2>
+                <span>Guru Status KKI</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-card">
+        <h3 class="mb-4 fw-bold text-primary">Daftar Guru</h3>
+
+        <input type="text" id="searchInput" class="search-box" placeholder="Cari nama guru...">
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle" id="guruTable">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Guru</th>
+                        <th>Mata Pelajaran</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for guru in list_data_guru %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ guru.name }}</td>
+                        <td>{{ guru.mapel }}</td>
+                        <td>
+                            {% if guru.status == 'PNS' %}
+                                <span class="badge-status pns">PNS</span>
+                            {% elif guru.status == 'PPPK' %}
+                                <span class="badge-status pppk">PPPK</span>
+                            {% else %}
+                                <span class="badge-status kki">KKI</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ url_for('views.lihat_guru', id=guru.id) }}" class="btn btn-info btn-sm">
+                                Info
+                            </a>
+
+                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteGuru('{{ guru.id }}')">
+                                Hapus
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script>
+document.getElementById("searchInput").addEventListener("keyup", function() {
+    let input = this.value.toLowerCase();
+    let rows = document.querySelectorAll("#guruTable tbody tr");
+
+    rows.forEach(row => {
+        let text = row.innerText.toLowerCase();
+        row.style.display = text.includes(input) ? "" : "none";
+    });
+});
+</script>
+
+{% endblock %}
