@@ -418,7 +418,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--off-white
             {% endif %}
           </div>
           <div class="n-body">
-            <div class="n-title">{{ berita.name }}</div>
+            <div class="n-title">{{ berita.title }}</div>
             <div class="n-divider"></div>
             <div class="n-actions">
               <a href="{{ url_for('views.lihat_berita', id=berita.id) }}" class="n-info-btn">

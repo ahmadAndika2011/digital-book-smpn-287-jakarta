@@ -48,9 +48,10 @@ class AccountSiswa(db.Model, UserMixin):
     nis = db.Column(db.String(50))
     password = db.Column(db.String(200))
 
-class ImgName(db.Model, UserMixin):
+class Berita(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(350))
+    title = db.Column(db.String(350))
+    describe = db.Column(db.String(350))
     img_1 = db.Column(db.String(255))
     img_2 = db.Column(db.String(255))
     img_3 = db.Column(db.String(255))

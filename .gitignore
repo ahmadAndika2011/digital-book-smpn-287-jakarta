@@ -1,3 +1,5 @@
+website/static/uploads/
+
 # Mengabaikan folder virtual environment
 .venv/
 venv/

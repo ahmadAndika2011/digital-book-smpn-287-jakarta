@@ -387,6 +387,31 @@
     .gallery-grid { grid-template-columns: repeat(2, 1fr); }
     .berita-name { font-size: 1.4rem; }
   }
+
+  /* ── Deskripsi Berita ── */
+  .berita-description {
+    padding: 32px 40px;
+    line-height: 1.8;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    border-bottom: 1px solid #f0e8d8;
+    background-color: #fffdf9; /* Memberi sedikit kontras warna latar */
+  }
+
+  .berita-description p {
+    margin-bottom: 16px;
+    white-space: pre-line; /* Menjaga format baris baru dari database */
+  }
+
+  .desc-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 15px;
+    display: block;
+  }
 </style>
 
 <!-- Hero Banner -->
@@ -404,7 +429,7 @@
     <div class="berita-header">
       <div class="berita-icon">📄</div>
       <div>
-        <h2 class="berita-name">{{berita.name}}</h2>
+        <h2 class="berita-name">{{berita.title}}</h2>
         <div class="berita-meta">
           <span>🏫</span>
           <span>SMPN 287 Jakarta</span>
@@ -412,6 +437,15 @@
           <span>Berita Resmi</span>
         </div>
       </div>
+    </div>
+
+    <div class="berita-description">
+      <span class="desc-label">Keterangan Berita</span>
+      {% if berita.describe %}
+        <p>{{ berita.describe }}</p>
+      {% else %}
+        <p style="color: var(--text-muted); font-style: italic;">Tidak ada deskripsi tambahan untuk berita ini.</p>
+      {% endif %}
     </div>
 
     <!-- Gallery Foto -->

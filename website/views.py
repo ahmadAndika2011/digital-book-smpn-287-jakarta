@@ -5,7 +5,7 @@ from traceback import print_tb
 from flask import Blueprint, current_app, flash, render_template, redirect, request, url_for, jsonify
 from . import db
 from flask_login import login_required, current_user
-from .models import DatabaseSiswa, NilaiSiswa, AccountSiswa, AdminAccount, ImgName, DataGuru
+from .models import DatabaseSiswa, NilaiSiswa, AccountSiswa, AdminAccount, Berita, DataGuru
 import json
 import base64
 
@@ -22,7 +22,7 @@ def home():
     jumlah_siswa = DatabaseSiswa.query.count()
     jumlah_guru = DataGuru.query.count()
 
-    berita_list = ImgName.query.all()
+    berita_list = Berita.query.all()
     guru_list = DataGuru.query.all()
     return render_template("home.html", user=current_user, jumlah_siswa=jumlah_siswa, berita_list=berita_list, guru_list=guru_list, jumlah_guru=jumlah_guru)
 
@@ -60,7 +60,7 @@ def info(id):
 #? Detail Berita
 @views.route("/lihat-berita/<int:id>")
 def lihat_berita(id):
-    berita = ImgName.query.get(id)
+    berita = Berita.query.get(id)
     if not berita:
         return "Berita tidak ditemukan", 404
     return render_template("lihat-berita.html", berita=berita)
@@ -79,7 +79,7 @@ def lihat_guru(id):
 def hapus_berita():
     berita = json.loads(request.data)
     beritaId = berita["beritaId"]
-    berita = ImgName.query.get(beritaId)
+    berita = Berita.query.get(beritaId)
     
     if berita:
         for file_path in [berita.img_1, berita.img_2, berita.img_3, berita.video]:
@@ -158,7 +158,7 @@ def data_guru():
 #? All berita
 @views.route("/berita")
 def berita():
-    list_berita = ImgName.query.all()
+    list_berita = Berita.query.all()
     return render_template("berita.html", list_berita=list_berita)
 
 #? Profil sekolah

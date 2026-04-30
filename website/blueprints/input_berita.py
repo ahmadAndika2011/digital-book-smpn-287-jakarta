@@ -1,9 +1,11 @@
+from pydoc import describe
+
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import current_user, login_required
 import os
 from werkzeug.utils import secure_filename
 from .. import db
-from ..models import ImgName
+from ..models import Berita
 
 auth = Blueprint("input_berita", __name__)
 
@@ -55,11 +57,13 @@ def tambah_berita():
         else:
             video_input = ""
 
+        title_input = request.form.get("judul")
         text_input = request.form.get("keterangan")
 
         if text_input:
-            input_berita = ImgName(
-                name = text_input,
+            input_berita = Berita(
+                title = title_input,
+                describe = text_input,
                 img_1 = gambar_1_input,
                 img_2 = gambar_2_input,
                 img_3 = gambar_3_input,

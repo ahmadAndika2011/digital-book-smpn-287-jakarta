@@ -136,9 +136,9 @@
           </ul>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link-smpn" href="#">Layanan</a>
-        </li>
+        {# <li class="nav-item">
+          <a class="nav-link-smpn" href="#">Layanan Kami</a>
+        </li> #}
 
         <li class="nav-item">
           <a class="nav-link-smpn" href="/kontak">Kontak</a>
@@ -148,16 +148,16 @@
 
       <!-- Right actions -->
       <div class="d-flex align-items-center gap-2 mb-2 mb-lg-0 ms-lg-auto">
+        <a href="/buat-akun" class="btn-smpn-outline">
+          <i class="fa-solid fa-user-plus"></i>
+          <span class="d-none d-xl-inline">Akun</span>
+        </a>
         {% if current_user.is_authenticated %}
           <a href="/logout" class="btn-smpn-solid">
             <i class="fa-solid fa-right-from-bracket"></i>
             <span>Logout</span>
           </a>
         {% else %}
-          <a href="/buat-akun" class="btn-smpn-outline">
-            <i class="fa-solid fa-user-plus"></i>
-            <span class="d-none d-xl-inline">Akun</span>
-          </a>
           <a href="/login" class="btn-smpn-solid">
             <i class="fa-solid fa-right-to-bracket"></i>
             <span>admin</span>

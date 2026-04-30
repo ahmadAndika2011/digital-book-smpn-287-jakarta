@@ -27,16 +27,18 @@ def tambah_data_guru():
         name_input = request.form.get("name")
         mapel_input = request.form.get("mapel")
         nip_input = request.form.get("nip")
+        nrk_input = request.form.get("nrk")
         status_input = request.form.get("status")
         jabatan_input = request.form.get("jabatan")
         tahun_masuk_input = request.form.get("tahun_masuk")
 
-        if name_input and (len(nip_input) == 0 or len(nip_input) == 18):
+        if name_input and (len(nip_input) == 0 or len(nip_input) == 18) and (len(nrk_input) == 0 or len(nrk_input) == 6):
             data_guru = DataGuru(
                 name = name_input,
                 image=gambar_file_input,
                 mapel=mapel_input,
                 nip=nip_input,
+                nrk=nrk_input,
                 status=status_input,
                 jabatan=jabatan_input,
                 tahun_masuk=tahun_masuk_input
@@ -46,5 +48,5 @@ def tambah_data_guru():
             flash("Success tambah data guru", category="success")
             return redirect(url_for("input_data_guru.tambah_data_guru"))
         else:
-            flash("Jika NIP tidak lengkap maka bisa dikosongkan untuk mencegah kesalahan", category="error")
+            flash("Jika NIP atau NRK tidak lengkap maka bisa dikosongkan untuk mencegah kesalahan", category="error")
     return render_template("tambah-data-guru.html", user=current_user)

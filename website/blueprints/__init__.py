@@ -8,3 +8,4 @@ from .buat_akun_siswa import auth as buat_akun_siswa
 from .input_berita import auth as input_berita
 from .input_data_guru import auth as input_data_guru
 from .upload_data_guru import auth as upload_data_guru
+from .update_data_guru import auth as update_data_guru
