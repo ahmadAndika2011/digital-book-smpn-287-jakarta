@@ -17,6 +17,7 @@ numpy
 openpyxl
 pandas
 python-dateutil
+python-dotenv
 six
 SQLAlchemy
 typing_extensions
