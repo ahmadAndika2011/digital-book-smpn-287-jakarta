@@ -3,7 +3,7 @@ import os
 import pandas as pd
 from werkzeug.utils import secure_filename
 from .. import db
-from ..models import DataGuru
+from ..models import DatabaseGuru
 import xlrd
 
 auth = Blueprint("upload_data_guru", __name__)
@@ -30,16 +30,16 @@ def upload_data_guru():
                 
                 for index, row in df_guru.iterrows():
                     db.session.rollback()
-                    existing = DataGuru.query.filter(
-                        DataGuru.nip == row["nip"],
-                        DataGuru.nrk == row["nrk"],
+                    existing = DatabaseGuru.query.filter(
+                        DatabaseGuru.nip == row["nip"],
+                        DatabaseGuru.nrk == row["nrk"],
                     ).first()
 
                     if existing:
                         list_error_update.append("NIP dan NRK")
                         continue
 
-                    data_guru = DataGuru(
+                    data_guru = DatabaseGuru(
                         image="",
                         name=row["nama"],
                         mapel=row["mapel"],

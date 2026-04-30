@@ -5,7 +5,7 @@ from traceback import print_tb
 from flask import Blueprint, current_app, flash, render_template, redirect, request, url_for, jsonify
 from . import db
 from flask_login import login_required, current_user
-from .models import DatabaseSiswa, NilaiSiswa, AccountSiswa, AdminAccount, Berita, DataGuru
+from .models import DatabaseSiswa, NilaiSiswa, AccountSiswa, AdminAccount, Berita, DatabaseGuru
 import json
 import base64
 
@@ -20,10 +20,10 @@ def home():
     # db.session.add(akun_admin)
     # db.session.commit()
     jumlah_siswa = DatabaseSiswa.query.count()
-    jumlah_guru = DataGuru.query.count()
+    jumlah_guru = DatabaseGuru.query.count()
 
     berita_list = Berita.query.all()
-    guru_list = DataGuru.query.all()
+    guru_list = DatabaseGuru.query.all()
     return render_template("home.html", user=current_user, jumlah_siswa=jumlah_siswa, berita_list=berita_list, guru_list=guru_list, jumlah_guru=jumlah_guru)
 
 #? Search Siswa
@@ -68,7 +68,7 @@ def lihat_berita(id):
 #? Detail Guru
 @views.route("/lihat-guru/<int:id>")
 def lihat_guru(id):
-    guru = DataGuru.query.get(id)
+    guru = DatabaseGuru.query.get(id)
     if not guru:
         return "Data Guru tidak ditemukan", 404
     return render_template("lihat-guru.html", guru=guru)
@@ -98,7 +98,7 @@ def hapus_berita():
 def hapus_data_guru():
     guru = json.loads(request.data)
     guruId = guru["guruId"]
-    guru = DataGuru.query.get(guruId)
+    guru = DatabaseGuru.query.get(guruId)
 
     if guru:
         if guru.image:
@@ -145,10 +145,10 @@ def delete_student():
 #? All data guru
 @views.route("/data-guru")
 def data_guru():
-    list_data_guru = DataGuru.query.all()
-    jumlah_status_pns = DataGuru.query.filter_by(status="PNS").count()
-    jumlah_status_p3k = DataGuru.query.filter_by(status="PPPK").count()
-    jumlah_status_kki = DataGuru.query.filter_by(status="KKI").count()
+    list_data_guru = DatabaseGuru.query.all()
+    jumlah_status_pns = DatabaseGuru.query.filter_by(status="PNS").count()
+    jumlah_status_p3k = DatabaseGuru.query.filter_by(status="PPPK").count()
+    jumlah_status_kki = DatabaseGuru.query.filter_by(status="KKI").count()
     return render_template("data-guru.html", 
                            list_data_guru=list_data_guru, 
                            jumlah_status_pns=jumlah_status_pns, 
@@ -165,23 +165,23 @@ def berita():
 @views.route("/profil-sekolah")
 def profil_sekolah():
     jumlah_siswa = DatabaseSiswa.query.count()
-    jumlah_guru = DataGuru.query.count()
+    jumlah_guru = DatabaseGuru.query.count()
     return render_template("profil-sekolah.html", jumlah_siswa=jumlah_siswa, jumlah_guru=jumlah_guru)
 
 #? Struktur organisasi
 @views.route("/struktur-organisasi")
 def struktur_organisasi():
-    nama_kepsek = DataGuru.query.filter_by(jabatan="Kepala Sekolah").first()
-    akademik = DataGuru.query.filter_by(jabatan="Wakil Kepala Sekolah Bidang Akademik").first()
-    kesiswaan = DataGuru.query.filter_by(jabatan="Wakil Kepala Sekolah Bidang Kesiswaan").first()
-    sarpras = DataGuru.query.filter_by(jabatan="Wakil Kepala Sekolah Bidang Sarpras").first()
-    humas = DataGuru.query.filter_by(jabatan="Humas").first()
+    nama_kepsek = DatabaseGuru.query.filter_by(jabatan="Kepala Sekolah").first()
+    akademik = DatabaseGuru.query.filter_by(jabatan="Wakil Kepala Sekolah Bidang Akademik").first()
+    kesiswaan = DatabaseGuru.query.filter_by(jabatan="Wakil Kepala Sekolah Bidang Kesiswaan").first()
+    sarpras = DatabaseGuru.query.filter_by(jabatan="Wakil Kepala Sekolah Bidang Sarpras").first()
+    humas = DatabaseGuru.query.filter_by(jabatan="Humas").first()
     return render_template("struktur-organisasi.html", nama_kepsek=nama_kepsek, akademik=akademik, kesiswaan=kesiswaan, sarpras=sarpras, humas=humas)
 
 #? Kepala Sekolah
 @views.route("/kepala-sekolah")
 def kepala_sekolah():
-    kepsek = DataGuru.query.filter_by(jabatan="Kepala Sekolah").first()
+    kepsek = DatabaseGuru.query.filter_by(jabatan="Kepala Sekolah").first()
     return render_template("kepala-sekolah.html", kepsek=kepsek)
 
 #? kurikulum

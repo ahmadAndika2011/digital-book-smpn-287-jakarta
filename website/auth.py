@@ -5,7 +5,7 @@ from click.utils import R
 from flask import Blueprint, render_template, redirect, request_started, url_for, request, current_app, flash
 from flask_login import login_user, login_required, logout_user, current_user
 from flask_wtf import file
-from .models import AdminAccount, DatabaseSiswa, NilaiSiswa, AccountSiswa, Berita, DataGuru
+from .models import AdminAccount, DatabaseSiswa, NilaiSiswa, AccountSiswa, Berita, DatabaseGuru
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from . import db, mail

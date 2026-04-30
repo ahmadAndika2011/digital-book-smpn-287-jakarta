@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 import os
-from ..models import DataGuru
+from ..models import DatabaseGuru
 from .. import db
 
 
@@ -13,7 +13,7 @@ auth = Blueprint("update_data_guru", __name__)
 @login_required
 def update_data_guru(id):
     if request.method == "POST":
-        guru = DataGuru.query.get(id)
+        guru = DatabaseGuru.query.get(id)
 
         gambar_file = request.files.get("gambar")
         if gambar_file and gambar_file.filename:

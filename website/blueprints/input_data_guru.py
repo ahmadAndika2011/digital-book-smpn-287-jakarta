@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 import os
-from ..models import DataGuru
+from ..models import DatabaseGuru
 from .. import db
 
 
@@ -33,7 +33,7 @@ def tambah_data_guru():
         tahun_masuk_input = request.form.get("tahun_masuk")
 
         if name_input and (len(nip_input) == 0 or len(nip_input) == 18) and (len(nrk_input) == 0 or len(nrk_input) == 6):
-            data_guru = DataGuru(
+            data_guru = DatabaseGuru(
                 name = name_input,
                 image=gambar_file_input,
                 mapel=mapel_input,

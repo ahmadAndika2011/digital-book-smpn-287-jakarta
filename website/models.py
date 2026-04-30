@@ -57,7 +57,7 @@ class Berita(db.Model, UserMixin):
     img_3 = db.Column(db.String(255))
     video = db.Column(db.String(300))
 
-class DataGuru(db.Model, UserMixin):
+class DatabaseGuru(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     image = db.Column(db.String(255))
     name = db.Column(db.String(150))
