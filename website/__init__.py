@@ -4,25 +4,29 @@ from flask_login import LoginManager
 from urllib.parse import quote_plus
 import os
 from flask_mail import Mail
+from dotenv import load_dotenv
+
+load_dotenv()
 
 db = SQLAlchemy()
-DB_NAME = "smpn_287"
-pw = quote_plus("4Hm@d-@Nd1k4")
+# DB_NAME = "smpn_287"
+# pw = quote_plus("4Hm@d-@Nd1k4")
 
 mail = Mail()
 
 def create_app():
     app = Flask(__name__)
-    app.config["SECRET_KEY"] = "Secret_Key_09182829291982"
+    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+    # app.config["SECRET_KEY"] = "Secret_Key_09182829291982"
 
-    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-    app.config['MAIL_PORT'] = 465
+    app.config['MAIL_SERVER'] = os.getenv("MAIL_SERVER")
+    app.config['MAIL_PORT'] = os.getenv("MAIL_PORT")
     app.config['MAIL_USE_SSL'] = True
-    app.config['MAIL_USERNAME'] = 'ahmad.andika.training1.0@gmail.com'
-    app.config['MAIL_PASSWORD'] = 'uulq zxze lxbw zxxg'
+    app.config['MAIL_USERNAME'] = os.getenv("MAIL_USERNAME")
+    app.config['MAIL_PASSWORD'] = os.getenv("MAIL_PASSWORD")
     mail.init_app(app)
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+mysqlconnector://andika:{pw}@187.77.113.166/smpn_287"
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+mysqlconnector://andika:{quote_plus(os.getenv("DB_PASSWORD"))}@187.77.113.166/{os.getenv("DB_NAME")}"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(app)
 
