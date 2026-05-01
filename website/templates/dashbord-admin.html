@@ -1,0 +1,420 @@
+{% extends "base.html" %}
+{% block title %}Dashboard Admin{% endblock %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+
+<style>
+  .dash-page {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 80vh;
+    background: #f0f4f8;
+    padding: 0 0 4rem;
+  }
+
+  /* ── Hero ── */
+  .dash-hero {
+    background: linear-gradient(135deg, #0C447C 0%, #185FA5 55%, #378ADD 100%);
+    padding: 3rem 2rem 5.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .dash-hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .dash-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: 5%;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .dash-hero-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .dash-hero-left { animation: fadeSlideDown 0.5s ease both; }
+  .dash-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 99px;
+    padding: 4px 14px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 1rem;
+  }
+  .dash-hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+  }
+  .dash-hero p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.72);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* greeting chip */
+  .dash-greeting {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 14px;
+    padding: 0.85rem 1.25rem;
+    text-align: right;
+    animation: fadeSlideDown 0.5s 0.15s ease both;
+    flex-shrink: 0;
+  }
+  .dash-greeting-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .dash-greeting-role {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    margin-top: 2px;
+  }
+
+  /* ── Main wrapper ── */
+  .dash-main {
+    max-width: 1000px;
+    margin: -3rem auto 0;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── Section title ── */
+  .dash-section-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #1e3a5f;
+    margin: 0 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: fadeUp 0.4s 0.3s ease both;
+  }
+  .dash-section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #d1dde8;
+  }
+
+  /* ── Cards grid ── */
+  .dash-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  @media (max-width: 700px) {
+    .dash-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 420px) {
+    .dash-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── Service card ── */
+  .svc-card {
+    background: #fff;
+    border: 1px solid #dde8f0;
+    border-radius: 16px;
+    padding: 1.4rem 1.25rem 1.2rem;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    animation: fadeUp 0.45s ease both;
+  }
+  .svc-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 16px 16px 0 0;
+    background: var(--card-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .svc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(24,95,165,0.12);
+    border-color: var(--card-border-hover);
+    text-decoration: none;
+  }
+  .svc-card:hover::before { transform: scaleX(1); }
+
+  .svc-icon-wrap {
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    background: var(--card-icon-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .svc-icon-wrap svg { display: block; }
+
+  .svc-body { flex: 1; }
+  .svc-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a3256;
+    margin: 0 0 5px;
+    line-height: 1.3;
+  }
+  .svc-desc {
+    font-size: 12px;
+    color: #6a8aaa;
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  .svc-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4px;
+  }
+  .svc-tag {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 99px;
+    background: var(--card-tag-bg);
+    color: var(--card-tag-color);
+  }
+  .svc-arrow-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--card-icon-bg);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .svc-card:hover .svc-arrow-icon {
+    background: var(--card-accent);
+    transform: translateX(3px);
+  }
+  .svc-card:hover .svc-arrow-icon svg path {
+    stroke: #fff;
+  }
+
+  /* staggered animation delays */
+  .svc-card:nth-child(1) { animation-delay: 0.35s; }
+  .svc-card:nth-child(2) { animation-delay: 0.42s; }
+  .svc-card:nth-child(3) { animation-delay: 0.49s; }
+  .svc-card:nth-child(4) { animation-delay: 0.56s; }
+  .svc-card:nth-child(5) { animation-delay: 0.63s; }
+  .svc-card:nth-child(6) { animation-delay: 0.70s; }
+
+  /* ── Color themes per card ── */
+  .theme-teal  { --card-accent: #0F6E56; --card-border-hover: #9FE1CB; --card-icon-bg: #E1F5EE; --card-tag-bg: #E1F5EE; --card-tag-color: #085041; }
+  .theme-blue  { --card-accent: #185FA5; --card-border-hover: #85B7EB; --card-icon-bg: #E6F1FB; --card-tag-bg: #E6F1FB; --card-tag-color: #0C447C; }
+  .theme-amber { --card-accent: #BA7517; --card-border-hover: #FAC775; --card-icon-bg: #FAEEDA; --card-tag-bg: #FAEEDA; --card-tag-color: #854F0B; }
+  .theme-coral { --card-accent: #993C1D; --card-border-hover: #F5C4B3; --card-icon-bg: #FAECE7; --card-tag-bg: #FAECE7; --card-tag-color: #993C1D; }
+  .theme-purple{ --card-accent: #534AB7; --card-border-hover: #AFA9EC; --card-icon-bg: #EEEDFE; --card-tag-bg: #EEEDFE; --card-tag-color: #3C3489; }
+  .theme-green { --card-accent: #3B6D11; --card-border-hover: #97C459; --card-icon-bg: #EAF3DE; --card-tag-bg: #EAF3DE; --card-tag-color: #27500A; }
+
+  /* ── Keyframes ── */
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="dash-page">
+
+  <!-- Hero -->
+  <div class="dash-hero">
+    <div class="dash-hero-inner">
+      <div class="dash-hero-left">
+        <div class="dash-badge">
+          <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" fill="#378ADD"/></svg>
+          Panel Admin
+        </div>
+        <h1>Dashboard Admin</h1>
+        <p>Kelola seluruh layanan sekolah dari satu tempat.<br>Pilih layanan yang ingin dikelola.</p>
+      </div>
+      <div class="dash-greeting">
+        <div class="dash-greeting-name">{{ user.username if user.is_authenticated else 'Admin' }}</div>
+        <div class="dash-greeting-role">Administrator</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cards -->
+  <div class="dash-main">
+
+    <div class="dash-section-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="3" width="8" height="8" rx="2" stroke="#1e3a5f" stroke-width="1.8"/>
+        <rect x="13" y="3" width="8" height="8" rx="2" stroke="#1e3a5f" stroke-width="1.8"/>
+        <rect x="3" y="13" width="8" height="8" rx="2" stroke="#1e3a5f" stroke-width="1.8"/>
+        <rect x="13" y="13" width="8" height="8" rx="2" stroke="#1e3a5f" stroke-width="1.8"/>
+      </svg>
+      Layanan Tersedia
+    </div>
+
+    <div class="dash-grid">
+
+      <!-- 1. PPDB -->
+      <a href="#" class="svc-card theme-teal">
+        <div class="svc-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="none"/>
+            <path d="M17 3.34A10 10 0 1121 12h-2a8 8 0 10-2.34 5.66L18 19a10 10 0 01-1 .66z" fill="none"/>
+            <circle cx="12" cy="8" r="3" stroke="#0F6E56" stroke-width="1.8"/>
+            <path d="M4 20c0-3.87 3.58-7 8-7s8 3.13 8 7" stroke="#0F6E56" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="svc-body">
+          <p class="svc-title">Layanan PPDB</p>
+          <p class="svc-desc">Penerimaan Peserta Didik Baru. Kelola data pendaftar calon siswa baru.</p>
+        </div>
+        <div class="svc-arrow">
+          <span class="svc-tag">Pendaftaran</span>
+          <span class="svc-arrow-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#0F6E56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- 2. Mutasi -->
+      <a href="#" class="svc-card theme-blue">
+        <div class="svc-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M8 7l4-4 4 4M16 17l-4 4-4-4" stroke="#185FA5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 3v18" stroke="#185FA5" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="svc-body">
+          <p class="svc-title">Layanan Mutasi</p>
+          <p class="svc-desc">Proses perpindahan siswa masuk maupun keluar dari sekolah.</p>
+        </div>
+        <div class="svc-arrow">
+          <span class="svc-tag">Perpindahan</span>
+          <span class="svc-arrow-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#185FA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- 3. PIP -->
+      <a href="#" class="svc-card theme-amber">
+        <div class="svc-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="6" width="20" height="14" rx="2" stroke="#BA7517" stroke-width="1.8"/>
+            <path d="M16 6V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v1" stroke="#BA7517" stroke-width="1.8"/>
+            <path d="M12 12v4M10 14h4" stroke="#BA7517" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="svc-body">
+          <p class="svc-title">Layanan PIP</p>
+          <p class="svc-desc">Program Indonesia Pintar. Kelola data penerima bantuan pendidikan.</p>
+        </div>
+        <div class="svc-arrow">
+          <span class="svc-tag">Bantuan</span>
+          <span class="svc-arrow-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#BA7517" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- 4. KJP -->
+      <a href="#" class="svc-card theme-coral">
+        <div class="svc-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="5" width="20" height="14" rx="2" stroke="#993C1D" stroke-width="1.8"/>
+            <path d="M2 10h20" stroke="#993C1D" stroke-width="1.8"/>
+            <path d="M6 15h4" stroke="#993C1D" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="svc-body">
+          <p class="svc-title">Layanan KJP</p>
+          <p class="svc-desc">Kartu Jakarta Pintar. Pengelolaan data penerima KJP Plus.</p>
+        </div>
+        <div class="svc-arrow">
+          <span class="svc-tag">Beasiswa</span>
+          <span class="svc-arrow-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#993C1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- 5. Administrasi -->
+      <a href="#" class="svc-card theme-purple">
+        <div class="svc-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M9 12h6M9 16h4M6 4h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M9 8h6" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="svc-body">
+          <p class="svc-title">Administrasi Sekolah</p>
+          <p class="svc-desc">Kelola surat, dokumen, dan kebutuhan administrasi harian sekolah.</p>
+        </div>
+        <div class="svc-arrow">
+          <span class="svc-tag">Dokumen</span>
+          <span class="svc-arrow-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#534AB7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- 6. Kunjungan Instansi -->
+      <a href="#" class="svc-card theme-green">
+        <div class="svc-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M3 21h18M3 10l9-7 9 7" stroke="#3B6D11" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="9" y="13" width="6" height="8" rx="1" stroke="#3B6D11" stroke-width="1.8"/>
+          </svg>
+        </div>
+        <div class="svc-body">
+          <p class="svc-title">Kunjungan Instansi</p>
+          <p class="svc-desc">Catat dan kelola data kunjungan dari instansi luar ke sekolah.</p>
+        </div>
+        <div class="svc-arrow">
+          <span class="svc-tag">Kunjungan</span>
+          <span class="svc-arrow-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#3B6D11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -9,3 +9,9 @@ from .input_berita import auth as input_berita
 from .input_data_guru import auth as input_data_guru
 from .upload_data_guru import auth as upload_data_guru
 from .update_data_guru import auth as update_data_guru
+from .layanan_ppdb import auth as layanan_ppdb
+from .layanan_mutasi import auth as layanan_mutasi
+from .layanan_pip import auth as layanan_pip
+from .layanan_kjp import auth as layanan_kjp
+from .layanan_administrasi_sekolah import auth as layanan_administrasi_sekolah
+from .layanan_kunjungan_antar_instansi import auth as layanan_kunjungan_antar_instansi

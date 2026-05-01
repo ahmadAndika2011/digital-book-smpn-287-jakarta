@@ -13,18 +13,11 @@ views = Blueprint("views", __name__)
 
 @views.route("/")
 def home():
-    # akun_admin = AdminAccount(
-    #     username="Abdul Rohim",
-    #     secret_pw="46du1_R0h1m@d1g1t4l-b00k-smpn-287-jkt-001"
-    # )
-    # db.session.add(akun_admin)
-    # db.session.commit()
     jumlah_siswa = DatabaseSiswa.query.count()
     jumlah_guru = DatabaseGuru.query.count()
 
     berita_list = Berita.query.all()
-    guru_list = DatabaseGuru.query.all()
-    return render_template("home.html", user=current_user, jumlah_siswa=jumlah_siswa, berita_list=berita_list, guru_list=guru_list, jumlah_guru=jumlah_guru)
+    return render_template("home.html", user=current_user, jumlah_siswa=jumlah_siswa, berita_list=berita_list, jumlah_guru=jumlah_guru)
 
 #? Search Siswa
 @views.route("/data-siswa")

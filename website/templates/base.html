@@ -136,9 +136,21 @@
           </ul>
         </li>
 
-        {# <li class="nav-item">
-          <a class="nav-link-smpn" href="#">Layanan Kami</a>
-        </li> #}
+        <li class="nav-item dropdown">
+          <a class="nav-link-smpn dropdown-toggle" href="#"
+             data-bs-toggle="dropdown" aria-expanded="false">Layanan Kami</a>
+          <ul class="dropdown-menu dropdown-smpn">
+            <li><a class="dropdown-item-smpn" href="/layanan-ppdb"><i class="fa-solid fa-layer-group"></i> Layanan PPDB</a></li>
+            <li><a class="dropdown-item-smpn" href="/layanan-mutasi"><i class="fa-solid fa-layer-group"></i> Layanan Mutasi</a></li>
+            <li><a class="dropdown-item-smpn" href="/layanan-pip"><i class="fa-solid fa-layer-group"></i> Layanan PIP</a></li>
+            <li><a class="dropdown-item-smpn" href="/layanan-kjp"><i class="fa-solid fa-layer-group"></i> Layanan KJP</a></li>
+            <li><a class="dropdown-item-smpn" href="/layanan-administrasi-sekolah"><i class="fa-solid fa-layer-group"></i> Layanan Administrasi Sekolah</a></li>
+            <li><a class="dropdown-item-smpn" href="/layanan-kunjungan-antar-instansi"><i class="fa-solid fa-layer-group"></i> Kunjungan Instansi</a></li>
+            {%if current_user.is_authenticated%}
+            <li><a class="dropdown-item-smpn" href="/dashbord-admin"><i class="fa-solid fa-gauge-high"></i> Dashboard Admin</a></li>
+            {%endif%}
+          </ul>
+        </li>
 
         <li class="nav-item">
           <a class="nav-link-smpn" href="/kontak">Kontak</a>

@@ -67,3 +67,49 @@ class DatabaseGuru(db.Model, UserMixin):
     status = db.Column(db.String(100))
     jabatan = db.Column(db.String(100))
     tahun_masuk = db.Column(db.String(100))
+
+class DatabaseLayananPpdb(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    tanggal = db.Column(db.String(150))
+    nama_calon_siswa = db.Column(db.String(200))
+    no_telepon = db.Column(db.String(20))
+    keterangan = db.Column(db.String(300))
+
+class DatabaseLayananMutasi(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    tanggal = db.Column(db.String(150))
+    nama = db.Column(db.String(200))
+    sekolah_asal = db.Column(db.String(200))
+    no_telepon = db.Column(db.String(20))
+    keterangan = db.Column(db.String(300))
+    jenis_mutasi = db.Column(db.String(150))
+
+class DatabaseLayananPip(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    tanggal = db.Column(db.String(150))
+    nama = db.Column(db.String(200))
+    no_telepon = db.Column(db.String(20))
+    keterangan = db.Column(db.String(300))
+
+class DatabaseLayananKjp(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    tanggal = db.Column(db.String(150))
+    nama = db.Column(db.String(200))
+    no_telepon = db.Column(db.String(20))
+    keterangan = db.Column(db.String(300))
+
+class DatabaseLayananAdministrasiSekolah(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    tanggal_pengajuan = db.Column(db.String(150))
+    nama = db.Column(db.String(200))
+    tanggal_pengambilan = db.Column(db.String(150))
+    no_telepon = db.Column(db.String(20))
+    keterangan = db.Column(db.String(300))
+
+class DatabaseLayananKunjunganAntarInstansi(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    tanggal = db.Column(db.String(150))
+    nama = db.Column(db.String(200))
+    jabatan = db.Column(db.String(150))
+    no_telepon = db.Column(db.String(20))
+    keterangan = db.Column(db.String(300))

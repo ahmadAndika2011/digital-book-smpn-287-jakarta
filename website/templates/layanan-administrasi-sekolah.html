@@ -1,0 +1,519 @@
+{% extends "base.html" %}
+{% block title %}Layanan Administrasi Sekolah{% endblock %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+
+<style>
+  .adm-page {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 80vh;
+    background: #f3f0fa;
+    padding: 0 0 4rem;
+  }
+
+  /* ── Hero ── */
+  .adm-hero {
+    background: linear-gradient(135deg, #231873 0%, #3C3489 55%, #534AB7 100%);
+    padding: 3.5rem 2rem 5.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .adm-hero::before {
+    content: '';
+    position: absolute;
+    top: -70px; right: -70px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .adm-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -90px; left: 8%;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .adm-hero-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .adm-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 99px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 1.25rem;
+    animation: fadeSlideDown 0.5s ease both;
+  }
+  .adm-badge-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #AFA9EC;
+    animation: pulse 2s infinite;
+  }
+  .adm-hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 0.75rem;
+    line-height: 1.25;
+    animation: fadeSlideDown 0.5s 0.1s ease both;
+  }
+  .adm-hero p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.75);
+    margin: 0;
+    max-width: 480px;
+    line-height: 1.65;
+    animation: fadeSlideDown 0.5s 0.2s ease both;
+  }
+  .adm-stats {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    animation: fadeSlideDown 0.5s 0.3s ease both;
+  }
+  .adm-stat {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 12px;
+    padding: 0.75rem 1.25rem;
+    text-align: center;
+  }
+  .adm-stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    color: #fff;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .adm-stat-lbl {
+    font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    margin-top: 3px;
+  }
+
+  /* ── Main ── */
+  .adm-main {
+    max-width: 780px;
+    margin: -2.5rem auto 0;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── Card ── */
+  .adm-card {
+    background: #fff;
+    border-radius: 18px;
+    border: 1px solid #ddd8f5;
+    box-shadow: 0 4px 24px rgba(35,24,115,0.08);
+    overflow: hidden;
+    animation: fadeUp 0.5s 0.4s ease both;
+  }
+  .adm-card-header {
+    padding: 1.5rem 1.75rem 1.25rem;
+    border-bottom: 1px solid #f0edfb;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .adm-card-icon {
+    width: 40px; height: 40px;
+    background: #EEEDFE;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .adm-card-header h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a1550;
+    margin: 0 0 2px;
+  }
+  .adm-card-header p {
+    font-size: 12.5px;
+    color: #7a70c0;
+    margin: 0;
+  }
+
+  /* ── Form ── */
+  .adm-form-body {
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 520px) {
+    .field-row { grid-template-columns: 1fr; }
+    .adm-stats  { flex-wrap: wrap; }
+  }
+
+  .field-group { display: flex; flex-direction: column; gap: 7px; }
+  .field-label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #3C3489;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .field-label svg { opacity: 0.7; }
+  .field-req { color: #E24B4A; }
+
+  .field-input {
+    background: #f8f7fe;
+    border: 1.5px solid #d5d0f0;
+    border-radius: 10px;
+    padding: 10px 13px;
+    font-size: 14px;
+    color: #1a1550;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    outline: none;
+  }
+  .field-input:hover { border-color: #AFA9EC; background: #f3f1fd; }
+  .field-input:focus {
+    border-color: #534AB7;
+    background: #fff;
+    box-shadow: 0 0 0 3.5px rgba(83,74,183,0.1);
+  }
+  .field-input::placeholder { color: #a8a0d8; }
+  textarea.field-input { resize: vertical; min-height: 95px; line-height: 1.55; }
+
+  .char-counter {
+    font-size: 11px;
+    color: #a8a0d8;
+    text-align: right;
+    margin-top: -2px;
+  }
+
+  /* Info banner */
+  .info-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: #EEEDFE;
+    border: 1px solid #AFA9EC;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #231873;
+    line-height: 1.55;
+  }
+  .info-banner svg { flex-shrink: 0; margin-top: 1px; }
+
+  /* Tanggal selesai note */
+  .field-note {
+    font-size: 11.5px;
+    color: #7a70c0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: -2px;
+  }
+
+  /* Status estimasi */
+  .estimasi-box {
+    background: #f8f7fe;
+    border: 1px solid #d5d0f0;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .estimasi-icon {
+    width: 40px; height: 40px;
+    background: #EEEDFE;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .estimasi-text { flex: 1; }
+  .estimasi-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #7a70c0;
+    margin-bottom: 2px;
+  }
+  .estimasi-val {
+    font-size: 13px;
+    font-weight: 600;
+    color: #3C3489;
+  }
+
+  /* Footer */
+  .adm-form-footer {
+    padding: 1.25rem 1.75rem;
+    border-top: 1px solid #f0edfb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .footer-note {
+    font-size: 12px;
+    color: #a8a0d8;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .btn-group { display: flex; gap: 10px; }
+
+  .btn-reset {
+    background: transparent;
+    border: 1.5px solid #d5d0f0;
+    border-radius: 10px;
+    padding: 9px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #534AB7;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-reset:hover { background: #f3f1fd; border-color: #AFA9EC; }
+
+  .btn-submit {
+    background: #534AB7;
+    border: none;
+    border-radius: 10px;
+    padding: 9px 22px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: all 0.15s;
+    box-shadow: 0 2px 8px rgba(83,74,183,0.28);
+  }
+  .btn-submit:hover { background: #3C3489; box-shadow: 0 4px 14px rgba(83,74,183,0.35); }
+  .btn-submit:active { transform: scale(0.97); }
+
+  /* Animations */
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+  }
+</style>
+
+<div class="adm-page">
+
+  <!-- Hero -->
+  <div class="adm-hero">
+    <div class="adm-hero-inner">
+      <div class="adm-badge">
+        <span class="adm-badge-dot"></span>
+        Layanan Aktif
+      </div>
+      <h1>Administrasi Sekolah</h1>
+      <p>Ajukan kebutuhan dokumen dan surat-menyurat sekolah secara online. Isi formulir di bawah dengan lengkap agar proses pengerjaan lebih cepat.</p>
+      <div class="adm-stats">
+        <div class="adm-stat">
+          <div class="adm-stat-num">2025</div>
+          <div class="adm-stat-lbl">Tahun Ajaran</div>
+        </div>
+        <div class="adm-stat">
+          <div class="adm-stat-num">3–5 Hari</div>
+          <div class="adm-stat-lbl">Estimasi Selesai</div>
+        </div>
+        <div class="adm-stat">
+          <div class="adm-stat-num">Online</div>
+          <div class="adm-stat-lbl">Metode</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div class="adm-main">
+    <div class="adm-card">
+
+      <div class="adm-card-header">
+        <div class="adm-card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M9 12h6M9 16h4M6 4h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M9 8h6" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <h2>Formulir Pengajuan Administrasi</h2>
+          <p>Semua field bertanda <span style="color:#E24B4A;font-weight:600;">*</span> wajib diisi</p>
+        </div>
+      </div>
+
+      <form method="POST" action="{{ url_for('layanan_administrasi_sekolah.layanan_administrasi_sekolah') }}">
+        <div class="adm-form-body">
+
+          <div class="info-banner">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            Pengajuan akan diproses oleh staf TU. Harap menunggu konfirmasi melalui nomor telepon yang terdaftar.
+          </div>
+
+          <!-- Estimasi -->
+          <div class="estimasi-box">
+            <div class="estimasi-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="#534AB7" stroke-width="1.8"/>
+                <path d="M12 7v5l3 3" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="estimasi-text">
+              <div class="estimasi-label">Estimasi Waktu Pengerjaan</div>
+              <div class="estimasi-val">3–5 hari kerja sejak tanggal pengajuan diterima</div>
+            </div>
+          </div>
+
+          <!-- Tanggal Pengajuan & No Telepon -->
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label" for="tanggal_pengajuan">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                  <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.8"/>
+                  <path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+                Tanggal Pengajuan <span class="field-req">*</span>
+              </label>
+              <input type="date" id="tanggal_pengajuan" name="tanggal_pengajuan" class="field-input" required />
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="no_telepon">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                  <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C9.61 21 3 14.39 3 6a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.21 2.2z" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                </svg>
+                No. Telepon <span class="field-req">*</span>
+              </label>
+              <input type="tel" id="no_telepon" name="no_telepon" class="field-input" placeholder="Contoh: 08123456789" maxlength="20" required />
+            </div>
+          </div>
+
+          <!-- Nama -->
+          <div class="field-group">
+            <label class="field-label" for="nama">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+              Nama Pemohon <span class="field-req">*</span>
+            </label>
+            <input type="text" id="nama" name="nama" class="field-input" placeholder="Masukkan nama lengkap pemohon" maxlength="200" required />
+          </div>
+
+          <!-- Tanggal Selesai -->
+          <div class="field-group">
+            <label class="field-label" for="tanggal_selesai">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M7 12l3.5 3.5L17 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Tanggal Selesai (Target)
+            </label>
+            <input type="date" id="tanggal_selesai" name="tanggal_pengambilan" class="field-input" />
+            <span class="field-note">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+              Kosongkan jika tidak ada target khusus, staf TU akan menentukan jadwal.
+            </span>
+          </div>
+
+          <!-- Keterangan -->
+          <div class="field-group">
+            <label class="field-label" for="keterangan">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                <path d="M8 6h13M8 12h9M8 18h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+              Keterangan / Jenis Dokumen <span class="field-req">*</span>
+            </label>
+            <textarea id="keterangan" name="keterangan" class="field-input" placeholder="Contoh: Surat keterangan aktif sekolah, legalisir ijazah, surat rekomendasi, dll." maxlength="300" required></textarea>
+            <div class="char-counter" id="ket-count">0 / 300</div>
+          </div>
+
+        </div>
+
+        <div class="adm-form-footer">
+          <span class="footer-note">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            Data aman & terlindungi
+          </span>
+          <div class="btn-group">
+            <button class="btn-reset" type="reset">Reset</button>
+            <button class="btn-submit" type="submit">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Kirim Pengajuan
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  // Set tanggal pengajuan ke hari ini
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('tanggal_pengajuan').value = today;
+
+  // Set default tanggal selesai +5 hari kerja
+  const selesai = new Date();
+  selesai.setDate(selesai.getDate() + 7); // +7 hari termasuk weekend
+  document.getElementById('tanggal_selesai').value = selesai.toISOString().split('T')[0];
+
+  // Char counter
+  const ket = document.getElementById('keterangan');
+  const counter = document.getElementById('ket-count');
+  ket.addEventListener('input', () => {
+    const len = ket.value.length;
+    counter.textContent = len + ' / 300';
+    counter.style.color = len > 270 ? '#E24B4A' : '#a8a0d8';
+  });
+</script>
+{% endblock %}

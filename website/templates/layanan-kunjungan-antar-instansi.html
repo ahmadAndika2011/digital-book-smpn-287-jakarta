@@ -1,0 +1,516 @@
+{% extends "base.html" %}
+{% block title %}Layanan Kunjungan Instansi{% endblock %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+
+<style>
+  .knj-page {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 80vh;
+    background: #f0f7f0;
+    padding: 0 0 4rem;
+  }
+
+  /* ── Hero ── */
+  .knj-hero {
+    background: linear-gradient(135deg, #1A3D09 0%, #27500A 55%, #3B6D11 100%);
+    padding: 3.5rem 2rem 5.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .knj-hero::before {
+    content: '';
+    position: absolute;
+    top: -70px; right: -70px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .knj-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -90px; left: 8%;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .knj-hero-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .knj-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 99px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 1.25rem;
+    animation: fadeSlideDown 0.5s ease both;
+  }
+  .knj-badge-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #97C459;
+    animation: pulse 2s infinite;
+  }
+  .knj-hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 0.75rem;
+    line-height: 1.25;
+    animation: fadeSlideDown 0.5s 0.1s ease both;
+  }
+  .knj-hero p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.75);
+    margin: 0;
+    max-width: 480px;
+    line-height: 1.65;
+    animation: fadeSlideDown 0.5s 0.2s ease both;
+  }
+  .knj-stats {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    animation: fadeSlideDown 0.5s 0.3s ease both;
+  }
+  .knj-stat {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 12px;
+    padding: 0.75rem 1.25rem;
+    text-align: center;
+  }
+  .knj-stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    color: #fff;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .knj-stat-lbl {
+    font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    margin-top: 3px;
+  }
+
+  /* ── Main ── */
+  .knj-main {
+    max-width: 780px;
+    margin: -2.5rem auto 0;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── Card ── */
+  .knj-card {
+    background: #fff;
+    border-radius: 18px;
+    border: 1px solid #c8e0b8;
+    box-shadow: 0 4px 24px rgba(26,61,9,0.08);
+    overflow: hidden;
+    animation: fadeUp 0.5s 0.4s ease both;
+  }
+  .knj-card-header {
+    padding: 1.5rem 1.75rem 1.25rem;
+    border-bottom: 1px solid #eaf3de;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .knj-card-icon {
+    width: 40px; height: 40px;
+    background: #EAF3DE;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .knj-card-header h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1A3D09;
+    margin: 0 0 2px;
+  }
+  .knj-card-header p {
+    font-size: 12.5px;
+    color: #5a8a3a;
+    margin: 0;
+  }
+
+  /* ── Form ── */
+  .knj-form-body {
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 520px) {
+    .field-row { grid-template-columns: 1fr; }
+    .knj-stats  { flex-wrap: wrap; }
+  }
+
+  .field-group { display: flex; flex-direction: column; gap: 7px; }
+  .field-label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #27500A;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .field-label svg { opacity: 0.7; }
+  .field-req { color: #E24B4A; }
+
+  .field-input {
+    background: #f5faf2;
+    border: 1.5px solid #b8d8a0;
+    border-radius: 10px;
+    padding: 10px 13px;
+    font-size: 14px;
+    color: #1A3D09;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    outline: none;
+  }
+  .field-input:hover { border-color: #97C459; background: #f0f7eb; }
+  .field-input:focus {
+    border-color: #3B6D11;
+    background: #fff;
+    box-shadow: 0 0 0 3.5px rgba(59,109,17,0.1);
+  }
+  .field-input::placeholder { color: #90b870; }
+  textarea.field-input { resize: vertical; min-height: 95px; line-height: 1.55; }
+
+  .char-counter {
+    font-size: 11px;
+    color: #90b870;
+    text-align: right;
+    margin-top: -2px;
+  }
+
+  /* Info banner */
+  .info-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: #EAF3DE;
+    border: 1px solid #97C459;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #1A3D09;
+    line-height: 1.55;
+  }
+  .info-banner svg { flex-shrink: 0; margin-top: 1px; }
+
+  /* Prosedur box */
+  .prosedur-box {
+    background: #f5faf2;
+    border: 1px solid #b8d8a0;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+  }
+  .prosedur-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #27500A;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 12px;
+  }
+  .prosedur-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .prosedur-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: #3d6020;
+    line-height: 1.5;
+  }
+  .step-num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #3B6D11;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Footer */
+  .knj-form-footer {
+    padding: 1.25rem 1.75rem;
+    border-top: 1px solid #eaf3de;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .footer-note {
+    font-size: 12px;
+    color: #90b870;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .btn-group { display: flex; gap: 10px; }
+
+  .btn-reset {
+    background: transparent;
+    border: 1.5px solid #b8d8a0;
+    border-radius: 10px;
+    padding: 9px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #3B6D11;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-reset:hover { background: #f0f7eb; border-color: #97C459; }
+
+  .btn-submit {
+    background: #3B6D11;
+    border: none;
+    border-radius: 10px;
+    padding: 9px 22px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: all 0.15s;
+    box-shadow: 0 2px 8px rgba(59,109,17,0.28);
+  }
+  .btn-submit:hover { background: #27500A; box-shadow: 0 4px 14px rgba(59,109,17,0.35); }
+  .btn-submit:active { transform: scale(0.97); }
+
+  /* Animations */
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+  }
+</style>
+
+<div class="knj-page">
+
+  <!-- Hero -->
+  <div class="knj-hero">
+    <div class="knj-hero-inner">
+      <div class="knj-badge">
+        <span class="knj-badge-dot"></span>
+        Tamu Instansi
+      </div>
+      <h1>Kunjungan Antar Instansi</h1>
+      <p>Formulir registrasi kunjungan dari instansi luar ke sekolah. Daftarkan kunjungan Anda agar dapat kami sambut dengan baik.</p>
+      <div class="knj-stats">
+        <div class="knj-stat">
+          <div class="knj-stat-num">2025</div>
+          <div class="knj-stat-lbl">Tahun Ajaran</div>
+        </div>
+        <div class="knj-stat">
+          <div class="knj-stat-num">Terjadwal</div>
+          <div class="knj-stat-lbl">Jenis Kunjungan</div>
+        </div>
+        <div class="knj-stat">
+          <div class="knj-stat-num">Online</div>
+          <div class="knj-stat-lbl">Metode</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div class="knj-main">
+    <div class="knj-card">
+
+      <div class="knj-card-header">
+        <div class="knj-card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M3 21h18M3 10l9-7 9 7" stroke="#3B6D11" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="9" y="13" width="6" height="8" rx="1" stroke="#3B6D11" stroke-width="1.8"/>
+          </svg>
+        </div>
+        <div>
+          <h2>Formulir Registrasi Kunjungan</h2>
+          <p>Semua field bertanda <span style="color:#E24B4A;font-weight:600;">*</span> wajib diisi</p>
+        </div>
+      </div>
+
+      <form method="POST" action="{{ url_for('layanan_kunjungan_antar_instansi.layanan_kunjungan_antar_instansi') }}">
+        <div class="knj-form-body">
+
+          <div class="info-banner">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            Registrasi kunjungan dilakukan minimal <strong>3 hari sebelum</strong> tanggal kunjungan. Konfirmasi akan dikirim melalui nomor telepon yang terdaftar.
+          </div>
+
+          <!-- Prosedur -->
+          <div class="prosedur-box">
+            <p class="prosedur-title">Prosedur Kunjungan</p>
+            <div class="prosedur-steps">
+              <div class="prosedur-step">
+                <span class="step-num">1</span>
+                Isi formulir registrasi minimal 3 hari sebelum kunjungan
+              </div>
+              <div class="prosedur-step">
+                <span class="step-num">2</span>
+                Tunggu konfirmasi dari pihak sekolah via telepon
+              </div>
+              <div class="prosedur-step">
+                <span class="step-num">3</span>
+                Tunjukkan bukti registrasi saat tiba di sekolah
+              </div>
+            </div>
+          </div>
+
+          <!-- Tanggal & No Telepon -->
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label" for="tanggal">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                  <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.8"/>
+                  <path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+                Tanggal Kunjungan <span class="field-req">*</span>
+              </label>
+              <input type="date" id="tanggal" name="tanggal" class="field-input" required />
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="no_telepon">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                  <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C9.61 21 3 14.39 3 6a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.21 2.2z" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                </svg>
+                No. Telepon <span class="field-req">*</span>
+              </label>
+              <input type="tel" id="no_telepon" name="no_telepon" class="field-input" placeholder="Contoh: 08123456789" maxlength="20" required />
+            </div>
+          </div>
+
+          <!-- Nama & Jabatan -->
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label" for="nama">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/>
+                  <path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+                Nama Lengkap <span class="field-req">*</span>
+              </label>
+              <input type="text" id="nama" name="nama" class="field-input" placeholder="Nama penanggung jawab kunjungan" maxlength="200" required />
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="jabatan">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                  <rect x="2" y="7" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/>
+                  <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="currentColor" stroke-width="1.8"/>
+                  <path d="M12 12v.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Jabatan <span class="field-req">*</span>
+              </label>
+              <input type="text" id="jabatan" name="jabatan" class="field-input" placeholder="Contoh: Kepala Dinas, Pengawas, dll." maxlength="150" required />
+            </div>
+          </div>
+
+          <!-- Keterangan -->
+          <div class="field-group">
+            <label class="field-label" for="keterangan">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                <path d="M8 6h13M8 12h9M8 18h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+              Tujuan Kunjungan <span class="field-req">*</span>
+            </label>
+            <textarea id="keterangan" name="keterangan" class="field-input" placeholder="Jelaskan tujuan dan agenda kunjungan secara singkat..." maxlength="300" required></textarea>
+            <div class="char-counter" id="ket-count">0 / 300</div>
+          </div>
+
+        </div>
+
+        <div class="knj-form-footer">
+          <span class="footer-note">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            Data aman & terlindungi
+          </span>
+          <div class="btn-group">
+            <button class="btn-reset" type="reset">Reset</button>
+            <button class="btn-submit" type="submit">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Daftarkan Kunjungan
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  // Set tanggal default +3 hari dari sekarang (minimal 3 hari sebelum kunjungan)
+  const minDate = new Date();
+  minDate.setDate(minDate.getDate() + 3);
+  const minStr = minDate.toISOString().split('T')[0];
+  const tanggalInput = document.getElementById('tanggal');
+  tanggalInput.value = minStr;
+  tanggalInput.min   = minStr;
+
+  // Char counter
+  const ket = document.getElementById('keterangan');
+  const counter = document.getElementById('ket-count');
+  ket.addEventListener('input', () => {
+    const len = ket.value.length;
+    counter.textContent = len + ' / 300';
+    counter.style.color = len > 270 ? '#E24B4A' : '#90b870';
+  });
+</script>
+{% endblock %}

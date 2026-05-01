@@ -1,0 +1,483 @@
+{% extends "base.html" %}
+{% block title %}Layanan Kami{% endblock %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+
+<style>
+  .layanan-page {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 80vh;
+    background: #f4f6f9;
+    padding: 0 0 4rem;
+  }
+
+  /* ── Hero ── */
+  .layanan-hero {
+    background: linear-gradient(135deg, #0a1f3d 0%, #123472 55%, #1a4fa8 100%);
+    padding: 3.5rem 2rem 6rem;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .layanan-hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 350px; height: 350px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .layanan-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: 5%;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+  }
+  .layanan-hero-inner {
+    max-width: 620px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .layanan-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 99px;
+    padding: 5px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 1.25rem;
+    animation: fadeSlideDown 0.5s ease both;
+  }
+  .hero-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #60a5fa;
+    animation: pulse 2s infinite;
+  }
+  .layanan-hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 1rem;
+    line-height: 1.2;
+    animation: fadeSlideDown 0.5s 0.1s ease both;
+  }
+  .layanan-hero p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.72);
+    margin: 0 auto;
+    max-width: 460px;
+    line-height: 1.7;
+    animation: fadeSlideDown 0.5s 0.2s ease both;
+  }
+
+  /* ── Search bar ── */
+  .search-wrap {
+    margin-top: 2rem;
+    position: relative;
+    max-width: 380px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeSlideDown 0.5s 0.3s ease both;
+  }
+  .search-icon {
+    position: absolute;
+    left: 13px; top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255,255,255,0.5);
+  }
+  .search-input {
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 99px;
+    padding: 10px 16px 10px 38px;
+    font-size: 13.5px;
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    outline: none;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .search-input::placeholder { color: rgba(255,255,255,0.45); }
+  .search-input:focus {
+    background: rgba(255,255,255,0.18);
+    border-color: rgba(255,255,255,0.4);
+  }
+
+  /* ── Main wrapper ── */
+  .layanan-main {
+    max-width: 960px;
+    margin: -3rem auto 0;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── Section header ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.25rem;
+    animation: fadeUp 0.4s 0.35s ease both;
+  }
+  .section-header h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e3464;
+    margin: 0;
+  }
+  .section-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #d0d8e8;
+  }
+  .section-count {
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    background: #1a4fa8;
+    border-radius: 99px;
+    padding: 2px 9px;
+  }
+
+  /* ── Grid ── */
+  .layanan-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.1rem;
+  }
+  @media (max-width: 680px) { .layanan-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 420px) { .layanan-grid { grid-template-columns: 1fr; } }
+
+  /* ── Card ── */
+  .lsvc-card {
+    background: #fff;
+    border: 1px solid #dde5f0;
+    border-radius: 16px;
+    padding: 1.35rem 1.2rem 1.15rem;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    animation: fadeUp 0.45s ease both;
+  }
+  .lsvc-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 16px 16px 0 0;
+    background: var(--c-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .lsvc-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 32px rgba(26,79,168,0.11);
+    border-color: var(--c-border-hover);
+    text-decoration: none;
+  }
+  .lsvc-card:hover::before { transform: scaleX(1); }
+
+  .lsvc-icon {
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    background: var(--c-icon-bg);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .lsvc-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a2f54;
+    margin: 0 0 4px;
+    line-height: 1.3;
+  }
+  .lsvc-desc {
+    font-size: 12.5px;
+    color: #6a82aa;
+    margin: 0;
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .lsvc-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4px;
+  }
+  .lsvc-tag {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 99px;
+    background: var(--c-icon-bg);
+    color: var(--c-tag-text);
+  }
+  .lsvc-arrow {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--c-icon-bg);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .lsvc-card:hover .lsvc-arrow {
+    background: var(--c-accent);
+    transform: translateX(3px);
+  }
+  .lsvc-card:hover .lsvc-arrow svg path { stroke: #fff; }
+
+  /* Stagger */
+  .lsvc-card:nth-child(1) { animation-delay: 0.38s; }
+  .lsvc-card:nth-child(2) { animation-delay: 0.45s; }
+  .lsvc-card:nth-child(3) { animation-delay: 0.52s; }
+  .lsvc-card:nth-child(4) { animation-delay: 0.59s; }
+  .lsvc-card:nth-child(5) { animation-delay: 0.66s; }
+  .lsvc-card:nth-child(6) { animation-delay: 0.73s; }
+
+  /* Color themes */
+  .c-teal   { --c-accent: #0F6E56; --c-border-hover: #9FE1CB; --c-icon-bg: #E1F5EE; --c-tag-text: #085041; }
+  .c-blue   { --c-accent: #185FA5; --c-border-hover: #85B7EB; --c-icon-bg: #E6F1FB; --c-tag-text: #0C447C; }
+  .c-amber  { --c-accent: #BA7517; --c-border-hover: #FAC775; --c-icon-bg: #FAEEDA; --c-tag-text: #854F0B; }
+  .c-coral  { --c-accent: #993C1D; --c-border-hover: #F5C4B3; --c-icon-bg: #FAECE7; --c-tag-text: #993C1D; }
+  .c-purple { --c-accent: #534AB7; --c-border-hover: #AFA9EC; --c-icon-bg: #EEEDFE; --c-tag-text: #3C3489; }
+  .c-green  { --c-accent: #3B6D11; --c-border-hover: #97C459; --c-icon-bg: #EAF3DE; --c-tag-text: #27500A; }
+
+  /* No result */
+  .no-result {
+    display: none;
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #8a9abc;
+    font-size: 14px;
+    grid-column: 1 / -1;
+  }
+  .no-result svg { display: block; margin: 0 auto 12px; opacity: 0.35; }
+
+  /* Animations */
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+  }
+</style>
+
+<div class="layanan-page">
+
+  <!-- Hero -->
+  <div class="layanan-hero">
+    <div class="layanan-hero-inner">
+      <div class="layanan-hero-badge">
+        <span class="hero-dot"></span>
+        6 Layanan Tersedia
+      </div>
+      <h1>Layanan Kami</h1>
+      <p>Akses berbagai layanan administrasi dan akademik sekolah dengan mudah, cepat, dan transparan.</p>
+      <div class="search-wrap">
+        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none">
+          <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+          <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input class="search-input" type="text" id="search-input" placeholder="Cari layanan..." autocomplete="off" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Cards -->
+  <div class="layanan-main">
+    <div class="section-header">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="3" width="8" height="8" rx="2" stroke="#1e3464" stroke-width="1.8"/>
+        <rect x="13" y="3" width="8" height="8" rx="2" stroke="#1e3464" stroke-width="1.8"/>
+        <rect x="3" y="13" width="8" height="8" rx="2" stroke="#1e3464" stroke-width="1.8"/>
+        <rect x="13" y="13" width="8" height="8" rx="2" stroke="#1e3464" stroke-width="1.8"/>
+      </svg>
+      <h2>Semua Layanan</h2>
+      <span class="section-count" id="count-badge">6</span>
+    </div>
+
+    <div class="layanan-grid" id="layanan-grid">
+
+      <!-- PPDB -->
+      <a href="/layanan-ppdb" class="lsvc-card c-teal" data-name="layanan ppdb penerimaan peserta didik baru pendaftaran">
+        <div class="lsvc-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8" r="3.5" stroke="#0F6E56" stroke-width="1.8"/>
+            <path d="M4 20c0-3.87 3.58-7 8-7s8 3.13 8 7" stroke="#0F6E56" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <p class="lsvc-title">Layanan PPDB</p>
+          <p class="lsvc-desc">Penerimaan Peserta Didik Baru. Daftarkan calon siswa baru secara online.</p>
+        </div>
+        <div class="lsvc-footer">
+          <span class="lsvc-tag">Pendaftaran</span>
+          <span class="lsvc-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#0F6E56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Mutasi -->
+      <a href="/layanan-mutasi" class="lsvc-card c-blue" data-name="layanan mutasi perpindahan siswa masuk keluar">
+        <div class="lsvc-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M8 7l4-4 4 4M16 17l-4 4-4-4" stroke="#185FA5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 3v18" stroke="#185FA5" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <p class="lsvc-title">Layanan Mutasi</p>
+          <p class="lsvc-desc">Proses perpindahan siswa masuk maupun keluar dari sekolah.</p>
+        </div>
+        <div class="lsvc-footer">
+          <span class="lsvc-tag">Perpindahan</span>
+          <span class="lsvc-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#185FA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- PIP -->
+      <a href="/layanan-pip" class="lsvc-card c-amber" data-name="layanan pip program indonesia pintar bantuan pendidikan">
+        <div class="lsvc-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="6" width="20" height="14" rx="2" stroke="#BA7517" stroke-width="1.8"/>
+            <path d="M16 6V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v1" stroke="#BA7517" stroke-width="1.8"/>
+            <path d="M12 12v4M10 14h4" stroke="#BA7517" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <p class="lsvc-title">Layanan PIP</p>
+          <p class="lsvc-desc">Program Indonesia Pintar. Bantuan biaya pendidikan bagi siswa yang membutuhkan.</p>
+        </div>
+        <div class="lsvc-footer">
+          <span class="lsvc-tag">Bantuan</span>
+          <span class="lsvc-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#BA7517" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- KJP -->
+      <a href="/layanan-kjp" class="lsvc-card c-coral" data-name="layanan kjp kartu jakarta pintar beasiswa dki">
+        <div class="lsvc-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="5" width="20" height="14" rx="2" stroke="#993C1D" stroke-width="1.8"/>
+            <path d="M2 10h20" stroke="#993C1D" stroke-width="1.8"/>
+            <path d="M6 15h4" stroke="#993C1D" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <p class="lsvc-title">Layanan KJP</p>
+          <p class="lsvc-desc">Kartu Jakarta Pintar Plus. Program beasiswa Pemprov DKI Jakarta.</p>
+        </div>
+        <div class="lsvc-footer">
+          <span class="lsvc-tag">Beasiswa</span>
+          <span class="lsvc-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#993C1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Administrasi -->
+      <a href="/layanan-administrasi-sekolah" class="lsvc-card c-purple" data-name="layanan administrasi sekolah surat dokumen tu tata usaha">
+        <div class="lsvc-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M9 12h6M9 16h4M6 4h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M9 8h6" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <p class="lsvc-title">Administrasi Sekolah</p>
+          <p class="lsvc-desc">Pengajuan surat, dokumen, dan kebutuhan administrasi harian sekolah.</p>
+        </div>
+        <div class="lsvc-footer">
+          <span class="lsvc-tag">Dokumen</span>
+          <span class="lsvc-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#534AB7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Kunjungan -->
+      <a href="/layanan-kunjungan-antar-instansi" class="lsvc-card c-green" data-name="layanan kunjungan instansi tamu dinas pengawas">
+        <div class="lsvc-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M3 21h18M3 10l9-7 9 7" stroke="#3B6D11" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="9" y="13" width="6" height="8" rx="1" stroke="#3B6D11" stroke-width="1.8"/>
+          </svg>
+        </div>
+        <div>
+          <p class="lsvc-title">Kunjungan Instansi</p>
+          <p class="lsvc-desc">Registrasi kunjungan dari instansi luar ke sekolah secara terjadwal.</p>
+        </div>
+        <div class="lsvc-footer">
+          <span class="lsvc-tag">Kunjungan</span>
+          <span class="lsvc-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#3B6D11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- No result -->
+      <div class="no-result" id="no-result">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Layanan tidak ditemukan. Coba kata kunci lain.
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  const searchInput = document.getElementById('search-input');
+  const cards = document.querySelectorAll('.lsvc-card');
+  const noResult = document.getElementById('no-result');
+  const countBadge = document.getElementById('count-badge');
+
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.toLowerCase().trim();
+    let visible = 0;
+    cards.forEach(card => {
+      const name = card.getAttribute('data-name') || '';
+      const match = !q || name.includes(q);
+      card.style.display = match ? '' : 'none';
+      if (match) visible++;
+    });
+    noResult.style.display = visible === 0 ? 'block' : 'none';
+    countBadge.textContent = visible;
+  });
+</script>
+{% endblock %}
