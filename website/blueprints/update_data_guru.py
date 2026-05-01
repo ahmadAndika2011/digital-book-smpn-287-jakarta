@@ -50,10 +50,10 @@ def update_data_guru(id):
             guru.nrk = nrk_new
 
         if status_new:
-            guru.status = status_new
+            guru.status = status_new.upper()
 
         if jabatan_new:
-            guru.jabatan = jabatan_new
+            guru.jabatan = jabatan_new.upper()
 
         if tahun_masuk_new:
             guru.tahun_masuk = tahun_masuk_new

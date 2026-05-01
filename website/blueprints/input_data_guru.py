@@ -39,8 +39,8 @@ def tambah_data_guru():
                 mapel=mapel_input,
                 nip=nip_input,
                 nrk=nrk_input,
-                status=status_input,
-                jabatan=jabatan_input,
+                status=status_input.upper(),
+                jabatan=jabatan_input.upper(),
                 tahun_masuk=tahun_masuk_input
             )
             db.session.add(data_guru)

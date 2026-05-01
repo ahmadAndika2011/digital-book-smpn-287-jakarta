@@ -21,6 +21,6 @@ function deleteGuru(guruId){
         method: "POST",
         body: JSON.stringify({guruId: guruId})
     }).then((_res) => {
-        window.location.href = "/"
+        window.location.href = "/data-guru"
     })
 }

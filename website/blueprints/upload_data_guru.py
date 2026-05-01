@@ -45,8 +45,8 @@ def upload_data_guru():
                         mapel=row["mapel"],
                         nip=row["nip"],
                         nrk=row["nrk"],
-                        status=row["status"],
-                        jabatan=row["jabatan"],
+                        status=row["status"].upper(),
+                        jabatan=row["jabatan"].upper(),
                         tahun_masuk=row["tahun_masuk"]
                     )
                     db.session.add(data_guru)
