@@ -74,8 +74,6 @@
     margin: 0;
     line-height: 1.6;
   }
-
-  /* greeting chip */
   .dash-greeting {
     background: rgba(255,255,255,0.12);
     border: 1px solid rgba(255,255,255,0.2);
@@ -137,20 +135,33 @@
     .dash-grid { grid-template-columns: 1fr; }
   }
 
+  /* ── Card wrapper (handles expand) ── */
+  .card-wrapper {
+    animation: fadeUp 0.45s ease both;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-wrapper:nth-child(1) { animation-delay: 0.35s; }
+  .card-wrapper:nth-child(2) { animation-delay: 0.42s; }
+  .card-wrapper:nth-child(3) { animation-delay: 0.49s; }
+  .card-wrapper:nth-child(4) { animation-delay: 0.56s; }
+  .card-wrapper:nth-child(5) { animation-delay: 0.63s; }
+  .card-wrapper:nth-child(6) { animation-delay: 0.70s; }
+
   /* ── Service card ── */
   .svc-card {
     background: #fff;
     border: 1px solid #dde8f0;
     border-radius: 16px;
     padding: 1.4rem 1.25rem 1.2rem;
-    text-decoration: none;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     gap: 14px;
     position: relative;
     overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-    animation: fadeUp 0.45s ease both;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, border-radius 0.2s;
+    user-select: none;
   }
   .svc-card::before {
     content: '';
@@ -164,12 +175,18 @@
     transition: transform 0.25s ease;
   }
   .svc-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 28px rgba(24,95,165,0.12);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(24,95,165,0.1);
     border-color: var(--card-border-hover);
-    text-decoration: none;
   }
   .svc-card:hover::before { transform: scaleX(1); }
+  .svc-card.active {
+    border-radius: 16px 16px 0 0;
+    border-bottom-color: transparent;
+    box-shadow: 0 4px 16px rgba(24,95,165,0.1);
+    transform: translateY(-2px);
+  }
+  .svc-card.active::before { transform: scaleX(1); }
 
   .svc-icon-wrap {
     width: 46px; height: 46px;
@@ -213,28 +230,156 @@
     background: var(--card-tag-bg);
     color: var(--card-tag-color);
   }
-  .svc-arrow-icon {
+  .svc-count-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 99px;
+    background: var(--card-icon-bg);
+    color: var(--card-accent);
+    border: 1px solid var(--card-border-hover);
+  }
+  .svc-chevron {
     width: 28px; height: 28px;
     border-radius: 50%;
     background: var(--card-icon-bg);
     display: flex; align-items: center; justify-content: center;
-    transition: background 0.2s, transform 0.2s;
+    transition: background 0.2s, transform 0.25s;
+    flex-shrink: 0;
   }
-  .svc-card:hover .svc-arrow-icon {
+  .svc-card:hover .svc-chevron,
+  .svc-card.active .svc-chevron {
     background: var(--card-accent);
-    transform: translateX(3px);
   }
-  .svc-card:hover .svc-arrow-icon svg path {
+  .svc-card:hover .svc-chevron svg path,
+  .svc-card.active .svc-chevron svg path {
     stroke: #fff;
   }
+  .svc-card.active .svc-chevron {
+    transform: rotate(180deg);
+  }
 
-  /* staggered animation delays */
-  .svc-card:nth-child(1) { animation-delay: 0.35s; }
-  .svc-card:nth-child(2) { animation-delay: 0.42s; }
-  .svc-card:nth-child(3) { animation-delay: 0.49s; }
-  .svc-card:nth-child(4) { animation-delay: 0.56s; }
-  .svc-card:nth-child(5) { animation-delay: 0.63s; }
-  .svc-card:nth-child(6) { animation-delay: 0.70s; }
+  /* ── Dropdown Panel ── */
+  .card-dropdown {
+    background: #fff;
+    border: 1px solid var(--card-border-hover);
+    border-top: none;
+    border-radius: 0 0 16px 16px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.2s;
+    box-shadow: none;
+  }
+  .card-dropdown.open {
+    max-height: 380px;
+    box-shadow: 0 8px 24px rgba(24,95,165,0.1);
+    overflow-y: auto;
+  }
+  .card-dropdown-inner {
+    padding: 0.75rem 1rem 1rem;
+  }
+
+  /* dropdown header */
+  .dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.6rem;
+    border-bottom: 1px solid #eef2f7;
+  }
+  .dropdown-header-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--card-accent);
+  }
+  .dropdown-total {
+    font-size: 11px;
+    color: #8aa5c0;
+    font-weight: 500;
+  }
+
+  /* data rows */
+  .data-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 7px 0;
+    border-bottom: 1px dashed #eef2f7;
+  }
+  .data-row:last-child { border-bottom: none; }
+
+  .data-row-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    flex: 1;
+  }
+  .data-row-num {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--card-icon-bg);
+    color: var(--card-accent);
+    font-size: 10px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .data-row-name {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #1a3256;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .data-row-sub {
+    font-size: 11px;
+    color: #8aa5c0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 1px;
+  }
+
+  .data-row-actions {
+    display: flex;
+    gap: 5px;
+    flex-shrink: 0;
+  }
+  .btn-action {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s, transform 0.15s;
+    text-decoration: none;
+  }
+  .btn-action:hover { transform: scale(1.1); }
+  .btn-info {
+    background: var(--card-icon-bg);
+    color: var(--card-accent);
+  }
+  .btn-info:hover { background: var(--card-accent); color: #fff; }
+  .btn-delete {
+    background: #fdeaea;
+    color: #c0392b;
+  }
+  .btn-delete:hover { background: #c0392b; color: #fff; }
+
+  /* empty state */
+  .dropdown-empty {
+    text-align: center;
+    padding: 1.5rem 0;
+    color: #aec0d0;
+    font-size: 12px;
+  }
+  .dropdown-empty svg { margin-bottom: 6px; opacity: 0.4; }
 
   /* ── Color themes per card ── */
   .theme-teal  { --card-accent: #0F6E56; --card-border-hover: #9FE1CB; --card-icon-bg: #E1F5EE; --card-tag-bg: #E1F5EE; --card-tag-color: #085041; }
@@ -243,6 +388,11 @@
   .theme-coral { --card-accent: #993C1D; --card-border-hover: #F5C4B3; --card-icon-bg: #FAECE7; --card-tag-bg: #FAECE7; --card-tag-color: #993C1D; }
   .theme-purple{ --card-accent: #534AB7; --card-border-hover: #AFA9EC; --card-icon-bg: #EEEDFE; --card-tag-bg: #EEEDFE; --card-tag-color: #3C3489; }
   .theme-green { --card-accent: #3B6D11; --card-border-hover: #97C459; --card-icon-bg: #EAF3DE; --card-tag-bg: #EAF3DE; --card-tag-color: #27500A; }
+
+  /* scrollbar */
+  .card-dropdown::-webkit-scrollbar { width: 4px; }
+  .card-dropdown::-webkit-scrollbar-track { background: transparent; }
+  .card-dropdown::-webkit-scrollbar-thumb { background: #d1dde8; border-radius: 99px; }
 
   /* ── Keyframes ── */
   @keyframes fadeSlideDown {
@@ -291,130 +441,379 @@
     <div class="dash-grid">
 
       <!-- 1. PPDB -->
-      <a href="#" class="svc-card theme-teal">
-        <div class="svc-icon-wrap">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="none"/>
-            <path d="M17 3.34A10 10 0 1121 12h-2a8 8 0 10-2.34 5.66L18 19a10 10 0 01-1 .66z" fill="none"/>
-            <circle cx="12" cy="8" r="3" stroke="#0F6E56" stroke-width="1.8"/>
-            <path d="M4 20c0-3.87 3.58-7 8-7s8 3.13 8 7" stroke="#0F6E56" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
+      <div class="card-wrapper theme-teal">
+        <div class="svc-card" onclick="toggleCard(this)">
+          <div class="svc-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="8" r="3" stroke="#0F6E56" stroke-width="1.8"/>
+              <path d="M4 20c0-3.87 3.58-7 8-7s8 3.13 8 7" stroke="#0F6E56" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="svc-body">
+            <p class="svc-title">Layanan PPDB</p>
+            <p class="svc-desc">Penerimaan Peserta Didik Baru. Kelola data pendaftar calon siswa baru.</p>
+          </div>
+          <div class="svc-arrow">
+            <span class="svc-tag">Pendaftaran</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span class="svc-count-badge">{{ data_layanan_ppdb|length }} data</span>
+              <span class="svc-chevron">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#0F6E56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </div>
         </div>
-        <div class="svc-body">
-          <p class="svc-title">Layanan PPDB</p>
-          <p class="svc-desc">Penerimaan Peserta Didik Baru. Kelola data pendaftar calon siswa baru.</p>
+        <div class="card-dropdown">
+          <div class="card-dropdown-inner">
+            <div class="dropdown-header">
+              <span class="dropdown-header-title">Data Pendaftar</span>
+              <span class="dropdown-total">Total: {{ data_layanan_ppdb|length }}</span>
+            </div>
+            {% if data_layanan_ppdb %}
+              {% for item in data_layanan_ppdb %}
+              <div class="data-row">
+                <div class="data-row-left">
+                  <div class="data-row-num">{{ loop.index }}</div>
+                  <div>
+                    <div class="data-row-name">{{ item.nama_calon_siswa if item.nama_calon_siswa else 'Data #'}}</div>
+                  </div>
+                </div>
+                <div class="data-row-actions">
+                  <a href="{{ url_for('lihat_data_ppdb.lihat_data_ppdb', id=item.id) }}" class="btn-action btn-info" title="Detail">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  </a>
+                  <button class="btn-action btn-delete" title="Hapus">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div>
+              </div>
+              {% endfor %}
+            {% else %}
+              <div class="dropdown-empty">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#aec0d0" stroke-width="1.5"/><path d="M8 15s1.5-2 4-2 4 2 4 2M9 9h.01M15 9h.01" stroke="#aec0d0" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <p>Belum ada data pendaftar</p>
+              </div>
+            {% endif %}
+          </div>
         </div>
-        <div class="svc-arrow">
-          <span class="svc-tag">Pendaftaran</span>
-          <span class="svc-arrow-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#0F6E56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-        </div>
-      </a>
+      </div>
 
       <!-- 2. Mutasi -->
-      <a href="#" class="svc-card theme-blue">
-        <div class="svc-icon-wrap">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M8 7l4-4 4 4M16 17l-4 4-4-4" stroke="#185FA5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12 3v18" stroke="#185FA5" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
+      <div class="card-wrapper theme-blue">
+        <div class="svc-card" onclick="toggleCard(this)">
+          <div class="svc-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M8 7l4-4 4 4M16 17l-4 4-4-4" stroke="#185FA5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 3v18" stroke="#185FA5" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="svc-body">
+            <p class="svc-title">Layanan Mutasi</p>
+            <p class="svc-desc">Proses perpindahan siswa masuk maupun keluar dari sekolah.</p>
+          </div>
+          <div class="svc-arrow">
+            <span class="svc-tag">Perpindahan</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span class="svc-count-badge">{{ data_layanan_mutasi|length }} data</span>
+              <span class="svc-chevron">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#185FA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </div>
         </div>
-        <div class="svc-body">
-          <p class="svc-title">Layanan Mutasi</p>
-          <p class="svc-desc">Proses perpindahan siswa masuk maupun keluar dari sekolah.</p>
+        <div class="card-dropdown">
+          <div class="card-dropdown-inner">
+            <div class="dropdown-header">
+              <span class="dropdown-header-title">Data Mutasi</span>
+              <span class="dropdown-total">Total: {{ data_layanan_mutasi|length }}</span>
+            </div>
+            {% if data_layanan_mutasi %}
+              {% for item in data_layanan_mutasi %}
+              <div class="data-row">
+                <div class="data-row-left">
+                  <div class="data-row-num">{{ loop.index }}</div>
+                  <div>
+                    <div class="data-row-name">{{ item.nama if item.nama else 'Data #' ~ loop.index }}</div>
+                    <div class="data-row-sub">{{ item.jenis_mutasi if item.jenis_mutasi else item.asal_sekolah if item.asal_sekolah else '-' }}</div>
+                  </div>
+                </div>
+                <div class="data-row-actions">
+                  <a href="{{url_for('lihat_data_mutasi.lihat_data_mutasi', id=item.id)}}" class="btn-action btn-info" title="Detail">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  </a>
+                  <button class="btn-action btn-delete" title="Hapus">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div>
+              </div>
+              {% endfor %}
+            {% else %}
+              <div class="dropdown-empty">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#aec0d0" stroke-width="1.5"/><path d="M8 15s1.5-2 4-2 4 2 4 2M9 9h.01M15 9h.01" stroke="#aec0d0" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <p>Belum ada data mutasi</p>
+              </div>
+            {% endif %}
+          </div>
         </div>
-        <div class="svc-arrow">
-          <span class="svc-tag">Perpindahan</span>
-          <span class="svc-arrow-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#185FA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-        </div>
-      </a>
+      </div>
 
       <!-- 3. PIP -->
-      <a href="#" class="svc-card theme-amber">
-        <div class="svc-icon-wrap">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <rect x="2" y="6" width="20" height="14" rx="2" stroke="#BA7517" stroke-width="1.8"/>
-            <path d="M16 6V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v1" stroke="#BA7517" stroke-width="1.8"/>
-            <path d="M12 12v4M10 14h4" stroke="#BA7517" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
+      <div class="card-wrapper theme-amber">
+        <div class="svc-card" onclick="toggleCard(this)">
+          <div class="svc-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="6" width="20" height="14" rx="2" stroke="#BA7517" stroke-width="1.8"/>
+              <path d="M16 6V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v1" stroke="#BA7517" stroke-width="1.8"/>
+              <path d="M12 12v4M10 14h4" stroke="#BA7517" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="svc-body">
+            <p class="svc-title">Layanan PIP</p>
+            <p class="svc-desc">Program Indonesia Pintar. Kelola data penerima bantuan pendidikan.</p>
+          </div>
+          <div class="svc-arrow">
+            <span class="svc-tag">Bantuan</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span class="svc-count-badge">{{ data_layanan_pip|length }} data</span>
+              <span class="svc-chevron">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#BA7517" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </div>
         </div>
-        <div class="svc-body">
-          <p class="svc-title">Layanan PIP</p>
-          <p class="svc-desc">Program Indonesia Pintar. Kelola data penerima bantuan pendidikan.</p>
+        <div class="card-dropdown">
+          <div class="card-dropdown-inner">
+            <div class="dropdown-header">
+              <span class="dropdown-header-title">Data Penerima PIP</span>
+              <span class="dropdown-total">Total: {{ data_layanan_pip|length }}</span>
+            </div>
+            {% if data_layanan_pip %}
+              {% for item in data_layanan_pip %}
+              <div class="data-row">
+                <div class="data-row-left">
+                  <div class="data-row-num">{{ loop.index }}</div>
+                  <div>
+                    <div class="data-row-name">{{ item.nama if item.nama else 'Data #' ~ loop.index }}</div>
+                  </div>
+                </div>
+                <div class="data-row-actions">
+                  <a href="{{url_for('lihat_data_pip.lihat_data_pip', id=item.id)}}" class="btn-action btn-info" title="Detail">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  </a>
+                  <button href="#" class="btn-action btn-delete" title="Hapus">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div>
+              </div>
+              {% endfor %}
+            {% else %}
+              <div class="dropdown-empty">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#aec0d0" stroke-width="1.5"/><path d="M8 15s1.5-2 4-2 4 2 4 2M9 9h.01M15 9h.01" stroke="#aec0d0" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <p>Belum ada data penerima PIP</p>
+              </div>
+            {% endif %}
+          </div>
         </div>
-        <div class="svc-arrow">
-          <span class="svc-tag">Bantuan</span>
-          <span class="svc-arrow-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#BA7517" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-        </div>
-      </a>
+      </div>
 
       <!-- 4. KJP -->
-      <a href="#" class="svc-card theme-coral">
-        <div class="svc-icon-wrap">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <rect x="2" y="5" width="20" height="14" rx="2" stroke="#993C1D" stroke-width="1.8"/>
-            <path d="M2 10h20" stroke="#993C1D" stroke-width="1.8"/>
-            <path d="M6 15h4" stroke="#993C1D" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
+      <div class="card-wrapper theme-coral">
+        <div class="svc-card" onclick="toggleCard(this)">
+          <div class="svc-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="5" width="20" height="14" rx="2" stroke="#993C1D" stroke-width="1.8"/>
+              <path d="M2 10h20" stroke="#993C1D" stroke-width="1.8"/>
+              <path d="M6 15h4" stroke="#993C1D" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="svc-body">
+            <p class="svc-title">Layanan KJP</p>
+            <p class="svc-desc">Kartu Jakarta Pintar. Pengelolaan data penerima KJP Plus.</p>
+          </div>
+          <div class="svc-arrow">
+            <span class="svc-tag">Beasiswa</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span class="svc-count-badge">{{ data_layanan_kjp|length }} data</span>
+              <span class="svc-chevron">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#993C1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </div>
         </div>
-        <div class="svc-body">
-          <p class="svc-title">Layanan KJP</p>
-          <p class="svc-desc">Kartu Jakarta Pintar. Pengelolaan data penerima KJP Plus.</p>
+        <div class="card-dropdown">
+          <div class="card-dropdown-inner">
+            <div class="dropdown-header">
+              <span class="dropdown-header-title">Data Penerima KJP</span>
+              <span class="dropdown-total">Total: {{ data_layanan_kjp|length }}</span>
+            </div>
+            {% if data_layanan_kjp %}
+              {% for item in data_layanan_kjp %}
+              <div class="data-row">
+                <div class="data-row-left">
+                  <div class="data-row-num">{{ loop.index }}</div>
+                  <div>
+                    <div class="data-row-name">{{ item.nama if item.nama else 'Data #' ~ loop.index }}</div>
+                  </div>
+                </div>
+                <div class="data-row-actions">
+                  <a href="{{url_for('lihat_data_kjp.lihat_data_kjp', id=item.id)}}" class="btn-action btn-info" title="Detail">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  </a>
+                  <button href="#" class="btn-action btn-delete" title="Hapus">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div>
+              </div>
+              {% endfor %}
+            {% else %}
+              <div class="dropdown-empty">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#aec0d0" stroke-width="1.5"/><path d="M8 15s1.5-2 4-2 4 2 4 2M9 9h.01M15 9h.01" stroke="#aec0d0" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <p>Belum ada data penerima KJP</p>
+              </div>
+            {% endif %}
+          </div>
         </div>
-        <div class="svc-arrow">
-          <span class="svc-tag">Beasiswa</span>
-          <span class="svc-arrow-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#993C1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-        </div>
-      </a>
+      </div>
 
       <!-- 5. Administrasi -->
-      <a href="#" class="svc-card theme-purple">
-        <div class="svc-icon-wrap">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M9 12h6M9 16h4M6 4h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M9 8h6" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
+      <div class="card-wrapper theme-purple">
+        <div class="svc-card" onclick="toggleCard(this)">
+          <div class="svc-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M9 12h6M9 16h4M6 4h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M9 8h6" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="svc-body">
+            <p class="svc-title">Administrasi Sekolah</p>
+            <p class="svc-desc">Kelola surat, dokumen, dan kebutuhan administrasi harian sekolah.</p>
+          </div>
+          <div class="svc-arrow">
+            <span class="svc-tag">Dokumen</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span class="svc-count-badge">{{ data_layanan_administrasi_sekolah|length }} data</span>
+              <span class="svc-chevron">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#534AB7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </div>
         </div>
-        <div class="svc-body">
-          <p class="svc-title">Administrasi Sekolah</p>
-          <p class="svc-desc">Kelola surat, dokumen, dan kebutuhan administrasi harian sekolah.</p>
+        <div class="card-dropdown">
+          <div class="card-dropdown-inner">
+            <div class="dropdown-header">
+              <span class="dropdown-header-title">Data Administrasi</span>
+              <span class="dropdown-total">Total: {{ data_layanan_administrasi_sekolah|length }}</span>
+            </div>
+            {% if data_layanan_administrasi_sekolah %}
+              {% for item in data_layanan_administrasi_sekolah %}
+              <div class="data-row">
+                <div class="data-row-left">
+                  <div class="data-row-num">{{ loop.index }}</div>
+                  <div>
+                    <div class="data-row-name">{{ item.nama if item.nama else 'Dokumen #' ~ loop.index }}</div>
+                  </div>
+                </div>
+                <div class="data-row-actions">
+                  <a href="{{url_for('lihat_data_administrasi_sekolah.lihat_data_administrasi_sekolah', id=item.id)}}" class="btn-action btn-info" title="Detail">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  </a>
+                  <button class="btn-action btn-delete" title="Hapus">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div>
+              </div>
+              {% endfor %}
+            {% else %}
+              <div class="dropdown-empty">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#aec0d0" stroke-width="1.5"/><path d="M8 15s1.5-2 4-2 4 2 4 2M9 9h.01M15 9h.01" stroke="#aec0d0" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <p>Belum ada data administrasi</p>
+              </div>
+            {% endif %}
+          </div>
         </div>
-        <div class="svc-arrow">
-          <span class="svc-tag">Dokumen</span>
-          <span class="svc-arrow-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#534AB7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-        </div>
-      </a>
+      </div>
 
       <!-- 6. Kunjungan Instansi -->
-      <a href="#" class="svc-card theme-green">
-        <div class="svc-icon-wrap">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M3 21h18M3 10l9-7 9 7" stroke="#3B6D11" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <rect x="9" y="13" width="6" height="8" rx="1" stroke="#3B6D11" stroke-width="1.8"/>
-          </svg>
+      <div class="card-wrapper theme-green">
+        <div class="svc-card" onclick="toggleCard(this)">
+          <div class="svc-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M3 21h18M3 10l9-7 9 7" stroke="#3B6D11" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="9" y="13" width="6" height="8" rx="1" stroke="#3B6D11" stroke-width="1.8"/>
+            </svg>
+          </div>
+          <div class="svc-body">
+            <p class="svc-title">Kunjungan Instansi</p>
+            <p class="svc-desc">Catat dan kelola data kunjungan dari instansi luar ke sekolah.</p>
+          </div>
+          <div class="svc-arrow">
+            <span class="svc-tag">Kunjungan</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span class="svc-count-badge">{{ data_layanan_kunjungan_antar_instansi|length }} data</span>
+              <span class="svc-chevron">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#3B6D11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </div>
         </div>
-        <div class="svc-body">
-          <p class="svc-title">Kunjungan Instansi</p>
-          <p class="svc-desc">Catat dan kelola data kunjungan dari instansi luar ke sekolah.</p>
+        <div class="card-dropdown">
+          <div class="card-dropdown-inner">
+            <div class="dropdown-header">
+              <span class="dropdown-header-title">Data Kunjungan</span>
+              <span class="dropdown-total">Total: {{ data_layanan_kunjungan_antar_instansi|length }}</span>
+            </div>
+            {% if data_layanan_kunjungan_antar_instansi %}
+              {% for item in data_layanan_kunjungan_antar_instansi %}
+              <div class="data-row">
+                <div class="data-row-left">
+                  <div class="data-row-num">{{ loop.index }}</div>
+                  <div>
+                    <div class="data-row-name">{{ item.nama_instansi if item.nama_instansi else item.nama if item.nama else 'Kunjungan #' ~ loop.index }}</div>
+                    <div class="data-row-sub">{{ item.tanggal_kunjungan if item.tanggal_kunjungan else item.keperluan if item.keperluan else '-' }}</div>
+                  </div>
+                </div>
+                <div class="data-row-actions">
+                  <a href="{{url_for('lihat_data_kunjungan_instansi.lihat_data_kunjungan_instansi', id=item.id)}}" class="btn-action btn-info" title="Detail">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  </a>
+                  <button class="btn-action btn-delete" title="Hapus">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div>
+              </div>
+              {% endfor %}
+            {% else %}
+              <div class="dropdown-empty">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#aec0d0" stroke-width="1.5"/><path d="M8 15s1.5-2 4-2 4 2 4 2M9 9h.01M15 9h.01" stroke="#aec0d0" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <p>Belum ada data kunjungan</p>
+              </div>
+            {% endif %}
+          </div>
         </div>
-        <div class="svc-arrow">
-          <span class="svc-tag">Kunjungan</span>
-          <span class="svc-arrow-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#3B6D11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-        </div>
-      </a>
+      </div>
 
     </div>
   </div>
 </div>
+
+<script>
+  function toggleCard(cardEl) {
+    const wrapper = cardEl.closest('.card-wrapper');
+    const dropdown = wrapper.querySelector('.card-dropdown');
+    const isOpen = cardEl.classList.contains('active');
+
+    // Close all open cards first
+    document.querySelectorAll('.svc-card.active').forEach(c => {
+      c.classList.remove('active');
+      const d = c.closest('.card-wrapper').querySelector('.card-dropdown');
+      d.classList.remove('open');
+    });
+
+    // Toggle clicked card
+    if (!isOpen) {
+      cardEl.classList.add('active');
+      dropdown.classList.add('open');
+    }
+  }
+</script>
 {% endblock %}
