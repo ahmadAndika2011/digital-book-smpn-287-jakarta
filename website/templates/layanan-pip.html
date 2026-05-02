@@ -392,7 +392,7 @@
         </div>
       </div>
 
-      <form method="POST" action="{{ url_for('layanan_pip.layanan_pip') }}">
+      <form method="POST" action="{{ url_for('layanan_pip.layanan_pip') }}" enctype="multipart/form-data">
         <div class="pip-form-body">
 
           <div class="info-banner">
@@ -474,6 +474,54 @@
             </label>
             <textarea id="keterangan" name="keterangan" class="field-input" placeholder="Alasan pengajuan PIP atau kondisi khusus siswa (opsional)" maxlength="300"></textarea>
             <div class="char-counter" id="ket-count">0 / 300</div>
+          </div>
+
+
+          <!-- Upload Buku Tabungan -->
+          <div class="field-group">
+            <label class="field-label" for="buku_depan">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                <path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="4" y="16" width="16" height="4" rx="1.5" stroke="currentColor" stroke-width="1.8"/>
+              </svg>
+              Halaman Depan Buku Tabungan <span class="field-req">*</span>
+            </label>
+
+            <input 
+              type="file"
+              id="buku_depan"
+              name="buku_depan"
+              class="field-input"
+              accept="image/*"
+              required
+            />
+
+            <small style="font-size:12px;color:#9a7040;">
+              Upload foto halaman depan buku tabungan (JPG / PNG)
+            </small>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="buku_mutasi">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                <path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="4" y="16" width="16" height="4" rx="1.5" stroke="currentColor" stroke-width="1.8"/>
+              </svg>
+              Halaman Mutasi Buku Tabungan <span class="field-req">*</span>
+            </label>
+
+            <input 
+              type="file"
+              id="buku_mutasi"
+              name="buku_mutasi"
+              class="field-input"
+              accept="image/*"
+              required
+            />
+
+            <small style="font-size:12px;color:#9a7040;">
+              Upload foto halaman mutasi buku tabungan (JPG / PNG)
+            </small>
           </div>
 
         </div>

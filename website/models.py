@@ -90,6 +90,8 @@ class DatabaseLayananPip(db.Model, UserMixin):
     nama = db.Column(db.String(200))
     no_telepon = db.Column(db.String(20))
     keterangan = db.Column(db.String(300))
+    image_1 = db.Column(db.String(255))
+    image_2 = db.Column(db.String(255))
 
 class DatabaseLayananKjp(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)

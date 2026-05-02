@@ -446,6 +446,56 @@
           </div>
         </div>
 
+        <!-- Gambar Buku Tabungan Depan -->
+        <div class="field-row">
+          <div class="field-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <rect x="4" y="4" width="16" height="16" rx="2" stroke="#BA7517" stroke-width="1.8"/>
+              <path d="M8 15l3-3 2 2 3-4 2 5" stroke="#BA7517" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <div class="field-content">
+            <div class="field-label">Halaman Depan Buku Tabungan</div>
+
+            {% if item.image_1 %}
+              <div class="field-value">
+                <a href="{{ url_for('static', filename='uploads/' + item.image_1) }}" target="_blank">
+                  <img src="{{ url_for('static', filename='uploads/' + item.image_1) }}"
+                      style="width:220px;border-radius:12px;border:1px solid #FAC775;box-shadow:0 4px 12px rgba(0,0,0,.08);margin-top:8px;">
+                </a>
+              </div>
+            {% else %}
+              <div class="field-value empty">Belum upload gambar</div>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Gambar Buku Tabungan Mutasi -->
+        <div class="field-row">
+          <div class="field-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <rect x="4" y="4" width="16" height="16" rx="2" stroke="#BA7517" stroke-width="1.8"/>
+              <path d="M8 15l3-3 2 2 3-4 2 5" stroke="#BA7517" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <div class="field-content">
+            <div class="field-label">Halaman Mutasi Buku Tabungan</div>
+
+            {% if item.image_2 %}
+              <div class="field-value">
+                <a href="{{ url_for('static', filename='uploads/' + item.image_2) }}" target="_blank">
+                  <img src="{{ url_for('static', filename='uploads/' + item.image_2) }}"
+                      style="width:220px;border-radius:12px;border:1px solid #FAC775;box-shadow:0 4px 12px rgba(0,0,0,.08);margin-top:8px;">
+                </a>
+              </div>
+            {% else %}
+              <div class="field-value empty">Belum upload gambar</div>
+            {% endif %}
+          </div>
+        </div>
+
       </div>
     </div>
 
