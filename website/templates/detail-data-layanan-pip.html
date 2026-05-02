@@ -320,6 +320,33 @@
     .detail-fields { padding: 1rem 1.25rem; }
     .action-card { padding: 1rem 1.25rem; }
   }
+
+  .btn-download{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:10px 16px;
+    background:#BA7517;
+    color:#fff;
+    border-radius:10px;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:600;
+    margin-top:10px;
+    transition:all .2s ease;
+    box-shadow:0 4px 10px rgba(186,117,23,.18);
+}
+
+.btn-download:hover{
+    background:#854F0B;
+    transform:translateY(-2px);
+    color:#fff;
+    text-decoration:none;
+}
+
+.btn-download:active{
+    transform:scale(.97);
+}
 </style>
 
 <div class="detail-page">
@@ -464,6 +491,16 @@
                   <img src="{{ url_for('static', filename='uploads/' + item.image_1) }}"
                       style="width:220px;border-radius:12px;border:1px solid #FAC775;box-shadow:0 4px 12px rgba(0,0,0,.08);margin-top:8px;">
                 </a>
+
+                <a href="{{ url_for('static', filename='uploads/' + item.image_1) }}"
+                  class="btn-download"
+                  download="{{ item.image_1 }}">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 3v11M12 14l-4-4M12 14l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M4 18v2h16v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Download Halaman Depan
+                </a>
               </div>
             {% else %}
               <div class="field-value empty">Belum upload gambar</div>
@@ -489,6 +526,18 @@
                   <img src="{{ url_for('static', filename='uploads/' + item.image_2) }}"
                       style="width:220px;border-radius:12px;border:1px solid #FAC775;box-shadow:0 4px 12px rgba(0,0,0,.08);margin-top:8px;">
                 </a>
+              
+              <a href="{{ url_for('static', filename='uploads/' + item.image_2) }}"
+                class="btn-download"
+                download="{{ item.image_2 }}">
+                
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 3v11M12 14l-4-4M12 14l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4 18v2h16v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+
+                Download Halaman Mutasi
+              </a>
               </div>
             {% else %}
               <div class="field-value empty">Belum upload gambar</div>
