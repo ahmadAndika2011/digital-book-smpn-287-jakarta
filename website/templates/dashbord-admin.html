@@ -482,7 +482,7 @@
                   <a href="{{ url_for('lihat_data_ppdb.lihat_data_ppdb', id=item.id) }}" class="btn-action btn-info" title="Detail">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                   </a>
-                  <button class="btn-action btn-delete" title="Hapus">
+                  <button onclick="deleteDataPpdb({{item.id}})" class="btn-action btn-delete" title="Hapus">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   </button>
                 </div>
@@ -541,7 +541,7 @@
                   <a href="{{url_for('lihat_data_mutasi.lihat_data_mutasi', id=item.id)}}" class="btn-action btn-info" title="Detail">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                   </a>
-                  <button class="btn-action btn-delete" title="Hapus">
+                  <button onclick="deleteDataMutasi({{item.id}})" class="btn-action btn-delete" title="Hapus">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   </button>
                 </div>
@@ -600,7 +600,7 @@
                   <a href="{{url_for('lihat_data_pip.lihat_data_pip', id=item.id)}}" class="btn-action btn-info" title="Detail">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                   </a>
-                  <button href="#" class="btn-action btn-delete" title="Hapus">
+                  <button onclick="deleteDataPip({{item.id}})" class="btn-action btn-delete" title="Hapus">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   </button>
                 </div>
@@ -659,7 +659,7 @@
                   <a href="{{url_for('lihat_data_kjp.lihat_data_kjp', id=item.id)}}" class="btn-action btn-info" title="Detail">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                   </a>
-                  <button href="#" class="btn-action btn-delete" title="Hapus">
+                  <button onclick="deleteDataKjp({{item.id}})" class="btn-action btn-delete" title="Hapus">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   </button>
                 </div>
@@ -717,7 +717,7 @@
                   <a href="{{url_for('lihat_data_administrasi_sekolah.lihat_data_administrasi_sekolah', id=item.id)}}" class="btn-action btn-info" title="Detail">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                   </a>
-                  <button class="btn-action btn-delete" title="Hapus">
+                  <button onclick="deleteDataAdministrasiSekolah({{item.id}})" class="btn-action btn-delete" title="Hapus">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   </button>
                 </div>
@@ -776,7 +776,7 @@
                   <a href="{{url_for('lihat_data_kunjungan_instansi.lihat_data_kunjungan_instansi', id=item.id)}}" class="btn-action btn-info" title="Detail">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                   </a>
-                  <button class="btn-action btn-delete" title="Hapus">
+                  <button onclick="deleteDataKunjunganAntarInstansi({{item.id}})" class="btn-action btn-delete" title="Hapus">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   </button>
                 </div>

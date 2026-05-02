@@ -5,6 +5,7 @@ from ..models import DatabaseLayananPpdb
 views = Blueprint("lihat_data_ppdb", __name__)
 
 @views.route("/lihat-data-ppdb/<int:id>")
+@login_required
 def lihat_data_ppdb(id):
     data = DatabaseLayananPpdb.query.get(id)
-    return f"Hi {data.nama_calon_siswa}"
+    return render_template("detail-data-layanan-ppdb.html", item=data)

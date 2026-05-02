@@ -5,6 +5,7 @@ from ..models import DatabaseLayananPip
 views = Blueprint("lihat_data_pip", __name__)
 
 @views.route("/lihat-data-pip/<int:id>")
+@login_required
 def lihat_data_pip(id):
     data = DatabaseLayananPip.query.get(id)
-    return f"Hi {data.nama}"
+    return render_template("detail-data-layanan-pip.html", item=data)

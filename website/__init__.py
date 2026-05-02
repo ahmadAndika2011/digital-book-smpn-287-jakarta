@@ -54,7 +54,7 @@ def create_app():
     app.register_blueprint(layanan_administrasi_sekolah, url_prefix="/")
     app.register_blueprint(layanan_kunjungan_antar_instansi, url_prefix="/")
 
-    from .blueprints_views import dashbord_admin, pilihan_layanan, lihat_data_ppdb, lihat_data_mutasi, lihat_data_pip, lihat_data_kjp, lihat_data_administrasi_sekolah, lihat_data_kunjungan_instansi
+    from .blueprints_views import dashbord_admin, pilihan_layanan, lihat_data_ppdb, lihat_data_mutasi, lihat_data_pip, lihat_data_kjp, lihat_data_administrasi_sekolah, lihat_data_kunjungan_instansi, hapus_data_ppdb, hapus_data_mutasi, hapus_data_pip, hapus_data_kjp, hapus_data_administrasi_sekolah, hapus_data_kunjungan_antar_instansi
     app.register_blueprint(dashbord_admin, url_prefix="/")
     app.register_blueprint(pilihan_layanan, url_prefix="/")
     app.register_blueprint(lihat_data_ppdb, url_prefix="/")
@@ -63,6 +63,12 @@ def create_app():
     app.register_blueprint(lihat_data_kjp, url_prefix="/")
     app.register_blueprint(lihat_data_administrasi_sekolah, url_prefix="/")
     app.register_blueprint(lihat_data_kunjungan_instansi, url_prefix="/")
+    app.register_blueprint(hapus_data_ppdb, url_prefix="/")
+    app.register_blueprint(hapus_data_mutasi, url_prefix="/")
+    app.register_blueprint(hapus_data_pip, url_prefix="/")
+    app.register_blueprint(hapus_data_kjp, url_prefix="/")
+    app.register_blueprint(hapus_data_administrasi_sekolah, url_prefix="/")
+    app.register_blueprint(hapus_data_kunjungan_antar_instansi, url_prefix="/")
 
     from .models import AdminAccount, DatabaseSiswa, NilaiSiswa, AccountSiswa, Berita, DatabaseGuru, DatabaseLayananPpdb, DatabaseLayananMutasi, DatabaseLayananPip, DatabaseLayananKjp, DatabaseLayananAdministrasiSekolah, DatabaseLayananKunjunganAntarInstansi
     with app.app_context():

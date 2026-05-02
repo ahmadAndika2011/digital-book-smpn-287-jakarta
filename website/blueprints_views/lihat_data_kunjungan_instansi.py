@@ -5,6 +5,7 @@ from ..models import DatabaseLayananKunjunganAntarInstansi
 views = Blueprint("lihat_data_kunjungan_instansi", __name__)
 
 @views.route("/lihat-data-kunjungan_instansi/<int:id>")
+@login_required
 def lihat_data_kunjungan_instansi(id):
     data = DatabaseLayananKunjunganAntarInstansi.query.get(id)
-    return f"Hi {data.nama}"
+    return render_template("detail-data-layanan-kunjungan-antar-instansi.html", item=data)
