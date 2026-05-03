@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{%block title%}Verifikasi OTP{%endblock%}
+
+{% block content %}
+<div class="container mt-5">
+    <h3>Verifikasi Email</h3>
+    <p>Masukkan kode OTP yang telah dikirim ke email kamu.</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST">
+        <div class="mb-3">
+            <label>Kode OTP</label>
+            <input type="text" name="otp" class="form-control" placeholder="Masukkan 6 digit OTP" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Verifikasi</button>
+    </form>
+</div>
+{% endblock %}

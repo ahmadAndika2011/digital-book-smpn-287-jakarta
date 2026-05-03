@@ -189,25 +189,25 @@ def upload_file():
             flash("Tidak ada file yang disimpan", category="error")
     return render_template("upload_file.html", user=current_user)
 
-@auth.route("/kontak", methods=["GET", "POST"])
-def kirim_pesan():
-    if request.method == "POST":
-        nama = request.form.get('nama')
-        email_pengirim = request.form.get('email')
-        subjek = request.form.get('subjek')
-        pesan_user = request.form.get('pesan')
+# @auth.route("/kontak", methods=["GET", "POST"])
+# def kirim_pesan():
+#     if request.method == "POST":
+#         nama = request.form.get('nama')
+#         email_pengirim = request.form.get('email')
+#         subjek = request.form.get('subjek')
+#         pesan_user = request.form.get('pesan')
 
-        msg = Message(subject=f"Kontak Web: {subjek}",
-                    sender=current_app.config['MAIL_USERNAME'],
-                    recipients=['email_anda@yahoo.com']) # Kirim ke diri sendiri
+#         msg = Message(subject=f"Kontak Web: {subjek}",
+#                     sender=current_app.config['MAIL_USERNAME'],
+#                     recipients=['email_anda@yahoo.com']) # Kirim ke diri sendiri
         
-        msg.body = f"Dari: {nama} ({email_pengirim})\n\nPesan:\n{pesan_user}"
+#         msg.body = f"Dari: {nama} ({email_pengirim})\n\nPesan:\n{pesan_user}"
         
-        try:
-            mail.send(msg)
-            flash("Pesan berhasil dikirim!", "success")
-        except Exception as e:
-            flash(f"Gagal mengirim pesan: {str(e)}", "danger")
-        return redirect('/kontak')
+#         try:
+#             mail.send(msg)
+#             flash("Pesan berhasil dikirim!", "success")
+#         except Exception as e:
+#             flash(f"Gagal mengirim pesan: {str(e)}", "danger")
+#         return redirect('/kontak')
     
-    return render_template("kontak.html")
+#     return render_template("kontak.html")

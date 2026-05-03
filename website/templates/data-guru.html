@@ -169,8 +169,9 @@
 </div>
 
 <script>
-document.getElementById("searchInput").addEventListener("keyup", function() {
-    let input = this.value.toLowerCase();
+let searchInput = document.getElementById("searchInput")
+searchInput.addEventListener("keyup", () =>  {
+    let input = searchInput.value.toLowerCase();
     let rows = document.querySelectorAll("#guruTable tbody tr");
 
     rows.forEach(row => {

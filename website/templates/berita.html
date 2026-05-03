@@ -180,4 +180,16 @@ Data Berita
     </div>
 </div>
 
+<script>
+let searchInput = document.querySelector(".search-berita")
+searchInput.addEventListener("keyup", () => {
+    let input = searchInput.value.toLowerCase()
+    let rows = document.querySelectorAll(".table-berita tbody tr")
+
+    rows.forEach(row => {
+        let text = row.innerText.toLowerCase()
+        row.style.display = text.includes(input) ? "" : "none"
+    })
+})
+</script>
 {% endblock %}

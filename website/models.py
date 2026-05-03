@@ -1,3 +1,4 @@
+from email.policy import default
 from enum import unique
 
 from . import db
@@ -115,3 +116,9 @@ class DatabaseLayananKunjunganAntarInstansi(db.Model, UserMixin):
     jabatan = db.Column(db.String(150))
     no_telepon = db.Column(db.String(20))
     keterangan = db.Column(db.String(300))
+
+class DatabaseKontakEmail(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(300))
+    tanggal = db.Column(db.String(150))
+    jumlah_pengiriman = db.Column(db.Integer, default=0)

@@ -5,9 +5,10 @@ from traceback import print_tb
 from flask import Blueprint, current_app, flash, render_template, redirect, request, url_for, jsonify
 from . import db
 from flask_login import login_required, current_user
-from .models import DatabaseSiswa, NilaiSiswa, AccountSiswa, AdminAccount, Berita, DatabaseGuru
+from .models import DatabaseSiswa, NilaiSiswa, AccountSiswa, AdminAccount, Berita, DatabaseGuru, DatabaseKontakEmail
 import json
 import base64
+from datetime import datetime
 
 views = Blueprint("views", __name__)
 
@@ -17,30 +18,24 @@ def home():
     jumlah_guru = DatabaseGuru.query.count()
 
     berita_list = Berita.query.all()
+
+    data_email = DatabaseKontakEmail.query.filter(DatabaseKontakEmail.tanggal != datetime.now().strftime("%Y-%m-%d")).all()
+    if data_email:
+        for email in data_email:
+            db.session.delete(email)
+        db.session.commit()
+
     return render_template("home.html", user=current_user, jumlah_siswa=jumlah_siswa, berita_list=berita_list, jumlah_guru=jumlah_guru)
 
 #? Search Siswa
 @views.route("/data-siswa")
 def data_siswa():
-    nilai_siswa = NilaiSiswa.query.all()
-    
-    # search program
-    query = request.args.get("q", "").strip()
-    if query:
-        search = f"%{query}%"
-        database_siswa = DatabaseSiswa.query.filter(
-            db.or_(
-                DatabaseSiswa.nama.ilike(search),
-                DatabaseSiswa.nisn.ilike(search),
-                DatabaseSiswa.nis.ilike(search),
-            )
-        ).all()
-    else:
-        database_siswa = DatabaseSiswa.query.order_by(DatabaseSiswa.nis.asc()).all()
-
-    name = request.args.get("name")
-    lulus = request.args.get("lulus")
-    return render_template("data-siswa.html", user=current_user, students=database_siswa, nilai=nilai_siswa, query=query, name=name, lulus=lulus)
+    database_siswa = DatabaseSiswa.query.order_by(DatabaseSiswa.nis.asc()).all()
+    return render_template(
+                            "data-siswa.html", 
+                            user=current_user, 
+                            students=database_siswa, 
+    )
 
 #? Detail Siswa
 @views.route("/info_siswa/<int:id>")

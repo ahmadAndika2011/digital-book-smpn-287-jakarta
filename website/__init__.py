@@ -35,7 +35,7 @@ def create_app():
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(auth, url_prefix="/")
 
-    from .blueprints import login_siswa, login_admin, logout, input_data_siswa, update_data_siswa, update_data_per_siswa, buat_akun_siswa, input_berita, input_data_guru, upload_data_guru, update_data_guru, layanan_ppdb, layanan_mutasi, layanan_pip, layanan_kjp, layanan_administrasi_sekolah, layanan_kunjungan_antar_instansi
+    from .blueprints import login_siswa, login_admin, logout, input_data_siswa, update_data_siswa, update_data_per_siswa, buat_akun_siswa, input_berita, input_data_guru, upload_data_guru, update_data_guru, layanan_ppdb, layanan_mutasi, layanan_pip, layanan_kjp, layanan_administrasi_sekolah, layanan_kunjungan_antar_instansi, kontak
     app.register_blueprint(login_siswa, url_prefix="/")
     app.register_blueprint(login_admin, url_prefix="/")
     app.register_blueprint(logout, url_prefix="/")
@@ -53,6 +53,7 @@ def create_app():
     app.register_blueprint(layanan_kjp, url_prefix="/")
     app.register_blueprint(layanan_administrasi_sekolah, url_prefix="/")
     app.register_blueprint(layanan_kunjungan_antar_instansi, url_prefix="/")
+    app.register_blueprint(kontak, url_prefix="/")
 
     from .blueprints_views import dashbord_admin, pilihan_layanan, lihat_data_ppdb, lihat_data_mutasi, lihat_data_pip, lihat_data_kjp, lihat_data_administrasi_sekolah, lihat_data_kunjungan_instansi, hapus_data_ppdb, hapus_data_mutasi, hapus_data_pip, hapus_data_kjp, hapus_data_administrasi_sekolah, hapus_data_kunjungan_antar_instansi
     app.register_blueprint(dashbord_admin, url_prefix="/")
@@ -70,7 +71,7 @@ def create_app():
     app.register_blueprint(hapus_data_administrasi_sekolah, url_prefix="/")
     app.register_blueprint(hapus_data_kunjungan_antar_instansi, url_prefix="/")
 
-    from .models import AdminAccount, DatabaseSiswa, NilaiSiswa, AccountSiswa, Berita, DatabaseGuru, DatabaseLayananPpdb, DatabaseLayananMutasi, DatabaseLayananPip, DatabaseLayananKjp, DatabaseLayananAdministrasiSekolah, DatabaseLayananKunjunganAntarInstansi
+    from .models import AdminAccount, DatabaseSiswa, NilaiSiswa, AccountSiswa, Berita, DatabaseGuru, DatabaseLayananPpdb, DatabaseLayananMutasi, DatabaseLayananPip, DatabaseLayananKjp, DatabaseLayananAdministrasiSekolah, DatabaseLayananKunjunganAntarInstansi, DatabaseKontakEmail
     with app.app_context():
         db.create_all()
 

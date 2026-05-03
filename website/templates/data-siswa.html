@@ -11,42 +11,28 @@
       <h2 class="table-title">Data Siswa</h2>
       <p class="table-subtitle">Daftar seluruh siswa SMPN 287</p>
 
-      <form method="GET" action="{{ url_for('views.data_siswa') }}" class="search-form">
-        <div class="search-wrapper" style="position: relative; display: flex; align-items: center;">
-          <svg style="position: absolute; left: 14px; width: 16px; height: 16px; color: #9ca3af; pointer-events: none; flex-shrink: 0;" viewBox="0 0 24 24" fill="none">
-            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
-            <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <div class="search-wrapper" style="position: relative; display: flex; align-items: center;">
+        <svg style="position: absolute; left: 14px; width: 16px; height: 16px; color: #9ca3af; pointer-events: none; flex-shrink: 0;" viewBox="0 0 24 24" fill="none">
+          <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+          <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+
+        <input
+          type="text"
+          id="search-input"
+          class="search-input"
+          placeholder="Cari nama, NISN, NIS, atau kelas..."
+          style="width: 100%; padding: 10px 44px 10px 42px; font-size: 14px; border: 1px solid #d1d5db; border-radius: 10px; outline: none; box-sizing: border-box;"
+        />
+
+        <!-- Tombol clear muncul saat ada isian -->
+        <button id="clear-btn" onclick="clearSearch()" title="Hapus pencarian"
+          style="display: none; position: absolute; right: 10px; background: none; border: none; cursor: pointer; padding: 4px; border-radius: 50%; color: #9ca3af;">
+          <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
           </svg>
-
-          <input
-            type="text"
-            name="q"
-            class="search-input"
-            placeholder="Cari nama, NISN, NIS, atau kelas..."
-            value="{{ query }}"
-            autofocus
-            style="width: 100%; padding: 10px 44px 10px 42px; font-size: 14px; border: 1px solid #d1d5db; border-radius: 10px; outline: none; box-sizing: border-box;"
-          />
-
-          {% if query %}
-          <a href="{{ url_for('views.data_siswa') }}" class="clear-btn" title="Hapus pencarian"
-            style="position: absolute; right: 10px; display: flex; align-items: center; color: #9ca3af; padding: 4px; border-radius: 50%;">
-            <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
-              <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-            </svg>
-          </a>
-          {% endif %}
-        </div>
-      </form>
-
-      {%if name%}
-      <h2 class="table-title">Hi {{name}}, 
-      {%if lulus == "Ya"%}
-      Anda Lulus
-      {%else%}
-      Anda tidak lulus
-      {%endif%}</h2>
-      {%endif%}
+        </button>
+      </div>
     </div>
 
 
@@ -119,6 +105,19 @@
     </div>
   </div>
 </div>
+
+<script>
+let searchInput = document.getElementById("search-input")
+searchInput.addEventListener("keyup", () => {
+  let input = searchInput.value.toLowerCase()
+  let rows = document.querySelectorAll(".student-row")
+
+  rows.forEach(row => {
+    let text = row.innerText.toLowerCase()
+    row.style.display = text.includes(input) ? "" : "none"
+  }) 
+})
+</script>
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
