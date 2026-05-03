@@ -153,7 +153,7 @@ def upload_file():
                             kelurahan=row["kelurahan"],
                             kecamatan=row["kecamatan"],
                             sekolah_asal=row["sekolah_asal"],
-                            lulus=row["lulus"],
+                            lulus=row["lulus"].title(),
                         )
 
                         nilai_siswa = NilaiSiswa(
