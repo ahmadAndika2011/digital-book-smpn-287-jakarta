@@ -14,7 +14,7 @@ def login_siswa():
         if check_nis:
             check_password_hashing = check_password_hash(check_nis.password, password)
             if check_password_hashing:
-                name = DatabaseSiswa.query.filter_by(nis=check_nis.nis).first().nama.split()[0]
+                name = DatabaseSiswa.query.filter_by(nis=check_nis.nis).first().nama
                 lulus = DatabaseSiswa.query.filter_by(nis=check_nis.nis).first().lulus
                 flash(f"Selamat Login.", category="success")
                 return redirect(url_for("views.template_lulus", name=name, lulus=lulus))
