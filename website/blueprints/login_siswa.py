@@ -4,7 +4,7 @@ from werkzeug.security import check_password_hash
 
 auth = Blueprint("login_siswa", __name__)
 
-@auth.route("/login-siswa", methods=["GET", "POST"])
+@auth.route("/cek-kelulusan-siswa", methods=["GET", "POST"])
 def login_siswa():
     if request.method == "POST":
         nis = request.form.get("nis")
@@ -22,4 +22,4 @@ def login_siswa():
                 flash("Password salah!", category="error")
         else:
             flash("NIS tidak ada!", category="error")
-    return render_template("login-siswa.html")
+    return render_template("cek-kelulusan-siswa.html")

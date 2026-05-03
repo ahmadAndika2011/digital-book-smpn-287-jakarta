@@ -96,7 +96,7 @@ def kirim_pesan():
 
         bisa_kirim, jumlah =cek_batas_kirim(email_pengirim)
         if not bisa_kirim:
-            flash(f"Email Sudah mengirim sebanyak {batas_kirm_per_hari}kali.", category="error")
+            flash(f"Email Sudah mengirim sebanyak {batas_kirm_per_hari} kali.", category="error")
             return redirect(url_for("kontak.kirim_pesan"))
 
         # Simpan data form ke session
@@ -154,16 +154,12 @@ def verifikasi_otp():
                 session.pop('subjek', None)
                 session.pop('pesan_user', None)
 
-                flash("Pesan berhasil dikirim! Terima kasih telah menghubungi kami.", category="success")
+                flash("Pesan berhasil dikirim! Terima kasih telah menghubungi kami.\nSilahkan tunggu pesan kembali dari pihak Kami.", category="success")
                 return redirect(url_for("kontak.kirim_pesan"))
 
             except Exception as e:
-                    import traceback
-                    traceback.print_exc()  # ← print full error di terminal VSCode
-                    flash(f"Error: {str(e)}", "danger")
-                    return redirect(url_for("kontak.verifikasi_otp"))
-                # flash("Gagal mengirim pesan. Silakan coba lagi.", category="error")
-                # return redirect(url_for("kontak.verifikasi_otp"))
+                flash("Gagal mengirim pesan. Silakan coba lagi.", category="error")
+                return redirect(url_for("kontak.verifikasi_otp"))
         else:
             flash("Kode OTP salah! Silakan coba lagi.", category="error")
 

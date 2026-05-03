@@ -2,22 +2,188 @@
 {%block title%}Verifikasi OTP{%endblock%}
 
 {% block content %}
-<div class="container mt-5">
-    <h3>Verifikasi Email</h3>
-    <p>Masukkan kode OTP yang telah dikirim ke email kamu.</p>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  .otp-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 40px 16px;
+  }
+
+  .otp-card {
+    background: #111624;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 20px;
+    padding: 32px 28px;
+    width: 100%;
+    max-width: 360px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+    animation: slideUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .otp-icon {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, #4f8ef7, #a78bfa);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 16px rgba(79,142,247,0.3);
+  }
+  .otp-icon svg {
+    width: 20px; height: 20px;
+    stroke: #fff; fill: none;
+    stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+  }
+
+  .otp-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #e8eaf0;
+    margin-bottom: 6px;
+  }
+  .otp-card h2 em { font-style: italic; color: #4f8ef7; }
+
+  .otp-subtitle {
+    font-size: 0.8rem;
+    color: #6b7394;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .flash {
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    margin-bottom: 16px;
+    border: 1px solid;
+  }
+  .flash.success { background: rgba(52,211,153,0.1); border-color: rgba(52,211,153,0.3); color: #34d399; }
+  .flash.danger  { background: rgba(248,113,113,0.1); border-color: rgba(248,113,113,0.3); color: #f87171; }
+
+  .otp-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .otp-box {
+    flex: 1;
+    height: 48px;
+    min-width: 0;
+    background: rgba(255,255,255,0.04);
+    border: 1.5px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    color: #e8eaf0;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  }
+  .otp-box:focus {
+    border-color: #4f8ef7;
+    background: rgba(79,142,247,0.08);
+    box-shadow: 0 0 0 3px rgba(79,142,247,0.12);
+  }
+  .otp-box.filled {
+    border-color: rgba(79,142,247,0.4);
+    background: rgba(79,142,247,0.06);
+  }
+
+  .btn-verify {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #4f8ef7, #a78bfa);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(79,142,247,0.3);
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .btn-verify:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-verify:active { opacity: 1; transform: translateY(0); }
+</style>
+
+<div class="otp-wrapper">
+  <div class="otp-card">
+
+    <div class="otp-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+      </svg>
+    </div>
+
+    <h2>Verifikasi <em>Email</em></h2>
+    <p class="otp-subtitle">Masukkan kode 6 digit yang dikirim ke email kamu.</p>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
-        {% for category, message in messages %}
-            <div class="alert alert-{{ category }}">{{ message }}</div>
-        {% endfor %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
     {% endwith %}
 
-    <form method="POST">
-        <div class="mb-3">
-            <label>Kode OTP</label>
-            <input type="text" name="otp" class="form-control" placeholder="Masukkan 6 digit OTP" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Verifikasi</button>
+    <form method="POST" id="otpForm">
+      <div class="otp-group">
+        <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
+        <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
+        <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
+        <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
+        <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
+        <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
+      </div>
+      <input type="hidden" name="otp" id="otpReal">
+      <button type="submit" class="btn-verify">Verifikasi Sekarang →</button>
     </form>
+
+  </div>
 </div>
+
+<script>
+  const boxes = document.querySelectorAll('.otp-box');
+  const otpReal = document.getElementById('otpReal');
+
+  boxes[0].focus();
+
+  function syncOtp() {
+    otpReal.value = Array.from(boxes).map(b => b.value).join('');
+  }
+
+  boxes.forEach((box, i) => {
+    box.addEventListener('input', e => {
+      box.value = e.target.value.replace(/\D/g, '');
+      box.classList.toggle('filled', !!box.value);
+      if (box.value && i < 5) boxes[i + 1].focus();
+      syncOtp();
+    });
+    box.addEventListener('keydown', e => {
+      if (e.key === 'Backspace' && !box.value && i > 0) {
+        boxes[i - 1].focus();
+        boxes[i - 1].value = '';
+        boxes[i - 1].classList.remove('filled');
+        syncOtp();
+      }
+    });
+    box.addEventListener('paste', e => {
+      const text = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
+      e.preventDefault();
+      text.split('').slice(0, 6).forEach((c, j) => {
+        if (boxes[j]) { boxes[j].value = c; boxes[j].classList.add('filled'); }
+      });
+      syncOtp();
+      boxes[Math.min(text.length, 5)].focus();
+    });
+  });
+</script>
 {% endblock %}
