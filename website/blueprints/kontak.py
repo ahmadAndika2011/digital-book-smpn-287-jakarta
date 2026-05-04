@@ -78,9 +78,9 @@ def kirim_pesan():
 
         # # Cek hari (0=Senin, 6=Minggu)
         hari_ini = datetime.now().weekday()
-        # if hari_ini >= 5:  # 5=Sabtu, 6=Minggu
-        #     flash("Pesan hanya dapat dikirim pada hari Senin - Jumat.", category="error")
-        #     return redirect(url_for("kontak.kirim_pesan"))
+        if hari_ini >= 5:  # 5=Sabtu, 6=Minggu
+            flash("Pesan hanya dapat dikirim pada hari Senin - Jumat.", category="error")
+            return redirect(url_for("kontak.kirim_pesan"))
 
 
         nama = request.form.get('nama')
