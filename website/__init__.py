@@ -16,8 +16,8 @@ def create_app():
     app = Flask(__name__)
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
-    # app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+mysqlconnector://andika:{quote_plus(os.getenv('DB_PASSWORD'))}@187.77.113.166/{os.getenv('DB_NAME')}"
-    app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+mysqlconnector://root:@localhost/database_smpn_287"
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+mysqlconnector://andika:{quote_plus(os.getenv('DB_PASSWORD'))}@187.77.113.166/{os.getenv('DB_NAME')}"
+    # app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+mysqlconnector://root:@localhost/database_smpn_287"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(app)
 
