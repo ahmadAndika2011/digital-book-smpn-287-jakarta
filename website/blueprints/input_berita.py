@@ -60,7 +60,7 @@ def tambah_berita():
         title_input = request.form.get("judul")
         text_input = request.form.get("keterangan")
 
-        if text_input:
+        if title_input:
             input_berita = Berita(
                 title = title_input,
                 describe = text_input,
@@ -73,5 +73,7 @@ def tambah_berita():
             db.session.commit()
             flash("Success Tambah berita.", category="success")
             return redirect(url_for("views.home"))
+        else:
+            flash("gagal menambahkan. Silahkan masukkan judul berita dulu.", category="error")
 
     return render_template("input-berita.html", user=current_user)
