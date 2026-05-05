@@ -1,0 +1,290 @@
+"""
+fill_kjp_pdf.py
+===============
+Script untuk mengisi Formulir KJP Plus dari data database.
+Kolom database yang didukung: id, tanggal, nama, no_telepon, keterangan
+
+Cara pakai di Flask:
+    from fill_kjp_pdf import fill_kjp_pdf
+    pdf_bytes = fill_kjp_pdf(siswa_dict)
+    # siswa_dict contoh:
+    # {
+    #     "nama": "Budi Santoso",
+    #     "no_telepon": "08123456789",
+    #     "keterangan": "Catatan tambahan",
+    #     "tanggal": "2026-01-15"
+    # }
+"""
+
+import io
+from pypdf import PdfReader, PdfWriter
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4
+from reportlab.lib import colors
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+import copy
+
+
+# ─────────────────────────────────────────
+# Koordinat field dalam PDF (satuan: points)
+# Sistem koordinat PDF: y=0 di BAWAH halaman
+# PDF size: w=595.44, h=841.92
+# ─────────────────────────────────────────
+
+PDF_W = 595.44
+PDF_H = 841.92
+
+def top_to_pdf_y(top, h=PDF_H):
+    """Konversi koordinat 'top' (y dari atas) ke koordinat PDF (y dari bawah)."""
+    return h - top
+
+
+# Field definitions: (page_index, x, pdf_y, max_width, font_size) * 0.479
+# page_index = 0-based (page 0 = halaman 1, page 1 = halaman 2, dst)
+FIELDS = {
+    "nama_murid": {
+        "page": 1,
+        "x": 222,
+        "y": top_to_pdf_y(180),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "tempat_lahir_murid": {
+        "page": 1,
+        "x": 222,
+        "y": top_to_pdf_y(210),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "nik_murid":{
+        "page": 1,
+        "x": 222,
+        "y": top_to_pdf_y(147),
+        "max_w": 170,
+        "font_size": 9,
+    }
+}
+
+
+def _make_overlay(page_fields, page_w, page_h):
+    """Buat overlay PDF transparan berisi teks untuk satu halaman."""
+    packet = io.BytesIO()
+    c = canvas.Canvas(packet, pagesize=(page_w, page_h))
+
+    for field_name, value, cfg in page_fields:
+        font_size = cfg.get("font_size", 10)
+
+        # ── LANGKAH 2: Tulis teks di atas kotak putih ──
+        c.setFillColor(colors.black)
+        c.setFont("Helvetica", font_size)
+
+        # Potong teks jika melebihi lebar maksimal
+        text = str(value)
+        while text and c.stringWidth(text, "Helvetica", font_size) > cfg["max_w"]:
+            text = text[:-1]
+
+        c.drawString(cfg["x"], cfg["y"], text)
+
+    c.save()
+    packet.seek(0)
+    return PdfReader(packet)
+
+
+def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
+    nama_murid  = siswa.get("nama_murid", "")
+    tempat_lahir_murid  = siswa.get("tempat_lahir_murid", "")
+    nik_murid = siswa.get("nik_murid", "")
+
+    # Kelompokkan field berdasarkan halaman
+    page_data = {}
+
+    field_map = [
+        ("nama_murid",     nama_murid),
+        ("tempat_lahir_murid", tempat_lahir_murid),
+        ("nik_murid", nik_murid),
+    ]
+
+    for field_key, value in field_map:
+        cfg = FIELDS[field_key]
+        pg  = cfg["page"]
+        if pg not in page_data:
+            page_data[pg] = []
+        page_data[pg].append((field_key, value, cfg))
+
+    # Baca template
+    reader = PdfReader(template_path)
+    writer = PdfWriter()
+
+    for i, page in enumerate(reader.pages):
+        page_w = float(page.mediabox.width)
+        page_h = float(page.mediabox.height)
+
+        if i in page_data:
+            overlay_reader = _make_overlay(page_data[i], page_w, page_h)
+            overlay_page   = overlay_reader.pages[0]
+            page.merge_page(overlay_page)
+
+        writer.add_page(page)
+
+    output = io.BytesIO()
+    writer.write(output)
+    output.seek(0)
+    return output.read()
+
+
+# # ─────────────────────────────────────────
+# # Contoh penggunaan standalone (bukan Flask)
+# # ─────────────────────────────────────────
+# if __name__ == "__main__":
+#     import os
+
+#     # Simulasi data dari database
+#     sample_data = [
+#         {"id": 1, "tanggal": "2026-01-10", "nama": "Budi Santoso",      "no_telepon": "081234567890", "keterangan": "Siswa kelas 8A"},
+#         {"id": 2, "tanggal": "2026-01-11", "nama": "Siti Rahayu",        "no_telepon": "089876543210", "keterangan": "Siswa kelas 7B"},
+#         {"id": 3, "tanggal": "2026-01-12", "nama": "Ahmad Fauzi Pratama","no_telepon": "082111222333", "keterangan": "Siswa kelas 9C"},
+#     ]
+
+#     os.makedirs("output_pdf", exist_ok=True)
+
+#     for siswa in sample_data:
+#         pdf_bytes = fill_kjp_pdf(siswa, template_path="formulir_kjp.pdf")
+#         nama_file = siswa["nama"].replace(" ", "_")
+#         out_path  = f"output_pdf/KJP_{nama_file}.pdf"
+#         with open(out_path, "wb") as f:
+#             f.write(pdf_bytes)
+#         print(f"✓ Dibuat: {out_path}")
+
+#     print("\nSelesai! Cek folder output_pdf/")
+
+# import io
+# from pypdf import PdfReader, PdfWriter
+# from reportlab.pdfgen import canvas
+# from reportlab.lib import colors
+
+# PDF_W = 595.44
+# PDF_H = 841.92
+
+# def top_to_pdf_y(top, h=PDF_H):
+#     return h - top
+
+# FIELDS = {
+#     "nama_cover": {
+#         "page": 0,
+#         "x": 280.0,
+#         "y": top_to_pdf_y(524.4),
+#         "max_w": 145,
+#         "font_size": 10,
+#         "cover_dots": (264.6, 512.4, 423.2, 524.4),
+#     },
+
+#     "nama_h2": {
+#         "page": 1,
+#         "x": 221.4,
+#         "y": top_to_pdf_y(188.1),
+#         "max_w": 170,
+#         "font_size": 9,
+#         "cover_dots": (221.4, 177.0, 394.1, 188.1),
+#     },
+#     "no_hp": {
+#         "page": 1,
+#         "x": 221.4,
+#         "y": top_to_pdf_y(459.6),
+#         "max_w": 170,
+#         "font_size": 9,
+#         "cover_dots": (221.4, 448.6, 394.1, 459.6),
+#     },
+#     "no_telepon": {
+#         "page": 1,
+#         "x": 221.4,
+#         "y": top_to_pdf_y(475.0),
+#         "max_w": 170,
+#         "font_size": 9,
+#         "cover_dots": (221.4, 463.9, 394.1, 475.0),
+#     },
+
+#     "nama_surat": {
+#         "page": 4,
+#         "x": 140.0,
+#         "y": top_to_pdf_y(340.0),
+#         "max_w": 350,
+#         "font_size": 10,
+#         "cover_dots": (140.0, 329.0, 490.0, 340.0),
+#     },
+# }
+
+
+# def _make_overlay(page_fields, page_w, page_h):
+#     packet = io.BytesIO()
+#     c = canvas.Canvas(packet, pagesize=(page_w, page_h))
+
+#     for field_name, value, cfg in page_fields:
+#         font_size = cfg.get("font_size", 10)
+
+#         if "cover_dots" in cfg:
+#             x1, top, x2, bottom = cfg["cover_dots"]
+#             rect_y      = page_h - bottom
+#             rect_height = bottom - top
+#             rect_width  = x2 - x1
+
+#             c.setFillColor(colors.white)
+#             c.setStrokeColor(colors.white)
+#             c.rect(x1, rect_y, rect_width, rect_height, fill=1, stroke=0)
+
+#         c.setFillColor(colors.black)
+#         c.setFont("Helvetica", font_size)
+
+#         text = str(value)
+#         while text and c.stringWidth(text, "Helvetica", font_size) > cfg["max_w"]:
+#             text = text[:-1]
+
+#         c.drawString(cfg["x"], cfg["y"], text)
+
+#     c.save()
+#     packet.seek(0)
+#     return PdfReader(packet)
+
+
+# def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
+#     nama        = siswa.get("nama", "")
+#     no_telepon  = siswa.get("no_telepon", "")
+#     keterangan  = siswa.get("keterangan", "")
+#     tanggal     = siswa.get("tanggal", "")
+
+#     page_data = {}
+
+#     field_map = [
+#         ("nama_cover",  nama),
+#         ("nama_h2",     nama),
+#         ("no_hp",       no_telepon),
+#         ("no_telepon",  no_telepon),
+#         ("nama_surat",  nama),
+#     ]
+
+#     for field_key, value in field_map:
+#         cfg = FIELDS[field_key]
+#         pg  = cfg["page"]
+#         if pg not in page_data:
+#             page_data[pg] = []
+#         page_data[pg].append((field_key, value, cfg))
+
+#     # Baca template
+#     reader = PdfReader(template_path)
+#     writer = PdfWriter()
+
+#     for i, page in enumerate(reader.pages):
+#         page_w = float(page.mediabox.width)
+#         page_h = float(page.mediabox.height)
+
+#         if i in page_data:
+#             overlay_reader = _make_overlay(page_data[i], page_w, page_h)
+#             overlay_page   = overlay_reader.pages[0]
+#             page.merge_page(overlay_page)
+
+#         writer.add_page(page)
+
+#     output = io.BytesIO()
+#     writer.write(output)
+#     output.seek(0)
+#     return output.read()

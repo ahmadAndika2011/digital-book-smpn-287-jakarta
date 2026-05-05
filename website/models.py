@@ -96,10 +96,25 @@ class DatabaseLayananPip(db.Model, UserMixin):
 
 class DatabaseLayananKjp(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    tanggal = db.Column(db.String(150))
-    nama = db.Column(db.String(200))
-    no_telepon = db.Column(db.String(20))
-    keterangan = db.Column(db.String(300))
+    # data murid
+    nik_murid = db.Column(db.String(16))
+    no_kartu_keluarga = db.Column(db.String(16))
+    nama_murid = db.Column(db.String(200))
+    jenis_kelamin_murid = db.Column(db.String(15))
+    tempat_lahir_murid = db.Column(db.String(100))
+    tanggal_lahir_murid = db.Column(db.String(15))
+    nama_ibu_kandung_murid = db.Column(db.String(200))
+    kelas = db.Column(db.String(2))
+    nisn_murid = db.Column(db.String(10))
+    masa_berlaku_identitas = db.Column(db.String(100))
+    no_hp_murid = db.Column(db.String(12))
+    no_telepon = db.Column(db.String(100))
+    alamat_surat = db.Column(db.String(20))
+    tipe_alamat = db.Column(db.String(40))
+    status_tempat_tinggal = db.Column(db.String(30))
+    agama_murid = db.Column(db.String(20))
+    pendidikan = db.Column(db.String(3))
+    untuk_disabilitas = db.Column(db.String(30))
 
 class DatabaseLayananAdministrasiSekolah(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)

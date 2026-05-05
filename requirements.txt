@@ -1,5 +1,6 @@
 blinker
 cachelib
+charset-normalizer
 click
 colorama
 dnspython
@@ -20,8 +21,11 @@ mysqlclient
 numpy
 openpyxl
 pandas
+pillow
+pypdf
 python-dateutil
 python-dotenv
+reportlab
 six
 SQLAlchemy
 typing_extensions

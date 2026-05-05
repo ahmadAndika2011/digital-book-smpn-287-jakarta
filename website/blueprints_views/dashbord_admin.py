@@ -1,9 +1,22 @@
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for, request, send_file
 from flask_login import current_user, login_required
+from pandas import read_sql_query
 from ..models import DatabaseLayananPpdb, DatabaseLayananMutasi, DatabaseLayananPip, DatabaseLayananKjp, DatabaseLayananAdministrasiSekolah, DatabaseLayananKunjunganAntarInstansi
+import pandas as pd
+from .. import db
+import io
+import os
+import zipfile
+from datetime import datetime
+from .fill_kjp_pdf import fill_kjp_pdf
+
+PDF_TEMPLATE_PATH = os.path.join(
+    os.path.dirname(__file__),
+    "..", "static", "uploads",
+    "FORMULIR KJP PLUS TAHAP I TAHUN 2026 terbaru.pdf"
+)
 
 views = Blueprint("dashbord_admin", __name__)
-
 @views.route("/dashbord-admin")
 @login_required
 def dashbord_admin():
@@ -22,3 +35,41 @@ def dashbord_admin():
                            data_layanan_administrasi_sekolah=data_layanan_administrasi_sekolah,
                            data_layanan_kunjungan_antar_instansi=data_layanan_kunjungan_antar_instansi
                            )
+
+@views.route("/download-data-kjp", methods=["POST"])
+def download_data_kjp():
+    if request.method == "POST":
+        # Ambil semua data siswa KJP dari database
+        semua_siswa = DatabaseLayananKjp.query.all()
+
+        # Buat file ZIP di memori (RAM), isinya 1 PDF per siswa
+        zip_buffer = io.BytesIO()
+        with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zf:
+            for siswa in semua_siswa:
+                # Ubah objek database menjadi dictionary
+                siswa_dict = {
+                    "id":         siswa.id,
+                    # "tanggal":    str(siswa.tanggal) if siswa.tanggal else "",
+                    "nama_murid":       siswa.nama_murid or "",
+                    "tempat_lahir_murid":       siswa.tempat_lahir_murid or "",
+                    "nik_murid":       siswa.nik_murid or "",
+                }
+
+                # Isi formulir PDF dengan data siswa
+                pdf_bytes = fill_kjp_pdf(siswa_dict, template_path=PDF_TEMPLATE_PATH)
+
+                # Simpan PDF ke dalam ZIP dengan nama file berdasarkan nama siswa
+                nama_file = (siswa.nama_murid or f"siswa_{siswa.id}").replace(" ", "_")
+                zf.writestr(f"KJP_{nama_file}_{datetime.now().year}.pdf", pdf_bytes)
+
+        zip_buffer.seek(0)
+
+        # Kirim file ZIP ke browser untuk didownload
+        return send_file(
+            zip_buffer,
+            mimetype="application/zip",
+            as_attachment=True,
+            download_name=f"KJP_PLUS_{datetime.now().year}.zip"
+        )
+
+    return redirect(url_for("dashbord_admin.dashbord_admin"))
