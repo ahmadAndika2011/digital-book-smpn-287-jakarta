@@ -11,6 +11,7 @@ ENV/
 __pycache__/
 *.py[cod]
 *$py.class
+**/__pycache__/
 
 # Mengabaikan file konfigurasi database/rahasia
 .env
