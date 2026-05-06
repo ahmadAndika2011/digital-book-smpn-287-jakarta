@@ -176,6 +176,13 @@ FIELDS = {
         "max_w": 170,
         "font_size": 9,
     },
+    "alamat_surat":{
+        "page": 1,
+        "x": 0,
+        "y": top_to_pdf_y(0),
+        "max_w": 170,
+        "font_size": 9,
+    },
 }
 
 
@@ -216,6 +223,7 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
     masa_berlaku_identitas = siswa.get("masa_berlaku_identitas", "")
     no_hp_murid = siswa.get("no_hp_murid", "")
     no_telepon = siswa.get("no_telepon", "")
+    alamat_surat = siswa.get("alamat_surat", "")
 
     # Cek Jenis Kelamin
     if jenis_kelamin_murid == "Laki-laki":
@@ -247,6 +255,14 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
         FIELDS["masa_berlaku_identitas"]["x"] = 222
         FIELDS["masa_berlaku_identitas"]["y"] = top_to_pdf_y(437)
 
+    # Cek Alamat Surat
+    if alamat_surat == "Diambil Sendiri":
+        FIELDS["alamat_surat"]["x"] = 236
+        FIELDS["alamat_surat"]["y"] = top_to_pdf_y(487)
+    else:
+        FIELDS["alamat_surat"]["x"] = 344
+        FIELDS["alamat_surat"]["y"] = top_to_pdf_y(487)
+
     # Kelompokkan field berdasarkan halaman
     page_data = {}
 
@@ -270,6 +286,7 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
         ("masa_berlaku_identitas", "✓" if masa_berlaku_identitas == "Seumur Hidup" else masa_berlaku_identitas),
         ("no_hp_murid", no_hp_murid),
         ("no_telepon", no_telepon),
+        ("alamat_surat", "✓"),
     ]
 
     for field_key, value in field_map:

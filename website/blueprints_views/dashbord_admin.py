@@ -62,6 +62,7 @@ def download_data_kjp():
                     "masa_berlaku_identitas": siswa.masa_berlaku_identitas or "",
                     "no_hp_murid": siswa.no_hp_murid or "",
                     "no_telepon": siswa.no_telepon or "",
+                    "alamat_surat": siswa.alamat_surat or "",
                 }
 
                 # Isi formulir PDF dengan data siswa
