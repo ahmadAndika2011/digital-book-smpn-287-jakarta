@@ -53,6 +53,15 @@ def download_data_kjp():
                     "nama_murid":       siswa.nama_murid or "",
                     "tempat_lahir_murid":       siswa.tempat_lahir_murid or "",
                     "nik_murid":       siswa.nik_murid or "",
+                    "no_kartu_keluarga": siswa.no_kartu_keluarga or "",
+                    "jenis_kelamin_murid": siswa.jenis_kelamin_murid or "",
+                    "tanggal_lahir_murid": siswa.tanggal_lahir_murid or "",
+                    "nama_ibu_kandung_murid": siswa.nama_ibu_kandung_murid or "",
+                    "kelas": siswa.kelas or "",
+                    "nisn_murid": siswa.nisn_murid or "",
+                    "masa_berlaku_identitas": siswa.masa_berlaku_identitas or "",
+                    "no_hp_murid": siswa.no_hp_murid or "",
+                    "no_telepon": siswa.no_telepon or "",
                 }
 
                 # Isi formulir PDF dengan data siswa

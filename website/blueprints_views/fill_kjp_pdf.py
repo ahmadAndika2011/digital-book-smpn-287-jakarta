@@ -46,24 +46,136 @@ FIELDS = {
     "nama_murid": {
         "page": 1,
         "x": 222,
-        "y": top_to_pdf_y(180),
+        "y": top_to_pdf_y(182),
         "max_w": 170,
         "font_size": 9,
     },
     "tempat_lahir_murid": {
         "page": 1,
         "x": 222,
-        "y": top_to_pdf_y(210),
+        "y": top_to_pdf_y(212),
         "max_w": 170,
         "font_size": 9,
     },
     "nik_murid":{
         "page": 1,
         "x": 222,
-        "y": top_to_pdf_y(147),
+        "y": top_to_pdf_y(150),
         "max_w": 170,
         "font_size": 9,
-    }
+    },
+    "no_kartu_keluarga":{
+        "page": 1,
+        "x": 222,
+        "y": top_to_pdf_y(165),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "jenis_kelamin_murid":{
+        "page": 1,
+        "x": 0,
+        "y": top_to_pdf_y(0),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "tanggal_lahir_murid_tanggal_1":{
+        "page": 1,
+        "x": 233,
+        "y": top_to_pdf_y(231),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "tanggal_lahir_murid_tanggal_2":{
+        "page": 1,
+        "x": 255,
+        "y": top_to_pdf_y(231),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "tanggal_lahir_murid_bulan_1":{
+        "page": 1,
+        "x": 287,
+        "y": top_to_pdf_y(231),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "tanggal_lahir_murid_bulan_2":{
+        "page": 1,
+        "x": 306,
+        "y": top_to_pdf_y(231),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "tanggal_lahir_murid_tahun_1":{
+        "page": 1,
+        "x": 340,
+        "y": top_to_pdf_y(231),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "tanggal_lahir_murid_tahun_2":{
+        "page": 1,
+        "x": 356,
+        "y": top_to_pdf_y(231),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "tanggal_lahir_murid_tahun_3":{
+        "page": 1,
+        "x": 374,
+        "y": top_to_pdf_y(231),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "tanggal_lahir_murid_tahun_4":{
+        "page": 1,
+        "x": 394,
+        "y": top_to_pdf_y(231),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "nama_ibu_kandung_murid":{
+        "page": 1,
+        "x": 222,
+        "y": top_to_pdf_y(243),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kelas":{
+        "page": 1,
+        "x": 0,
+        "y": top_to_pdf_y(0),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "nisn_murid":{
+        "page": 1,
+        "x": 222,
+        "y": top_to_pdf_y(407),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "masa_berlaku_identitas":{
+        "page": 1,
+        "x": 0,
+        "y": top_to_pdf_y(0),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "no_hp_murid":{
+        "page": 1,
+        "x": 222,
+        "y": top_to_pdf_y(452),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "no_telepon":{
+        "page": 1,
+        "x": 222,
+        "y": top_to_pdf_y(468),
+        "max_w": 170,
+        "font_size": 9,
+    },
 }
 
 
@@ -94,7 +206,46 @@ def _make_overlay(page_fields, page_w, page_h):
 def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
     nama_murid  = siswa.get("nama_murid", "")
     tempat_lahir_murid  = siswa.get("tempat_lahir_murid", "")
+    jenis_kelamin_murid = siswa.get("jenis_kelamin_murid", "")
     nik_murid = siswa.get("nik_murid", "")
+    no_kartu_keluarga = siswa.get("no_kartu_keluarga", "")
+    tanggal_lahir_murid = siswa.get("tanggal_lahir_murid", "")
+    nama_ibu_kandung_murid = siswa.get("nama_ibu_kandung_murid", "")
+    kelas = siswa.get("kelas", "")
+    nisn_murid = siswa.get("nisn_murid", "")
+    masa_berlaku_identitas = siswa.get("masa_berlaku_identitas", "")
+    no_hp_murid = siswa.get("no_hp_murid", "")
+    no_telepon = siswa.get("no_telepon", "")
+
+    # Cek Jenis Kelamin
+    if jenis_kelamin_murid == "Laki-laki":
+        FIELDS["jenis_kelamin_murid"]["x"] = 234
+        FIELDS["jenis_kelamin_murid"]["y"] = top_to_pdf_y(200)
+    else:
+        FIELDS["jenis_kelamin_murid"]["x"] = 313
+        FIELDS["jenis_kelamin_murid"]["y"] = top_to_pdf_y(200)
+
+    # Cek kelas
+    if kelas == "7":
+        FIELDS["kelas"]["x"] = 388
+        FIELDS["kelas"]["y"] = top_to_pdf_y(371)
+    elif kelas == "8":
+        FIELDS["kelas"]["x"] = 388
+        FIELDS["kelas"]["y"] = top_to_pdf_y(384)
+    elif kelas == "9":
+        FIELDS["kelas"]["x"] = 388
+        FIELDS["kelas"]["y"] = top_to_pdf_y(396)
+    else:
+        FIELDS["kelas"]["x"] = 0
+        FIELDS["kelas"]["y"] = top_to_pdf_y(0)
+
+    # Cek Masa Berlaku Identitas
+    if masa_berlaku_identitas == "Seumur Hidup":
+        FIELDS["masa_berlaku_identitas"]["x"] = 307
+        FIELDS["masa_berlaku_identitas"]["y"] = top_to_pdf_y(440)
+    else:
+        FIELDS["masa_berlaku_identitas"]["x"] = 222
+        FIELDS["masa_berlaku_identitas"]["y"] = top_to_pdf_y(437)
 
     # Kelompokkan field berdasarkan halaman
     page_data = {}
@@ -103,6 +254,22 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
         ("nama_murid",     nama_murid),
         ("tempat_lahir_murid", tempat_lahir_murid),
         ("nik_murid", nik_murid),
+        ("no_kartu_keluarga", no_kartu_keluarga),
+        ("jenis_kelamin_murid", "✓"),
+        ("tanggal_lahir_murid_tanggal_1", tanggal_lahir_murid.split("-")[2][0]),
+        ("tanggal_lahir_murid_tanggal_2", tanggal_lahir_murid.split("-")[2][1]),
+        ("tanggal_lahir_murid_bulan_1", tanggal_lahir_murid.split("-")[1][0]),
+        ("tanggal_lahir_murid_bulan_2", tanggal_lahir_murid.split("-")[1][1]),
+        ("tanggal_lahir_murid_tahun_1", tanggal_lahir_murid.split("-")[0][0]),
+        ("tanggal_lahir_murid_tahun_2", tanggal_lahir_murid.split("-")[0][1]),
+        ("tanggal_lahir_murid_tahun_3", tanggal_lahir_murid.split("-")[0][2]),
+        ("tanggal_lahir_murid_tahun_4", tanggal_lahir_murid.split("-")[0][3]),
+        ("nama_ibu_kandung_murid", nama_ibu_kandung_murid),
+        ("kelas", "✓"),
+        ("nisn_murid", nisn_murid),
+        ("masa_berlaku_identitas", "✓" if masa_berlaku_identitas == "Seumur Hidup" else masa_berlaku_identitas),
+        ("no_hp_murid", no_hp_murid),
+        ("no_telepon", no_telepon),
     ]
 
     for field_key, value in field_map:

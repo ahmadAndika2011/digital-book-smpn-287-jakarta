@@ -30,6 +30,12 @@ def layanan_kjp():
         status_tempat_tinggal = request.form.get("status_tempat_tinggal")
         alamat_surat = request.form.get("alamat_surat")
 
+        # cek tanggal lahir murid
+        try:
+            valid_tanggal_lahir_murid = datetime.strptime(tanggal_lahir_murid, "%Y-%m-%d")
+        except:
+            valid_tanggal_lahir_murid = None
+
         # cek
         if (
             len(nik_murid) != 16
@@ -37,7 +43,7 @@ def layanan_kjp():
             or not jenis_kelamin_murid
             or not agama_murid
             or not tempat_lahir_murid
-            or not tanggal_lahir_murid
+            or not valid_tanggal_lahir_murid
             or not nama_ibu_kandung_murid
             or not kelas
             or not nisn_murid
@@ -56,9 +62,9 @@ def layanan_kjp():
                 data_kjp = DatabaseLayananKjp(
                     nik_murid = nik_murid,
                     no_kartu_keluarga = no_kartu_keluarga,
-                    nama_murid = nama_murid,
+                    nama_murid = nama_murid.title(),
                     jenis_kelamin_murid = jenis_kelamin_murid,
-                    tempat_lahir_murid = tempat_lahir_murid,
+                    tempat_lahir_murid = tempat_lahir_murid.title(),
                     tanggal_lahir_murid = tanggal_lahir_murid,
                     nama_ibu_kandung_murid = nama_ibu_kandung_murid,
                     kelas = kelas,
@@ -78,9 +84,9 @@ def layanan_kjp():
                 data_kjp = DatabaseLayananKjp(
                     nik_murid = nik_murid,
                     no_kartu_keluarga = no_kartu_keluarga,
-                    nama_murid = nama_murid,
+                    nama_murid = nama_murid.title(),
                     jenis_kelamin_murid = jenis_kelamin_murid,
-                    tempat_lahir_murid = tempat_lahir_murid,
+                    tempat_lahir_murid = tempat_lahir_murid.title(),
                     tanggal_lahir_murid = tanggal_lahir_murid,
                     nama_ibu_kandung_murid = nama_ibu_kandung_murid,
                     kelas = kelas,
