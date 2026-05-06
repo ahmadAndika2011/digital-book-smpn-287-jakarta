@@ -183,6 +183,13 @@ FIELDS = {
         "max_w": 170,
         "font_size": 9,
     },
+    "tipe_alamat":{
+        "page": 1,
+        "x": 0,
+        "y": top_to_pdf_y(0),
+        "max_w": 170,
+        "font_size": 9,
+    },
 }
 
 
@@ -224,6 +231,7 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
     no_hp_murid = siswa.get("no_hp_murid", "")
     no_telepon = siswa.get("no_telepon", "")
     alamat_surat = siswa.get("alamat_surat", "")
+    tipe_alamat = siswa.get("tipe_alamat", "")
 
     # Cek Jenis Kelamin
     if jenis_kelamin_murid == "Laki-laki":
@@ -263,6 +271,20 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
         FIELDS["alamat_surat"]["x"] = 344
         FIELDS["alamat_surat"]["y"] = top_to_pdf_y(487)
 
+    # Cek Tipe Alamat
+    if tipe_alamat == "Alamat Rumah":
+        FIELDS["tipe_alamat"]["x"] = 236
+        FIELDS["tipe_alamat"]["y"] = top_to_pdf_y(508)
+    elif tipe_alamat == "Alamat Kantor":
+        FIELDS["tipe_alamat"]["x"] = 236
+        FIELDS["tipe_alamat"]["y"] = top_to_pdf_y(520)
+    elif tipe_alamat == "Alamat Kost":
+        FIELDS["tipe_alamat"]["x"] = 236
+        FIELDS["tipe_alamat"]["y"] = top_to_pdf_y(533)
+    elif tipe_alamat == "Alamat Sesuai KK":
+        FIELDS["tipe_alamat"]["x"] = 236
+        FIELDS["tipe_alamat"]["y"] = top_to_pdf_y(546)
+
     # Kelompokkan field berdasarkan halaman
     page_data = {}
 
@@ -287,6 +309,7 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
         ("no_hp_murid", no_hp_murid),
         ("no_telepon", no_telepon),
         ("alamat_surat", "✓"),
+        ("tipe_alamat", "✓"),
     ]
 
     for field_key, value in field_map:

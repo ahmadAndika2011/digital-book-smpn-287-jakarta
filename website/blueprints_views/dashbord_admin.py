@@ -63,6 +63,7 @@ def download_data_kjp():
                     "no_hp_murid": siswa.no_hp_murid or "",
                     "no_telepon": siswa.no_telepon or "",
                     "alamat_surat": siswa.alamat_surat or "",
+                    "tipe_alamat": siswa.tipe_alamat or "",
                 }
 
                 # Isi formulir PDF dengan data siswa
