@@ -27,10 +27,21 @@ def home():
 
     return render_template("home.html", user=current_user, jumlah_siswa=jumlah_siswa, berita_list=berita_list, jumlah_guru=jumlah_guru)
 
-#? Search Siswa
+#? Data Siswa
 @views.route("/data-siswa")
 def data_siswa():
-    database_siswa = DatabaseSiswa.query.order_by(DatabaseSiswa.nis.asc()).all()
+    q = request.args.get("q")
+
+    if q:
+        database_siswa = DatabaseSiswa.query.filter(
+            db.or_(
+                DatabaseSiswa.nama.ilike(f'%{q}%'),
+                DatabaseSiswa.nisn.ilike(f'%{q}%'),
+                DatabaseSiswa.nis.ilike(f'%{q}%'),
+            )
+        ).all()
+    else:
+        database_siswa = DatabaseSiswa.query.order_by(DatabaseSiswa.nis.asc()).all()
     return render_template(
                             "data-siswa.html", 
                             user=current_user, 
@@ -133,7 +144,17 @@ def delete_student():
 #? All data guru
 @views.route("/data-guru")
 def data_guru():
-    list_data_guru = DatabaseGuru.query.all()
+    q = request.args.get("q")
+    if q:
+        list_data_guru = DatabaseGuru.query.filter(
+            db.or_(
+                DatabaseGuru.name.ilike(f"%{q}%"),
+                DatabaseGuru.mapel.ilike(f"%{q}%"),
+                DatabaseGuru.status.ilike(f"%{q}%"),
+            )
+        ).all()
+    else:
+        list_data_guru = DatabaseGuru.query.order_by(DatabaseGuru.name.asc()).all()
     jumlah_status_pns = DatabaseGuru.query.filter_by(status="PNS").count()
     jumlah_status_p3k = DatabaseGuru.query.filter_by(status="PPPK").count()
     jumlah_status_kki = DatabaseGuru.query.filter_by(status="KKI").count()
@@ -146,7 +167,15 @@ def data_guru():
 #? All berita
 @views.route("/berita")
 def berita():
-    list_berita = Berita.query.all()
+    q = request.args.get("q")
+    if q:
+        list_berita = Berita.query.filter(
+            db.or_(
+                Berita.title.ilike(f"%{q}%")
+            )
+        )
+    else:
+        list_berita = Berita.query.all()
     return render_template("berita.html", list_berita=list_berita)
 
 #? Profil sekolah
