@@ -1,3 +1,4 @@
+from PIL.ImageCms import ex
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -5,12 +6,14 @@ from urllib.parse import quote_plus
 import os
 from flask_mail import Mail
 from dotenv import load_dotenv
+from flask_sitemap import Sitemap
 
 load_dotenv()
 
 db = SQLAlchemy()
 
 mail = Mail()
+ext = Sitemap()
 
 def create_app():
     app = Flask(__name__)
@@ -32,6 +35,12 @@ def create_app():
 
     app.config["UPLOADS_FOLDER"] = os.path.join(app.root_path, "uploads")
     os.makedirs(app.config["UPLOADS_FOLDER"], exist_ok=True)
+
+    ext.init_app(app)
+
+    @ext.register_generator
+    def sitemap():
+        yield 'views.home', {}
 
     from .views import views
     from .auth import auth

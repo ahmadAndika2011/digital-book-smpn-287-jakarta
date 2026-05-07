@@ -15,12 +15,6 @@ views = Blueprint("views", __name__)
 
 @views.route("/")
 def home():
-    # admin_account = AdminAccount(
-    #     username = "Abdul Rohim",
-    #     secret_pw = generate_password_hash("rohim!%SMPN287%", method="pbkdf2:sha256")
-    # )
-    # db.session.add(admin_account)
-    # db.session.commit()
     jumlah_siswa = DatabaseSiswa.query.count()
     jumlah_guru = DatabaseGuru.query.count()
 

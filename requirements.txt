@@ -9,6 +9,7 @@ Flask
 Flask-Login
 Flask-Mail
 Flask-Session
+Flask-Sitemap
 Flask-SQLAlchemy
 Flask-WTF
 greenlet
