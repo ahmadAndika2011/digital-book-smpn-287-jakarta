@@ -7,4 +7,4 @@ auth = Blueprint("logout", __name__)
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("login_admin.login"))
+    return redirect(url_for("login_admin.login_page"))
