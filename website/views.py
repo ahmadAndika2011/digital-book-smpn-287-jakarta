@@ -2,7 +2,7 @@ from email.utils import unquote
 import os
 from re import I
 from traceback import print_tb
-from flask import Blueprint, current_app, flash, render_template, redirect, request, url_for, jsonify
+from flask import Blueprint, current_app, flash, render_template, redirect, request, url_for, jsonify, Response
 from . import db
 from flask_login import login_required, current_user
 from .models import DatabaseSiswa, NilaiSiswa, AccountSiswa, AdminAccount, Berita, DatabaseGuru, DatabaseKontakEmail
@@ -12,6 +12,19 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash
 
 views = Blueprint("views", __name__)
+
+@views.route("/sitemap.xml", methods=["GET"])
+def sitemap():
+    xml = """<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+        <url>
+            <loc>https://smpn-287-jakarta.co.id/</loc>
+            <changefreq>daily</changefreq>
+            <priority>1.0</priority>
+        </url>
+    </urlset>"""
+
+    return Response(xml, mimetype="application/xml")
 
 @views.route("/")
 def home():
