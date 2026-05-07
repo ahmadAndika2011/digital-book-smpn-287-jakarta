@@ -190,6 +190,27 @@ FIELDS = {
         "max_w": 170,
         "font_size": 9,
     },
+    "status_tempat_tinggal":{
+        "page": 1,
+        "x": 0,
+        "y": top_to_pdf_y(0),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "agama_murid":{
+        "page": 1,
+        "x": 0,
+        "y": top_to_pdf_y(0),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "untuk_disabilitas":{
+        "page": 1,
+        "x": 0,
+        "y": top_to_pdf_y(0),
+        "max_w": 170,
+        "font_size": 9,
+    },
 }
 
 
@@ -232,6 +253,9 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
     no_telepon = siswa.get("no_telepon", "")
     alamat_surat = siswa.get("alamat_surat", "")
     tipe_alamat = siswa.get("tipe_alamat", "")
+    status_tempat_tinggal = siswa.get("status_tempat_tinggal", "")
+    agama_murid = siswa.get("agama_murid", "")
+    untuk_disabilitas = siswa.get("untuk_disabilitas", "")
 
     # Cek Jenis Kelamin
     if jenis_kelamin_murid == "Laki-laki":
@@ -267,7 +291,7 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
     if alamat_surat == "Diambil Sendiri":
         FIELDS["alamat_surat"]["x"] = 236
         FIELDS["alamat_surat"]["y"] = top_to_pdf_y(487)
-    else:
+    elif alamat_surat == "Dikirim":
         FIELDS["alamat_surat"]["x"] = 344
         FIELDS["alamat_surat"]["y"] = top_to_pdf_y(487)
 
@@ -284,6 +308,69 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
     elif tipe_alamat == "Alamat Sesuai KK":
         FIELDS["tipe_alamat"]["x"] = 236
         FIELDS["tipe_alamat"]["y"] = top_to_pdf_y(546)
+    elif tipe_alamat == "Alamat Sesuai NPWP":
+        FIELDS["tipe_alamat"]["x"] = 344
+        FIELDS["tipe_alamat"]["y"] = top_to_pdf_y(508)
+    elif tipe_alamat == "Alamat Rusun":
+        FIELDS["tipe_alamat"]["x"] = 344
+        FIELDS["tipe_alamat"]["y"] = top_to_pdf_y(519)
+    elif tipe_alamat == "Alamat Panti":
+        FIELDS["tipe_alamat"]["x"] = 344
+        FIELDS["tipe_alamat"]["y"] = top_to_pdf_y(534)
+
+    # Cek Status Tempat Tinggal
+    if status_tempat_tinggal == "Bukan Milik Pribadi":
+        FIELDS["status_tempat_tinggal"]["x"] = 237
+        FIELDS["status_tempat_tinggal"]["y"] = top_to_pdf_y(560)
+    elif status_tempat_tinggal == "Milik Pribadi":
+        FIELDS["status_tempat_tinggal"]["x"] = 392
+        FIELDS["status_tempat_tinggal"]["y"] = top_to_pdf_y(560)
+
+    # Cek Agama Murid
+    if agama_murid == "Islam":
+        FIELDS["agama_murid"]["x"] = 310
+        FIELDS["agama_murid"]["y"] = top_to_pdf_y(596)
+    if agama_murid == "Protestan":
+        FIELDS["agama_murid"]["x"] = 310
+        FIELDS["agama_murid"]["y"] = top_to_pdf_y(582)
+    if agama_murid == "Katolik":
+        FIELDS["agama_murid"]["x"] = 391
+        FIELDS["agama_murid"]["y"] = top_to_pdf_y(582)
+    if agama_murid == "Hindu":
+        FIELDS["agama_murid"]["x"] = 237
+        FIELDS["agama_murid"]["y"] = top_to_pdf_y(582)
+    if agama_murid == "Budha":
+        FIELDS["agama_murid"]["x"] = 237
+        FIELDS["agama_murid"]["y"] = top_to_pdf_y(596)
+    if agama_murid == "Lainnya":
+        FIELDS["agama_murid"]["x"] = 391
+        FIELDS["agama_murid"]["y"] = top_to_pdf_y(596)
+
+    # Cek untuk Disabilitas
+    if untuk_disabilitas == "Tidak Ada":
+        FIELDS["untuk_disabilitas"]["x"] = 0
+        FIELDS["untuk_disabilitas"]["y"] = top_to_pdf_y(0)
+    elif untuk_disabilitas == "Tuna Rungu":
+        FIELDS["untuk_disabilitas"]["x"] = 237
+        FIELDS["untuk_disabilitas"]["y"] = top_to_pdf_y(664)
+    elif untuk_disabilitas == "Tuna Netra":
+        FIELDS["untuk_disabilitas"]["x"] = 237
+        FIELDS["untuk_disabilitas"]["y"] = top_to_pdf_y(676)
+    elif untuk_disabilitas == "Tuna Wicara":
+        FIELDS["untuk_disabilitas"]["x"] = 237
+        FIELDS["untuk_disabilitas"]["y"] = top_to_pdf_y(690)
+    elif untuk_disabilitas == "Tuna Daksa":
+        FIELDS["untuk_disabilitas"]["x"] = 237
+        FIELDS["untuk_disabilitas"]["y"] = top_to_pdf_y(703)
+    elif untuk_disabilitas == "Tuna Grahita":
+        FIELDS["untuk_disabilitas"]["x"] = 237
+        FIELDS["untuk_disabilitas"]["y"] = top_to_pdf_y(716)
+    elif untuk_disabilitas == "Tuna Laras":
+        FIELDS["untuk_disabilitas"]["x"] = 237
+        FIELDS["untuk_disabilitas"]["y"] = top_to_pdf_y(729)
+    elif untuk_disabilitas == "Tuna Ganda":
+        FIELDS["untuk_disabilitas"]["x"] = 237
+        FIELDS["untuk_disabilitas"]["y"] = top_to_pdf_y(743)
 
     # Kelompokkan field berdasarkan halaman
     page_data = {}
@@ -310,6 +397,9 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
         ("no_telepon", no_telepon),
         ("alamat_surat", "✓"),
         ("tipe_alamat", "✓"),
+        ("status_tempat_tinggal", "✓"),
+        ("agama_murid", "✓"),
+        ("untuk_disabilitas", "" if untuk_disabilitas == "Tidak Ada" else "✓"),
     ]
 
     for field_key, value in field_map:
