@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, request, current_app
 from flask_login import login_required, current_user
+
+from website.views import role_required
 from ..models import DatabaseSiswa, NilaiSiswa
 import os
 from werkzeug.utils import secure_filename
@@ -15,6 +17,7 @@ def allowed_file(filename):
 
 @auth.route("/update-data/<int:id>", methods=["GET", "POST"])
 @login_required
+@role_required("superadmin")
 def update_data(id):
     student = DatabaseSiswa.query.get(id)
     nilai_siswa = NilaiSiswa.query.filter_by(nisn=student.nisn).first()

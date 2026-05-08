@@ -463,6 +463,7 @@
             </div>
           </div>
         </div>
+        {%if user.role == "superadmin"%}
         <div class="card-dropdown">
           <div class="card-dropdown-inner">
             <div class="dropdown-header">
@@ -496,6 +497,7 @@
             {% endif %}
           </div>
         </div>
+        {% endif %}
       </div>
 
       <!-- 2. Mutasi -->
@@ -521,6 +523,7 @@
             </div>
           </div>
         </div>
+        {%if user.role == "superadmin"%}
         <div class="card-dropdown">
           <div class="card-dropdown-inner">
             <div class="dropdown-header">
@@ -555,6 +558,7 @@
             {% endif %}
           </div>
         </div>
+        {% endif %}
       </div>
 
       <!-- 3. PIP -->
@@ -709,6 +713,7 @@
             </div>
           </div>
         </div>
+        {%if user.role == "superadmin"%}
         <div class="card-dropdown">
           <div class="card-dropdown-inner">
             <div class="dropdown-header">
@@ -742,6 +747,7 @@
             {% endif %}
           </div>
         </div>
+        {% endif %}
       </div>
 
       <!-- 6. Kunjungan Instansi -->
@@ -767,6 +773,7 @@
             </div>
           </div>
         </div>
+        {%if user.role == "superadmin"%}
         <div class="card-dropdown">
           <div class="card-dropdown-inner">
             <div class="dropdown-header">
@@ -801,6 +808,7 @@
             {% endif %}
           </div>
         </div>
+        {% endif %}
       </div>
 
     </div>

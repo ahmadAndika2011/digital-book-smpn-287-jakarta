@@ -9,6 +9,7 @@ class AdminAccount(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150))
     secret_pw = db.Column(db.String(150))
+    role = db.Column(db.String(50)) 
 
 
 class DatabaseSiswa(db.Model, UserMixin):

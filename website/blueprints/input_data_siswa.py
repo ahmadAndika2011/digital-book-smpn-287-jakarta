@@ -2,6 +2,8 @@ from flask import Blueprint, render_template,  flash, redirect, url_for, request
 from flask_login import login_required, current_user
 import os
 from werkzeug.utils import secure_filename
+
+from website.views import role_required
 from ..models import DatabaseSiswa, NilaiSiswa
 from datetime import datetime
 from .. import db
@@ -10,6 +12,7 @@ auth = Blueprint("input_data_siswa", __name__)
 
 @auth.route("/input", methods=["GET", "POST"])
 @login_required
+@role_required("superadmin")
 def input():
     if request.method == "POST":
         # input data Murid

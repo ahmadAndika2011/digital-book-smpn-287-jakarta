@@ -3,11 +3,13 @@ from flask_login import current_user, login_required
 from ..models import DatabaseLayananPpdb
 import json
 from .. import db
+from ..views import role_required
 
 views = Blueprint("hapus_data_ppdb", __name__)
 
 @views.route("/hapus-data-ppdb", methods=["POST"])
 @login_required
+@role_required("superadmin")
 def hapus_data_ppdb():
     data = json.loads(request.data)
     dataId = data["dataPpdbId"]

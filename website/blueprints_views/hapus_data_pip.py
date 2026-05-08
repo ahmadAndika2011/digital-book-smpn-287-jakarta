@@ -5,11 +5,13 @@ from ..models import DatabaseLayananPip
 import json
 from .. import db
 import os
+from ..views import role_required
 
 views = Blueprint("hapus_data_pip", __name__)
 
 @views.route("/hapus-data-pip", methods=["POST"])
 @login_required
+@role_required("superadmin", "layanan")
 def hapus_data_pip():
     data = json.loads(request.data)
     data_id = data["dataPipId"]

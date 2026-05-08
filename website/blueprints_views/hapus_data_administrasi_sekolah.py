@@ -4,11 +4,13 @@ from numpy import delete
 from ..models import DatabaseLayananAdministrasiSekolah
 import json
 from .. import db
+from ..views import role_required
 
 views = Blueprint("hapus_data_administrasi_sekolah", __name__)
 
 @views.route("/hapus-data-administrasi-sekolah", methods=["POST"])
 @login_required
+@role_required("superadmin")
 def hapus_data_administrasi_sekolah():
     data = json.loads(request.data)
     data_id = data["dataAdministrasiSekolahId"]

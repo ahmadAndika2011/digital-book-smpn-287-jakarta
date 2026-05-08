@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, request, send_file
 from flask_login import current_user, login_required
 from pandas import read_sql_query
+
+from website.views import role_required
 from ..models import DatabaseLayananPpdb, DatabaseLayananMutasi, DatabaseLayananPip, DatabaseLayananKjp, DatabaseLayananAdministrasiSekolah, DatabaseLayananKunjunganAntarInstansi
 import pandas as pd
 from .. import db
@@ -19,6 +21,7 @@ PDF_TEMPLATE_PATH = os.path.join(
 views = Blueprint("dashbord_admin", __name__)
 @views.route("/dashbord-admin")
 @login_required
+@role_required("superadmin", "layanan")
 def dashbord_admin():
     data_layanan_ppdb = DatabaseLayananPpdb.query.all()
     data_layanan_mutasi = DatabaseLayananMutasi.query.all()

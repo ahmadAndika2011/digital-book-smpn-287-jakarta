@@ -2,7 +2,8 @@ from email.utils import unquote
 import os
 from re import I
 from traceback import print_tb
-from flask import Blueprint, current_app, flash, render_template, redirect, request, url_for, jsonify, Response
+from flask import Blueprint, current_app, flash, render_template, redirect, request, url_for, jsonify, Response, abort
+from functools import wraps
 from . import db
 from flask_login import login_required, current_user
 from .models import DatabaseSiswa, NilaiSiswa, AccountSiswa, AdminAccount, Berita, DatabaseGuru, DatabaseKontakEmail
@@ -12,6 +13,16 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash
 
 views = Blueprint("views", __name__)
+
+def role_required(*roles):
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            if current_user.role not in roles:
+                abort(403)  # Forbidden
+            return f(*args, **kwargs)
+        return decorated_function
+    return decorator
 
 @views.route("/sitemap.xml", methods=["GET"])
 def sitemap():
@@ -28,6 +39,13 @@ def sitemap():
 
 @views.route("/")
 def home():
+    # data_admin = AdminAccount(
+    #     username="berita 1",
+    #     secret_pw=generate_password_hash("witur!%SMPN287%", method="pbkdf2:sha256"),
+    #     role="berita"
+    # )
+    # db.session.add(data_admin)
+    # db.session.commit()
     jumlah_siswa = DatabaseSiswa.query.count()
     jumlah_guru = DatabaseGuru.query.count()
 
@@ -89,6 +107,7 @@ def lihat_guru(id):
 #? Hapus Berita
 @views.route("/hapus-berita", methods=["POST"])
 @login_required
+@role_required("superadmin", "berita")
 def hapus_berita():
     berita = json.loads(request.data)
     beritaId = berita["beritaId"]
@@ -108,6 +127,7 @@ def hapus_berita():
 #? Hapus Data Guru
 @views.route("/hapus-data-guru", methods=["POST"])
 @login_required
+@role_required("superadmin")
 def hapus_data_guru():
     guru = json.loads(request.data)
     guruId = guru["guruId"]
@@ -125,6 +145,7 @@ def hapus_data_guru():
 
 #? Hapus Data (pribadi siswa, nilai siswa, dan akun siswa)
 @views.route("/delete-student", methods=["POST"])
+@role_required("superadmin")
 def delete_student():
     student = json.loads(request.data)
     studentId = student["studentId"]

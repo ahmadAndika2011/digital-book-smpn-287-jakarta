@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify, render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_required
 from numpy import delete
+
+from website.views import role_required
 from ..models import DatabaseLayananKjp
 import json
 from .. import db
@@ -9,6 +11,7 @@ views = Blueprint("hapus_data_kjp", __name__)
 
 @views.route("/hapus-data-kjp", methods=["POST"])
 @login_required
+@role_required("superadmin", "layanan")
 def hapus_data_kjp():
     data = json.loads(request.data)
     data_id = data["dataKjpId"]

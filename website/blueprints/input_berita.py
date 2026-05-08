@@ -4,6 +4,8 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import current_user, login_required
 import os
 from werkzeug.utils import secure_filename
+
+from website.views import role_required
 from .. import db
 from ..models import Berita
 
@@ -11,6 +13,7 @@ auth = Blueprint("input_berita", __name__)
 
 @auth.route("/tambah-berita", methods=["GET", "POST"])
 @login_required
+@role_required("superadmin", "berita")
 def tambah_berita():
     if request.method == "POST":
         gambar_1_file = request.files.get("gambar_1")

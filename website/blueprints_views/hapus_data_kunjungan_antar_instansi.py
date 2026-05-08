@@ -3,11 +3,13 @@ from flask_login import current_user, login_required
 from ..models import DatabaseLayananKunjunganAntarInstansi
 import json
 from .. import db
+from ..views import role_required
 
 views = Blueprint("hapus_data_kunjungan_antar_instansi", __name__)
 
 @views.route("/hapus-data-kunjungan-antar-instansi", methods=["POST"])
 @login_required
+@role_required("superadmin")
 def hapus_data_kunjungan_antar_instansi():
     data = json.loads(request.data)
     data_id = data["dataKunjunganAntarInstansiId"]
