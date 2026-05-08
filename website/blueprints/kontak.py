@@ -14,12 +14,13 @@ auth = Blueprint("kontak", __name__)
 
 batas_kirm_per_hari = 5
 
+
 def is_email_valid(email):
     # Cek format email
     pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
     if not re.match(pattern, email):
         return False, "Format email tidak valid"
-    
+
     # Cek MX record domain
     domain = email.split('@')[1]
     try:
@@ -36,11 +37,12 @@ def is_email_valid(email):
 def generate_otp():
     return ''.join(random.choices(string.digits, k=6))
 
+
 def cek_batas_kirim(email):
     hari_ini = datetime.now().strftime("%Y-%m-%d")
 
     log = DatabaseKontakEmail.query.filter_by(
-        email = email,
+        email=email,
         tanggal=hari_ini
     ).first()
 
@@ -49,8 +51,9 @@ def cek_batas_kirim(email):
 
     if int(log.jumlah_pengiriman) >= batas_kirm_per_hari:
         return False, log.jumlah_pengiriman
-    
+
     return True, log.jumlah_pengiriman
+
 
 def update_jumlah_kirim(email):
     hari_ini = datetime.now().strftime("%Y-%m-%d")
@@ -79,9 +82,9 @@ def kirim_pesan():
         # # Cek hari (0=Senin, 6=Minggu)
         hari_ini = datetime.now().weekday()
         if hari_ini >= 5:  # 5=Sabtu, 6=Minggu
-            flash("Pesan hanya dapat dikirim pada hari Senin - Jumat.", category="error")
+            flash("Pesan hanya dapat dikirim pada hari Senin - Jumat.",
+                  category="error")
             return redirect(url_for("kontak.kirim_pesan"))
-
 
         nama = request.form.get('nama')
         email_pengirim = request.form.get('email')
@@ -94,9 +97,10 @@ def kirim_pesan():
             flash(f"Email tidak valid: {pesan_validasi}", category="error")
             return redirect(url_for("kontak.kirim_pesan"))
 
-        bisa_kirim, jumlah =cek_batas_kirim(email_pengirim)
+        bisa_kirim, jumlah = cek_batas_kirim(email_pengirim)
         if not bisa_kirim:
-            flash(f"Email Sudah mengirim sebanyak {batas_kirm_per_hari} kali.", category="error")
+            flash(
+                f"Email Sudah mengirim sebanyak {batas_kirm_per_hari} kali.", category="error")
             return redirect(url_for("kontak.kirim_pesan"))
 
         # Simpan data form ke session
@@ -111,8 +115,8 @@ def kirim_pesan():
 
         try:
             otp_msg = Message(subject="Kode Verifikasi - Kontak Web",
-                             sender=current_app.config['MAIL_USERNAME'],
-                             recipients=[email_pengirim])
+                              sender=current_app.config['MAIL_USERNAME'],
+                              recipients=[email_pengirim])
             otp_msg.body = f"Halo {nama},\n\nKode OTP kamu adalah: {otp}\n\nKode ini hanya berlaku untuk satu kali penggunaan."
             mail.send(otp_msg)
 
@@ -140,8 +144,9 @@ def verifikasi_otp():
             try:
                 # OTP benar, kirim pesan asli ke admin
                 msg = Message(subject=f"Kontak Web: {session['subjek']}",
-                             sender=current_app.config['MAIL_USERNAME'],
-                             recipients=["ahmad.andika.training1.0@gmail.com"])  # ganti dengan email kamu
+                              sender=current_app.config['MAIL_USERNAME'],
+                              # ganti dengan email kamu
+                              recipients=["smpnjkt287@gmail.com"])
                 msg.body = f"Dari: {session['nama']} ({session['email_pengirim']})\n\nPesan:\n{session['pesan_user']}"
                 mail.send(msg)
 

@@ -19,7 +19,7 @@ def layanan_kjp():
         nama_ibu_kandung_murid = request.form.get("nama_ibu_kandung_murid")
         kelas = request.form.get("kelas")
         nisn_murid = request.form.get("nisn_murid")
-        pendidikan = request.form.get("pendidikan")
+        # pendidikan = request.form.get("pendidikan")
         no_hp_murid = request.form.get("no_hp_murid")
         no_telepon = request.form.get("no_telepon")
         masa_berlaku_identitas = request.form.get("masa_berlaku_identitas")
@@ -47,13 +47,12 @@ def layanan_kjp():
             or not nama_ibu_kandung_murid
             or not kelas
             or not nisn_murid
-            or not pendidikan
             or (len(no_hp_murid) < 10 or len(no_hp_murid) > 12)
             or (len(no_telepon) < 10 or len(no_telepon) > 12)
             or len(no_kartu_keluarga) != 16
             or not tipe_alamat
             or not status_tempat_tinggal
-            or not alamat_surat   # ✅ ini yang benar
+            or not alamat_surat
         ):
             flash("Data tidak valid.\nSilahkan cek kembali data anda", category="error")
             return redirect(url_for("layanan_kjp.layanan_kjp"))
@@ -76,7 +75,7 @@ def layanan_kjp():
                     tipe_alamat = tipe_alamat,
                     status_tempat_tinggal = status_tempat_tinggal,
                     agama_murid = agama_murid,
-                    pendidikan = pendidikan,
+                    pendidikan = "SMP",
                     untuk_disabilitas = untuk_disabilitas,
                 )
                 db.session.add(data_kjp)
@@ -98,7 +97,7 @@ def layanan_kjp():
                     tipe_alamat = tipe_alamat,
                     status_tempat_tinggal = status_tempat_tinggal,
                     agama_murid = agama_murid,
-                    pendidikan = pendidikan,
+                    pendidikan = "SMP",
                     untuk_disabilitas = untuk_disabilitas,
                 )
                 db.session.add(data_kjp)

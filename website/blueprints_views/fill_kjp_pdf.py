@@ -211,6 +211,13 @@ FIELDS = {
         "max_w": 170,
         "font_size": 9,
     },
+    "pendidikan":{
+        "page": 1,
+        "x": 236,
+        "y": top_to_pdf_y(632),
+        "max_w": 170,
+        "font_size": 9,
+    },
 }
 
 
@@ -400,6 +407,7 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
         ("status_tempat_tinggal", "✓"),
         ("agama_murid", "✓"),
         ("untuk_disabilitas", "" if untuk_disabilitas == "Tidak Ada" else "✓"),
+        ("pendidikan", "✓"),
     ]
 
     for field_key, value in field_map:
