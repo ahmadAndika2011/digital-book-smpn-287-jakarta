@@ -129,7 +129,7 @@ Data Berita
         <h2 class="berita-title">Daftar Berita</h2>
 
         <!-- Search -->
-      <form method="GET" action="{{ url_for('views.berita') }}" 
+      <form method="GET" action="{{ url_for('data_berita.data_berita') }}" 
         style="position: relative; display: flex; align-items: center; width: 100%; max-width: 360px;">
 
         <!-- Icon kaca pembesar (dekorasi kiri) -->
@@ -200,7 +200,7 @@ Data Berita
 
                         <!-- Aksi -->
                         <td>
-                            <a href="{{ url_for('views.lihat_berita', id=berita.id) }}" class="btn-info-custom">
+                            <a href="{{ url_for('detail_berita.detail_berita', id=berita.id) }}" class="btn-info-custom">
                                 Info
                             </a>
 

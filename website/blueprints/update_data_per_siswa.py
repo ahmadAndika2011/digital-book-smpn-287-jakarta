@@ -303,6 +303,6 @@ def update_data_student(id):
                         f"success update {success_update_n[i]}.", category="success")
 
         db.session.commit()
-        return redirect(url_for("views.info", id=id))
+        return redirect(url_for("detail_siswa.info", id=id))
 
     return render_template("update_data.html", user=current_user)

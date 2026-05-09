@@ -11,7 +11,7 @@
       <h2 class="table-title">Data Siswa</h2>
       <p class="table-subtitle">Daftar seluruh siswa SMPN 287</p>
 
-      <form method="GET" action="{{ url_for('views.data_siswa') }}" 
+      <form method="GET" action="{{ url_for('data_siswa.data_siswa') }}" 
         style="position: relative; display: flex; align-items: center; width: 100%; max-width: 360px;">
 
         <!-- Icon kaca pembesar (dekorasi kiri) -->
@@ -99,7 +99,7 @@
             <td>{{ student.nis }}</td>
             <td class="col-action">
               <div class="action-group">
-                <a href="{{ url_for('views.info', id=student.id) }}" class="action-btn info-btn" title="Lihat Info">
+                <a href="{{ url_for('detail_siswa.info', id=student.id) }}" class="action-btn info-btn" title="Lihat Info">
                   <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
                 </a>
                 {% if user.is_authenticated %}

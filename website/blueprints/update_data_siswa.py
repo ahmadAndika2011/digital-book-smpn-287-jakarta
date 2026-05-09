@@ -261,6 +261,6 @@ def update_data(id):
                         f"success update {success_update_n[i]}.", category="success")
 
         db.session.commit()
-        return redirect(url_for("views.data_siswa"))
+        return redirect(url_for("data_siswa.data_siswa"))
 
     return render_template("update_data.html", user=current_user)

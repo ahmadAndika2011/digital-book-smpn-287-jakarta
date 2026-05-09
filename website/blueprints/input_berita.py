@@ -75,7 +75,7 @@ def tambah_berita():
             db.session.add(input_berita)
             db.session.commit()
             flash("Success Tambah berita.", category="success")
-            return redirect(url_for("views.home"))
+            return redirect(url_for("data_berita.data_berita"))
         else:
             flash("gagal menambahkan. Silahkan masukkan judul berita dulu.", category="error")
 

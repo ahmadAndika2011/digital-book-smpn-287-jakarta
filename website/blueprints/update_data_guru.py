@@ -60,6 +60,6 @@ def update_data_guru(id):
 
         flash("Success Update data Guru.", category="success")
         db.session.commit()
-        return redirect(url_for("views.lihat_guru", id=guru.id))
+        return redirect(url_for("detail_guru.detail_guru", id=guru.id))
 
     return render_template("update-data-guru.html", user=current_user)

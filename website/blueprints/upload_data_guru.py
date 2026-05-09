@@ -55,5 +55,5 @@ def upload_data_guru():
                 for e in list_error_update:
                     flash(e, category="error")
                 
-                return redirect(url_for("views.home"))
+                return redirect(url_for("data_guru.data_guru"))
     return render_template("upload_file_guru.html")

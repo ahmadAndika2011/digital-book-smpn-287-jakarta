@@ -121,7 +121,7 @@
     <div class="table-card">
         <h3 class="mb-4 fw-bold text-primary">Daftar Guru</h3>
 
-      <form method="GET" action="{{ url_for('views.data_guru') }}" 
+      <form method="GET" action="{{ url_for('data_guru.data_guru') }}" 
         style="position: relative; display: flex; align-items: center; width: 100%; max-width: 360px;">
 
         <!-- Icon kaca pembesar (dekorasi kiri) -->
@@ -190,7 +190,7 @@
                             {% endif %}
                         </td>
                         <td>
-                            <a href="{{ url_for('views.lihat_guru', id=guru.id) }}" class="btn btn-info btn-sm">
+                            <a href="{{ url_for('detail_guru.detail_guru', id=guru.id) }}" class="btn btn-info btn-sm">
                                 Info
                             </a>
 

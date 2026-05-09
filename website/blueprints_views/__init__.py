@@ -12,3 +12,13 @@ from .hapus_data_pip import views as hapus_data_pip
 from .hapus_data_kjp import views as hapus_data_kjp
 from .hapus_data_administrasi_sekolah import views as hapus_data_administrasi_sekolah
 from .hapus_data_kunjungan_antar_instansi import views as hapus_data_kunjungan_antar_instansi
+from .data_siswa import views as data_siswa
+from .detail_siswa import views as detail_siswa
+from .data_guru import views as data_guru
+from .data_berita import views as data_berita
+from .template_lulus import views as template_lulus
+from .detail_berita import views as detail_berita
+from .detail_guru import views as detail_guru
+from .hapus_berita import views as hapus_berita
+from .hapus_guru import views as hapus_guru
+from .hapus_siswa import views as hapus_siswa
