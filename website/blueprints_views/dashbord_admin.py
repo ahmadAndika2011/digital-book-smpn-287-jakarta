@@ -15,7 +15,7 @@ from .fill_kjp_pdf import fill_kjp_pdf
 PDF_TEMPLATE_PATH = os.path.join(
     os.path.dirname(__file__),
     "..", "static", "uploads",
-    "FORMULIR KJP PLUS TAHAP I TAHUN 2026 terbaru.pdf"
+    "kjp_format.pdf"
 )
 
 views = Blueprint("dashbord_admin", __name__)
@@ -70,6 +70,15 @@ def download_data_kjp():
                     "status_tempat_tinggal": siswa.status_tempat_tinggal or "",
                     "agama_murid": siswa.agama_murid or "",
                     "untuk_disabilitas": siswa.untuk_disabilitas or "",
+                    "npwp_murid": siswa.npwp_murid or "",
+                    "alamat_murid": siswa.alamat_murid or "",
+                    "rt_murid": siswa.rt_murid or "",
+                    "rw_murid": siswa.rw_murid or "",
+                    "provinsi_murid": siswa.provinsi_murid or "",
+                    "kota_murid": siswa.kota_murid or "",
+                    "kecamatan_murid": siswa.kecamatan_murid or "",
+                    "kelurahan_murid": siswa.kelurahan_murid or "",
+                    "kode_pos_murid": siswa.kode_pos_murid or "",
                 }
 
                 # Isi formulir PDF dengan data siswa

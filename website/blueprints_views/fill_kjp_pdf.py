@@ -218,6 +218,69 @@ FIELDS = {
         "max_w": 170,
         "font_size": 9,
     },
+    "npwp_murid":{
+        "page": 1,
+        "x": 222,
+        "y": top_to_pdf_y(423),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "alamat_murid":{
+        "page": 1,
+        "x": 222,
+        "y": top_to_pdf_y(261),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "rt_murid":{
+        "page": 1,
+        "x": 231,
+        "y": top_to_pdf_y(280),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "rw_murid":{
+        "page": 1,
+        "x": 274,
+        "y": top_to_pdf_y(280),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "provinsi_murid":{
+        "page": 1,
+        "x": 222,
+        "y": top_to_pdf_y(291),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kota_murid":{
+        "page": 1,
+        "x": 222,
+        "y": top_to_pdf_y(306),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kecamatan_murid":{
+        "page": 1,
+        "x": 222,
+        "y": top_to_pdf_y(320),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kelurahan_murid":{
+        "page": 1,
+        "x": 222,
+        "y": top_to_pdf_y(337),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kode_pos_murid":{
+        "page": 1,
+        "x": 222,
+        "y": top_to_pdf_y(352),
+        "max_w": 170,
+        "font_size": 9,
+    },
 }
 
 
@@ -263,6 +326,15 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
     status_tempat_tinggal = siswa.get("status_tempat_tinggal", "")
     agama_murid = siswa.get("agama_murid", "")
     untuk_disabilitas = siswa.get("untuk_disabilitas", "")
+    npwp_murid = siswa.get("npwp_murid", "")
+    alamat_murid = siswa.get("alamat_murid", "")
+    rt_murid = siswa.get("rt_murid", "")
+    rw_murid = siswa.get("rw_murid", "")
+    provinsi_murid = siswa.get("provinsi_murid", "")
+    kota_murid = siswa.get("kota_murid", "")
+    kecamatan_murid = siswa.get("kecamatan_murid", "")
+    kelurahan_murid = siswa.get("kelurahan_murid", "")
+    kode_pos_murid = siswa.get("kode_pos_murid", "")
 
     # Cek Jenis Kelamin
     if jenis_kelamin_murid == "Laki-laki":
@@ -408,6 +480,15 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
         ("agama_murid", "✓"),
         ("untuk_disabilitas", "" if untuk_disabilitas == "Tidak Ada" else "✓"),
         ("pendidikan", "✓"),
+        ("npwp_murid", npwp_murid),
+        ("alamat_murid", alamat_murid),
+        ("rt_murid", rt_murid),
+        ("rw_murid", rw_murid),
+        ("provinsi_murid", provinsi_murid),
+        ("kota_murid", kota_murid),
+        ("kecamatan_murid", kecamatan_murid),
+        ("kelurahan_murid", kelurahan_murid),
+        ("kode_pos_murid", kode_pos_murid),
     ]
 
     for field_key, value in field_map:

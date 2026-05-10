@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+{% block title %}Pendaftaran Layanan KJP Plus{% endblock %}
+
+{% block content %}
+<!-- Menggunakan font yang modern dan bersih -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+
+<style>
+  .kjp-page { font-family: 'Plus Jakarta Sans', sans-serif; background: #fdf0f0; padding-bottom: 4rem; }
+  .kjp-hero { background: linear-gradient(135deg, #501313 0%, #791F1F 55%, #A32D2D 100%); padding: 3rem 2rem 5rem; color: white; text-align: center; }
+  .kjp-hero h1 { font-family: 'Fraunces', serif; font-size: 2.5rem; margin-bottom: 10px; }
+  
+  .kjp-main { max-width: 950px; margin: -4rem auto 0; padding: 0 1.5rem; }
+  .kjp-card { background: #fff; border-radius: 20px; border: 1px solid #f0d0d0; box-shadow: 0 10px 30px rgba(80,19,19,0.1); overflow: hidden; }
+  
+  .kjp-form-body { padding: 2.5rem; display: flex; flex-direction: column; gap: 25px; }
+  .form-section { display: flex; flex-direction: column; gap: 18px; }
+  .form-section-title { font-family: 'Fraunces', serif; color: #791F1F; font-size: 1.3rem; border-bottom: 2px solid #fdf5f5; padding-bottom: 10px; margin-top: 10px; }
+  
+  .field-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+  .field-group { display: flex; flex-direction: column; gap: 8px; }
+  .field-label { font-size: 12px; font-weight: 700; color: #7a2020; text-transform: uppercase; letter-spacing: 0.5px; }
+  
+  .field-input { background: #fdf5f5; border: 1.5px solid #f0c8c8; border-radius: 10px; padding: 12px; font-size: 14px; outline: none; transition: all 0.3s ease; font-family: inherit; }
+  .field-input:focus { border-color: #A32D2D; background: #fff; box-shadow: 0 0 0 4px rgba(163,45,45,0.1); }
+  
+  .btn-submit { background: #A32D2D; color: #fff; border: none; padding: 16px; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; font-size: 16px; margin-top: 20px; transition: 0.3s; }
+  .btn-submit:hover { background: #791F1F; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(121,31,31,0.3); }
+</style>
+
+<div class="kjp-page">
+  <div class="kjp-hero">
+    <h1>Formulir KJP Plus</h1>
+    <p>Lengkapi data sesuai dengan Kartu Keluarga dan Dokumen Resmi</p>
+  </div>
+
+  <div class="kjp-main">
+    <div class="kjp-card">
+      <form id="kjpForm" method="POST" action="{{ url_for('layanan_kjp.layanan_kjp') }}">
+        <div class="kjp-form-body">
+
+          <!-- SECTION 1: IDENTITAS MURID -->
+          <div class="form-section">
+            <div class="form-section-title">I. Identitas Peserta Didik</div>
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label">NIK Murid</label>
+                <input type="text" pattern="[0-9]*" name="nik_murid" class="field-input" maxlength="16" placeholder="16 digit NIK" required>
+              </div>
+              <div class="field-group">
+                <label class="field-label">No. Kartu Keluarga</label>
+                <input type="text" pattern="[0-9]*" name="no_kartu_keluarga" class="field-input" maxlength="16" placeholder="16 digit No. KK" required>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Nama Siswa Murid</label>
+              <input type="text" name="nama_murid" class="field-input" placeholder="Nama lengkap sesuai ijazah/KK" required>
+            </div>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label">Jenis Kelamin</label>
+                <select name="jenis_kelamin_murid" class="field-input" required>
+                  <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                  <option value="Laki-laki">Laki-laki</option>
+                  <option value="Perempuan">Perempuan</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Agama (Gbr 24)</label>
+                <select name="agama_murid" class="field-input">
+                  <option value="" disabled selected>Pilih Agama</option>
+                  <option value="Islam">Islam</option>
+                  <option value="Protestan">Protestan</option>
+                  <option value="Katolik">Katolik</option>
+                  <option value="Hindu">Hindu</option>
+                  <option value="Budha">Budha</option>
+                  <option value="Lainnya">Lainnya</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label">Tempat Lahir</label>
+                <input type="text" name="tempat_lahir_murid" class="field-input" placeholder="Kota Lahir">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Tanggal Lahir</label>
+                <input type="date" name="tanggal_lahir_murid" class="field-input">
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Nama Ibu Kandung</label>
+              <input type="text" name="nama_ibu_kandung_murid" class="field-input" placeholder="Nama lengkap ibu kandung">
+            </div>
+          </div>
+
+          <!-- SECTION 2: AKADEMIK & KONTAK -->
+          <div class="form-section">
+            <div class="form-section-title">II. Informasi Akademik & Kontak</div>
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label">Kelas</label>
+                <select name="kelas" class="field-input" required>
+                  <option value="" disabled selected>Pilih Kelas</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label class="field-label">NISN Siswa</label>
+                <input type="text" pattern="[0-9]*" name="nisn_murid" class="field-input" maxlength="10" placeholder="10 digit NISN">
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label">No. HP Murid</label>
+                <input type="text" pattern="[0-9]*" name="no_hp_murid" class="field-input" placeholder="08xxx">
+              </div>
+            </div>
+            
+            <div class="field-group">
+              <label class="field-label">No. Telepon Rumah</label>
+              <input type="text" pattern="[0-9]*" name="no_telepon" class="field-input" placeholder="Nomor telepon rumah (jika ada)">
+            </div>
+          </div>
+
+          <!-- SECTION 3: DOMISILI & STATUS -->
+          <div class="form-section">
+            <div class="form-section-title">III. Detail Domisili & Disabilitas</div>
+            
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label">Tipe Alamat (Gbr 22)</label>
+                <select name="tipe_alamat" class="field-input">
+                  <option value="" disabled selected>Pilih Tipe Alamat</option>
+                  <option value="Alamat Rumah">Alamat Rumah</option>
+                  <option value="Alamat Kantor">Alamat Kantor</option>
+                  <option value="Alamat Kost">Alamat Kost</option>
+                  <option value="Alamat Sesuai KK">Alamat Sesuai KK</option>
+                  <option value="Alamat Sesuai NPWP">Alamat Sesuai NPWP</option>
+                  <option value="Alamat Rusun">Alamat Rusun</option>
+                  <option value="Alamat Panti">Alamat Panti</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Status Tempat Tinggal (Gbr 23)</label>
+                <select name="status_tempat_tinggal" class="field-input">
+                  <option value="" disabled selected>Pilih Status Tempat Tinggal</option>
+                  <option value="Bukan Milik Pribadi">Bukan Milik Pribadi</option>
+                  <option value="Milik Pribadi">Milik Pribadi</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label">Masa Berlaku Identitas</label>
+                <input type="text" name="masa_berlaku_identitas" id="masa_berlaku" class="field-input" placeholder="Kosongkan jika Seumur Hidup">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Alamat Surat</label>
+                <select name="alamat_surat" class="field-input">
+                  <option value="" disabled selected>Pilih Alamat Surat</option>
+                  <option value="Diambil Sendiri">Diambil Sendiri</option>
+                  <option value="Dikirim">Dikirim</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Disabilitas / Khusus SLB (Gbr 26)</label>
+              <select name="untuk_disabilitas" class="field-input">
+                <option value="Tidak Ada">Tidak Ada / Bukan SLB</option>
+                <option value="Tuna Rungu">Tuna Rungu (Tuli)</option>
+                <option value="Tuna Netra">Tuna Netra (Buta)</option>
+                <option value="Tuna Wicara">Tuna Wicara (Bisu)</option>
+                <option value="Tuna Daksa">Tuna Daksa (Cacat Fisik)</option>
+                <option value="Tuna Grahita">Tuna Grahita (Keterbelakangan Mental)</option>
+                <option value="Tuna Laras">Tuna Laras (Cacat Pengendalian Diri)</option>
+                <option value="Tuna Ganda">Tuna Ganda (Cacat Kombinasi)</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit">Kirim Data Pendaftaran</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Logika otomatis mengisi "Seumur Hidup" jika input masa berlaku dikosongkan
+  document.getElementById('kjpForm').addEventListener('submit', function() {
+    const inputMasa = document.getElementById('masa_berlaku');
+    if (inputMasa.value.trim() === "") {
+      inputMasa.value = "Seumur Hidup";
+    }
+  });
+</script>
+{% endblock %}
