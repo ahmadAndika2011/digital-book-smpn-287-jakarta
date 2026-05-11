@@ -5,7 +5,7 @@ from urllib.parse import quote_plus
 import os
 from flask_mail import Mail
 from dotenv import load_dotenv
-# from flask_sitemap import Sitemap
+from flask_sitemap import Sitemap
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 load_dotenv()
@@ -18,6 +18,8 @@ ext = Sitemap()
 def create_app():
     app = Flask(__name__)
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+    app.config["SERVER_NAME"] = "smpn-287-jakarta.sch.id"
+    app.config["PREFERRED_URL_SCHEME"] = "https"
 
     app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
