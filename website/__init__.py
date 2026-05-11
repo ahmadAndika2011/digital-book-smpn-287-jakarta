@@ -5,7 +5,7 @@ from urllib.parse import quote_plus
 import os
 from flask_mail import Mail
 from dotenv import load_dotenv
-from flask_sitemap import Sitemap
+# from flask_sitemap import Sitemap
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 load_dotenv()
