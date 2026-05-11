@@ -2,7 +2,7 @@
 {% block title %}Detail Data KJP{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
 
 <style>
   :root {
@@ -11,321 +11,385 @@
     --coral-light: #FAECE7;
     --coral-border: #F5C4B3;
     --coral-dark: #7a2e14;
+    --coral-xlight: #fdf6f3;
     --bg: #f0f4f8;
     --text-main: #1a3256;
     --text-sub: #6a8aaa;
     --border: #dde8f0;
+    --white: #ffffff;
+    --green: #16a34a;
+    --green-bg: #f0fdf4;
+    --green-border: #bbf7d0;
+    --blue: #1d4ed8;
+    --blue-bg: #eff6ff;
+    --blue-border: #bfdbfe;
+    --purple: #7c3aed;
+    --purple-bg: #f5f3ff;
+    --purple-border: #ddd6fe;
+    --orange: #ea580c;
+    --orange-bg: #fff7ed;
+    --orange-border: #fed7aa;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body { background: var(--bg); }
 
   .detail-page {
     font-family: 'Plus Jakarta Sans', sans-serif;
     min-height: 100vh;
     background: var(--bg);
-    padding-bottom: 4rem;
+    padding-bottom: 5rem;
   }
 
   /* ── Hero ── */
   .detail-hero {
-    background: linear-gradient(135deg, #5c1f0a 0%, #993C1D 55%, #c45520 100%);
-    padding: 2.5rem 2rem 5.5rem;
+    background: linear-gradient(135deg, #4a1505 0%, #7a2e14 40%, #993C1D 70%, #c45520 100%);
+    padding: 2.5rem 2rem 6rem;
     position: relative;
     overflow: hidden;
   }
   .detail-hero::before {
     content: '';
-    position: absolute;
-    top: -70px; right: -70px;
-    width: 300px; height: 300px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.05);
+    position: absolute; top: -80px; right: -80px;
+    width: 360px; height: 360px; border-radius: 50%;
+    background: rgba(255,255,255,0.04);
     pointer-events: none;
   }
   .detail-hero::after {
     content: '';
-    position: absolute;
-    bottom: -100px; left: 4%;
-    width: 400px; height: 400px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.04);
+    position: absolute; bottom: -120px; left: 3%;
+    width: 480px; height: 480px; border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+    pointer-events: none;
+  }
+  .hero-dot {
+    position: absolute; top: 40%; right: 12%;
+    width: 160px; height: 160px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.08);
     pointer-events: none;
   }
   .detail-hero-inner {
-    max-width: 760px;
+    max-width: 900px;
     margin: 0 auto;
     position: relative;
     z-index: 1;
   }
 
   .detail-back {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    color: rgba(255,255,255,0.72);
-    font-size: 13px;
-    font-weight: 500;
-    text-decoration: none;
-    margin-bottom: 1.25rem;
+    display: inline-flex; align-items: center; gap: 7px;
+    color: rgba(255,255,255,0.7); font-size: 13px; font-weight: 500;
+    text-decoration: none; margin-bottom: 1.5rem;
     transition: color 0.2s;
     animation: fadeSlideDown 0.4s ease both;
   }
-  .detail-back:hover { color: #fff; text-decoration: none; }
+  .detail-back:hover { color: #fff; }
 
   .detail-hero-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
+    display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
     animation: fadeSlideDown 0.45s 0.08s ease both;
+    margin-bottom: 1rem;
   }
   .detail-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+    display: inline-flex; align-items: center; gap: 6px;
     background: rgba(255,255,255,0.15);
     border: 1px solid rgba(255,255,255,0.25);
-    border-radius: 99px;
-    padding: 4px 14px;
-    font-size: 11.5px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.9);
+    border-radius: 99px; padding: 4px 14px;
+    font-size: 11.5px; font-weight: 600; color: rgba(255,255,255,0.9);
   }
   .detail-id-badge {
-    display: inline-flex;
-    align-items: center;
+    display: inline-flex; align-items: center;
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.18);
-    border-radius: 99px;
-    padding: 4px 12px;
-    font-size: 11px;
-    color: rgba(255,255,255,0.65);
-    font-family: monospace;
+    border-radius: 99px; padding: 4px 12px;
+    font-size: 11px; color: rgba(255,255,255,0.65); font-family: monospace;
   }
-
-  .detail-hero-title {
-    margin-top: 1rem;
-    animation: fadeSlideDown 0.45s 0.14s ease both;
-  }
+  .detail-hero-title { animation: fadeSlideDown 0.45s 0.14s ease both; }
   .detail-hero-title h1 {
     font-family: 'Fraunces', serif;
-    font-size: clamp(1.5rem, 3vw, 2.1rem);
-    font-weight: 600;
-    color: #fff;
-    line-height: 1.2;
-    margin-bottom: 0.35rem;
+    font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700;
+    color: #fff; line-height: 1.2; margin-bottom: 0.4rem;
   }
-  .detail-hero-title p {
-    font-size: 13.5px;
-    color: rgba(255,255,255,0.65);
-  }
+  .detail-hero-title p { font-size: 13.5px; color: rgba(255,255,255,0.6); }
 
-  /* ── Main ── */
+  /* ── Layout ── */
   .detail-main {
-    max-width: 760px;
-    margin: -3rem auto 0;
+    max-width: 900px;
+    margin: -3.5rem auto 0;
     padding: 0 1.5rem;
-    position: relative;
-    z-index: 2;
+    position: relative; z-index: 2;
   }
 
-  /* ── Profile Card ── */
-  .profile-card {
-    background: #fff;
+  /* ── Profile Summary Card ── */
+  .profile-summary {
+    background: var(--white);
     border: 1px solid var(--border);
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 6px 24px rgba(153,60,29,0.1);
+    box-shadow: 0 8px 32px rgba(153,60,29,0.12);
     animation: fadeUp 0.4s 0.2s ease both;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
   }
-
-  .profile-card-header {
-    background: linear-gradient(135deg, var(--coral-light) 0%, #fcd9cc 100%);
+  .profile-summary-header {
+    background: linear-gradient(135deg, var(--coral-light), #fcd9cc);
     padding: 1.75rem 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
+    display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;
     border-bottom: 1px solid var(--coral-border);
-    flex-wrap: wrap;
   }
   .profile-avatar {
-    width: 72px; height: 72px;
-    border-radius: 20px;
+    width: 78px; height: 78px; border-radius: 20px;
     background: linear-gradient(135deg, var(--coral-dark), var(--coral-mid));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Fraunces', serif;
-    font-size: 2rem;
-    font-weight: 600;
-    color: #fff;
-    flex-shrink: 0;
-    box-shadow: 0 4px 16px rgba(153,60,29,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 700;
+    color: #fff; flex-shrink: 0;
+    box-shadow: 0 6px 20px rgba(153,60,29,0.35);
   }
   .profile-info { flex: 1; }
   .profile-name {
-    font-family: 'Fraunces', serif;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--text-main);
-    margin-bottom: 7px;
-    line-height: 1.2;
+    font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 600;
+    color: var(--text-main); margin-bottom: 5px;
   }
-  .profile-chips {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
+  .profile-nisn {
+    font-size: 11.5px; color: var(--text-sub); font-family: monospace;
+    margin-bottom: 10px;
   }
+  .profile-chips { display: flex; gap: 6px; flex-wrap: wrap; }
   .profile-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 11.5px;
-    font-weight: 600;
-    padding: 4px 11px;
-    border-radius: 99px;
-    background: rgba(153,60,29,0.1);
-    color: var(--coral-dark);
-    border: 1px solid var(--coral-border);
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 600; padding: 4px 11px;
+    border-radius: 99px; border: 1px solid;
   }
+  .chip-coral { background: rgba(153,60,29,0.08); color: var(--coral-dark); border-color: var(--coral-border); }
+  .chip-green { background: var(--green-bg); color: var(--green); border-color: var(--green-border); }
+  .chip-blue  { background: var(--blue-bg);  color: var(--blue);  border-color: var(--blue-border); }
 
-  /* ── Fields ── */
-  .detail-fields {
-    padding: 1.5rem 2rem;
-    display: flex;
-    flex-direction: column;
+  .profile-summary-stats {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
+    gap: 0; border-top: 1px solid #f5ede9;
   }
-  .field-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1rem 0;
-    border-bottom: 1px dashed #f5e8e3;
+  .stat-item {
+    padding: 1rem 1.5rem; text-align: center;
+    border-right: 1px solid #f5ede9;
   }
-  .field-row:last-child { border-bottom: none; }
+  .stat-item:last-child { border-right: none; }
+  .stat-value {
+    font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 600;
+    color: var(--coral); display: block; margin-bottom: 2px;
+  }
+  .stat-label { font-size: 10.5px; font-weight: 600; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.06em; }
 
-  .field-icon {
-    width: 38px; height: 38px;
-    border-radius: 10px;
-    background: var(--coral-light);
+  /* ── Section Cards ── */
+  .section-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    margin-bottom: 1.25rem;
+    animation: fadeUp 0.4s ease both;
+  }
+  .section-card:nth-child(1) { animation-delay: 0.25s; }
+  .section-card:nth-child(2) { animation-delay: 0.3s; }
+  .section-card:nth-child(3) { animation-delay: 0.35s; }
+  .section-card:nth-child(4) { animation-delay: 0.4s; }
+  .section-card:nth-child(5) { animation-delay: 0.45s; }
+  .section-card:nth-child(6) { animation-delay: 0.5s; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 1.1rem 1.75rem;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+  }
+  .section-header:hover { background: #fafcff; }
+  .section-header-icon {
+    width: 36px; height: 36px; border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
-    margin-top: 1px;
   }
-  .field-content { flex: 1; }
+  .icon-coral   { background: var(--coral-light); }
+  .icon-green   { background: var(--green-bg); }
+  .icon-blue    { background: var(--blue-bg); }
+  .icon-purple  { background: var(--purple-bg); }
+  .icon-orange  { background: var(--orange-bg); }
+
+  .section-header-text { flex: 1; }
+  .section-header-text strong {
+    display: block; font-size: 13.5px; font-weight: 700; color: var(--text-main);
+  }
+  .section-header-text span {
+    font-size: 11.5px; color: var(--text-sub);
+  }
+  .section-toggle {
+    width: 24px; height: 24px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg); transition: transform 0.3s;
+  }
+  .section-card.collapsed .section-toggle { transform: rotate(-90deg); }
+
+  .section-body {
+    padding: 0.5rem 1.75rem 1rem;
+    overflow: hidden;
+    transition: max-height 0.35s ease, opacity 0.3s ease;
+  }
+  .section-card.collapsed .section-body {
+    max-height: 0 !important;
+    opacity: 0;
+    padding: 0 1.75rem;
+  }
+
+  /* ── Fields Grid ── */
+  .fields-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .fields-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .fields-grid.cols-1 { grid-template-columns: 1fr; }
+
+  .field-item {
+    padding: 0.85rem 0;
+    border-bottom: 1px dashed #eef4f8;
+  }
+  .field-item:nth-last-child(-n+2):not(.fields-grid.cols-1 .field-item) { border-bottom: none; }
+
+  /* For last rows in various grid sizes */
+  .fields-grid.cols-1 .field-item:last-child { border-bottom: none; }
+
+  .field-divider {
+    grid-column: 1 / -1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--coral-border), transparent);
+    margin: 0.25rem 0;
+  }
+
   .field-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    color: var(--text-sub);
-    margin-bottom: 4px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.07em;
+    text-transform: uppercase; color: var(--text-sub); margin-bottom: 4px;
   }
   .field-value {
-    font-size: 14.5px;
-    font-weight: 600;
-    color: var(--text-main);
-    line-height: 1.5;
+    font-size: 14px; font-weight: 600; color: var(--text-main); line-height: 1.5;
   }
   .field-value.mono {
-    font-family: 'Courier New', monospace;
-    font-size: 14px;
-    letter-spacing: 0.03em;
+    font-family: 'Courier New', monospace; font-size: 13px; letter-spacing: 0.03em;
   }
   .field-value.empty {
-    color: #c5d8e8;
-    font-style: italic;
-    font-weight: 400;
-    font-size: 13.5px;
+    color: #c5d8e8; font-style: italic; font-weight: 400; font-size: 13px;
   }
   .field-value.ket {
-    font-size: 13.5px;
-    font-weight: 400;
-    color: #5a2010;
-    line-height: 1.65;
-    background: #fdf4f1;
-    border: 1px solid var(--coral-border);
-    border-radius: 10px;
-    padding: 10px 14px;
+    font-size: 13px; font-weight: 400; color: #5a2010; line-height: 1.7;
+    background: var(--coral-xlight); border: 1px solid var(--coral-border);
+    border-radius: 8px; padding: 8px 12px; margin-top: 2px;
   }
+  .field-value.badge-val {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; font-weight: 600; padding: 3px 10px;
+    border-radius: 99px; border: 1px solid;
+  }
+  .field-value.full-row { grid-column: 1 / -1; }
+
+  /* ── Signature Block ── */
+  .ttd-block {
+    margin-top: 0.75rem;
+    border: 1px solid var(--coral-border);
+    border-radius: 12px; overflow: hidden;
+    background: var(--coral-xlight);
+  }
+  .ttd-block-label {
+    padding: 6px 12px; font-size: 10.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--coral-dark); background: var(--coral-light);
+    border-bottom: 1px solid var(--coral-border);
+  }
+  .ttd-block img {
+    display: block; max-width: 100%; max-height: 130px;
+    object-fit: contain; padding: 12px; background: #fff;
+  }
+  .ttd-block-empty {
+    padding: 20px; text-align: center; font-size: 12px;
+    color: #c5d8e8; font-style: italic;
+  }
+
+  /* ── Penilaian / Rating ── */
+  .penilaian-grid {
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; padding: 0.75rem 0;
+  }
+  .penilaian-item {
+    background: var(--coral-light); border: 1px solid var(--coral-border);
+    border-radius: 12px; padding: 12px 8px; text-align: center;
+  }
+  .penilaian-number {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--text-sub); margin-bottom: 6px;
+  }
+  .penilaian-value {
+    font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 600;
+    color: var(--coral);
+  }
+  .penilaian-value.empty-val { color: #c5d8e8; font-size: 1rem; font-style: italic; }
 
   /* ── Action Card ── */
   .action-card {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.25rem 1.5rem;
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.25rem 1.75rem;
     box-shadow: 0 4px 16px rgba(153,60,29,0.07);
-    animation: fadeUp 0.4s 0.35s ease both;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
+    animation: fadeUp 0.4s 0.55s ease both;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+    margin-top: 1.25rem;
   }
   .action-card-left strong {
-    display: block;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text-main);
-    margin-bottom: 2px;
+    display: block; font-size: 14px; font-weight: 700;
+    color: var(--text-main); margin-bottom: 2px;
   }
-  .action-card-left span {
-    font-size: 12.5px;
-    color: var(--text-sub);
-  }
-  .action-buttons { display: flex; gap: 8px; }
+  .action-card-left span { font-size: 12.5px; color: var(--text-sub); }
+  .action-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
   .btn-act {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 9px 18px;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 9px 20px; border-radius: 10px; font-size: 13px;
+    font-weight: 600; font-family: 'Plus Jakarta Sans', sans-serif;
+    border: none; cursor: pointer; text-decoration: none;
     transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
   }
   .btn-act:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.12); text-decoration: none; }
-  .btn-back-act {
-    background: var(--coral-light);
-    color: var(--coral-dark);
-    border: 1.5px solid var(--coral-border);
-  }
-  .btn-delete-act {
-    background: #fdeaea;
-    color: #a93226;
-    border: 1.5px solid #f5c6c0;
-  }
+  .btn-back-act  { background: var(--coral-light); color: var(--coral-dark); border: 1.5px solid var(--coral-border); }
+  .btn-edit-act  { background: var(--blue-bg);  color: var(--blue);  border: 1.5px solid var(--blue-border); }
+  .btn-delete-act{ background: #fdeaea; color: #a93226; border: 1.5px solid #f5c6c0; }
   .btn-delete-act:hover { background: #c0392b; color: #fff; }
 
-  /* ── Keyframes ── */
+  /* ── Utilities ── */
+  .sep { margin: 0.5rem 0; }
+
+  /* ── Animations ── */
   @keyframes fadeSlideDown {
     from { opacity: 0; transform: translateY(-10px); }
     to   { opacity: 1; transform: translateY(0); }
   }
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
+    from { opacity: 0; transform: translateY(18px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  @media (max-width: 540px) {
-    .detail-hero { padding: 2rem 1.25rem 5rem; }
+  @media (max-width: 640px) {
+    .detail-hero { padding: 2rem 1.25rem 5.5rem; }
     .detail-main { padding: 0 0.75rem; }
-    .profile-card-header { padding: 1.25rem; }
-    .detail-fields { padding: 1rem 1.25rem; }
+    .profile-summary-header { padding: 1.25rem; }
+    .section-header { padding: 1rem 1.25rem; }
+    .section-body { padding: 0.25rem 1.25rem 0.75rem; }
+    .fields-grid { grid-template-columns: 1fr; }
+    .fields-grid.cols-3 { grid-template-columns: 1fr 1fr; }
+    .penilaian-grid { grid-template-columns: repeat(2,1fr); }
     .action-card { padding: 1rem 1.25rem; }
   }
 </style>
 
 <div class="detail-page">
 
-  <!-- Hero -->
+  <!-- ══ HERO ══ -->
   <div class="detail-hero">
+    <div class="hero-dot"></div>
     <div class="detail-hero-inner">
       <a href="{{ url_for('dashbord_admin.dashbord_admin') }}" class="detail-back">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -342,106 +406,654 @@
       </div>
       <div class="detail-hero-title">
         <h1>Detail Data KJP</h1>
-        <p>Informasi lengkap penerima Kartu Jakarta Pintar.</p>
+        <p>Informasi lengkap penerima Kartu Jakarta Pintar — semua data tercatat di sini.</p>
       </div>
     </div>
   </div>
 
-  <!-- Main -->
+  <!-- ══ MAIN ══ -->
   <div class="detail-main">
 
-    <!-- Profile Card -->
-    <div class="profile-card">
-
-      <div class="profile-card-header">
+    <!-- Profile Summary -->
+    <div class="profile-summary">
+      <div class="profile-summary-header">
         <div class="profile-avatar">
-          {{ item.nama[0].upper() if item.nama else '?' }}
+          {{ item.nama_murid[0].upper() if item.nama_murid else '?' }}
         </div>
         <div class="profile-info">
-          <div class="profile-name">{{ item.nama if item.nama else 'Tanpa Nama' }}</div>
+          <div class="profile-name">{{ item.nama_murid or 'Tanpa Nama' }}</div>
+          <div class="profile-nisn">NISN: {{ item.nisn_murid or '—' }} &nbsp;|&nbsp; NIK: {{ item.nik_murid or '—' }}</div>
           <div class="profile-chips">
-            <span class="profile-chip">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              {{ item.tanggal if item.tanggal else 'Tanggal tidak diketahui' }}
+            {% if item.kelas %}
+            <span class="profile-chip chip-coral">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke="currentColor" stroke-width="2"/></svg>
+              Kelas {{ item.kelas }}
             </span>
-            <span class="profile-chip">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.02 2.18a2 2 0 012-2.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="2"/></svg>
-              {{ item.no_telepon if item.no_telepon else 'Tidak ada' }}
+            {% endif %}
+            {% if item.jenis_kelamin_murid %}
+            <span class="profile-chip chip-blue">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              {{ item.jenis_kelamin_murid }}
             </span>
+            {% endif %}
+            {% if item.agama_murid %}
+            <span class="profile-chip chip-green">{{ item.agama_murid }}</span>
+            {% endif %}
+            {% if item.pendidikan %}
+            <span class="profile-chip chip-coral">Pendidikan: {{ item.pendidikan }}</span>
+            {% endif %}
           </div>
         </div>
       </div>
+      <div class="profile-summary-stats">
+        <div class="stat-item">
+          <span class="stat-value">{{ item.kelas or '—' }}</span>
+          <span class="stat-label">Kelas</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" style="font-size:0.95rem">{{ item.nama_sekolah[:20] ~ '…' if item.nama_sekolah and item.nama_sekolah|length > 20 else (item.nama_sekolah or '—') }}</span>
+          <span class="stat-label">Sekolah</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" style="font-size:0.95rem">{{ item.kota_murid or '—' }}</span>
+          <span class="stat-label">Kota</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ '#' ~ item.id }}</span>
+          <span class="stat-label">ID KJP</span>
+        </div>
+      </div>
+    </div>
 
-      <!-- Fields -->
-      <div class="detail-fields">
+    <!-- ══ SECTION 1: Data Murid ══ -->
+    <div class="section-card" id="sec-murid">
+      <div class="section-header" onclick="toggleSection('sec-murid')">
+        <div class="section-header-icon icon-coral">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8" r="4" stroke="#993C1D" stroke-width="1.8"/>
+            <path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="#993C1D" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="section-header-text">
+          <strong>Data Murid</strong>
+          <span>Identitas dan informasi pribadi peserta didik</span>
+        </div>
+        <div class="section-toggle">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#6a8aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="fields-grid">
 
-        <!-- Tanggal -->
-        <div class="field-row">
-          <div class="field-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <rect x="3" y="4" width="18" height="18" rx="2" stroke="#993C1D" stroke-width="1.8"/>
-              <path d="M3 9h18M8 2v4M16 2v4" stroke="#993C1D" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
+          <div class="field-item">
+            <div class="field-label">NIK</div>
+            <div class="field-value mono">{{ item.nik_murid or '' }}<span class="{{ '' if item.nik_murid else 'field-value empty' }}">{{ '—' if not item.nik_murid else '' }}</span></div>
           </div>
-          <div class="field-content">
-            <div class="field-label">Tanggal</div>
-            {% if item.tanggal %}
-              <div class="field-value">{{ item.tanggal }}</div>
+          <div class="field-item">
+            <div class="field-label">No. Kartu Keluarga</div>
+            <div class="field-value mono {% if not item.no_kartu_keluarga %}empty{% endif %}">{{ item.no_kartu_keluarga or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Nama Murid</div>
+            <div class="field-value {% if not item.nama_murid %}empty{% endif %}">{{ item.nama_murid or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">NISN</div>
+            <div class="field-value mono {% if not item.nisn_murid %}empty{% endif %}">{{ item.nisn_murid or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Jenis Kelamin</div>
+            <div class="field-value {% if not item.jenis_kelamin_murid %}empty{% endif %}">{{ item.jenis_kelamin_murid or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Agama</div>
+            <div class="field-value {% if not item.agama_murid %}empty{% endif %}">{{ item.agama_murid or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Tempat Lahir</div>
+            <div class="field-value {% if not item.tempat_lahir_murid %}empty{% endif %}">{{ item.tempat_lahir_murid or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Tanggal Lahir</div>
+            <div class="field-value {% if not item.tanggal_lahir_murid %}empty{% endif %}">{{ item.tanggal_lahir_murid or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Nama Ibu Kandung</div>
+            <div class="field-value {% if not item.nama_ibu_kandung_murid %}empty{% endif %}">{{ item.nama_ibu_kandung_murid or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kelas</div>
+            <div class="field-value {% if not item.kelas %}empty{% endif %}">{{ item.kelas or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Masa Berlaku Identitas</div>
+            <div class="field-value {% if not item.masa_berlaku_identitas %}empty{% endif %}">{{ item.masa_berlaku_identitas or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Pendidikan</div>
+            <div class="field-value {% if not item.pendidikan %}empty{% endif %}">{{ item.pendidikan or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">No. HP</div>
+            <div class="field-value mono {% if not item.no_hp_murid %}empty{% endif %}">{{ item.no_hp_murid or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">No. Telepon</div>
+            <div class="field-value mono {% if not item.no_telepon %}empty{% endif %}">{{ item.no_telepon or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Untuk Disabilitas</div>
+            <div class="field-value {% if not item.untuk_disabilitas %}empty{% endif %}">{{ item.untuk_disabilitas or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">NPWP</div>
+            <div class="field-value mono {% if not item.npwp_murid %}empty{% endif %}">{{ item.npwp_murid or 'Belum diisi' }}</div>
+          </div>
+
+          <!-- Alamat Murid -->
+          <div class="field-item full-row" style="grid-column:1/-1">
+            <div class="field-label">Alamat</div>
+            <div class="field-value {% if not item.alamat_murid %}empty{% endif %}">{{ item.alamat_murid or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">RT / RW</div>
+            <div class="field-value {% if not item.rt_murid %}empty{% endif %}">{{ (item.rt_murid ~ ' / ' ~ item.rw_murid) if item.rt_murid else 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kelurahan / Kecamatan</div>
+            <div class="field-value {% if not item.kelurahan_murid %}empty{% endif %}">{{ (item.kelurahan_murid ~ ', ' ~ item.kecamatan_murid) if item.kelurahan_murid else 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kota</div>
+            <div class="field-value {% if not item.kota_murid %}empty{% endif %}">{{ item.kota_murid or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Provinsi</div>
+            <div class="field-value {% if not item.provinsi_murid %}empty{% endif %}">{{ item.provinsi_murid or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kode Pos</div>
+            <div class="field-value mono {% if not item.kode_pos_murid %}empty{% endif %}">{{ item.kode_pos_murid or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Tipe Alamat</div>
+            <div class="field-value {% if not item.tipe_alamat %}empty{% endif %}">{{ item.tipe_alamat or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Status Tempat Tinggal</div>
+            <div class="field-value {% if not item.status_tempat_tinggal %}empty{% endif %}">{{ item.status_tempat_tinggal or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Alamat Surat</div>
+            <div class="field-value {% if not item.alamat_surat %}empty{% endif %}">{{ item.alamat_surat or 'Belum diisi' }}</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SECTION 2: Data Wali ══ -->
+    <div class="section-card" id="sec-wali">
+      <div class="section-header" onclick="toggleSection('sec-wali')">
+        <div class="section-header-icon icon-blue">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#1d4ed8" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="9" cy="7" r="4" stroke="#1d4ed8" stroke-width="1.8"/>
+            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="#1d4ed8" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="section-header-text">
+          <strong>Data Wali</strong>
+          <span>Informasi orang tua / wali peserta didik</span>
+        </div>
+        <div class="section-toggle">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#6a8aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="fields-grid">
+
+          <div class="field-item">
+            <div class="field-label">Nama Wali</div>
+            <div class="field-value {% if not item.nama_wali %}empty{% endif %}">{{ item.nama_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">No. KTP Wali</div>
+            <div class="field-value mono {% if not item.no_ktp_wali %}empty{% endif %}">{{ item.no_ktp_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Tempat Lahir Wali</div>
+            <div class="field-value {% if not item.tempat_lahir_wali %}empty{% endif %}">{{ item.tempat_lahir_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Tanggal Lahir Wali</div>
+            <div class="field-value {% if not item.tanggal_lahir_wali %}empty{% endif %}">{{ item.tanggal_lahir_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Jenis Kelamin Wali</div>
+            <div class="field-value {% if not item.jenis_kelamin_wali %}empty{% endif %}">{{ item.jenis_kelamin_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Agama Wali</div>
+            <div class="field-value {% if not item.agama_wali %}empty{% endif %}">{{ item.agama_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Nama Ibu Kandung Wali</div>
+            <div class="field-value {% if not item.nama_ibu_kandung_wali %}empty{% endif %}">{{ item.nama_ibu_kandung_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Pekerjaan Wali</div>
+            <div class="field-value {% if not item.pekerjaan_wali %}empty{% endif %}">{{ item.pekerjaan_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Status Pernikahan</div>
+            <div class="field-value {% if not item.status_pernikahan_wali %}empty{% endif %}">{{ item.status_pernikahan_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Pendidikan Wali</div>
+            <div class="field-value {% if not item.pendidikan_wali %}empty{% endif %}">{{ item.pendidikan_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Jabatan Wali</div>
+            <div class="field-value {% if not item.jabatan_wali %}empty{% endif %}">{{ item.jabatan_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Masa Berlaku KTP</div>
+            <div class="field-value {% if not item.masa_berlaku_ktp_wali %}empty{% endif %}">{{ item.masa_berlaku_ktp_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">NPWP Wali</div>
+            <div class="field-value mono {% if not item.npwp_wali %}empty{% endif %}">{{ item.npwp_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kartu Keluarga Wali</div>
+            <div class="field-value mono {% if not item.kartu_keluarga_wali %}empty{% endif %}">{{ item.kartu_keluarga_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">No. HP Wali</div>
+            <div class="field-value mono {% if not item.no_hp_wali %}empty{% endif %}">{{ item.no_hp_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">No. Telepon Wali</div>
+            <div class="field-value mono {% if not item.no_telepon_wali %}empty{% endif %}">{{ item.no_telepon_wali or 'Belum diisi' }}</div>
+          </div>
+
+          <!-- Alamat Wali -->
+          <div class="field-item" style="grid-column:1/-1">
+            <div class="field-label">Alamat Wali</div>
+            <div class="field-value {% if not item.alamat_wali %}empty{% endif %}">{{ item.alamat_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">RT / RW</div>
+            <div class="field-value {% if not item.rt_wali %}empty{% endif %}">{{ (item.rt_wali ~ ' / ' ~ item.rw_wali) if item.rt_wali else 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kelurahan / Kecamatan</div>
+            <div class="field-value {% if not item.kelurahan_wali %}empty{% endif %}">{{ (item.kelurahan_wali ~ ', ' ~ item.kecamatan_wali) if item.kelurahan_wali else 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kota</div>
+            <div class="field-value {% if not item.kota_wali %}empty{% endif %}">{{ item.kota_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Provinsi</div>
+            <div class="field-value {% if not item.provinsi_wali %}empty{% endif %}">{{ item.provinsi_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kode Pos</div>
+            <div class="field-value mono {% if not item.kode_pos_wali %}empty{% endif %}">{{ item.kode_pos_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Tipe Alamat Wali</div>
+            <div class="field-value {% if not item.tipe_alamat_wali %}empty{% endif %}">{{ item.tipe_alamat_wali or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Status Tempat Tinggal Wali</div>
+            <div class="field-value {% if not item.status_tempat_tinggal_wali %}empty{% endif %}">{{ item.status_tempat_tinggal_wali or 'Belum diisi' }}</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SECTION 3: Kontak Darurat ══ -->
+    <div class="section-card" id="sec-kontak">
+      <div class="section-header" onclick="toggleSection('sec-kontak')">
+        <div class="section-header-icon icon-orange">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.02 2.18a2 2 0 012-2.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#ea580c" stroke-width="1.8"/>
+          </svg>
+        </div>
+        <div class="section-header-text">
+          <strong>Kontak Darurat</strong>
+          <span>Informasi kontak yang dapat dihubungi dalam keadaan darurat</span>
+        </div>
+        <div class="section-toggle">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#6a8aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="fields-grid">
+
+          <div class="field-item">
+            <div class="field-label">Nama Kontak Darurat</div>
+            <div class="field-value {% if not item.nama_kontak_darurat %}empty{% endif %}">{{ item.nama_kontak_darurat or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">No. Identitas</div>
+            <div class="field-value mono {% if not item.no_identitas_kontak %}empty{% endif %}">{{ item.no_identitas_kontak or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Hubungan</div>
+            <div class="field-value {% if not item.hubungan_kontak %}empty{% endif %}">{{ item.hubungan_kontak or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">No. Telepon</div>
+            <div class="field-value mono {% if not item.no_telepon_kontak %}empty{% endif %}">{{ item.no_telepon_kontak or 'Belum diisi' }}</div>
+          </div>
+
+          <div class="field-item" style="grid-column:1/-1">
+            <div class="field-label">Alamat Kontak</div>
+            <div class="field-value {% if not item.alamat_kontak %}empty{% endif %}">{{ item.alamat_kontak or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">RT / RW</div>
+            <div class="field-value {% if not item.rt_kontak %}empty{% endif %}">{{ (item.rt_kontak ~ ' / ' ~ item.rw_kontak) if item.rt_kontak else 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kelurahan / Kecamatan</div>
+            <div class="field-value {% if not item.kelurahan_kontak %}empty{% endif %}">{{ (item.kelurahan_kontak ~ ', ' ~ item.kecamatan_kontak) if item.kelurahan_kontak else 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kota</div>
+            <div class="field-value {% if not item.kota_kontak %}empty{% endif %}">{{ item.kota_kontak or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Provinsi</div>
+            <div class="field-value {% if not item.provinsi_kontak %}empty{% endif %}">{{ item.provinsi_kontak or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kode Pos</div>
+            <div class="field-value mono {% if not item.kode_pos_kontak %}empty{% endif %}">{{ item.kode_pos_kontak or 'Belum diisi' }}</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SECTION 4: Surat Permohonan ══ -->
+    <div class="section-card" id="sec-permohonan">
+      <div class="section-header" onclick="toggleSection('sec-permohonan')">
+        <div class="section-header-icon icon-green">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M9 12h6M9 16h4M6 4h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z" stroke="#16a34a" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M9 8h6" stroke="#16a34a" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="section-header-text">
+          <strong>Surat Permohonan</strong>
+          <span>Data pemohon, sekolah, dan tanda tangan</span>
+        </div>
+        <div class="section-toggle">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#6a8aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <!-- Pemohon -->
+        <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--green);margin:0.5rem 0 0.25rem;">Pemohon</p>
+        <div class="fields-grid">
+          <div class="field-item">
+            <div class="field-label">Nama Pemohon</div>
+            <div class="field-value {% if not item.nama_pemohon %}empty{% endif %}">{{ item.nama_pemohon or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Telepon Pemohon</div>
+            <div class="field-value mono {% if not item.telepon_pemohon %}empty{% endif %}">{{ item.telepon_pemohon or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item" style="grid-column:1/-1">
+            <div class="field-label">Alamat Pemohon</div>
+            <div class="field-value {% if not item.alamat_pemohon %}empty{% endif %}">{{ item.alamat_pemohon or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">RT / RW</div>
+            <div class="field-value {% if not item.rt_pemohon %}empty{% endif %}">{{ (item.rt_pemohon ~ ' / ' ~ item.rw_pemohon) if item.rt_pemohon else 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kelurahan / Kecamatan</div>
+            <div class="field-value {% if not item.kelurahan_pemohon %}empty{% endif %}">{{ (item.kelurahan_pemohon ~ ', ' ~ item.kecamatan_pemohon) if item.kelurahan_pemohon else 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kota</div>
+            <div class="field-value {% if not item.kota_pemohon %}empty{% endif %}">{{ item.kota_pemohon or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kode Pos</div>
+            <div class="field-value mono {% if not item.kode_pos_pemohon %}empty{% endif %}">{{ item.kode_pos_pemohon or 'Belum diisi' }}</div>
+          </div>
+        </div>
+
+        <!-- Sekolah -->
+        <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--green);margin:0.75rem 0 0.25rem;">Sekolah</p>
+        <div class="fields-grid">
+          <div class="field-item" style="grid-column:1/-1">
+            <div class="field-label">Nama Sekolah</div>
+            <div class="field-value {% if not item.nama_sekolah %}empty{% endif %}">{{ item.nama_sekolah or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item" style="grid-column:1/-1">
+            <div class="field-label">Alamat Sekolah</div>
+            <div class="field-value {% if not item.alamat_sekolah %}empty{% endif %}">{{ item.alamat_sekolah or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">RT / RW</div>
+            <div class="field-value {% if not item.rt_sekolah %}empty{% endif %}">{{ (item.rt_sekolah ~ ' / ' ~ item.rw_sekolah) if item.rt_sekolah else 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kelurahan / Kecamatan</div>
+            <div class="field-value {% if not item.kelurahan_sekolah %}empty{% endif %}">{{ (item.kelurahan_sekolah ~ ', ' ~ item.kecamatan_sekolah) if item.kelurahan_sekolah else 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kota</div>
+            <div class="field-value {% if not item.kota_sekolah %}empty{% endif %}">{{ item.kota_sekolah or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kode Pos</div>
+            <div class="field-value mono {% if not item.kode_pos_sekolah %}empty{% endif %}">{{ item.kode_pos_sekolah or 'Belum diisi' }}</div>
+          </div>
+        </div>
+
+        <!-- TTD Pemohon -->
+        <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--green);margin:0.75rem 0 0.25rem;">Tanda Tangan Pemohon</p>
+        <div class="ttd-block">
+          <div class="ttd-block-label">TTD Pemohon</div>
+          {% if item.ttd_pemohon %}
+            <img src="data:image/png;base64,{{ item.ttd_pemohon }}" alt="TTD Pemohon">
+          {% else %}
+            <div class="ttd-block-empty">Tanda tangan belum tersedia</div>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ SECTION 5: Surat Pernyataan ══ -->
+    <div class="section-card" id="sec-pernyataan">
+      <div class="section-header" onclick="toggleSection('sec-pernyataan')">
+        <div class="section-header-icon icon-purple">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M9 11l3 3L22 4" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="section-header-text">
+          <strong>Surat Pernyataan</strong>
+          <span>Data surat pernyataan dan SPTM beserta tanda tangan</span>
+        </div>
+        <div class="section-toggle">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#6a8aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <!-- Surat Pernyataan -->
+        <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--purple);margin:0.5rem 0 0.25rem;">Surat Pernyataan</p>
+        <div class="fields-grid">
+          <div class="field-item">
+            <div class="field-label">Nama Peserta</div>
+            <div class="field-value {% if not item.sp_nama_peserta %}empty{% endif %}">{{ item.sp_nama_peserta or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Sekolah</div>
+            <div class="field-value {% if not item.sp_sekolah %}empty{% endif %}">{{ item.sp_sekolah or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kelas</div>
+            <div class="field-value {% if not item.sp_kelas %}empty{% endif %}">{{ item.sp_kelas or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Nama Orang Tua / Wali</div>
+            <div class="field-value {% if not item.sp_nama_ortu %}empty{% endif %}">{{ item.sp_nama_ortu or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item" style="grid-column:1/-1">
+            <div class="field-label">Alamat Rumah</div>
+            <div class="field-value {% if not item.sp_alamat_rumah %}empty{% endif %}">{{ item.sp_alamat_rumah or 'Belum diisi' }}</div>
+          </div>
+        </div>
+
+        <!-- TTD Pernyataan -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:0.75rem;">
+          <div class="ttd-block">
+            <div class="ttd-block-label">TTD Orang Tua</div>
+            {% if item.ttd_ortu %}
+              <img src="data:image/png;base64,{{ item.ttd_ortu }}" alt="TTD Orang Tua">
             {% else %}
-              <div class="field-value empty">Belum diisi</div>
+              <div class="ttd-block-empty">Belum tersedia</div>
+            {% endif %}
+          </div>
+          <div class="ttd-block">
+            <div class="ttd-block-label">TTD Penerima</div>
+            {% if item.ttd_penerima %}
+              <img src="data:image/png;base64,{{ item.ttd_penerima }}" alt="TTD Penerima">
+            {% else %}
+              <div class="ttd-block-empty">Belum tersedia</div>
             {% endif %}
           </div>
         </div>
 
-        <!-- Nama -->
-        <div class="field-row">
-          <div class="field-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="8" r="4" stroke="#993C1D" stroke-width="1.8"/>
-              <path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="#993C1D" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
+        <!-- SPTM -->
+        <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--purple);margin:1rem 0 0.25rem;">SPTM (Surat Pernyataan Tidak Mampu)</p>
+        <div class="fields-grid">
+          <div class="field-item">
+            <div class="field-label">Nama</div>
+            <div class="field-value {% if not item.sptm_nama %}empty{% endif %}">{{ item.sptm_nama or 'Belum diisi' }}</div>
           </div>
-          <div class="field-content">
-            <div class="field-label">Nama Penerima</div>
-            {% if item.nama %}
-              <div class="field-value">{{ item.nama }}</div>
-            {% else %}
-              <div class="field-value empty">Belum diisi</div>
-            {% endif %}
+          <div class="field-item">
+            <div class="field-label">No. KTP</div>
+            <div class="field-value mono {% if not item.sptm_noktp %}empty{% endif %}">{{ item.sptm_noktp or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Pekerjaan</div>
+            <div class="field-value {% if not item.sptm_pekerjaan %}empty{% endif %}">{{ item.sptm_pekerjaan or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item" style="grid-column:1/-1">
+            <div class="field-label">Alamat</div>
+            <div class="field-value {% if not item.sptm_alamat %}empty{% endif %}">{{ item.sptm_alamat or 'Belum diisi' }}</div>
+          </div>
+        </div>
+        <div class="ttd-block" style="margin-top:0.75rem;">
+          <div class="ttd-block-label">TTD SPTM</div>
+          {% if item.ttd_sptm %}
+            <img src="data:image/png;base64,{{ item.ttd_sptm }}" alt="TTD SPTM">
+          {% else %}
+            <div class="ttd-block-empty">Tanda tangan SPTM belum tersedia</div>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ SECTION 6: Berita Acara ══ -->
+    <div class="section-card" id="sec-ba">
+      <div class="section-header" onclick="toggleSection('sec-ba')">
+        <div class="section-header-icon icon-coral">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#993C1D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="14 2 14 8 20 8" stroke="#993C1D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="16" y1="13" x2="8" y2="13" stroke="#993C1D" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="16" y1="17" x2="8" y2="17" stroke="#993C1D" stroke-width="1.8" stroke-linecap="round"/>
+            <polyline points="10 9 9 9 8 9" stroke="#993C1D" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="section-header-text">
+          <strong>Berita Acara</strong>
+          <span>Penilaian dan tanda tangan berita acara</span>
+        </div>
+        <div class="section-toggle">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#6a8aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="fields-grid">
+          <div class="field-item">
+            <div class="field-label">Nama Penilai</div>
+            <div class="field-value {% if not item.ba_nama_penilai %}empty{% endif %}">{{ item.ba_nama_penilai or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Jabatan Penilai</div>
+            <div class="field-value {% if not item.ba_jabatan_penilai %}empty{% endif %}">{{ item.ba_jabatan_penilai or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Nama Siswa (BA)</div>
+            <div class="field-value {% if not item.ba_nama_siswa %}empty{% endif %}">{{ item.ba_nama_siswa or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">NIK Siswa (BA)</div>
+            <div class="field-value mono {% if not item.ba_nik_siswa %}empty{% endif %}">{{ item.ba_nik_siswa or 'Belum diisi' }}</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Kelas (BA)</div>
+            <div class="field-value {% if not item.ba_kelas %}empty{% endif %}">{{ item.ba_kelas or 'Belum diisi' }}</div>
           </div>
         </div>
 
-        <!-- No Telepon -->
-        <div class="field-row">
-          <div class="field-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.02 2.18a2 2 0 012-2.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#993C1D" stroke-width="1.8"/>
-            </svg>
+        <!-- Penilaian -->
+        <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--coral);margin:0.75rem 0 0.5rem;">Hasil Penilaian</p>
+        <div class="penilaian-grid">
+          <div class="penilaian-item">
+            <div class="penilaian-number">Penilaian 1</div>
+            <div class="penilaian-value {% if not item.penilaian_1 %}empty-val{% endif %}">{{ item.penilaian_1 or '—' }}</div>
           </div>
-          <div class="field-content">
-            <div class="field-label">Nomor Telepon</div>
-            {% if item.no_telepon %}
-              <div class="field-value mono">{{ item.no_telepon }}</div>
-            {% else %}
-              <div class="field-value empty">Belum diisi</div>
-            {% endif %}
+          <div class="penilaian-item">
+            <div class="penilaian-number">Penilaian 2</div>
+            <div class="penilaian-value {% if not item.penilaian_2 %}empty-val{% endif %}">{{ item.penilaian_2 or '—' }}</div>
+          </div>
+          <div class="penilaian-item">
+            <div class="penilaian-number">Penilaian 3</div>
+            <div class="penilaian-value {% if not item.penilaian_3 %}empty-val{% endif %}">{{ item.penilaian_3 or '—' }}</div>
+          </div>
+          <div class="penilaian-item">
+            <div class="penilaian-number">Penilaian 4</div>
+            <div class="penilaian-value {% if not item.penilaian_4 %}empty-val{% endif %}">{{ item.penilaian_4 or '—' }}</div>
           </div>
         </div>
 
-        <!-- Keterangan -->
-        <div class="field-row">
-          <div class="field-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M9 12h6M9 16h4M6 4h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z" stroke="#993C1D" stroke-width="1.8" stroke-linecap="round"/>
-              <path d="M9 8h6" stroke="#993C1D" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="field-content">
-            <div class="field-label">Keterangan</div>
-            {% if item.keterangan %}
-              <div class="field-value ket">{{ item.keterangan }}</div>
+        <!-- TTD BA -->
+        <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--coral);margin:0.75rem 0 0.5rem;">Tanda Tangan Berita Acara</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="ttd-block">
+            <div class="ttd-block-label">TTD Siswa</div>
+            {% if item.ttd_ba_siswa %}
+              <img src="data:image/png;base64,{{ item.ttd_ba_siswa }}" alt="TTD Siswa">
             {% else %}
-              <div class="field-value empty">Tidak ada keterangan</div>
+              <div class="ttd-block-empty">Belum tersedia</div>
+            {% endif %}
+          </div>
+          <div class="ttd-block">
+            <div class="ttd-block-label">TTD Penilai</div>
+            {% if item.ttd_ba_penilai %}
+              <img src="data:image/png;base64,{{ item.ttd_ba_penilai }}" alt="TTD Penilai">
+            {% else %}
+              <div class="ttd-block-empty">Belum tersedia</div>
             {% endif %}
           </div>
         </div>
@@ -449,25 +1061,46 @@
       </div>
     </div>
 
-    <!-- Action Card -->
+    <!-- ══ ACTION CARD ══ -->
     <div class="action-card">
       <div class="action-card-left">
         <strong>Kelola Data Ini</strong>
-        <span>ID KJP: #{{ item.id }}</span>
+        <span>ID KJP: #{{ item.id }} &nbsp;·&nbsp; {{ item.nama_murid or 'Tanpa Nama' }}</span>
       </div>
       <div class="action-buttons">
         <a href="{{ url_for('dashbord_admin.dashbord_admin') }}" class="btn-act btn-back-act">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12l7 7M5 12l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12l7 7M5 12l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Kembali
         </a>
-        <button onclick="deleteDataKjp({{item.id}})" class="btn-act btn-delete-act">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <button onclick="deleteDataKjp({{ item.id }})" class="btn-act btn-delete-act">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Hapus Data
         </button>
       </div>
     </div>
 
-  </div>
-</div>
+  </div><!-- /detail-main -->
+</div><!-- /detail-page -->
+
+<script>
+  // Section toggle (collapsible)
+  function toggleSection(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('collapsed');
+    const body = card.querySelector('.section-body');
+    if (card.classList.contains('collapsed')) {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      requestAnimationFrame(() => { body.style.maxHeight = '0'; });
+    } else {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      setTimeout(() => { body.style.maxHeight = 'none'; }, 350);
+    }
+  }
+
+  // Init: set maxHeight on all open sections so CSS transition works
+  document.querySelectorAll('.section-body').forEach(el => {
+    el.style.maxHeight = 'none';
+  });
+</script>
 
 {% endblock %}

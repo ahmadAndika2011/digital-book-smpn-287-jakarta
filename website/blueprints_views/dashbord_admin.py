@@ -19,6 +19,8 @@ PDF_TEMPLATE_PATH = os.path.join(
 )
 
 views = Blueprint("dashbord_admin", __name__)
+
+
 @views.route("/dashbord-admin")
 @login_required
 @role_required("superadmin", "layanan")
@@ -29,15 +31,16 @@ def dashbord_admin():
     data_layanan_kjp = DatabaseLayananKjp.query.all()
     data_layanan_administrasi_sekolah = DatabaseLayananAdministrasiSekolah.query.all()
     data_layanan_kunjungan_antar_instansi = DatabaseLayananKunjunganAntarInstansi.query.all()
-    return render_template("dashbord-admin.html", 
-                           user=current_user, 
-                           data_layanan_ppdb=data_layanan_ppdb, 
+    return render_template("dashbord-admin.html",
+                           user=current_user,
+                           data_layanan_ppdb=data_layanan_ppdb,
                            data_layanan_mutasi=data_layanan_mutasi,
                            data_layanan_pip=data_layanan_pip,
                            data_layanan_kjp=data_layanan_kjp,
                            data_layanan_administrasi_sekolah=data_layanan_administrasi_sekolah,
                            data_layanan_kunjungan_antar_instansi=data_layanan_kunjungan_antar_instansi
                            )
+
 
 @views.route("/download-data-kjp", methods=["POST"])
 def download_data_kjp():
@@ -79,14 +82,32 @@ def download_data_kjp():
                     "kecamatan_murid": siswa.kecamatan_murid or "",
                     "kelurahan_murid": siswa.kelurahan_murid or "",
                     "kode_pos_murid": siswa.kode_pos_murid or "",
+                    "nama_wali": siswa.nama_wali or "",
+                    "no_ktp_wali": siswa.no_ktp_wali or "",
+                    "masa_berlaku_ktp_wali": siswa.masa_berlaku_ktp_wali or "",
+                    "npwp_wali": siswa.npwp_wali or "",
+                    "kartu_keluarga_wali": siswa.kartu_keluarga_wali or "",
+                    "tempat_lahir_wali": siswa.tempat_lahir_wali or "",
+                    "tanggal_lahir_wali": siswa.tanggal_lahir_wali or "",
+                    "jenis_kelamin_wali": siswa.jenis_kelamin_wali or "",
+                    "agama_wali": siswa.agama_wali or "",
+                    "nama_ibu_kandung_wali": siswa.nama_ibu_kandung_wali or "",
+                    "pekerjaan_wali": siswa.pekerjaan_wali or "",
+                    "status_pernikahan_wali": siswa.status_pernikahan_wali or "",
+                    "pendidikan_wali": siswa.pendidikan_wali or "",
+                    "jabatan_wali": siswa.jabatan_wali or "",
+                    "alamat_wali": siswa.alamat_wali or "",
                 }
 
                 # Isi formulir PDF dengan data siswa
-                pdf_bytes = fill_kjp_pdf(siswa_dict, template_path=PDF_TEMPLATE_PATH)
+                pdf_bytes = fill_kjp_pdf(
+                    siswa_dict, template_path=PDF_TEMPLATE_PATH)
 
                 # Simpan PDF ke dalam ZIP dengan nama file berdasarkan nama siswa
-                nama_file = (siswa.nama_murid or f"siswa_{siswa.id}").replace(" ", "_")
-                zf.writestr(f"KJP_{nama_file}_{datetime.now().year}.pdf", pdf_bytes)
+                nama_file = (
+                    siswa.nama_murid or f"siswa_{siswa.id}").replace(" ", "_")
+                zf.writestr(
+                    f"KJP_{nama_file}_{datetime.now().year}.pdf", pdf_bytes)
 
         zip_buffer.seek(0)
 

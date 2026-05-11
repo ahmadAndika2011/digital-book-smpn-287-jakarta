@@ -630,11 +630,11 @@ canvas.sig-canvas {
               <div class="field-grid cols-2">
                 <div class="field-group">
                   <label class="field-label">NIK <span class="field-required">*</span></label>
-                  <input type="text" name="nik_murid" class="field-input" maxlength="16" pattern="[0-9]*" placeholder="16 digit NIK" required>
+                  <input type="text" pattern="[0-9]*" name="nik_murid" class="field-input" maxlength="16" pattern="[0-9]*" placeholder="16 digit NIK" required>
                 </div>
                 <div class="field-group">
                   <label class="field-label">No. Kartu Keluarga <span class="field-required">*</span></label>
-                  <input type="text" name="no_kartu_keluarga" class="field-input" maxlength="16" pattern="[0-9]*" placeholder="16 digit No. KK" required>
+                  <input type="text" pattern="[0-9]*" name="no_kartu_keluarga" class="field-input" maxlength="16" pattern="[0-9]*" placeholder="16 digit No. KK" required>
                 </div>
                 <div class="field-group span-2">
                   <label class="field-label">Nama Siswa <span class="field-required">*</span></label>
@@ -716,7 +716,7 @@ canvas.sig-canvas {
                 </div>
                 <div class="field-group">
                   <label class="field-label">Kode Pos</label>
-                  <input type="text" name="kode_pos_murid" class="field-input" maxlength="5" placeholder="Kode Pos">
+                  <input type="text" pattern="[0-9]*" name="kode_pos_murid" class="field-input" maxlength="5" placeholder="Kode Pos">
                 </div>
               </div>
             </div>
@@ -734,19 +734,19 @@ canvas.sig-canvas {
                 </div>
                 <div class="field-group">
                   <label class="field-label">NISN Siswa</label>
-                  <input type="text" name="nisn_murid" class="field-input" maxlength="10" pattern="[0-9]*" placeholder="10 digit NISN">
+                  <input type="text" pattern="[0-9]*" name="nisn_murid" class="field-input" maxlength="10" pattern="[0-9]*" placeholder="10 digit NISN">
                 </div>
                 <div class="field-group">
                   <label class="field-label">NPWP</label>
-                  <input type="text" name="npwp_murid" class="field-input" placeholder="Nomor NPWP (jika ada)">
+                  <input type="text" pattern="[0-9]*" name="npwp_murid" class="field-input" placeholder="Nomor NPWP (jika ada)">
                 </div>
                 <div class="field-group">
                   <label class="field-label">No. HP Murid</label>
-                  <input type="text" name="no_hp_murid" class="field-input" pattern="[0-9]*" placeholder="08xxx">
+                  <input type="text" pattern="[0-9]*" name="no_hp_murid" class="field-input" pattern="[0-9]*" placeholder="08xxx">
                 </div>
                 <div class="field-group">
                   <label class="field-label">No. Telepon Rumah</label>
-                  <input type="text" name="no_telepon" class="field-input" pattern="[0-9]*" placeholder="Telepon rumah (jika ada)">
+                  <input type="text" pattern="[0-9]*" name="no_telepon" class="field-input" pattern="[0-9]*" placeholder="Telepon rumah (jika ada)">
                 </div>
               </div>
             </div>
@@ -849,7 +849,7 @@ canvas.sig-canvas {
                 </div>
                 <div class="field-group">
                   <label class="field-label">No. KTP / NIK Wali</label>
-                  <input type="text" name="no_ktp_wali" class="field-input" maxlength="16" pattern="[0-9]*" placeholder="16 digit NIK">
+                  <input type="text" pattern="[0-9]*" name="no_ktp_wali" class="field-input" maxlength="16" pattern="[0-9]*" placeholder="16 digit NIK">
                 </div>
                 <div class="field-group">
                   <label class="field-label">Masa Berlaku KTP</label>
@@ -862,11 +862,11 @@ canvas.sig-canvas {
                 </div>
                 <div class="field-group">
                   <label class="field-label">NPWP Wali</label>
-                  <input type="text" name="npwp_wali" class="field-input" placeholder="NPWP wali (jika ada)">
+                  <input type="text" pattern="[0-9]*" name="npwp_wali" class="field-input" placeholder="NPWP wali (jika ada)">
                 </div>
                 <div class="field-group">
                   <label class="field-label">No. Kartu Keluarga Wali</label>
-                  <input type="text" name="kartu_keluarga_wali" class="field-input" maxlength="16" pattern="[0-9]*" placeholder="16 digit No. KK">
+                  <input type="text" pattern="[0-9]*" name="kartu_keluarga_wali" class="field-input" maxlength="16" pattern="[0-9]*" placeholder="16 digit No. KK">
                 </div>
                 <div class="field-group">
                   <label class="field-label">Tempat Lahir Wali</label>
@@ -961,9 +961,9 @@ canvas.sig-canvas {
                 <div class="field-group">
                   <label class="field-label">RT / RW</label>
                   <div class="rtrw-group">
-                    <input type="text" name="rt_wali" class="field-input" maxlength="3" placeholder="RT">
+                    <input type="text" pattern="[0-9]*" name="rt_wali" class="field-input" maxlength="3" placeholder="RT">
                     <span class="rtrw-sep">/</span>
-                    <input type="text" name="rw_wali" class="field-input" maxlength="3" placeholder="RW">
+                    <input type="text" pattern="[0-9]*" name="rw_wali" class="field-input" maxlength="3" placeholder="RW">
                   </div>
                 </div>
                 <div class="field-group">
@@ -984,7 +984,7 @@ canvas.sig-canvas {
                 </div>
                 <div class="field-group">
                   <label class="field-label">Kode Pos</label>
-                  <input type="text" name="kode_pos_wali" class="field-input" maxlength="5" placeholder="Kode Pos">
+                  <input type="text" pattern="[0-9]*" name="kode_pos_wali" class="field-input" maxlength="5" placeholder="Kode Pos">
                 </div>
                 <div class="field-group">
                   <label class="field-label">Status Tempat Tinggal</label>
@@ -995,11 +995,11 @@ canvas.sig-canvas {
                 </div>
                 <div class="field-group">
                   <label class="field-label">No. HP Wali</label>
-                  <input type="text" name="no_hp_wali" class="field-input" pattern="[0-9]*" placeholder="08xxx">
+                  <input type="text" pattern="[0-9]*" name="no_hp_wali" class="field-input" pattern="[0-9]*" placeholder="08xxx">
                 </div>
                 <div class="field-group">
                   <label class="field-label">No. Telepon Wali</label>
-                  <input type="text" name="no_telepon_wali" class="field-input" pattern="[0-9]*" placeholder="Telepon rumah">
+                  <input type="text" pattern="[0-9]*" name="no_telepon_wali" class="field-input" pattern="[0-9]*" placeholder="Telepon rumah">
                 </div>
                 <div class="field-group">
                   <label class="field-label">Tipe Alamat Wali</label>
