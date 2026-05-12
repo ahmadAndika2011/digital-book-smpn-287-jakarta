@@ -108,6 +108,18 @@ def download_data_kjp():
                     "no_hp_wali": siswa.no_hp_wali or "",
                     "no_telepon_wali": siswa.no_telepon_wali or "",
                     "tipe_alamat_wali": siswa.tipe_alamat_wali or "",
+                    "nama_kontak_darurat": siswa.nama_kontak_darurat or "",
+                    "no_identitas_kontak": siswa.no_identitas_kontak or "",
+                    "hubungan_kontak": siswa.hubungan_kontak or "",
+                    "alamat_kontak": siswa.alamat_kontak or "",
+                    "rt_kontak": siswa.rt_kontak or "",
+                    "rw_kontak": siswa.rw_kontak or "",
+                    "provinsi_kontak": siswa.provinsi_kontak or "",
+                    "kota_kontak": siswa.kota_kontak or "",
+                    "kecamatan_kontak": siswa.kecamatan_kontak or "",
+                    "kelurahan_kontak": siswa.kelurahan_kontak or "",
+                    "kode_pos_kontak": siswa.kode_pos_kontak or "",
+                    "no_telepon_kontak": siswa.no_telepon_kontak or "",
                 }
 
                 # Isi formulir PDF dengan data siswa

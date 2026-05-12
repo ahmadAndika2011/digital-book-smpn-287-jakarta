@@ -512,6 +512,90 @@ FIELDS = {
         "max_w": 170,
         "font_size": 9,
     },
+    "nama_kontak_darurat":{
+        "page": 3,
+        "x": 222,
+        "y": top_to_pdf_y(101),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "no_identitas_kontak":{
+        "page": 3,
+        "x": 222,
+        "y": top_to_pdf_y(129),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "hubungan_kontak":{
+        "page": 3,
+        "x": 0,
+        "y": top_to_pdf_y(0),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "alamat_kontak":{
+        "page": 3,
+        "x": 222,
+        "y": top_to_pdf_y(204),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "rt_kontak":{
+        "page": 3,
+        "x": 232,
+        "y": top_to_pdf_y(223),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "rw_kontak":{
+        "page": 3,
+        "x": 268,
+        "y": top_to_pdf_y(223),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "provinsi_kontak":{
+        "page": 3,
+        "x": 222,
+        "y": top_to_pdf_y(235),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kota_kontak":{
+        "page": 3,
+        "x": 222,
+        "y": top_to_pdf_y(250),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kecamatan_kontak":{
+        "page": 3,
+        "x": 222,
+        "y": top_to_pdf_y(266),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kelurahan_kontak":{
+        "page": 3,
+        "x": 222,
+        "y": top_to_pdf_y(281),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kode_pos_kontak":{
+        "page": 3,
+        "x": 222,
+        "y": top_to_pdf_y(297),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "no_telepon_kontak":{
+        "page": 3,
+        "x": 222,
+        "y": top_to_pdf_y(312),
+        "max_w": 170,
+        "font_size": 9,
+    },
 }
 
 
@@ -845,6 +929,46 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
         FIELDS["tipe_alamat_wali"]["x"] = 347
         FIELDS["tipe_alamat_wali"]["y"] = top_to_pdf_y(600)
 
+    """
+        Data Kontak Darurat
+    """
+    nama_kontak_darurat = siswa.get("nama_kontak_darurat", "")
+    no_identitas_kontak = siswa.get("no_identitas_kontak", "")
+    alamat_kontak = siswa.get("alamat_kontak", "")
+    provinsi_kontak = siswa.get("provinsi_kontak", "")
+    kota_kontak = siswa.get("kota_kontak", "")
+    kecamatan_kontak = siswa.get("kecamatan_kontak", "")
+    kelurahan_kontak = siswa.get("kelurahan_kontak", "")
+    kode_pos_kontak = siswa.get("kode_pos_kontak", "")
+    no_telepon_kontak = siswa.get("no_telepon_kontak", "")
+    hubungan_kontak = siswa.get("hubungan_kontak", "")
+    rt_kontak = siswa.get("rt_kontak", "")
+    rw_kontak = siswa.get("rw_kontak", "")
+
+    # cek hubungan kontak
+    if hubungan_kontak == "Orangtua Kandung/Tiri/Angkat":
+        FIELDS["hubungan_kontak"]["x"] = 226
+        FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(146)
+    elif hubungan_kontak == "Ipar dari Istri/Suami":
+        FIELDS["hubungan_kontak"]["x"] = 393
+        FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(146)
+    elif hubungan_kontak == "Saudara Kandung/Tiiri/Angkat":
+        FIELDS["hubungan_kontak"]["x"] = 226
+        FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(159)
+    elif hubungan_kontak == "AnakKandung/Tiri/Angkat":
+        FIELDS["hubungan_kontak"]["x"] = 393
+        FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(159)
+    elif hubungan_kontak == "Suami/Istri":
+        FIELDS["hubungan_kontak"]["x"] = 226
+        FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(172)
+    elif hubungan_kontak == "Mertua":
+        FIELDS["hubungan_kontak"]["x"] = 393
+        FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(172)
+    elif hubungan_kontak == "Kakek/Nenek":
+        FIELDS["hubungan_kontak"]["x"] = 226
+        FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(186)
+
+
     # Kelompokkan field berdasarkan halaman
     page_data = {}
 
@@ -916,6 +1040,18 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
         ("no_hp_wali", no_hp_wali),
         ("no_telepon_wali", no_telepon_wali),
         ("tipe_alamat_wali", "✓"),
+        ("nama_kontak_darurat", nama_kontak_darurat),
+        ("alamat_kontak", alamat_kontak),
+        ("no_identitas_kontak", no_identitas_kontak),
+        ("provinsi_kontak", provinsi_kontak),
+        ("kota_kontak", kota_kontak),
+        ("kecamatan_kontak", kecamatan_kontak),
+        ("kelurahan_kontak", kelurahan_kontak),
+        ("kode_pos_kontak", kode_pos_kontak),
+        ("no_telepon_kontak", no_telepon_kontak),
+        ("hubungan_kontak", "✓"),
+        ("rt_kontak", rt_kontak),
+        ("rw_kontak", rw_kontak),
     ]
 
     for field_key, value in field_map:

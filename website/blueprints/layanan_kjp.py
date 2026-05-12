@@ -65,6 +65,20 @@ def layanan_kjp():
         no_telepon_wali = request.form.get("no_telepon_wali")
         tipe_alamat_wali = request.form.get("tipe_alamat_wali")
 
+        # kontak darurat
+        nama_kontak_darurat = request.form.get("nama_kontak_darurat")
+        no_identitas_kontak = request.form.get("no_identitas_kontak")
+        hubungan_kontak = request.form.get("hubungan_kontak")
+        alamat_kontak = request.form.get("alamat_kontak")
+        rt_kontak = request.form.get("rt_kontak")
+        rw_kontak = request.form.get("rw_kontak")
+        provinsi_kontak = request.form.get("provinsi_kontak")
+        kota_kontak = request.form.get("kota_kontak")
+        kecamatan_kontak = request.form.get("kecamatan_kontak")
+        kelurahan_kontak = request.form.get("kelurahan_kontak")
+        kode_pos_kontak = request.form.get("kode_pos_kontak")
+        no_telepon_kontak = request.form.get("no_telepon_kontak")
+
         # cek tanggal lahir murid
         try:
             valid_tanggal_lahir_murid = datetime.strptime(tanggal_lahir_murid, "%Y-%m-%d")
@@ -152,6 +166,28 @@ def layanan_kjp():
         ):
             flash("Data wali tidak valid.\nSilahkan cek kembali data wali anda", category="error")
             return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif (
+            not nama_kontak_darurat
+            or not hubungan_kontak
+            or not alamat_kontak
+            or not rt_kontak
+            or not rw_kontak
+            or not provinsi_kontak
+            or not kota_kontak
+            or not kecamatan_kontak
+            or not kelurahan_kontak
+        ):
+            flash("Data kontak darurat tidak valid.\n Silahkan cek kebali data kontak darurat anda.", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif len(no_identitas_kontak) != 16:
+            flash("No identitas untuk kontak darurat tidak valid.\n Silahkan cek kebali data kontak darurat anda.", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif len(kode_pos_kontak) != 5:
+            flash("Kode pos untuk kontak darurat tidak valid.\n Silahkan cek kebali data kontak darurat anda.", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif len(no_telepon_kontak) < 10 or len(no_telepon_kontak) > 12:
+            flash("No telepon untuk kontak darurat tidak valid.\n Silahkan cek kebali data kontak darurat anda.", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
         else:
             if not masa_berlaku_identitas:
                 data_kjp = DatabaseLayananKjp(
@@ -210,6 +246,20 @@ def layanan_kjp():
                     no_hp_wali = no_hp_wali,
                     no_telepon_wali = no_telepon_wali,
                     tipe_alamat_wali = tipe_alamat_wali,
+
+                    # Kontak darurat
+                    nama_kontak_darurat = nama_kontak_darurat,
+                    no_identitas_kontak = no_identitas_kontak,
+                    hubungan_kontak = hubungan_kontak,
+                    alamat_kontak = alamat_kontak,
+                    rt_kontak = rt_kontak,
+                    rw_kontak = rw_kontak,
+                    provinsi_kontak = provinsi_kontak,
+                    kota_kontak = kota_kontak,
+                    kecamatan_kontak = kecamatan_kontak,
+                    kelurahan_kontak = kelurahan_kontak,
+                    kode_pos_kontak = kode_pos_kontak,
+                    no_telepon_kontak = no_telepon_kontak,
                 )
                 db.session.add(data_kjp)
             else:
@@ -269,6 +319,20 @@ def layanan_kjp():
                     no_hp_wali = no_hp_wali,
                     no_telepon_wali = no_telepon_wali,
                     tipe_alamat_wali = tipe_alamat_wali,
+                    
+                    # Kontak darurat
+                    nama_kontak_darurat = nama_kontak_darurat,
+                    no_identitas_kontak = no_identitas_kontak,
+                    hubungan_kontak = hubungan_kontak,
+                    alamat_kontak = alamat_kontak,
+                    rt_kontak = rt_kontak,
+                    rw_kontak = rw_kontak,
+                    provinsi_kontak = provinsi_kontak,
+                    kota_kontak = kota_kontak,
+                    kecamatan_kontak = kecamatan_kontak,
+                    kelurahan_kontak = kelurahan_kontak,
+                    kode_pos_kontak = kode_pos_kontak,
+                    no_telepon_kontak = no_telepon_kontak,
                 )
                 db.session.add(data_kjp)
             db.session.commit()
