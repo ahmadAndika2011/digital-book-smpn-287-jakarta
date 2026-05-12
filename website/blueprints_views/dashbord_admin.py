@@ -97,6 +97,17 @@ def download_data_kjp():
                     "pendidikan_wali": siswa.pendidikan_wali or "",
                     "jabatan_wali": siswa.jabatan_wali or "",
                     "alamat_wali": siswa.alamat_wali or "",
+                    "rt_wali": siswa.rt_wali or "",
+                    "rw_wali": siswa.rw_wali or "",
+                    "provinsi_wali": siswa.provinsi_wali or "",
+                    "kota_wali": siswa.kota_wali or "",
+                    "kecamatan_wali": siswa.kecamatan_wali or "",
+                    "kelurahan_wali": siswa.kelurahan_wali or "",
+                    "kode_pos_wali": siswa.kode_pos_wali or "",
+                    "status_tempat_tinggal_wali": siswa.status_tempat_tinggal_wali or "",
+                    "no_hp_wali": siswa.no_hp_wali or "",
+                    "no_telepon_wali": siswa.no_telepon_wali or "",
+                    "tipe_alamat_wali": siswa.tipe_alamat_wali or "",
                 }
 
                 # Isi formulir PDF dengan data siswa

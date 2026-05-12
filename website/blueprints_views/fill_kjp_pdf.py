@@ -400,6 +400,118 @@ FIELDS = {
         "max_w": 170,
         "font_size": 9,
     },
+    "pekerjaan_wali":{
+        "page": 2,
+        "x": 0,
+        "y": top_to_pdf_y(0),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "status_pernikahan_wali":{
+        "page": 2,
+        "x": 0,
+        "y": top_to_pdf_y(0),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "pendidikan_wali":{
+        "page": 2,
+        "x": 0,
+        "y": top_to_pdf_y(0),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "jabatan_wali":{
+        "page": 2,
+        "x": 0,
+        "y": top_to_pdf_y(0),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "alamat_wali":{
+        "page": 2,
+        "x": 222,
+        "y": top_to_pdf_y(444),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "rt_wali":{
+        "page": 2,
+        "x": 232,
+        "y": top_to_pdf_y(462),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "rw_wali":{
+        "page": 2,
+        "x": 270,
+        "y": top_to_pdf_y(462),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "provinsi_wali":{
+        "page": 2,
+        "x": 222,
+        "y": top_to_pdf_y(475),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kota_wali":{
+        "page": 2,
+        "x": 222,
+        "y": top_to_pdf_y(490),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kecamatan_wali":{
+        "page": 2,
+        "x": 222,
+        "y": top_to_pdf_y(506),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kelurahan_wali":{
+        "page": 2,
+        "x": 222,
+        "y": top_to_pdf_y(521),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kode_pos_wali":{
+        "page": 2,
+        "x": 222,
+        "y": top_to_pdf_y(536),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "status_tempat_tinggal_wali":{
+        "page": 2,
+        "x": 0,
+        "y": top_to_pdf_y(0),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "no_hp_wali":{
+        "page": 2,
+        "x": 222,
+        "y": top_to_pdf_y(567),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "no_telepon_wali":{
+        "page": 2,
+        "x": 222,
+        "y": top_to_pdf_y(583),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "tipe_alamat_wali":{
+        "page": 2,
+        "x": 0,
+        "y": top_to_pdf_y(0),
+        "max_w": 170,
+        "font_size": 9,
+    },
 }
 
 
@@ -587,6 +699,22 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
     jenis_kelamin_wali = siswa.get("jenis_kelamin_wali", "")
     agama_wali = siswa.get("agama_wali", "")
     nama_ibu_kandung_wali = siswa.get("nama_ibu_kandung_wali", "")
+    pekerjaan_wali = siswa.get("pekerjaan_wali", "")
+    status_pernikahan_wali = siswa.get("status_pernikahan_wali", "")
+    pendidikan_wali = siswa.get("pendidikan_wali", "")
+    jabatan_wali = siswa.get("jabatan_wali", "")
+    alamat_wali = siswa.get("alamat_wali", "")
+    rt_wali = siswa.get("rt_wali", "")
+    rw_wali = siswa.get("rw_wali", "")
+    provinsi_wali = siswa.get("provinsi_wali", "")
+    kota_wali = siswa.get("kota_wali", "")
+    kecamatan_wali = siswa.get("kecamatan_wali", "")
+    kelurahan_wali = siswa.get("kelurahan_wali", "")
+    kode_pos_wali = siswa.get("kode_pos_wali", "")
+    status_tempat_tinggal_wali = siswa.get("status_tempat_tinggal_wali", "")
+    no_hp_wali = siswa.get("no_hp_wali", "")
+    no_telepon_wali = siswa.get("no_telepon_wali", "")
+    tipe_alamat_wali = siswa.get("tipe_alamat_wali", "")
 
     # cek masa berlaku ktp wali
     if masa_berlaku_ktp_wali == "Seumur Hidup":
@@ -620,6 +748,102 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
     elif agama_wali == "Lainnya":
         FIELDS["agama_wali"]["x"] = 394
         FIELDS["agama_wali"]["y"] = top_to_pdf_y(248)
+
+    # cek pekerjaan wali
+    if pekerjaan_wali == "Pelajar/Mahasiswa":
+        FIELDS["pekerjaan_wali"]["x"] = 239
+        FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(266)
+    elif pekerjaan_wali == "Ibu Rumah Tangga":
+        FIELDS["pekerjaan_wali"]["x"] = 348
+        FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(266)
+    elif pekerjaan_wali == "Pegawai Swasta":
+        FIELDS["pekerjaan_wali"]["x"] = 239
+        FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(279)
+    elif pekerjaan_wali == "Wiraswasta":
+        FIELDS["pekerjaan_wali"]["x"] = 348
+        FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(279)
+    elif pekerjaan_wali == "TNI/Polri":
+        FIELDS["pekerjaan_wali"]["x"] = 239
+        FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(293)
+    elif pekerjaan_wali == "Pensiunan":
+        FIELDS["pekerjaan_wali"]["x"] = 348
+        FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(293)
+    elif pekerjaan_wali == "Pegawai Negeri":
+        FIELDS["pekerjaan_wali"]["x"] = 239
+        FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(307)
+    elif pekerjaan_wali == "Lain-Lain":
+        FIELDS["pekerjaan_wali"]["x"] = 348
+        FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(307)
+
+    # cek nama ibu kandung wali
+    if status_pernikahan_wali == "Lajang":
+        FIELDS['status_pernikahan_wali']["x"] = 239
+        FIELDS['status_pernikahan_wali']["y"] = top_to_pdf_y(344)
+    elif status_pernikahan_wali == "Menikah":
+        FIELDS['status_pernikahan_wali']["x"] = 313
+        FIELDS['status_pernikahan_wali']["y"] = top_to_pdf_y(344)
+    elif status_pernikahan_wali == "Janda/Duda":
+        FIELDS['status_pernikahan_wali']["x"] = 383
+        FIELDS['status_pernikahan_wali']["y"] = top_to_pdf_y(344)
+
+    # cek pendidikan wali
+    if pendidikan_wali == "SD":
+        FIELDS["pendidikan_wali"]["x"] = 239
+        FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(367)
+    elif pendidikan_wali == "SMP":
+        FIELDS["pendidikan_wali"]["x"] = 239
+        FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(380)
+    elif pendidikan_wali == "SMA":
+        FIELDS["pendidikan_wali"]["x"] = 239
+        FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(393)
+    elif pendidikan_wali == "D1":
+        FIELDS["pendidikan_wali"]["x"] = 313
+        FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(367)
+    elif pendidikan_wali == "D2":
+        FIELDS["pendidikan_wali"]["x"] = 313
+        FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(380)
+    elif pendidikan_wali == "D3":
+        FIELDS["pendidikan_wali"]["x"] = 313
+        FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(393)
+    elif pendidikan_wali == "S1":
+        FIELDS["pendidikan_wali"]["x"] = 384
+        FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(367)
+    elif pendidikan_wali == "S2":
+        FIELDS["pendidikan_wali"]["x"] = 384
+        FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(380)
+    elif pendidikan_wali == "S3":
+        FIELDS["pendidikan_wali"]["x"] = 384
+        FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(393)
+    
+    # cek jabatan wali
+    if jabatan_wali == "Tetap":
+        FIELDS["jabatan_wali"]["x"] = 238
+        FIELDS["jabatan_wali"]["y"] = top_to_pdf_y(418)
+    elif jabatan_wali == "Honorer":
+        FIELDS["jabatan_wali"]["x"] = 314
+        FIELDS["jabatan_wali"]["y"] = top_to_pdf_y(418)
+    elif jabatan_wali == "kontrak":
+        FIELDS["jabatan_wali"]["x"] = 238
+        FIELDS["jabatan_wali"]["y"] = top_to_pdf_y(430)
+    elif jabatan_wali == "Tidak Kerja":
+        FIELDS["jabatan_wali"]["x"] = 314
+        FIELDS["jabatan_wali"]["y"] = top_to_pdf_y(430)
+
+    # cek status tempat tinggal
+    if status_tempat_tinggal_wali == "Bukan Milik Pribadi":
+        FIELDS["status_tempat_tinggal_wali"]["x"] = 240
+        FIELDS["status_tempat_tinggal_wali"]["y"] = top_to_pdf_y(555)
+    elif status_tempat_tinggal_wali == "Milik Pribadi":
+        FIELDS["status_tempat_tinggal_wali"]["x"] = 386
+        FIELDS["status_tempat_tinggal_wali"]["y"] = top_to_pdf_y(555)
+
+    # cek tipe tempat tinggal
+    if tipe_alamat_wali == "Alamat Rumah":
+        FIELDS["tipe_alamat_wali"]["x"] = 239
+        FIELDS["tipe_alamat_wali"]["y"] = top_to_pdf_y(600)
+    elif tipe_alamat_wali == "Alamat Kost":
+        FIELDS["tipe_alamat_wali"]["x"] = 347
+        FIELDS["tipe_alamat_wali"]["y"] = top_to_pdf_y(600)
 
     # Kelompokkan field berdasarkan halaman
     page_data = {}
@@ -676,6 +900,22 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
         ("jenis_kelamin_wali", "✓"),
         ("agama_wali", "✓"),
         ("nama_ibu_kandung_wali", nama_ibu_kandung_wali),
+        ("pekerjaan_wali", "✓"),
+        ("status_pernikahan_wali", "✓"),
+        ("pendidikan_wali", "✓"),
+        ("jabatan_wali", "✓"),
+        ("alamat_wali", alamat_wali),
+        ("rt_wali", rt_wali),
+        ("rw_wali", rw_wali),
+        ("provinsi_wali", provinsi_wali),
+        ("kota_wali", kota_wali),
+        ("kecamatan_wali", kecamatan_wali),
+        ("kelurahan_wali", kelurahan_wali),
+        ("kode_pos_wali", kode_pos_wali),
+        ("status_tempat_tinggal_wali", "✓"),
+        ("no_hp_wali", no_hp_wali),
+        ("no_telepon_wali", no_telepon_wali),
+        ("tipe_alamat_wali", "✓"),
     ]
 
     for field_key, value in field_map:
