@@ -1,54 +1,5 @@
-{% extends "base.html" %}
-{% block title %}SMPN 287 Jakarta — SMP Negeri 287 Jakarta Selatan | Sekolah Menengah Pertama Negeri{% endblock %}
-
-{% block head %}
-<!-- ══ SEO META TAGS ══ -->
-<meta name="description" content="SMP Negeri 287 Jakarta — Sekolah Menengah Pertama Negeri terbaik di Jakarta. Layanan pendidikan berkualitas, PPDB online, data siswa, informasi guru, dan pengumuman terbaru SMPN 287 Jakarta.">
-<meta name="keywords" content="SMPN 287 Jakarta, SMP Negeri 287 Jakarta, SMP 287 Jakarta, sekolah menengah pertama Jakarta, PPDB SMPN 287, data siswa SMPN 287, SMPN 287 Jakarta Selatan">
-<meta name="author" content="SMP Negeri 287 Jakarta">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://smpn287jakarta.sch.id/">
-
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://smpn287jakarta.sch.id/">
-<meta property="og:title" content="SMPN 287 Jakarta — SMP Negeri 287 Jakarta Selatan">
-<meta property="og:description" content="Website resmi SMP Negeri 287 Jakarta. Informasi pendaftaran PPDB, data siswa, berita sekolah, dan layanan pendidikan SMPN 287 Jakarta.">
-<meta property="og:image" content="https://smpn287jakarta.sch.id/static/og-image.jpg">
-<meta property="og:locale" content="id_ID">
-<meta property="og:site_name" content="SMPN 287 Jakarta">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SMPN 287 Jakarta — SMP Negeri 287 Jakarta Selatan">
-<meta name="twitter:description" content="Website resmi SMP Negeri 287 Jakarta. PPDB, data siswa, berita, dan layanan digital sekolah.">
-
-<!-- Structured Data JSON-LD -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "School",
-  "name": "SMP Negeri 287 Jakarta",
-  "alternateName": ["SMPN 287 Jakarta", "SMP 287 Jakarta"],
-  "url": "https://smpn287jakarta.sch.id",
-  "logo": "https://smpn287jakarta.sch.id/static/logo.png",
-  "image": "https://smpn287jakarta.sch.id/static/og-image.jpg",
-  "description": "SMP Negeri 287 Jakarta adalah sekolah menengah pertama negeri yang berlokasi di Jakarta, berdiri sejak 1970. SMPN 287 Jakarta berkomitmen mencetak generasi cerdas dan berkarakter.",
-  "foundingDate": "1970",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Jakarta",
-    "addressCountry": "ID"
-  },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "contactType": "customer service",
-    "url": "https://smpn287jakarta.sch.id/kontak"
-  },
-  "sameAs": []
-}
-</script>
-{% endblock %}
+{# {% extends "base.html" %}
+{% block title %}SMPN 287 Jakarta{% endblock %}
 
 {% block content %}
 <style>
@@ -79,7 +30,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--off-white
 .reveal.visible { opacity:1; transform:none; }
 
 /* ════════════════════════════════
-   HERO
+   HERO — kept navy but shorter
 ════════════════════════════════ */
 .hero {
   position: relative;
@@ -101,6 +52,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--off-white
     linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
   background-size: 56px 56px;
 }
+/* softer gold line */
 .hero::after {
   content: ''; position: absolute;
   bottom: 0; left: 0; right: 0; height: 3px;
@@ -172,13 +124,14 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--off-white
 }
 .badge-sub { font-size: .78rem; color: rgba(255,255,255,.35); margin-top: 4px; }
 
+/* wave into LIGHT background */
 .hero-wave {
   display: block; position: absolute;
   bottom: 0; left: 0; width: 100%; height: 56px;
 }
 
 /* ════════════════════════════════
-   STATS BAR
+   STATS BAR — light blue-gray, NOT dark
 ════════════════════════════════ */
 .stats-bar {
   background: var(--blue-soft);
@@ -215,41 +168,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--off-white
 }
 
 /* ════════════════════════════════
-   TENTANG SMPN 287 JAKARTA — SEO section
-════════════════════════════════ */
-.about-section {
-  background: var(--white);
-  padding: 60px 40px;
-  border-bottom: 1px solid rgba(10,36,99,.06);
-}
-.about-section-inner {
-  max-width: 1000px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
-}
-.about-text h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
-  font-weight: 800; color: var(--navy); margin-bottom: 16px;
-}
-.about-text p {
-  font-size: .92rem; color: var(--muted);
-  line-height: 1.85; margin-bottom: 14px;
-}
-.about-highlights {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px;
-}
-.about-pill {
-  background: var(--blue-soft);
-  border: 1px solid rgba(10,36,99,.09);
-  border-radius: 12px; padding: 14px 16px;
-}
-.about-pill strong {
-  display: block; font-size: .82rem; font-weight: 700; color: var(--navy); margin-bottom: 3px;
-}
-.about-pill span { font-size: .76rem; color: var(--muted); }
-
-/* ════════════════════════════════
-   BERITA
+   BERITA — white bg, clean grid
 ════════════════════════════════ */
 .news-section { background: var(--white); padding: 80px 40px; }
 .news-section-inner { max-width: 1000px; margin: 0 auto; }
@@ -354,7 +273,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--off-white
 .news-empty p { font-size: .84rem; color: var(--muted); }
 
 /* ════════════════════════════════
-   QUICK LINKS
+   QUICK LINKS — soft gold-pale bg, NOT dark navy
 ════════════════════════════════ */
 .links-section { background: var(--off-white); padding: 80px 40px; }
 .links-section .section-heading { color: var(--navy); }
@@ -392,27 +311,6 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--off-white
 .link-card span { font-size: .84rem; font-weight: 600; }
 
 /* ════════════════════════════════
-   FAQ / SEO RICH TEXT SECTION
-════════════════════════════════ */
-.faq-section {
-  background: var(--white);
-  padding: 70px 40px;
-  border-top: 1px solid rgba(10,36,99,.06);
-}
-.faq-section-inner { max-width: 1000px; margin: 0 auto; }
-.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 36px; }
-.faq-item {
-  background: var(--off-white);
-  border: 1px solid rgba(10,36,99,.08);
-  border-radius: 14px; padding: 22px 24px;
-}
-.faq-item h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: .95rem; font-weight: 700; color: var(--navy); margin-bottom: 8px;
-}
-.faq-item p { font-size: .84rem; color: var(--muted); line-height: 1.75; }
-
-/* ════════════════════════════════
    RESPONSIVE
 ════════════════════════════════ */
 @media (max-width: 900px) {
@@ -424,19 +322,16 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--off-white
   .stat-item:nth-child(3),
   .stat-item:last-child { border-bottom: none; }
   .news-grid { grid-template-columns: repeat(2, 1fr); }
-  .about-section-inner { grid-template-columns: 1fr; gap: 32px; }
-  .faq-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {
   .hero { padding: 56px 20px 72px; }
-  .news-section, .links-section, .about-section, .faq-section { padding: 56px 20px; }
+  .news-section, .links-section { padding: 56px 20px; }
   .stats-bar-inner { padding: 0 4px; }
   .news-grid { grid-template-columns: 1fr; }
   .links-grid { grid-template-columns: repeat(2, 1fr); }
   .hero-actions { flex-direction: column; }
   .btn-primary, .btn-outline { justify-content: center; text-align: center; }
-  .about-highlights { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 360px) {
@@ -447,44 +342,42 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--off-white
 </style>
 
 <!-- ══ HERO ══ -->
-<div class="hero" role="banner">
-  <div class="hero-bg" aria-hidden="true"></div>
-  <div class="hero-grid" aria-hidden="true"></div>
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
   <div class="hero-inner">
     <div class="hero-content">
-      <div class="hero-eyebrow">Selamat Datang di SMPN 287 Jakarta</div>
+      <div class="hero-eyebrow">Selamat Datang</div>
       <h1>SMP Negeri <em>287</em><br>Jakarta</h1>
-      <p class="hero-desc">
-        Website resmi <strong>SMPN 287 Jakarta</strong>. Membentuk generasi cerdas, berkarakter, dan berdaya saing global melalui pendidikan berkualitas di lingkungan belajar yang kondusif.
-      </p>
+      <p class="hero-desc">Membentuk generasi cerdas, berkarakter, dan berdaya saing global melalui pendidikan berkualitas dan lingkungan belajar yang kondusif.</p>
       <div class="hero-actions">
-        <a href="/data-siswa" class="btn-primary" title="Data Siswa SMPN 287 Jakarta">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        <a href="/data-siswa" class="btn-primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
           Data Siswa
         </a>
-        <a href="/input" class="btn-outline" title="Input Data SMPN 287 Jakarta">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+        <a href="/input" class="btn-outline">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
           Input Data
         </a>
       </div>
     </div>
-    <div class="hero-badge-card" aria-label="Jumlah siswa aktif SMPN 287 Jakarta">
+    <div class="hero-badge-card">
       <span class="badge-num">{{ jumlah_siswa }}</span>
       <span class="badge-label">Siswa Aktif</span>
       <span class="badge-sub">Tahun Ajaran 2025/2026</span>
     </div>
   </div>
-  <svg class="hero-wave" viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
+  <svg class="hero-wave" viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
     <path d="M0,28 C360,56 1080,0 1440,28 L1440,56 L0,56 Z" fill="#e8f0fb"/>
   </svg>
 </div>
 
 <!-- ══ STATS ══ -->
-<div class="stats-bar" aria-label="Statistik SMPN 287 Jakarta">
+<div class="stats-bar">
   <div class="stats-bar-inner">
     <div class="stat-item reveal">
       <span class="stat-number">{{ jumlah_siswa }}</span>
-      <div class="stat-label">Siswa Aktif SMPN 287</div>
+      <div class="stat-label">Siswa Aktif</div>
     </div>
     <div class="stat-item reveal">
       <span class="stat-number">{{ jumlah_guru }}</span>
@@ -501,223 +394,166 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--off-white
   </div>
 </div>
 
-<!-- ══ TENTANG SMPN 287 JAKARTA (SEO Rich Text) ══ -->
-<section class="about-section" aria-labelledby="about-heading">
-  <div class="about-section-inner">
-    <div class="about-text reveal">
-      <div class="section-tag">🏫 Tentang Kami</div>
-      <h2 id="about-heading">Tentang SMP Negeri 287 Jakarta</h2>
-      <p>
-        <strong>SMP Negeri 287 Jakarta</strong> adalah sekolah menengah pertama negeri yang telah berdiri sejak tahun 1970 dan berkomitmen memberikan pendidikan terbaik bagi siswa-siswi di Jakarta. <strong>SMPN 287 Jakarta</strong> terus berkembang sebagai salah satu sekolah unggulan yang mencetak lulusan berkualitas.
-      </p>
-      <p>
-        Dengan dukungan tenaga pendidik profesional dan fasilitas memadai, <strong>SMP 287 Jakarta</strong> memberikan pengalaman belajar yang menyenangkan, inovatif, dan berkarakter. Kurikulum di <strong>SMPN 287 Jakarta</strong> dirancang untuk mempersiapkan siswa menghadapi tantangan global.
-      </p>
-      <div class="about-highlights">
-        <div class="about-pill">
-          <strong>Akreditasi</strong>
-          <span>Terakreditasi Resmi Kemendikbud</span>
-        </div>
-        <div class="about-pill">
-          <strong>Lokasi</strong>
-          <span>Jakarta, DKI Jakarta</span>
-        </div>
-        <div class="about-pill">
-          <strong>Jenjang</strong>
-          <span>SMP / Kelas 7, 8, dan 9</span>
-        </div>
-        <div class="about-pill">
-          <strong>Status</strong>
-          <span>Sekolah Negeri (Pemerintah)</span>
-        </div>
-      </div>
-    </div>
-    <div class="about-extra reveal">
-      <!-- Decorative info card -->
-      <div style="background:var(--blue-soft);border-radius:20px;padding:32px 28px;border:1px solid rgba(10,36,99,.09);">
-        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:18px;">Mengapa Memilih SMPN 287 Jakarta?</div>
-        <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;">
-          <li style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="width:28px;height:28px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            </span>
-            <span style="font-size:.88rem;color:var(--text);line-height:1.6;">Tenaga pengajar berpengalaman dan bersertifikasi di SMPN 287 Jakarta</span>
-          </li>
-          <li style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="width:28px;height:28px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            </span>
-            <span style="font-size:.88rem;color:var(--text);line-height:1.6;">Lingkungan belajar yang aman, kondusif, dan menyenangkan</span>
-          </li>
-          <li style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="width:28px;height:28px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            </span>
-            <span style="font-size:.88rem;color:var(--text);line-height:1.6;">Layanan digital lengkap: PPDB, KJP, PIP, dan administrasi online</span>
-          </li>
-          <li style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="width:28px;height:28px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            </span>
-            <span style="font-size:.88rem;color:var(--text);line-height:1.6;">Ekstrakurikuler beragam untuk pengembangan bakat siswa</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ══ BERITA (3 terakhir) ══ -->
-<section class="news-section" aria-labelledby="news-heading">
+<div class="news-section">
   <div class="news-section-inner">
     <div class="reveal">
       <div class="section-tag">📰 Informasi</div>
-      <h2 class="section-heading" id="news-heading">Berita &amp; Pengumuman SMPN 287 Jakarta</h2>
-      <p class="section-sub">Informasi terkini dari SMP Negeri 287 Jakarta</p>
+      <h2 class="section-heading">Berita &amp; Pengumuman</h2>
+      <p class="section-sub">Informasi terkini dari SMPN 287 Jakarta</p>
     </div>
 
     <div class="news-grid">
       {% if berita_list %}
-        {% for berita in berita_list[-3:] %}
-        <article class="n-card reveal">
+        {% for berita in berita_list[-  3:] %}
+        <div class="n-card reveal">
           <div class="n-img">
             <span class="n-badge">📢 Berita</span>
             {% if berita.img_1 %}
-              <img src="{{ url_for('static', filename='uploads/' + berita.img_1) }}"
-                   alt="{{ berita.title }} — SMPN 287 Jakarta"
-                   loading="lazy">
+              <img src="{{ url_for('static', filename='uploads/' + berita.img_1) }}" alt="{{ berita.name }}">
             {% else %}
-              <div class="n-img-ph" aria-hidden="true">
+              <div class="n-img-ph">
                 <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
               </div>
             {% endif %}
           </div>
           <div class="n-body">
-            <h3 class="n-title">{{ berita.title }}</h3>
-            <div class="n-divider" aria-hidden="true"></div>
+            <div class="n-title">{{ berita.title }}</div>
+            <div class="n-divider"></div>
             <div class="n-actions">
-              <a href="{{ url_for('views.lihat_berita', id=berita.id) }}"
-                 class="n-info-btn"
-                 title="{{ berita.title }} — Berita SMPN 287 Jakarta">
-                <svg viewBox="0 0 24 24" fill="none" width="13" height="13" aria-hidden="true">
+              <a href="{{ url_for('views.lihat_berita', id=berita.id) }}" class="n-info-btn">
+                <svg viewBox="0 0 24 24" fill="none" width="13" height="13">
                   <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/>
                   <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
                 </svg>
                 Baca Selengkapnya
               </a>
               {% if current_user.is_authenticated %}
-              <button class="n-del-btn" onclick="deleteBerita({{ berita.id }})" aria-label="Hapus berita">
-                <svg viewBox="0 0 24 24" fill="none" width="13" height="13" aria-hidden="true">
+              <button class="n-del-btn" onclick="deleteBerita({{ berita.id }})">
+                <svg viewBox="0 0 24 24" fill="none" width="13" height="13">
                   <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </button>
               {% endif %}
             </div>
           </div>
-        </article>
+        </div>
         {% endfor %}
       {% else %}
         <div class="news-empty reveal">
-          <div class="empty-icon" aria-hidden="true">
+          <div class="empty-icon">
             <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
           </div>
-          <h3>Belum Ada Berita SMPN 287 Jakarta</h3>
-          <p>Berita dan pengumuman SMP Negeri 287 Jakarta akan tampil di sini setelah ditambahkan.</p>
+          <h3>Belum Ada Berita</h3>
+          <p>Berita dan pengumuman akan tampil di sini setelah ditambahkan.</p>
         </div>
       {% endif %}
     </div>
   </div>
-</section>
+</div>
 
 <!-- ══ QUICK LINKS ══ -->
-<section class="links-section" aria-labelledby="links-heading">
+<!-- ══ QUICK LINKS ══ -->
+<div class="links-section">
   <div class="section-inner" style="max-width:1000px;margin:0 auto;">
     <div class="reveal">
       <div class="section-tag">⚡ Layanan</div>
-      <h2 class="section-heading" id="links-heading">Layanan Digital SMPN 287 Jakarta</h2>
-      <p class="section-sub">Akses cepat ke layanan digital SMP Negeri 287 Jakarta</p>
+      <h2 class="section-heading">Layanan Sekolah</h2>
+      <p class="section-sub">Akses cepat ke layanan digital sekolah</p>
     </div>
     <div class="links-grid reveal">
 
-      <a href="/data-siswa" class="link-card" title="Data Siswa SMP Negeri 287 Jakarta">
-        <div class="link-icon" aria-hidden="true">
+      <!-- Data Siswa -->
+      <a href="/data-siswa" class="link-card">
+        <div class="link-icon">
           <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
         </div>
         <span>Data Siswa</span>
       </a>
 
-      <a href="/input" class="link-card" title="Input Data SMPN 287 Jakarta">
-        <div class="link-icon" aria-hidden="true">
+      <!-- Input Data -->
+      <a href="/input" class="link-card">
+        <div class="link-icon">
           <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
         </div>
         <span>Input Data</span>
       </a>
 
-      <a href="/buat-akun" class="link-card" title="Buat Akun SMPN 287 Jakarta">
-        <div class="link-icon" aria-hidden="true">
+      <!-- Buat Akun -->
+      <a href="/buat-akun" class="link-card">
+        <div class="link-icon">
           <svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
         </div>
         <span>Buat Akun</span>
       </a>
 
-      <a href="/kontak" class="link-card" title="Kontak SMP Negeri 287 Jakarta">
-        <div class="link-icon" aria-hidden="true">
+      <!-- Kontak Sekolah -->
+      <a href="/kontak" class="link-card">
+        <div class="link-icon">
           <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         </div>
         <span>Kontak Sekolah</span>
       </a>
 
-      <a href="/cek-kelulusan-siswa" class="link-card" title="Cek Kelulusan Siswa SMPN 287 Jakarta">
-        <div class="link-icon" aria-hidden="true">
+      <!-- Cek Kelulusan -->
+      <a href="/cek-kelulusan-siswa" class="link-card">
+        <div class="link-icon">
           <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.07-.44.18-.86.18-1.3C18 2.55 15.45 1 13 1c-1.35 0-2.6.52-3.53 1.46L8 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM9.83 5.17C10.39 4.6 11.17 4.3 12 4.3h1c1.38 0 2.5 1.12 2.5 2.5 0 .55-.45 1-1 1H8.5l1.33-2.63zM20 18H4V8h16v10z"/></svg>
         </div>
         <span>Cek Kelulusan</span>
       </a>
 
-      <a href="/layanan-ppdb" class="link-card" title="PPDB SMPN 287 Jakarta — Penerimaan Peserta Didik Baru">
-        <div class="link-icon" aria-hidden="true">
+      <!-- PPDB -->
+      <a href="/layanan-ppdb" class="link-card">
+        <div class="link-icon">
           <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5 14H7v-2h6v2zm3-4H7v-2h9v2zm0-4H7V6h9v2z"/></svg>
         </div>
         <span>Layanan PPDB</span>
       </a>
 
-      <a href="/layanan-mutasi" class="link-card" title="Layanan Mutasi Siswa SMPN 287 Jakarta">
-        <div class="link-icon" aria-hidden="true">
+      <!-- Mutasi -->
+      <a href="/layanan-mutasi" class="link-card">
+        <div class="link-icon">
           <svg viewBox="0 0 24 24"><path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 4l-5-5v3h-3v4h3v3l5-5zm-9 4h-4v3H7l5 5 5-5h-3v-3z"/></svg>
         </div>
         <span>Layanan Mutasi</span>
       </a>
 
-      <a href="/layanan-pip" class="link-card" title="Layanan PIP SMPN 287 Jakarta">
-        <div class="link-icon" aria-hidden="true">
+      <!-- PIP -->
+      <a href="/layanan-pip" class="link-card">
+        <div class="link-icon">
           <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
         </div>
         <span>Layanan PIP</span>
       </a>
 
-      <a href="/layanan-kjp" class="link-card" title="Layanan KJP SMPN 287 Jakarta">
-        <div class="link-icon" aria-hidden="true">
+      <!-- KJP -->
+      <a href="/layanan-kjp" class="link-card">
+        <div class="link-icon">
           <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
         </div>
         <span>Layanan KJP</span>
       </a>
 
-      <a href="/layanan-administrasi-sekolah" class="link-card" title="Administrasi Sekolah SMPN 287 Jakarta">
-        <div class="link-icon" aria-hidden="true">
+      <!-- Administrasi Sekolah -->
+      <a href="/layanan-administrasi-sekolah" class="link-card">
+        <div class="link-icon">
           <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 14H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
         </div>
         <span>Administrasi Sekolah</span>
       </a>
 
-      <a href="/layanan-kunjungan-antar-instansi" class="link-card" title="Kunjungan Antar Instansi SMPN 287 Jakarta">
-        <div class="link-icon" aria-hidden="true">
+      <!-- Kunjungan Antar Instansi -->
+      <a href="/layanan-kunjungan-antar-instansi  " class="link-card">
+        <div class="link-icon">
           <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
         </div>
         <span>Kunjungan Instansi</span>
       </a>
 
-      <a href="/data-guru" class="link-card" title="Data Guru SMP Negeri 287 Jakarta">
-        <div class="link-icon" aria-hidden="true">
+      <!-- Data Guru -->
+      <a href="/data-guru" class="link-card">
+        <div class="link-icon">
           <svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
         </div>
         <span>Data Guru</span>
@@ -725,44 +561,38 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--off-white
 
     </div>
   </div>
-</section>
-
-<!-- ══ FAQ / SEO RICH TEXT ══ -->
-<section class="faq-section" aria-labelledby="faq-heading">
-  <div class="faq-section-inner">
+</div>
+{# <div class="links-section">
+  <div class="section-inner" style="max-width:1000px;margin:0 auto;">
     <div class="reveal">
-      <div class="section-tag">❓ FAQ</div>
-      <h2 class="section-heading" id="faq-heading">Pertanyaan Seputar SMPN 287 Jakarta</h2>
-      <p class="section-sub">Informasi umum tentang SMP Negeri 287 Jakarta</p>
+      <div class="section-tag">⚡ Layanan</div>
+      <h2 class="section-heading">Layanan Sekolah</h2>
+      <p class="section-sub">Akses cepat ke layanan digital sekolah</p>
     </div>
-    <div class="faq-grid">
-      <div class="faq-item reveal">
-        <h3>Bagaimana cara mendaftar PPDB di SMPN 287 Jakarta?</h3>
-        <p>Pendaftaran PPDB <strong>SMP Negeri 287 Jakarta</strong> dapat dilakukan secara online melalui halaman Layanan PPDB di website ini atau melalui portal PPDB resmi Dinas Pendidikan DKI Jakarta.</p>
-      </div>
-      <div class="faq-item reveal">
-        <h3>Di mana lokasi SMPN 287 Jakarta?</h3>
-        <p><strong>SMPN 287 Jakarta</strong> berlokasi di wilayah Jakarta. Silakan hubungi kami melalui halaman Kontak Sekolah untuk mendapatkan alamat lengkap dan petunjuk arah menuju sekolah.</p>
-      </div>
-      <div class="faq-item reveal">
-        <h3>Apa saja layanan yang tersedia di SMPN 287 Jakarta?</h3>
-        <p><strong>SMP Negeri 287 Jakarta</strong> menyediakan berbagai layanan digital meliputi PPDB online, pengecekan kelulusan siswa, layanan KJP, PIP, mutasi, administrasi sekolah, dan kunjungan antar instansi.</p>
-      </div>
-      <div class="faq-item reveal">
-        <h3>Bagaimana cara mengecek kelulusan siswa SMPN 287 Jakarta?</h3>
-        <p>Pengecekan kelulusan siswa <strong>SMPN 287 Jakarta</strong> dapat dilakukan melalui menu "Cek Kelulusan" yang tersedia di halaman utama website resmi sekolah ini.</p>
-      </div>
-      <div class="faq-item reveal">
-        <h3>Kapan SMPN 287 Jakarta didirikan?</h3>
-        <p><strong>SMP Negeri 287 Jakarta</strong> berdiri sejak tahun 1970 dan telah lebih dari 50 tahun berkontribusi dalam dunia pendidikan di Jakarta, menghasilkan ribuan lulusan berkualitas.</p>
-      </div>
-      <div class="faq-item reveal">
-        <h3>Bagaimana cara menghubungi SMPN 287 Jakarta?</h3>
-        <p>Anda dapat menghubungi <strong>SMPN 287 Jakarta</strong> melalui halaman Kontak Sekolah pada website ini, atau datang langsung ke kantor administrasi SMP Negeri 287 Jakarta pada hari dan jam kerja.</p>
-      </div>
+    <div class="links-grid reveal">
+      <a href="/data-siswa" class="link-card">
+        <div class="link-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+        <span>Data Siswa</span>
+      </a>
+      <a href="/input" class="link-card">
+        <div class="link-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg></div>
+        <span>Input Data</span>
+      </a>
+      <a href="/buat-akun" class="link-card">
+        <div class="link-icon"><svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+        <span>Buat Akun</span>
+      </a>
+      <a href="/kontak" class="link-card">
+        <div class="link-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+        <span>Kontak Sekolah</span>
+      </a>
+      <a href="/login-siswa" class="link-card">
+        <div class="link-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+        <span>Cek Kelulusan</span>
+      </a>
     </div>
   </div>
-</section>
+</div> #}
 
 <script>
 (function () {
@@ -773,4 +603,5 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--off-white
   els.forEach(function (el) { io.observe(el); });
 })();
 </script>
-{% endblock %}
+
+{% endblock %} #}

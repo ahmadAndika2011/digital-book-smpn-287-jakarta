@@ -403,6 +403,19 @@
     from { opacity: 0; transform: translateY(18px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+
+  .btn-download-kjp-murid {
+    background-color: #0a2463;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
 </style>
 
 <div class="dash-page">
@@ -636,7 +649,7 @@
           </div>
           <div class="svc-arrow">
             <span class="svc-tag">Beasiswa</span>
-            <form action="{{url_for('dashbord_admin.download_data_kjp')}}" method="POST">
+            {# <form action="{{url_for('dashbord_admin.download_data_kjp')}}" method="POST">
                 <button type="submit" class="btn-action" style="..."
                 onmouseover="this.style.backgroundColor='#7a2f16'; this.style.transform='scale(1.1)'"
                 onmouseout="this.style.backgroundColor='#993C1D'; this.style.transform='scale(1)'">
@@ -646,7 +659,52 @@
                       <line x1="12" y1="15" x2="12" y2="3"/>
                   </svg>
                 </button>
+            </form> #}
+            <form action="{{url_for('dashbord_admin.download_data_kjp_data_siswa')}}" method="POST">
+                {# <input type="hidden" name="murid_id" value="{{ murid.id }}"> #}
+                <button type="submit"
+                    title="Download Halaman KJP Murid Ini"
+                    style="
+                        background-color: #0a2463;
+                        color: white;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 5px;
+                        padding: 6px 11px;
+                        border: none;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        font-size: 0.72rem;
+                        font-weight: 700;
+                        letter-spacing: 0.4px;
+                        transition: background-color 0.2s, transform 0.2s;
+                    "
+                    onmouseover="this.style.backgroundColor='#0f3080'; this.style.transform='scale(1.05)'"
+                    onmouseout="this.style.backgroundColor='#0a2463'; this.style.transform='scale(1)'">
+
+                    <!-- Ikon download -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+
+                    MURID
+                </button>
             </form>
+                        {# <form action="{{url_for('dashbord_admin.download_data_kjp')}}" method="POST">
+                <button type="submit" class="btn-action" style="..."
+                onmouseover="this.style.backgroundColor='#7a2f16'; this.style.transform='scale(1.1)'"
+                onmouseout="this.style.backgroundColor='#993C1D'; this.style.transform='scale(1)'">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="7 10 12 15 17 10"/>
+                      <line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
+                </button>
+            </form> #}
             <div style="display:flex;align-items:center;gap:6px;">
               <span class="svc-count-badge">{{ data_layanan_kjp|length }} data</span>
               <span class="svc-chevron">

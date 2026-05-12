@@ -42,560 +42,560 @@ def top_to_pdf_y(top, h=PDF_H):
 
 # Field definitions: (page_index, x, pdf_y, max_width, font_size) * 0.479
 # page_index = 0-based (page 0 = halaman 1, page 1 = halaman 2, dst)
-FIELDS = {
+FIELDS_DATA_SISWA = {
     "nama_murid": {
-        "page": 1,
+        "page": 0,
         "x": 222,
         "y": top_to_pdf_y(182),
         "max_w": 170,
         "font_size": 9,
     },
     "tempat_lahir_murid": {
-        "page": 1,
+        "page": 0,
         "x": 222,
         "y": top_to_pdf_y(212),
         "max_w": 170,
         "font_size": 9,
     },
     "nik_murid":{
-        "page": 1,
+        "page": 0,
         "x": 222,
         "y": top_to_pdf_y(150),
         "max_w": 170,
         "font_size": 9,
     },
     "no_kartu_keluarga":{
-        "page": 1,
+        "page": 0,
         "x": 222,
         "y": top_to_pdf_y(165),
         "max_w": 170,
         "font_size": 9,
     },
     "jenis_kelamin_murid":{
-        "page": 1,
+        "page": 0,
         "x": 0,
         "y": top_to_pdf_y(0),
         "max_w": 170,
         "font_size": 9,
     },
     "tanggal_lahir_murid_tanggal_1":{
-        "page": 1,
+        "page": 0,
         "x": 233,
         "y": top_to_pdf_y(231),
         "max_w": 170,
         "font_size": 9,
     },
     "tanggal_lahir_murid_tanggal_2":{
-        "page": 1,
+        "page": 0,
         "x": 255,
         "y": top_to_pdf_y(231),
         "max_w": 170,
         "font_size": 9,
     },
     "tanggal_lahir_murid_bulan_1":{
-        "page": 1,
+        "page": 0,
         "x": 287,
         "y": top_to_pdf_y(231),
         "max_w": 170,
         "font_size": 9,
     },
     "tanggal_lahir_murid_bulan_2":{
-        "page": 1,
+        "page": 0,
         "x": 306,
         "y": top_to_pdf_y(231),
         "max_w": 170,
         "font_size": 9,
     },
     "tanggal_lahir_murid_tahun_1":{
-        "page": 1,
+        "page": 0,
         "x": 340,
         "y": top_to_pdf_y(231),
         "max_w": 170,
         "font_size": 9,
     },
     "tanggal_lahir_murid_tahun_2":{
-        "page": 1,
+        "page": 0,
         "x": 356,
         "y": top_to_pdf_y(231),
         "max_w": 170,
         "font_size": 9,
     },
     "tanggal_lahir_murid_tahun_3":{
-        "page": 1,
+        "page": 0,
         "x": 374,
         "y": top_to_pdf_y(231),
         "max_w": 170,
         "font_size": 9,
     },
     "tanggal_lahir_murid_tahun_4":{
-        "page": 1,
+        "page": 0,
         "x": 394,
         "y": top_to_pdf_y(231),
         "max_w": 170,
         "font_size": 9,
     },
     "nama_ibu_kandung_murid":{
-        "page": 1,
+        "page": 0,
         "x": 222,
         "y": top_to_pdf_y(243),
         "max_w": 170,
         "font_size": 9,
     },
     "kelas":{
-        "page": 1,
+        "page": 0,
         "x": 0,
         "y": top_to_pdf_y(0),
         "max_w": 170,
         "font_size": 9,
     },
     "nisn_murid":{
-        "page": 1,
+        "page": 0,
         "x": 222,
         "y": top_to_pdf_y(407),
         "max_w": 170,
         "font_size": 9,
     },
     "masa_berlaku_identitas":{
-        "page": 1,
+        "page": 0,
         "x": 0,
         "y": top_to_pdf_y(0),
         "max_w": 170,
         "font_size": 9,
     },
     "no_hp_murid":{
-        "page": 1,
+        "page": 0,
         "x": 222,
         "y": top_to_pdf_y(452),
         "max_w": 170,
         "font_size": 9,
     },
     "no_telepon":{
-        "page": 1,
+        "page": 0,
         "x": 222,
         "y": top_to_pdf_y(468),
         "max_w": 170,
         "font_size": 9,
     },
     "alamat_surat":{
-        "page": 1,
+        "page": 0,
         "x": 0,
         "y": top_to_pdf_y(0),
         "max_w": 170,
         "font_size": 9,
     },
     "tipe_alamat":{
-        "page": 1,
+        "page": 0,
         "x": 0,
         "y": top_to_pdf_y(0),
         "max_w": 170,
         "font_size": 9,
     },
     "status_tempat_tinggal":{
-        "page": 1,
+        "page": 0,
         "x": 0,
         "y": top_to_pdf_y(0),
         "max_w": 170,
         "font_size": 9,
     },
     "agama_murid":{
-        "page": 1,
+        "page": 0,
         "x": 0,
         "y": top_to_pdf_y(0),
         "max_w": 170,
         "font_size": 9,
     },
     "untuk_disabilitas":{
-        "page": 1,
+        "page": 0,
         "x": 0,
         "y": top_to_pdf_y(0),
         "max_w": 170,
         "font_size": 9,
     },
     "pendidikan":{
-        "page": 1,
+        "page": 0,
         "x": 236,
         "y": top_to_pdf_y(632),
         "max_w": 170,
         "font_size": 9,
     },
     "npwp_murid":{
-        "page": 1,
+        "page": 0,
         "x": 222,
         "y": top_to_pdf_y(423),
         "max_w": 170,
         "font_size": 9,
     },
     "alamat_murid":{
-        "page": 1,
+        "page": 0,
         "x": 222,
         "y": top_to_pdf_y(261),
         "max_w": 170,
         "font_size": 9,
     },
     "rt_murid":{
-        "page": 1,
+        "page": 0,
         "x": 231,
         "y": top_to_pdf_y(280),
         "max_w": 170,
         "font_size": 9,
     },
     "rw_murid":{
-        "page": 1,
+        "page": 0,
         "x": 274,
         "y": top_to_pdf_y(280),
         "max_w": 170,
         "font_size": 9,
     },
     "provinsi_murid":{
-        "page": 1,
+        "page": 0,
         "x": 222,
         "y": top_to_pdf_y(291),
         "max_w": 170,
         "font_size": 9,
     },
     "kota_murid":{
-        "page": 1,
+        "page": 0,
         "x": 222,
         "y": top_to_pdf_y(306),
         "max_w": 170,
         "font_size": 9,
     },
     "kecamatan_murid":{
-        "page": 1,
+        "page": 0,
         "x": 222,
         "y": top_to_pdf_y(320),
         "max_w": 170,
         "font_size": 9,
     },
     "kelurahan_murid":{
-        "page": 1,
+        "page": 0,
         "x": 222,
         "y": top_to_pdf_y(337),
         "max_w": 170,
         "font_size": 9,
     },
     "kode_pos_murid":{
-        "page": 1,
+        "page": 0,
         "x": 222,
         "y": top_to_pdf_y(352),
         "max_w": 170,
         "font_size": 9,
     },
-    "nama_wali":{
-        "page": 2,
-        "x": 222,
-        "y": top_to_pdf_y(100),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "no_ktp_wali":{
-        "page": 2,
-        "x": 222,
-        "y": top_to_pdf_y(114),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "masa_berlaku_ktp_wali":{
-        "page": 2,
-        "x": 222,
-        "y": top_to_pdf_y(130),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "npwp_wali":{
-        "page": 2,
-        "x": 222,
-        "y": top_to_pdf_y(146),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "kartu_keluarga_wali":{
-        "page": 2,
-        "x": 222,
-        "y": top_to_pdf_y(161),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "tempat_lahir_wali":{
-        "page": 2,
-        "x": 222,
-        "y": top_to_pdf_y(177),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "tanggal_lahir_wali_tanggal_1":{
-        "page": 2,
-        "x": 239,
-        "y": top_to_pdf_y(196),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "tanggal_lahir_wali_tanggal_2":{
-        "page": 2,
-        "x": 260,
-        "y": top_to_pdf_y(196),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "tanggal_lahir_wali_bulan_1":{
-        "page": 2,
-        "x": 293,
-        "y": top_to_pdf_y(196),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "tanggal_lahir_wali_bulan_2":{
-        "page": 2,
-        "x": 315,
-        "y": top_to_pdf_y(196),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "tanggal_lahir_wali_tahun_1":{
-        "page": 2,
-        "x": 345,
-        "y": top_to_pdf_y(196),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "tanggal_lahir_wali_tahun_2":{
-        "page": 2,
-        "x": 364,
-        "y": top_to_pdf_y(196),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "tanggal_lahir_wali_tahun_3":{
-        "page": 2,
-        "x": 381,
-        "y": top_to_pdf_y(196),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "tanggal_lahir_wali_tahun_4":{
-        "page": 2,
-        "x": 399,
-        "y": top_to_pdf_y(196),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "jenis_kelamin_wali":{
-        "page": 2,
-        "x": 0,
-        "y": top_to_pdf_y(0),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "agama_wali":{
-        "page": 2,
-        "x": 0,
-        "y": top_to_pdf_y(0),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "nama_ibu_kandung_wali":{
-        "page": 2,
-        "x": 222,
-        "y": top_to_pdf_y(322),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "pekerjaan_wali":{
-        "page": 2,
-        "x": 0,
-        "y": top_to_pdf_y(0),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "status_pernikahan_wali":{
-        "page": 2,
-        "x": 0,
-        "y": top_to_pdf_y(0),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "pendidikan_wali":{
-        "page": 2,
-        "x": 0,
-        "y": top_to_pdf_y(0),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "jabatan_wali":{
-        "page": 2,
-        "x": 0,
-        "y": top_to_pdf_y(0),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "alamat_wali":{
-        "page": 2,
-        "x": 222,
-        "y": top_to_pdf_y(444),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "rt_wali":{
-        "page": 2,
-        "x": 232,
-        "y": top_to_pdf_y(462),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "rw_wali":{
-        "page": 2,
-        "x": 270,
-        "y": top_to_pdf_y(462),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "provinsi_wali":{
-        "page": 2,
-        "x": 222,
-        "y": top_to_pdf_y(475),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "kota_wali":{
-        "page": 2,
-        "x": 222,
-        "y": top_to_pdf_y(490),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "kecamatan_wali":{
-        "page": 2,
-        "x": 222,
-        "y": top_to_pdf_y(506),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "kelurahan_wali":{
-        "page": 2,
-        "x": 222,
-        "y": top_to_pdf_y(521),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "kode_pos_wali":{
-        "page": 2,
-        "x": 222,
-        "y": top_to_pdf_y(536),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "status_tempat_tinggal_wali":{
-        "page": 2,
-        "x": 0,
-        "y": top_to_pdf_y(0),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "no_hp_wali":{
-        "page": 2,
-        "x": 222,
-        "y": top_to_pdf_y(567),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "no_telepon_wali":{
-        "page": 2,
-        "x": 222,
-        "y": top_to_pdf_y(583),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "tipe_alamat_wali":{
-        "page": 2,
-        "x": 0,
-        "y": top_to_pdf_y(0),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "nama_kontak_darurat":{
-        "page": 3,
-        "x": 222,
-        "y": top_to_pdf_y(101),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "no_identitas_kontak":{
-        "page": 3,
-        "x": 222,
-        "y": top_to_pdf_y(129),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "hubungan_kontak":{
-        "page": 3,
-        "x": 0,
-        "y": top_to_pdf_y(0),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "alamat_kontak":{
-        "page": 3,
-        "x": 222,
-        "y": top_to_pdf_y(204),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "rt_kontak":{
-        "page": 3,
-        "x": 232,
-        "y": top_to_pdf_y(223),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "rw_kontak":{
-        "page": 3,
-        "x": 268,
-        "y": top_to_pdf_y(223),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "provinsi_kontak":{
-        "page": 3,
-        "x": 222,
-        "y": top_to_pdf_y(235),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "kota_kontak":{
-        "page": 3,
-        "x": 222,
-        "y": top_to_pdf_y(250),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "kecamatan_kontak":{
-        "page": 3,
-        "x": 222,
-        "y": top_to_pdf_y(266),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "kelurahan_kontak":{
-        "page": 3,
-        "x": 222,
-        "y": top_to_pdf_y(281),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "kode_pos_kontak":{
-        "page": 3,
-        "x": 222,
-        "y": top_to_pdf_y(297),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "no_telepon_kontak":{
-        "page": 3,
-        "x": 222,
-        "y": top_to_pdf_y(312),
-        "max_w": 170,
-        "font_size": 9,
-    },
+    # "nama_wali":{
+    #     "page": 2,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(100),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "no_ktp_wali":{
+    #     "page": 2,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(114),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "masa_berlaku_ktp_wali":{
+    #     "page": 2,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(130),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "npwp_wali":{
+    #     "page": 2,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(146),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "kartu_keluarga_wali":{
+    #     "page": 2,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(161),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tempat_lahir_wali":{
+    #     "page": 2,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(177),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tanggal_lahir_wali_tanggal_1":{
+    #     "page": 2,
+    #     "x": 239,
+    #     "y": top_to_pdf_y(196),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tanggal_lahir_wali_tanggal_2":{
+    #     "page": 2,
+    #     "x": 260,
+    #     "y": top_to_pdf_y(196),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tanggal_lahir_wali_bulan_1":{
+    #     "page": 2,
+    #     "x": 293,
+    #     "y": top_to_pdf_y(196),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tanggal_lahir_wali_bulan_2":{
+    #     "page": 2,
+    #     "x": 315,
+    #     "y": top_to_pdf_y(196),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tanggal_lahir_wali_tahun_1":{
+    #     "page": 2,
+    #     "x": 345,
+    #     "y": top_to_pdf_y(196),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tanggal_lahir_wali_tahun_2":{
+    #     "page": 2,
+    #     "x": 364,
+    #     "y": top_to_pdf_y(196),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tanggal_lahir_wali_tahun_3":{
+    #     "page": 2,
+    #     "x": 381,
+    #     "y": top_to_pdf_y(196),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tanggal_lahir_wali_tahun_4":{
+    #     "page": 2,
+    #     "x": 399,
+    #     "y": top_to_pdf_y(196),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "jenis_kelamin_wali":{
+    #     "page": 2,
+    #     "x": 0,
+    #     "y": top_to_pdf_y(0),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "agama_wali":{
+    #     "page": 2,
+    #     "x": 0,
+    #     "y": top_to_pdf_y(0),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "nama_ibu_kandung_wali":{
+    #     "page": 2,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(322),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "pekerjaan_wali":{
+    #     "page": 2,
+    #     "x": 0,
+    #     "y": top_to_pdf_y(0),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "status_pernikahan_wali":{
+    #     "page": 2,
+    #     "x": 0,
+    #     "y": top_to_pdf_y(0),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "pendidikan_wali":{
+    #     "page": 2,
+    #     "x": 0,
+    #     "y": top_to_pdf_y(0),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "jabatan_wali":{
+    #     "page": 2,
+    #     "x": 0,
+    #     "y": top_to_pdf_y(0),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "alamat_wali":{
+    #     "page": 2,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(444),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "rt_wali":{
+    #     "page": 2,
+    #     "x": 232,
+    #     "y": top_to_pdf_y(462),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "rw_wali":{
+    #     "page": 2,
+    #     "x": 270,
+    #     "y": top_to_pdf_y(462),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "provinsi_wali":{
+    #     "page": 2,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(475),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "kota_wali":{
+    #     "page": 2,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(490),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "kecamatan_wali":{
+    #     "page": 2,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(506),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "kelurahan_wali":{
+    #     "page": 2,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(521),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "kode_pos_wali":{
+    #     "page": 2,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(536),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "status_tempat_tinggal_wali":{
+    #     "page": 2,
+    #     "x": 0,
+    #     "y": top_to_pdf_y(0),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "no_hp_wali":{
+    #     "page": 2,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(567),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "no_telepon_wali":{
+    #     "page": 2,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(583),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tipe_alamat_wali":{
+    #     "page": 2,
+    #     "x": 0,
+    #     "y": top_to_pdf_y(0),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "nama_kontak_darurat":{
+    #     "page": 3,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(101),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "no_identitas_kontak":{
+    #     "page": 3,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(129),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "hubungan_kontak":{
+    #     "page": 3,
+    #     "x": 0,
+    #     "y": top_to_pdf_y(0),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "alamat_kontak":{
+    #     "page": 3,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(204),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "rt_kontak":{
+    #     "page": 3,
+    #     "x": 232,
+    #     "y": top_to_pdf_y(223),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "rw_kontak":{
+    #     "page": 3,
+    #     "x": 268,
+    #     "y": top_to_pdf_y(223),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "provinsi_kontak":{
+    #     "page": 3,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(235),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "kota_kontak":{
+    #     "page": 3,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(250),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "kecamatan_kontak":{
+    #     "page": 3,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(266),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "kelurahan_kontak":{
+    #     "page": 3,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(281),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "kode_pos_kontak":{
+    #     "page": 3,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(297),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "no_telepon_kontak":{
+    #     "page": 3,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(312),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
 }
 
 
@@ -623,7 +623,7 @@ def _make_overlay(page_fields, page_w, page_h):
     return PdfReader(packet)
 
 
-def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
+def fill_kjp_pdf_data_siswa(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
     """
         data Murid
     """
@@ -656,317 +656,317 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
 
     # Cek Jenis Kelamin
     if jenis_kelamin_murid == "Laki-laki":
-        FIELDS["jenis_kelamin_murid"]["x"] = 234
-        FIELDS["jenis_kelamin_murid"]["y"] = top_to_pdf_y(200)
+        FIELDS_DATA_SISWA["jenis_kelamin_murid"]["x"] = 234
+        FIELDS_DATA_SISWA["jenis_kelamin_murid"]["y"] = top_to_pdf_y(200)
     else:
-        FIELDS["jenis_kelamin_murid"]["x"] = 313
-        FIELDS["jenis_kelamin_murid"]["y"] = top_to_pdf_y(200)
+        FIELDS_DATA_SISWA["jenis_kelamin_murid"]["x"] = 313
+        FIELDS_DATA_SISWA["jenis_kelamin_murid"]["y"] = top_to_pdf_y(200)
 
     # Cek kelas
     if kelas == "7":
-        FIELDS["kelas"]["x"] = 388
-        FIELDS["kelas"]["y"] = top_to_pdf_y(371)
+        FIELDS_DATA_SISWA["kelas"]["x"] = 388
+        FIELDS_DATA_SISWA["kelas"]["y"] = top_to_pdf_y(371)
     elif kelas == "8":
-        FIELDS["kelas"]["x"] = 388
-        FIELDS["kelas"]["y"] = top_to_pdf_y(384)
+        FIELDS_DATA_SISWA["kelas"]["x"] = 388
+        FIELDS_DATA_SISWA["kelas"]["y"] = top_to_pdf_y(384)
     elif kelas == "9":
-        FIELDS["kelas"]["x"] = 388
-        FIELDS["kelas"]["y"] = top_to_pdf_y(396)
+        FIELDS_DATA_SISWA["kelas"]["x"] = 388
+        FIELDS_DATA_SISWA["kelas"]["y"] = top_to_pdf_y(396)
     else:
-        FIELDS["kelas"]["x"] = 0
-        FIELDS["kelas"]["y"] = top_to_pdf_y(0)
+        FIELDS_DATA_SISWA["kelas"]["x"] = 0
+        FIELDS_DATA_SISWA["kelas"]["y"] = top_to_pdf_y(0)
 
     # Cek Masa Berlaku Identitas
     if masa_berlaku_identitas == "Seumur Hidup":
-        FIELDS["masa_berlaku_identitas"]["x"] = 307
-        FIELDS["masa_berlaku_identitas"]["y"] = top_to_pdf_y(440)
+        FIELDS_DATA_SISWA["masa_berlaku_identitas"]["x"] = 307
+        FIELDS_DATA_SISWA["masa_berlaku_identitas"]["y"] = top_to_pdf_y(440)
     else:
-        FIELDS["masa_berlaku_identitas"]["x"] = 222
-        FIELDS["masa_berlaku_identitas"]["y"] = top_to_pdf_y(437)
+        FIELDS_DATA_SISWA["masa_berlaku_identitas"]["x"] = 222
+        FIELDS_DATA_SISWA["masa_berlaku_identitas"]["y"] = top_to_pdf_y(437)
 
     # Cek Alamat Surat
     if alamat_surat == "Diambil Sendiri":
-        FIELDS["alamat_surat"]["x"] = 236
-        FIELDS["alamat_surat"]["y"] = top_to_pdf_y(487)
+        FIELDS_DATA_SISWA["alamat_surat"]["x"] = 236
+        FIELDS_DATA_SISWA["alamat_surat"]["y"] = top_to_pdf_y(487)
     elif alamat_surat == "Dikirim":
-        FIELDS["alamat_surat"]["x"] = 344
-        FIELDS["alamat_surat"]["y"] = top_to_pdf_y(487)
+        FIELDS_DATA_SISWA["alamat_surat"]["x"] = 344
+        FIELDS_DATA_SISWA["alamat_surat"]["y"] = top_to_pdf_y(487)
 
     # Cek Tipe Alamat
     if tipe_alamat == "Alamat Rumah":
-        FIELDS["tipe_alamat"]["x"] = 236
-        FIELDS["tipe_alamat"]["y"] = top_to_pdf_y(508)
+        FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 236
+        FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(508)
     elif tipe_alamat == "Alamat Kantor":
-        FIELDS["tipe_alamat"]["x"] = 236
-        FIELDS["tipe_alamat"]["y"] = top_to_pdf_y(520)
+        FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 236
+        FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(520)
     elif tipe_alamat == "Alamat Kost":
-        FIELDS["tipe_alamat"]["x"] = 236
-        FIELDS["tipe_alamat"]["y"] = top_to_pdf_y(533)
+        FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 236
+        FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(533)
     elif tipe_alamat == "Alamat Sesuai KK":
-        FIELDS["tipe_alamat"]["x"] = 236
-        FIELDS["tipe_alamat"]["y"] = top_to_pdf_y(546)
+        FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 236
+        FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(546)
     elif tipe_alamat == "Alamat Sesuai NPWP":
-        FIELDS["tipe_alamat"]["x"] = 344
-        FIELDS["tipe_alamat"]["y"] = top_to_pdf_y(508)
+        FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 344
+        FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(508)
     elif tipe_alamat == "Alamat Rusun":
-        FIELDS["tipe_alamat"]["x"] = 344
-        FIELDS["tipe_alamat"]["y"] = top_to_pdf_y(519)
+        FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 344
+        FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(519)
     elif tipe_alamat == "Alamat Panti":
-        FIELDS["tipe_alamat"]["x"] = 344
-        FIELDS["tipe_alamat"]["y"] = top_to_pdf_y(534)
+        FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 344
+        FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(534)
 
     # Cek Status Tempat Tinggal
     if status_tempat_tinggal == "Bukan Milik Pribadi":
-        FIELDS["status_tempat_tinggal"]["x"] = 237
-        FIELDS["status_tempat_tinggal"]["y"] = top_to_pdf_y(560)
+        FIELDS_DATA_SISWA["status_tempat_tinggal"]["x"] = 237
+        FIELDS_DATA_SISWA["status_tempat_tinggal"]["y"] = top_to_pdf_y(560)
     elif status_tempat_tinggal == "Milik Pribadi":
-        FIELDS["status_tempat_tinggal"]["x"] = 392
-        FIELDS["status_tempat_tinggal"]["y"] = top_to_pdf_y(560)
+        FIELDS_DATA_SISWA["status_tempat_tinggal"]["x"] = 392
+        FIELDS_DATA_SISWA["status_tempat_tinggal"]["y"] = top_to_pdf_y(560)
 
     # Cek Agama Murid
     if agama_murid == "Islam":
-        FIELDS["agama_murid"]["x"] = 310
-        FIELDS["agama_murid"]["y"] = top_to_pdf_y(596)
+        FIELDS_DATA_SISWA["agama_murid"]["x"] = 310
+        FIELDS_DATA_SISWA["agama_murid"]["y"] = top_to_pdf_y(596)
     if agama_murid == "Protestan":
-        FIELDS["agama_murid"]["x"] = 310
-        FIELDS["agama_murid"]["y"] = top_to_pdf_y(582)
+        FIELDS_DATA_SISWA["agama_murid"]["x"] = 310
+        FIELDS_DATA_SISWA["agama_murid"]["y"] = top_to_pdf_y(582)
     if agama_murid == "Katolik":
-        FIELDS["agama_murid"]["x"] = 391
-        FIELDS["agama_murid"]["y"] = top_to_pdf_y(582)
+        FIELDS_DATA_SISWA["agama_murid"]["x"] = 391
+        FIELDS_DATA_SISWA["agama_murid"]["y"] = top_to_pdf_y(582)
     if agama_murid == "Hindu":
-        FIELDS["agama_murid"]["x"] = 237
-        FIELDS["agama_murid"]["y"] = top_to_pdf_y(582)
+        FIELDS_DATA_SISWA["agama_murid"]["x"] = 237
+        FIELDS_DATA_SISWA["agama_murid"]["y"] = top_to_pdf_y(582)
     if agama_murid == "Budha":
-        FIELDS["agama_murid"]["x"] = 237
-        FIELDS["agama_murid"]["y"] = top_to_pdf_y(596)
+        FIELDS_DATA_SISWA["agama_murid"]["x"] = 237
+        FIELDS_DATA_SISWA["agama_murid"]["y"] = top_to_pdf_y(596)
     if agama_murid == "Lainnya":
-        FIELDS["agama_murid"]["x"] = 391
-        FIELDS["agama_murid"]["y"] = top_to_pdf_y(596)
+        FIELDS_DATA_SISWA["agama_murid"]["x"] = 391
+        FIELDS_DATA_SISWA["agama_murid"]["y"] = top_to_pdf_y(596)
 
     # Cek untuk Disabilitas
     if untuk_disabilitas == "Tidak Ada":
-        FIELDS["untuk_disabilitas"]["x"] = 0
-        FIELDS["untuk_disabilitas"]["y"] = top_to_pdf_y(0)
+        FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 0
+        FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(0)
     elif untuk_disabilitas == "Tuna Rungu":
-        FIELDS["untuk_disabilitas"]["x"] = 237
-        FIELDS["untuk_disabilitas"]["y"] = top_to_pdf_y(664)
+        FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
+        FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(664)
     elif untuk_disabilitas == "Tuna Netra":
-        FIELDS["untuk_disabilitas"]["x"] = 237
-        FIELDS["untuk_disabilitas"]["y"] = top_to_pdf_y(676)
+        FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
+        FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(676)
     elif untuk_disabilitas == "Tuna Wicara":
-        FIELDS["untuk_disabilitas"]["x"] = 237
-        FIELDS["untuk_disabilitas"]["y"] = top_to_pdf_y(690)
+        FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
+        FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(690)
     elif untuk_disabilitas == "Tuna Daksa":
-        FIELDS["untuk_disabilitas"]["x"] = 237
-        FIELDS["untuk_disabilitas"]["y"] = top_to_pdf_y(703)
+        FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
+        FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(703)
     elif untuk_disabilitas == "Tuna Grahita":
-        FIELDS["untuk_disabilitas"]["x"] = 237
-        FIELDS["untuk_disabilitas"]["y"] = top_to_pdf_y(716)
+        FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
+        FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(716)
     elif untuk_disabilitas == "Tuna Laras":
-        FIELDS["untuk_disabilitas"]["x"] = 237
-        FIELDS["untuk_disabilitas"]["y"] = top_to_pdf_y(729)
+        FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
+        FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(729)
     elif untuk_disabilitas == "Tuna Ganda":
-        FIELDS["untuk_disabilitas"]["x"] = 237
-        FIELDS["untuk_disabilitas"]["y"] = top_to_pdf_y(743)
+        FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
+        FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(743)
 
 
     """
         data Wali
     """
-    nama_wali = siswa.get("nama_wali", "")
-    no_ktp_wali = siswa.get("no_ktp_wali", "")
-    masa_berlaku_ktp_wali = siswa.get("masa_berlaku_ktp_wali", "")
-    npwp_wali = siswa.get("npwp_wali", "")
-    kartu_keluarga_wali = siswa.get("kartu_keluarga_wali", "")
-    tempat_lahir_wali = siswa.get("tempat_lahir_wali", "")
-    tanggal_lahir_wali = siswa.get("tanggal_lahir_wali", "")
-    jenis_kelamin_wali = siswa.get("jenis_kelamin_wali", "")
-    agama_wali = siswa.get("agama_wali", "")
-    nama_ibu_kandung_wali = siswa.get("nama_ibu_kandung_wali", "")
-    pekerjaan_wali = siswa.get("pekerjaan_wali", "")
-    status_pernikahan_wali = siswa.get("status_pernikahan_wali", "")
-    pendidikan_wali = siswa.get("pendidikan_wali", "")
-    jabatan_wali = siswa.get("jabatan_wali", "")
-    alamat_wali = siswa.get("alamat_wali", "")
-    rt_wali = siswa.get("rt_wali", "")
-    rw_wali = siswa.get("rw_wali", "")
-    provinsi_wali = siswa.get("provinsi_wali", "")
-    kota_wali = siswa.get("kota_wali", "")
-    kecamatan_wali = siswa.get("kecamatan_wali", "")
-    kelurahan_wali = siswa.get("kelurahan_wali", "")
-    kode_pos_wali = siswa.get("kode_pos_wali", "")
-    status_tempat_tinggal_wali = siswa.get("status_tempat_tinggal_wali", "")
-    no_hp_wali = siswa.get("no_hp_wali", "")
-    no_telepon_wali = siswa.get("no_telepon_wali", "")
-    tipe_alamat_wali = siswa.get("tipe_alamat_wali", "")
+    # nama_wali = siswa.get("nama_wali", "")
+    # no_ktp_wali = siswa.get("no_ktp_wali", "")
+    # masa_berlaku_ktp_wali = siswa.get("masa_berlaku_ktp_wali", "")
+    # npwp_wali = siswa.get("npwp_wali", "")
+    # kartu_keluarga_wali = siswa.get("kartu_keluarga_wali", "")
+    # tempat_lahir_wali = siswa.get("tempat_lahir_wali", "")
+    # tanggal_lahir_wali = siswa.get("tanggal_lahir_wali", "")
+    # jenis_kelamin_wali = siswa.get("jenis_kelamin_wali", "")
+    # agama_wali = siswa.get("agama_wali", "")
+    # nama_ibu_kandung_wali = siswa.get("nama_ibu_kandung_wali", "")
+    # pekerjaan_wali = siswa.get("pekerjaan_wali", "")
+    # status_pernikahan_wali = siswa.get("status_pernikahan_wali", "")
+    # pendidikan_wali = siswa.get("pendidikan_wali", "")
+    # jabatan_wali = siswa.get("jabatan_wali", "")
+    # alamat_wali = siswa.get("alamat_wali", "")
+    # rt_wali = siswa.get("rt_wali", "")
+    # rw_wali = siswa.get("rw_wali", "")
+    # provinsi_wali = siswa.get("provinsi_wali", "")
+    # kota_wali = siswa.get("kota_wali", "")
+    # kecamatan_wali = siswa.get("kecamatan_wali", "")
+    # kelurahan_wali = siswa.get("kelurahan_wali", "")
+    # kode_pos_wali = siswa.get("kode_pos_wali", "")
+    # status_tempat_tinggal_wali = siswa.get("status_tempat_tinggal_wali", "")
+    # no_hp_wali = siswa.get("no_hp_wali", "")
+    # no_telepon_wali = siswa.get("no_telepon_wali", "")
+    # tipe_alamat_wali = siswa.get("tipe_alamat_wali", "")
 
-    # cek masa berlaku ktp wali
-    if masa_berlaku_ktp_wali == "Seumur Hidup":
-        FIELDS["masa_berlaku_ktp_wali"]["x"] = 311
-        FIELDS["masa_berlaku_ktp_wali"]["y"] = top_to_pdf_y(131)
+    # # cek masa berlaku ktp wali
+    # if masa_berlaku_ktp_wali == "Seumur Hidup":
+    #     FIELDS["masa_berlaku_ktp_wali"]["x"] = 311
+    #     FIELDS["masa_berlaku_ktp_wali"]["y"] = top_to_pdf_y(131)
     
-    # cek jenis kelamin wali
-    if jenis_kelamin_wali == "Laki-laki":
-        FIELDS["jenis_kelamin_wali"]["x"] = 239
-        FIELDS["jenis_kelamin_wali"]["y"] = top_to_pdf_y(214)
-    elif jenis_kelamin_wali == "Perempuan":
-        FIELDS["jenis_kelamin_wali"]["x"] = 317
-        FIELDS["jenis_kelamin_wali"]["y"] = top_to_pdf_y(214)
+    # # cek jenis kelamin wali
+    # if jenis_kelamin_wali == "Laki-laki":
+    #     FIELDS["jenis_kelamin_wali"]["x"] = 239
+    #     FIELDS["jenis_kelamin_wali"]["y"] = top_to_pdf_y(214)
+    # elif jenis_kelamin_wali == "Perempuan":
+    #     FIELDS["jenis_kelamin_wali"]["x"] = 317
+    #     FIELDS["jenis_kelamin_wali"]["y"] = top_to_pdf_y(214)
 
-    # cek agama wali
-    if agama_wali == "Hindu":
-        FIELDS["agama_wali"]["x"] = 239
-        FIELDS["agama_wali"]["y"] = top_to_pdf_y(239)
-    elif agama_wali == "Protestan":
-        FIELDS["agama_wali"]["x"] = 315
-        FIELDS["agama_wali"]["y"] = top_to_pdf_y(239)
-    elif agama_wali == "Katolik":
-        FIELDS["agama_wali"]["x"] = 394
-        FIELDS["agama_wali"]["y"] = top_to_pdf_y(239)
-    elif agama_wali == "Budha":
-        FIELDS["agama_wali"]["x"] = 239
-        FIELDS["agama_wali"]["y"] = top_to_pdf_y(248)
-    elif agama_wali == "Islam":
-        FIELDS["agama_wali"]["x"] = 315
-        FIELDS["agama_wali"]["y"] = top_to_pdf_y(248)
-    elif agama_wali == "Lainnya":
-        FIELDS["agama_wali"]["x"] = 394
-        FIELDS["agama_wali"]["y"] = top_to_pdf_y(248)
+    # # cek agama wali
+    # if agama_wali == "Hindu":
+    #     FIELDS["agama_wali"]["x"] = 239
+    #     FIELDS["agama_wali"]["y"] = top_to_pdf_y(239)
+    # elif agama_wali == "Protestan":
+    #     FIELDS["agama_wali"]["x"] = 315
+    #     FIELDS["agama_wali"]["y"] = top_to_pdf_y(239)
+    # elif agama_wali == "Katolik":
+    #     FIELDS["agama_wali"]["x"] = 394
+    #     FIELDS["agama_wali"]["y"] = top_to_pdf_y(239)
+    # elif agama_wali == "Budha":
+    #     FIELDS["agama_wali"]["x"] = 239
+    #     FIELDS["agama_wali"]["y"] = top_to_pdf_y(248)
+    # elif agama_wali == "Islam":
+    #     FIELDS["agama_wali"]["x"] = 315
+    #     FIELDS["agama_wali"]["y"] = top_to_pdf_y(248)
+    # elif agama_wali == "Lainnya":
+    #     FIELDS["agama_wali"]["x"] = 394
+    #     FIELDS["agama_wali"]["y"] = top_to_pdf_y(248)
 
-    # cek pekerjaan wali
-    if pekerjaan_wali == "Pelajar/Mahasiswa":
-        FIELDS["pekerjaan_wali"]["x"] = 239
-        FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(266)
-    elif pekerjaan_wali == "Ibu Rumah Tangga":
-        FIELDS["pekerjaan_wali"]["x"] = 348
-        FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(266)
-    elif pekerjaan_wali == "Pegawai Swasta":
-        FIELDS["pekerjaan_wali"]["x"] = 239
-        FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(279)
-    elif pekerjaan_wali == "Wiraswasta":
-        FIELDS["pekerjaan_wali"]["x"] = 348
-        FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(279)
-    elif pekerjaan_wali == "TNI/Polri":
-        FIELDS["pekerjaan_wali"]["x"] = 239
-        FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(293)
-    elif pekerjaan_wali == "Pensiunan":
-        FIELDS["pekerjaan_wali"]["x"] = 348
-        FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(293)
-    elif pekerjaan_wali == "Pegawai Negeri":
-        FIELDS["pekerjaan_wali"]["x"] = 239
-        FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(307)
-    elif pekerjaan_wali == "Lain-Lain":
-        FIELDS["pekerjaan_wali"]["x"] = 348
-        FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(307)
+    # # cek pekerjaan wali
+    # if pekerjaan_wali == "Pelajar/Mahasiswa":
+    #     FIELDS["pekerjaan_wali"]["x"] = 239
+    #     FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(266)
+    # elif pekerjaan_wali == "Ibu Rumah Tangga":
+    #     FIELDS["pekerjaan_wali"]["x"] = 348
+    #     FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(266)
+    # elif pekerjaan_wali == "Pegawai Swasta":
+    #     FIELDS["pekerjaan_wali"]["x"] = 239
+    #     FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(279)
+    # elif pekerjaan_wali == "Wiraswasta":
+    #     FIELDS["pekerjaan_wali"]["x"] = 348
+    #     FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(279)
+    # elif pekerjaan_wali == "TNI/Polri":
+    #     FIELDS["pekerjaan_wali"]["x"] = 239
+    #     FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(293)
+    # elif pekerjaan_wali == "Pensiunan":
+    #     FIELDS["pekerjaan_wali"]["x"] = 348
+    #     FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(293)
+    # elif pekerjaan_wali == "Pegawai Negeri":
+    #     FIELDS["pekerjaan_wali"]["x"] = 239
+    #     FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(307)
+    # elif pekerjaan_wali == "Lain-Lain":
+    #     FIELDS["pekerjaan_wali"]["x"] = 348
+    #     FIELDS["pekerjaan_wali"]["y"] = top_to_pdf_y(307)
 
-    # cek nama ibu kandung wali
-    if status_pernikahan_wali == "Lajang":
-        FIELDS['status_pernikahan_wali']["x"] = 239
-        FIELDS['status_pernikahan_wali']["y"] = top_to_pdf_y(344)
-    elif status_pernikahan_wali == "Menikah":
-        FIELDS['status_pernikahan_wali']["x"] = 313
-        FIELDS['status_pernikahan_wali']["y"] = top_to_pdf_y(344)
-    elif status_pernikahan_wali == "Janda/Duda":
-        FIELDS['status_pernikahan_wali']["x"] = 383
-        FIELDS['status_pernikahan_wali']["y"] = top_to_pdf_y(344)
+    # # cek nama ibu kandung wali
+    # if status_pernikahan_wali == "Lajang":
+    #     FIELDS['status_pernikahan_wali']["x"] = 239
+    #     FIELDS['status_pernikahan_wali']["y"] = top_to_pdf_y(344)
+    # elif status_pernikahan_wali == "Menikah":
+    #     FIELDS['status_pernikahan_wali']["x"] = 313
+    #     FIELDS['status_pernikahan_wali']["y"] = top_to_pdf_y(344)
+    # elif status_pernikahan_wali == "Janda/Duda":
+    #     FIELDS['status_pernikahan_wali']["x"] = 383
+    #     FIELDS['status_pernikahan_wali']["y"] = top_to_pdf_y(344)
 
-    # cek pendidikan wali
-    if pendidikan_wali == "SD":
-        FIELDS["pendidikan_wali"]["x"] = 239
-        FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(367)
-    elif pendidikan_wali == "SMP":
-        FIELDS["pendidikan_wali"]["x"] = 239
-        FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(380)
-    elif pendidikan_wali == "SMA":
-        FIELDS["pendidikan_wali"]["x"] = 239
-        FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(393)
-    elif pendidikan_wali == "D1":
-        FIELDS["pendidikan_wali"]["x"] = 313
-        FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(367)
-    elif pendidikan_wali == "D2":
-        FIELDS["pendidikan_wali"]["x"] = 313
-        FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(380)
-    elif pendidikan_wali == "D3":
-        FIELDS["pendidikan_wali"]["x"] = 313
-        FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(393)
-    elif pendidikan_wali == "S1":
-        FIELDS["pendidikan_wali"]["x"] = 384
-        FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(367)
-    elif pendidikan_wali == "S2":
-        FIELDS["pendidikan_wali"]["x"] = 384
-        FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(380)
-    elif pendidikan_wali == "S3":
-        FIELDS["pendidikan_wali"]["x"] = 384
-        FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(393)
+    # # cek pendidikan wali
+    # if pendidikan_wali == "SD":
+    #     FIELDS["pendidikan_wali"]["x"] = 239
+    #     FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(367)
+    # elif pendidikan_wali == "SMP":
+    #     FIELDS["pendidikan_wali"]["x"] = 239
+    #     FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(380)
+    # elif pendidikan_wali == "SMA":
+    #     FIELDS["pendidikan_wali"]["x"] = 239
+    #     FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(393)
+    # elif pendidikan_wali == "D1":
+    #     FIELDS["pendidikan_wali"]["x"] = 313
+    #     FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(367)
+    # elif pendidikan_wali == "D2":
+    #     FIELDS["pendidikan_wali"]["x"] = 313
+    #     FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(380)
+    # elif pendidikan_wali == "D3":
+    #     FIELDS["pendidikan_wali"]["x"] = 313
+    #     FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(393)
+    # elif pendidikan_wali == "S1":
+    #     FIELDS["pendidikan_wali"]["x"] = 384
+    #     FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(367)
+    # elif pendidikan_wali == "S2":
+    #     FIELDS["pendidikan_wali"]["x"] = 384
+    #     FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(380)
+    # elif pendidikan_wali == "S3":
+    #     FIELDS["pendidikan_wali"]["x"] = 384
+    #     FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(393)
     
-    # cek jabatan wali
-    if jabatan_wali == "Tetap":
-        FIELDS["jabatan_wali"]["x"] = 238
-        FIELDS["jabatan_wali"]["y"] = top_to_pdf_y(418)
-    elif jabatan_wali == "Honorer":
-        FIELDS["jabatan_wali"]["x"] = 314
-        FIELDS["jabatan_wali"]["y"] = top_to_pdf_y(418)
-    elif jabatan_wali == "kontrak":
-        FIELDS["jabatan_wali"]["x"] = 238
-        FIELDS["jabatan_wali"]["y"] = top_to_pdf_y(430)
-    elif jabatan_wali == "Tidak Kerja":
-        FIELDS["jabatan_wali"]["x"] = 314
-        FIELDS["jabatan_wali"]["y"] = top_to_pdf_y(430)
+    # # cek jabatan wali
+    # if jabatan_wali == "Tetap":
+    #     FIELDS["jabatan_wali"]["x"] = 238
+    #     FIELDS["jabatan_wali"]["y"] = top_to_pdf_y(418)
+    # elif jabatan_wali == "Honorer":
+    #     FIELDS["jabatan_wali"]["x"] = 314
+    #     FIELDS["jabatan_wali"]["y"] = top_to_pdf_y(418)
+    # elif jabatan_wali == "kontrak":
+    #     FIELDS["jabatan_wali"]["x"] = 238
+    #     FIELDS["jabatan_wali"]["y"] = top_to_pdf_y(430)
+    # elif jabatan_wali == "Tidak Kerja":
+    #     FIELDS["jabatan_wali"]["x"] = 314
+    #     FIELDS["jabatan_wali"]["y"] = top_to_pdf_y(430)
 
-    # cek status tempat tinggal
-    if status_tempat_tinggal_wali == "Bukan Milik Pribadi":
-        FIELDS["status_tempat_tinggal_wali"]["x"] = 240
-        FIELDS["status_tempat_tinggal_wali"]["y"] = top_to_pdf_y(555)
-    elif status_tempat_tinggal_wali == "Milik Pribadi":
-        FIELDS["status_tempat_tinggal_wali"]["x"] = 386
-        FIELDS["status_tempat_tinggal_wali"]["y"] = top_to_pdf_y(555)
+    # # cek status tempat tinggal
+    # if status_tempat_tinggal_wali == "Bukan Milik Pribadi":
+    #     FIELDS["status_tempat_tinggal_wali"]["x"] = 240
+    #     FIELDS["status_tempat_tinggal_wali"]["y"] = top_to_pdf_y(555)
+    # elif status_tempat_tinggal_wali == "Milik Pribadi":
+    #     FIELDS["status_tempat_tinggal_wali"]["x"] = 386
+    #     FIELDS["status_tempat_tinggal_wali"]["y"] = top_to_pdf_y(555)
 
-    # cek tipe tempat tinggal
-    if tipe_alamat_wali == "Alamat Rumah":
-        FIELDS["tipe_alamat_wali"]["x"] = 239
-        FIELDS["tipe_alamat_wali"]["y"] = top_to_pdf_y(600)
-    elif tipe_alamat_wali == "Alamat Kost":
-        FIELDS["tipe_alamat_wali"]["x"] = 347
-        FIELDS["tipe_alamat_wali"]["y"] = top_to_pdf_y(600)
+    # # cek tipe tempat tinggal
+    # if tipe_alamat_wali == "Alamat Rumah":
+    #     FIELDS["tipe_alamat_wali"]["x"] = 239
+    #     FIELDS["tipe_alamat_wali"]["y"] = top_to_pdf_y(600)
+    # elif tipe_alamat_wali == "Alamat Kost":
+    #     FIELDS["tipe_alamat_wali"]["x"] = 347
+    #     FIELDS["tipe_alamat_wali"]["y"] = top_to_pdf_y(600)
 
-    """
-        Data Kontak Darurat
-    """
-    nama_kontak_darurat = siswa.get("nama_kontak_darurat", "")
-    no_identitas_kontak = siswa.get("no_identitas_kontak", "")
-    alamat_kontak = siswa.get("alamat_kontak", "")
-    provinsi_kontak = siswa.get("provinsi_kontak", "")
-    kota_kontak = siswa.get("kota_kontak", "")
-    kecamatan_kontak = siswa.get("kecamatan_kontak", "")
-    kelurahan_kontak = siswa.get("kelurahan_kontak", "")
-    kode_pos_kontak = siswa.get("kode_pos_kontak", "")
-    no_telepon_kontak = siswa.get("no_telepon_kontak", "")
-    hubungan_kontak = siswa.get("hubungan_kontak", "")
-    rt_kontak = siswa.get("rt_kontak", "")
-    rw_kontak = siswa.get("rw_kontak", "")
+    # """
+    #     Data Kontak Darurat
+    # """
+    # nama_kontak_darurat = siswa.get("nama_kontak_darurat", "")
+    # no_identitas_kontak = siswa.get("no_identitas_kontak", "")
+    # alamat_kontak = siswa.get("alamat_kontak", "")
+    # provinsi_kontak = siswa.get("provinsi_kontak", "")
+    # kota_kontak = siswa.get("kota_kontak", "")
+    # kecamatan_kontak = siswa.get("kecamatan_kontak", "")
+    # kelurahan_kontak = siswa.get("kelurahan_kontak", "")
+    # kode_pos_kontak = siswa.get("kode_pos_kontak", "")
+    # no_telepon_kontak = siswa.get("no_telepon_kontak", "")
+    # hubungan_kontak = siswa.get("hubungan_kontak", "")
+    # rt_kontak = siswa.get("rt_kontak", "")
+    # rw_kontak = siswa.get("rw_kontak", "")
 
-    # cek hubungan kontak
-    if hubungan_kontak == "Orangtua Kandung/Tiri/Angkat":
-        FIELDS["hubungan_kontak"]["x"] = 226
-        FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(146)
-    elif hubungan_kontak == "Ipar dari Istri/Suami":
-        FIELDS["hubungan_kontak"]["x"] = 393
-        FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(146)
-    elif hubungan_kontak == "Saudara Kandung/Tiiri/Angkat":
-        FIELDS["hubungan_kontak"]["x"] = 226
-        FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(159)
-    elif hubungan_kontak == "AnakKandung/Tiri/Angkat":
-        FIELDS["hubungan_kontak"]["x"] = 393
-        FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(159)
-    elif hubungan_kontak == "Suami/Istri":
-        FIELDS["hubungan_kontak"]["x"] = 226
-        FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(172)
-    elif hubungan_kontak == "Mertua":
-        FIELDS["hubungan_kontak"]["x"] = 393
-        FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(172)
-    elif hubungan_kontak == "Kakek/Nenek":
-        FIELDS["hubungan_kontak"]["x"] = 226
-        FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(186)
+    # # cek hubungan kontak
+    # if hubungan_kontak == "Orangtua Kandung/Tiri/Angkat":
+    #     FIELDS["hubungan_kontak"]["x"] = 226
+    #     FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(146)
+    # elif hubungan_kontak == "Ipar dari Istri/Suami":
+    #     FIELDS["hubungan_kontak"]["x"] = 393
+    #     FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(146)
+    # elif hubungan_kontak == "Saudara Kandung/Tiiri/Angkat":
+    #     FIELDS["hubungan_kontak"]["x"] = 226
+    #     FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(159)
+    # elif hubungan_kontak == "AnakKandung/Tiri/Angkat":
+    #     FIELDS["hubungan_kontak"]["x"] = 393
+    #     FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(159)
+    # elif hubungan_kontak == "Suami/Istri":
+    #     FIELDS["hubungan_kontak"]["x"] = 226
+    #     FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(172)
+    # elif hubungan_kontak == "Mertua":
+    #     FIELDS["hubungan_kontak"]["x"] = 393
+    #     FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(172)
+    # elif hubungan_kontak == "Kakek/Nenek":
+    #     FIELDS["hubungan_kontak"]["x"] = 226
+    #     FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(186)
 
 
     # Kelompokkan field berdasarkan halaman
@@ -1007,55 +1007,55 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
         ("kecamatan_murid", kecamatan_murid),
         ("kelurahan_murid", kelurahan_murid),
         ("kode_pos_murid", kode_pos_murid),
-        ("nama_wali", nama_wali),
-        ("no_ktp_wali", no_ktp_wali),
-        ("masa_berlaku_ktp_wali", "✓" if masa_berlaku_ktp_wali == "Seumur Hidup" else masa_berlaku_ktp_wali),
-        ("npwp_wali", npwp_wali),
-        ("kartu_keluarga_wali", kartu_keluarga_wali),
-        ("tempat_lahir_wali", tempat_lahir_wali),
-        ("tanggal_lahir_wali_tanggal_1", tanggal_lahir_wali.split("-")[2][0]),
-        ("tanggal_lahir_wali_tanggal_2", tanggal_lahir_wali.split("-")[2][1]),
-        ("tanggal_lahir_wali_bulan_1", tanggal_lahir_wali.split("-")[1][0]),
-        ("tanggal_lahir_wali_bulan_2", tanggal_lahir_wali.split("-")[1][1]),
-        ("tanggal_lahir_wali_tahun_1", tanggal_lahir_wali.split("-")[0][0]),
-        ("tanggal_lahir_wali_tahun_2", tanggal_lahir_wali.split("-")[0][1]),
-        ("tanggal_lahir_wali_tahun_3", tanggal_lahir_wali.split("-")[0][2]),
-        ("tanggal_lahir_wali_tahun_4", tanggal_lahir_wali.split("-")[0][3]),
-        ("jenis_kelamin_wali", "✓"),
-        ("agama_wali", "✓"),
-        ("nama_ibu_kandung_wali", nama_ibu_kandung_wali),
-        ("pekerjaan_wali", "✓"),
-        ("status_pernikahan_wali", "✓"),
-        ("pendidikan_wali", "✓"),
-        ("jabatan_wali", "✓"),
-        ("alamat_wali", alamat_wali),
-        ("rt_wali", rt_wali),
-        ("rw_wali", rw_wali),
-        ("provinsi_wali", provinsi_wali),
-        ("kota_wali", kota_wali),
-        ("kecamatan_wali", kecamatan_wali),
-        ("kelurahan_wali", kelurahan_wali),
-        ("kode_pos_wali", kode_pos_wali),
-        ("status_tempat_tinggal_wali", "✓"),
-        ("no_hp_wali", no_hp_wali),
-        ("no_telepon_wali", no_telepon_wali),
-        ("tipe_alamat_wali", "✓"),
-        ("nama_kontak_darurat", nama_kontak_darurat),
-        ("alamat_kontak", alamat_kontak),
-        ("no_identitas_kontak", no_identitas_kontak),
-        ("provinsi_kontak", provinsi_kontak),
-        ("kota_kontak", kota_kontak),
-        ("kecamatan_kontak", kecamatan_kontak),
-        ("kelurahan_kontak", kelurahan_kontak),
-        ("kode_pos_kontak", kode_pos_kontak),
-        ("no_telepon_kontak", no_telepon_kontak),
-        ("hubungan_kontak", "✓"),
-        ("rt_kontak", rt_kontak),
-        ("rw_kontak", rw_kontak),
+        # ("nama_wali", nama_wali),
+        # ("no_ktp_wali", no_ktp_wali),
+        # ("masa_berlaku_ktp_wali", "✓" if masa_berlaku_ktp_wali == "Seumur Hidup" else masa_berlaku_ktp_wali),
+        # ("npwp_wali", npwp_wali),
+        # ("kartu_keluarga_wali", kartu_keluarga_wali),
+        # ("tempat_lahir_wali", tempat_lahir_wali),
+        # ("tanggal_lahir_wali_tanggal_1", tanggal_lahir_wali.split("-")[2][0]),
+        # ("tanggal_lahir_wali_tanggal_2", tanggal_lahir_wali.split("-")[2][1]),
+        # ("tanggal_lahir_wali_bulan_1", tanggal_lahir_wali.split("-")[1][0]),
+        # ("tanggal_lahir_wali_bulan_2", tanggal_lahir_wali.split("-")[1][1]),
+        # ("tanggal_lahir_wali_tahun_1", tanggal_lahir_wali.split("-")[0][0]),
+        # ("tanggal_lahir_wali_tahun_2", tanggal_lahir_wali.split("-")[0][1]),
+        # ("tanggal_lahir_wali_tahun_3", tanggal_lahir_wali.split("-")[0][2]),
+        # ("tanggal_lahir_wali_tahun_4", tanggal_lahir_wali.split("-")[0][3]),
+        # ("jenis_kelamin_wali", "✓"),
+        # ("agama_wali", "✓"),
+        # ("nama_ibu_kandung_wali", nama_ibu_kandung_wali),
+        # ("pekerjaan_wali", "✓"),
+        # ("status_pernikahan_wali", "✓"),
+        # ("pendidikan_wali", "✓"),
+        # ("jabatan_wali", "✓"),
+        # ("alamat_wali", alamat_wali),
+        # ("rt_wali", rt_wali),
+        # ("rw_wali", rw_wali),
+        # ("provinsi_wali", provinsi_wali),
+        # ("kota_wali", kota_wali),
+        # ("kecamatan_wali", kecamatan_wali),
+        # ("kelurahan_wali", kelurahan_wali),
+        # ("kode_pos_wali", kode_pos_wali),
+        # ("status_tempat_tinggal_wali", "✓"),
+        # ("no_hp_wali", no_hp_wali),
+        # ("no_telepon_wali", no_telepon_wali),
+        # ("tipe_alamat_wali", "✓"),
+        # ("nama_kontak_darurat", nama_kontak_darurat),
+        # ("alamat_kontak", alamat_kontak),
+        # ("no_identitas_kontak", no_identitas_kontak),
+        # ("provinsi_kontak", provinsi_kontak),
+        # ("kota_kontak", kota_kontak),
+        # ("kecamatan_kontak", kecamatan_kontak),
+        # ("kelurahan_kontak", kelurahan_kontak),
+        # ("kode_pos_kontak", kode_pos_kontak),
+        # ("no_telepon_kontak", no_telepon_kontak),
+        # ("hubungan_kontak", "✓"),
+        # ("rt_kontak", rt_kontak),
+        # ("rw_kontak", rw_kontak),
     ]
 
     for field_key, value in field_map:
-        cfg = FIELDS[field_key]
+        cfg = FIELDS_DATA_SISWA[field_key]
         pg  = cfg["page"]
         if pg not in page_data:
             page_data[pg] = []
