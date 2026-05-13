@@ -306,38 +306,6 @@
 .rtrw-group input { flex: 1; }
 .rtrw-sep { font-weight: 700; color: var(--text-muted); font-size: 16px; }
 
-/* ====== MASA BERLAKU IDENTITAS ====== */
-.masa-berlaku-row {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.masa-berlaku-row input { flex: 1; min-width: 160px; }
-.masa-berlaku-toggle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  background: var(--maroon-ghost);
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 13px;
-  color: var(--text-dark);
-  white-space: nowrap;
-  user-select: none;
-  transition: all 0.2s;
-}
-.masa-berlaku-toggle:hover { border-color: var(--maroon-light); }
-.masa-berlaku-toggle input { width: 15px; height: 15px; accent-color: var(--maroon-main); }
-.masa-berlaku-toggle:has(input:checked) {
-  border-color: var(--maroon-main);
-  background: var(--maroon-pale);
-  font-weight: 600;
-  color: var(--maroon-deep);
-}
-
 /* ====== TTD CANVAS ====== */
 .signature-area {
   border: 1.5px solid var(--border);
@@ -543,32 +511,6 @@ canvas.sig-canvas {
 .surat-wrapper ol { padding-left: 20px; }
 .surat-wrapper ol li { margin-bottom: 8px; }
 
-.ttd-block {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 24px;
-  margin-top: 24px;
-}
-.ttd-item {
-  flex: 1;
-  min-width: 200px;
-  text-align: center;
-}
-.ttd-item .ttd-label { font-size: 12px; font-weight: 600; margin-bottom: 4px; color: var(--text-mid); }
-.ttd-item .ttd-name { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
-
-/* ====== INLINE FIELD IN SURAT ====== */
-.surat-field {
-  display: inline-block;
-  border-bottom: 1.5px solid var(--maroon-light);
-  min-width: 200px;
-  padding: 2px 4px;
-  font-style: italic;
-  color: var(--maroon-mid);
-  vertical-align: bottom;
-}
-
 /* ====== PROGRESS BAR ====== */
 .progress-bar-wrap {
   height: 4px;
@@ -596,518 +538,27 @@ canvas.sig-canvas {
   <div class="kjp-main">
     <!-- STEP NAV -->
     <div class="step-nav">
-      <button class="step-btn active" data-step="1" onclick="goToStep(1)"><span class="step-num">①</span>Data Siswa</button>
-      <button class="step-btn" data-step="2" onclick="goToStep(2)"><span class="step-num">②</span>Data Wali</button>
-      <button class="step-btn" data-step="3" onclick="goToStep(3)"><span class="step-num">③</span>Kontak Darurat</button>
-      <button class="step-btn" data-step="4" onclick="goToStep(4)"><span class="step-num">④</span>Surat Permohonan</button>
-      <button class="step-btn" data-step="5" onclick="goToStep(5)"><span class="step-num">⑤</span>Pernyataan</button>
-      <button class="step-btn" data-step="6" onclick="goToStep(6)"><span class="step-num">⑥</span>Berita Acara</button>
+      <button class="step-btn active" data-step="1" onclick="goToStep(1)"><span class="step-num">①</span>Surat Permohonan</button>
+      <button class="step-btn" data-step="2" onclick="goToStep(2)"><span class="step-num">②</span>Pernyataan</button>
+      <button class="step-btn" data-step="3" onclick="goToStep(3)"><span class="step-num">③</span>Berita Acara</button>
     </div>
 
     <!-- PROGRESS BAR -->
     <div class="progress-bar-wrap">
-      <div class="progress-bar-fill" id="progressBar" style="width:16.66%"></div>
+      <div class="progress-bar-fill" id="progressBar" style="width:33.33%"></div>
     </div>
 
     <div class="kjp-card">
       <form id="kjpForm" method="POST" action="{{ url_for('layanan_kjp.layanan_kjp') }}">
 
         <!-- ======================================================== -->
-        <!-- STEP 1: DATA PRIBADI SISWA                                -->
+        <!-- STEP 1: SURAT PERMOHONAN                                  -->
         <!-- ======================================================== -->
         <div class="form-step active" id="step-1">
           <div class="card-header">
-            <div class="card-header-icon">🎓</div>
-            <div>
-              <h2>I. Data Pribadi Siswa</h2>
-              <p>Formulir Kelengkapan Data KJP Plus – Calon Penerima Bantuan</p>
-            </div>
-          </div>
-          <div class="form-body">
-
-            <div class="section-block">
-              <div class="section-label">Identitas Utama</div>
-              <div class="field-grid cols-2">
-                <div class="field-group">
-                  <label class="field-label">NIK <span class="field-required">*</span></label>
-                  <input type="text" pattern="[0-9]*" name="nik_murid" class="field-input" maxlength="16" pattern="[0-9]*" placeholder="16 digit NIK" required>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">No. Kartu Keluarga <span class="field-required">*</span></label>
-                  <input type="text" pattern="[0-9]*" name="no_kartu_keluarga" class="field-input" maxlength="16" pattern="[0-9]*" placeholder="16 digit No. KK" required>
-                </div>
-                <div class="field-group span-2">
-                  <label class="field-label">Nama Siswa <span class="field-required">*</span></label>
-                  <input type="text" name="nama_murid" class="field-input" placeholder="Nama lengkap sesuai ijazah/KK" required>
-                </div>
-              </div>
-            </div>
-
-            <div class="section-block">
-              <div class="section-label">Data Diri</div>
-              <div class="field-grid cols-2">
-                <div class="field-group">
-                  <label class="field-label">Jenis Kelamin <span class="field-required">*</span></label>
-                  <div class="radio-group">
-                    <label class="radio-opt">
-                      <input type="radio" name="jenis_kelamin_murid" value="Laki-laki" required> Laki-laki
-                    </label>
-                    <label class="radio-opt">
-                      <input type="radio" name="jenis_kelamin_murid" value="Perempuan"> Perempuan
-                    </label>
-                  </div>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Agama (No.24)</label>
-                  <div class="radio-group">
-                    <label class="radio-opt"><input type="radio" name="agama_murid" value="Hindu"> Hindu</label>
-                    <label class="radio-opt"><input type="radio" name="agama_murid" value="Protestan"> Protestan</label>
-                    <label class="radio-opt"><input type="radio" name="agama_murid" value="Katolik"> Katolik</label>
-                    <label class="radio-opt"><input type="radio" name="agama_murid" value="Budha"> Budha</label>
-                    <label class="radio-opt"><input type="radio" name="agama_murid" value="Islam"> Islam</label>
-                    <label class="radio-opt"><input type="radio" name="agama_murid" value="Lainnya"> Lainnya</label>
-                  </div>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Tempat Lahir</label>
-                  <input type="text" name="tempat_lahir_murid" class="field-input" placeholder="Kota lahir">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Tanggal Lahir</label>
-                  <input type="date" name="tanggal_lahir_murid" class="field-input">
-                </div>
-                <div class="field-group span-2">
-                  <label class="field-label">Nama Ibu Kandung</label>
-                  <input type="text" name="nama_ibu_kandung_murid" class="field-input" placeholder="Nama lengkap ibu kandung">
-                </div>
-              </div>
-            </div>
-
-            <div class="section-block">
-              <div class="section-label">Alamat Tinggal Siswa</div>
-              <div class="field-grid cols-2">
-                <div class="field-group span-2">
-                  <label class="field-label">Alamat</label>
-                  <input type="text" name="alamat_murid" class="field-input" placeholder="Nama jalan, nomor rumah">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">RT / RW</label>
-                  <div class="rtrw-group">
-                    <input type="text" name="rt_murid" class="field-input" maxlength="3" placeholder="RT">
-                    <span class="rtrw-sep">/</span>
-                    <input type="text" name="rw_murid" class="field-input" maxlength="3" placeholder="RW">
-                  </div>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Provinsi</label>
-                  <input type="text" name="provinsi_murid" class="field-input" placeholder="Provinsi">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Kota</label>
-                  <input type="text" name="kota_murid" class="field-input" placeholder="Kota">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Kecamatan</label>
-                  <input type="text" name="kecamatan_murid" class="field-input" placeholder="Kecamatan">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Kelurahan</label>
-                  <input type="text" name="kelurahan_murid" class="field-input" placeholder="Kelurahan">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Kode Pos</label>
-                  <input type="text" pattern="[0-9]*" name="kode_pos_murid" class="field-input" maxlength="5" placeholder="Kode Pos">
-                </div>
-              </div>
-            </div>
-
-            <div class="section-block">
-              <div class="section-label">Akademik & Kontak</div>
-              <div class="field-grid cols-2">
-                <div class="field-group">
-                  <label class="field-label">Kelas <span class="field-required">*</span></label>
-                  <div class="radio-group">
-                    <label class="radio-opt"><input type="radio" name="kelas" value="7" required> 7</label>
-                    <label class="radio-opt"><input type="radio" name="kelas" value="8"> 8</label>
-                    <label class="radio-opt"><input type="radio" name="kelas" value="9"> 9</label>
-                  </div>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">NISN Siswa</label>
-                  <input type="text" pattern="[0-9]*" name="nisn_murid" class="field-input" maxlength="10" pattern="[0-9]*" placeholder="10 digit NISN">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">NPWP</label>
-                  <input type="text" pattern="[0-9]*" name="npwp_murid" class="field-input" placeholder="Nomor NPWP (jika ada)">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">No. HP Murid</label>
-                  <input type="text" pattern="[0-9]*" name="no_hp_murid" class="field-input" pattern="[0-9]*" placeholder="08xxx">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">No. Telepon Rumah</label>
-                  <input type="text" pattern="[0-9]*" name="no_telepon" class="field-input" pattern="[0-9]*" placeholder="Telepon rumah (jika ada)">
-                </div>
-              </div>
-            </div>
-
-            <div class="section-block">
-              <div class="section-label">Status & Domisili</div>
-              <div class="field-grid cols-2">
-                <div class="field-group">
-                  <label class="field-label">Masa Berlaku Identitas</label>
-                  <div class="masa-berlaku-row">
-                    <input type="text" name="masa_berlaku_identitas" id="masa_berlaku" class="field-input" placeholder="DD/MM/YYYY">
-                    <label class="masa-berlaku-toggle">
-                      <input type="checkbox" id="cb_seumur_hidup_murid" onchange="toggleMasaBerlaku('masa_berlaku','cb_seumur_hidup_murid')"> Seumur Hidup
-                    </label>
-                  </div>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Alamat Surat (No.21)</label>
-                  <div class="radio-group">
-                    <label class="radio-opt"><input type="radio" name="alamat_surat" value="Diambil Sendiri"> Diambil Sendiri</label>
-                    <label class="radio-opt"><input type="radio" name="alamat_surat" value="Dikirim"> Dikirim</label>
-                  </div>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Tipe Alamat (No.22)</label>
-                  <div class="radio-group">
-                    <label class="radio-opt"><input type="radio" name="tipe_alamat" value="Alamat Rumah"> Alamat Rumah</label>
-                    <label class="radio-opt"><input type="radio" name="tipe_alamat" value="Alamat Kantor"> Alamat Kantor</label>
-                    <label class="radio-opt"><input type="radio" name="tipe_alamat" value="Alamat Kost"> Alamat Kost</label>
-                    <label class="radio-opt"><input type="radio" name="tipe_alamat" value="Alamat Sesuai KK"> Alamat Sesuai KK</label>
-                    <label class="radio-opt"><input type="radio" name="tipe_alamat" value="Alamat Sesuai NPWP"> Alamat Sesuai NPWP</label>
-                    <label class="radio-opt"><input type="radio" name="tipe_alamat" value="Alamat Rusun"> Alamat Rusun</label>
-                    <label class="radio-opt"><input type="radio" name="tipe_alamat" value="Alamat Panti"> Alamat Panti</label>
-                  </div>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Status Tempat Tinggal (No.23)</label>
-                  <div class="radio-group">
-                    <label class="radio-opt"><input type="radio" name="status_tempat_tinggal" value="Bukan Milik Pribadi"> Bukan Milik Pribadi</label>
-                    <label class="radio-opt"><input type="radio" name="status_tempat_tinggal" value="Milik Pribadi"> Milik Pribadi</label>
-                  </div>
-                </div>
-                {# <div class="field-group">
-                  <label class="field-label">Pendidikan (No.25)</label>
-                  <div class="radio-group">
-                    <label class="radio-opt"><input type="radio" name="pendidikan_murid" value="SD"> SD</label>
-                    <label class="radio-opt"><input type="radio" name="pendidikan_murid" value="SMP"> SMP</label>
-                    <label class="radio-opt"><input type="radio" name="pendidikan_murid" value="SMA"> SMA</label>
-                    <label class="radio-opt"><input type="radio" name="pendidikan_murid" value="SMK"> SMK</label>
-                    <label class="radio-opt"><input type="radio" name="pendidikan_murid" value="MI"> MI</label>
-                    <label class="radio-opt"><input type="radio" name="pendidikan_murid" value="MTS"> MTS</label>
-                    <label class="radio-opt"><input type="radio" name="pendidikan_murid" value="MA"> MA</label>
-                    <label class="radio-opt"><input type="radio" name="pendidikan_murid" value="PKBM A"> PKBM A</label>
-                    <label class="radio-opt"><input type="radio" name="pendidikan_murid" value="PKBM B"> PKBM B</label>
-                    <label class="radio-opt"><input type="radio" name="pendidikan_murid" value="PKBM C"> PKBM C</label>
-                  </div>
-                </div> #}
-                <div class="field-group">
-                  <label class="field-label">Disabilitas – Khusus SLB (No.26)</label>
-                  <div class="check-group">
-                    <label class="check-opt"><input type="checkbox" name="untuk_disabilitas" value="Tidak Ada"> Tidak Ada</label>
-                    <label class="check-opt"><input type="checkbox" name="untuk_disabilitas" value="Tuna Rungu"> Tuna Rungu (Tuli)</label>
-                    <label class="check-opt"><input type="checkbox" name="untuk_disabilitas" value="Tuna Netra"> Tuna Netra (Buta)</label>
-                    <label class="check-opt"><input type="checkbox" name="untuk_disabilitas" value="Tuna Wicara"> Tuna Wicara (Bisu)</label>
-                    <label class="check-opt"><input type="checkbox" name="untuk_disabilitas" value="Tuna Daksa"> Tuna Daksa (Cacat Fisik)</label>
-                    <label class="check-opt"><input type="checkbox" name="untuk_disabilitas" value="Tuna Grahita"> Tuna Grahita (Keterbelakangan Mental)</label>
-                    <label class="check-opt"><input type="checkbox" name="untuk_disabilitas" value="Tuna Laras"> Tuna Laras (Cacat Pengendalian Diri)</label>
-                    <label class="check-opt"><input type="checkbox" name="untuk_disabilitas" value="Tuna Ganda"> Tuna Ganda (Cacat Kombinasi)</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <div class="form-nav">
-            <span class="step-counter">Langkah 1 dari 6</span>
-            <button type="button" class="btn-next" onclick="goToStep(2)">Berikutnya →</button>
-          </div>
-        </div>
-
-        <!-- ======================================================== -->
-        <!-- STEP 2: DATA WALI                                         -->
-        <!-- ======================================================== -->
-        <div class="form-step" id="step-2">
-          <div class="card-header">
-            <div class="card-header-icon">👨‍👩‍👦</div>
-            <div>
-              <h2>II. Data Wali / Orang Tua</h2>
-              <p>Isi sesuai KTP orang tua atau wali yang bertanggung jawab</p>
-            </div>
-          </div>
-          <div class="form-body">
-
-            <div class="section-block">
-              <div class="section-label">Identitas Wali</div>
-              <div class="field-grid cols-2">
-                <div class="field-group span-2">
-                  <label class="field-label">Nama Wali</label>
-                  <input type="text" name="nama_wali" class="field-input" placeholder="Nama lengkap orang tua/wali">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">No. KTP / NIK Wali</label>
-                  <input type="text" pattern="[0-9]*" name="no_ktp_wali" class="field-input" maxlength="16" pattern="[0-9]*" placeholder="16 digit NIK">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Masa Berlaku KTP</label>
-                  <div class="masa-berlaku-row">
-                    <input type="text" name="masa_berlaku_ktp_wali" id="masa_berlaku_wali" class="field-input" placeholder="DD/MM/YYYY">
-                    <label class="masa-berlaku-toggle">
-                      <input type="checkbox" id="cb_seumur_hidup_wali" onchange="toggleMasaBerlaku('masa_berlaku_wali','cb_seumur_hidup_wali')"> Seumur Hidup
-                    </label>
-                  </div>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">NPWP Wali</label>
-                  <input type="text" pattern="[0-9]*" name="npwp_wali" class="field-input" placeholder="NPWP wali (jika ada)">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">No. Kartu Keluarga Wali</label>
-                  <input type="text" pattern="[0-9]*" name="kartu_keluarga_wali" class="field-input" maxlength="16" pattern="[0-9]*" placeholder="16 digit No. KK">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Tempat Lahir Wali</label>
-                  <input type="text" name="tempat_lahir_wali" class="field-input" placeholder="Kota lahir">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Tanggal Lahir Wali</label>
-                  <input type="date" name="tanggal_lahir_wali" class="field-input">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Jenis Kelamin Wali</label>
-                  <div class="radio-group">
-                    <label class="radio-opt"><input type="radio" name="jenis_kelamin_wali" value="Laki-laki"> Laki-laki</label>
-                    <label class="radio-opt"><input type="radio" name="jenis_kelamin_wali" value="Perempuan"> Perempuan</label>
-                  </div>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Agama Wali</label>
-                  <div class="radio-group">
-                    <label class="radio-opt"><input type="radio" name="agama_wali" value="Hindu"> Hindu</label>
-                    <label class="radio-opt"><input type="radio" name="agama_wali" value="Protestan"> Protestan</label>
-                    <label class="radio-opt"><input type="radio" name="agama_wali" value="Katolik"> Katolik</label>
-                    <label class="radio-opt"><input type="radio" name="agama_wali" value="Budha"> Budha</label>
-                    <label class="radio-opt"><input type="radio" name="agama_wali" value="Islam"> Islam</label>
-                    <label class="radio-opt"><input type="radio" name="agama_wali" value="Lainnya"> Lainnya</label>
-                  </div>
-                </div>
-                <div class="field-group span-2">
-                  <label class="field-label">Nama Ibu Kandung Wali</label>
-                  <input type="text" name="nama_ibu_kandung_wali" class="field-input" placeholder="Nama ibu kandung wali">
-                </div>
-              </div>
-            </div>
-
-            <div class="section-block">
-              <div class="section-label">Status & Pekerjaan</div>
-              <div class="field-grid cols-2">
-                <div class="field-group">
-                  <label class="field-label">Pekerjaan</label>
-                  <div class="radio-group">
-                    <label class="radio-opt"><input type="radio" name="pekerjaan_wali" value="Pelajar/Mahasiswa"> Pelajar/Mahasiswa</label>
-                    <label class="radio-opt"><input type="radio" name="pekerjaan_wali" value="Ibu Rumah Tangga"> Ibu Rumah Tangga</label>
-                    <label class="radio-opt"><input type="radio" name="pekerjaan_wali" value="Pegawai Swasta"> Pegawai Swasta</label>
-                    <label class="radio-opt"><input type="radio" name="pekerjaan_wali" value="Wiraswasta"> Wiraswasta</label>
-                    <label class="radio-opt"><input type="radio" name="pekerjaan_wali" value="TNI/Polri"> TNI/Polri</label>
-                    <label class="radio-opt"><input type="radio" name="pekerjaan_wali" value="Pensiunan"> Pensiunan</label>
-                    <label class="radio-opt"><input type="radio" name="pekerjaan_wali" value="Pegawai Negeri"> Pegawai Negeri</label>
-                    <label class="radio-opt"><input type="radio" name="pekerjaan_wali" value="Lain-Lain"> Lain-Lain</label>
-                  </div>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Status Pernikahan</label>
-                  <div class="radio-group">
-                    <label class="radio-opt"><input type="radio" name="status_pernikahan_wali" value="Lajang"> Lajang</label>
-                    <label class="radio-opt"><input type="radio" name="status_pernikahan_wali" value="Menikah"> Menikah</label>
-                    <label class="radio-opt"><input type="radio" name="status_pernikahan_wali" value="Janda/Duda"> Janda/Duda</label>
-                  </div>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Pendidikan Terakhir</label>
-                  <div class="radio-group">
-                    <label class="radio-opt"><input type="radio" name="pendidikan_wali" value="SD"> SD</label>
-                    <label class="radio-opt"><input type="radio" name="pendidikan_wali" value="SMP"> SMP</label>
-                    <label class="radio-opt"><input type="radio" name="pendidikan_wali" value="SMA"> SMA</label>
-                    <label class="radio-opt"><input type="radio" name="pendidikan_wali" value="D1"> D1</label>
-                    <label class="radio-opt"><input type="radio" name="pendidikan_wali" value="D2"> D2</label>
-                    <label class="radio-opt"><input type="radio" name="pendidikan_wali" value="D3"> D3</label>
-                    <label class="radio-opt"><input type="radio" name="pendidikan_wali" value="S1"> S1</label>
-                    <label class="radio-opt"><input type="radio" name="pendidikan_wali" value="S2"> S2</label>
-                    <label class="radio-opt"><input type="radio" name="pendidikan_wali" value="S3"> S3</label>
-                  </div>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Jabatan / Golongan</label>
-                  <div class="radio-group">
-                    <label class="radio-opt"><input type="radio" name="jabatan_wali" value="Tetap"> Tetap</label>
-                    <label class="radio-opt"><input type="radio" name="jabatan_wali" value="Honorer"> Honorer</label>
-                    <label class="radio-opt"><input type="radio" name="jabatan_wali" value="Kontrak"> Kontrak</label>
-                    <label class="radio-opt"><input type="radio" name="jabatan_wali" value="Tidak Kerja"> Tidak Kerja</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="section-block">
-              <div class="section-label">Alamat Tinggal Wali</div>
-              <div class="field-grid cols-2">
-                <div class="field-group span-2">
-                  <label class="field-label">Alamat</label>
-                  <input type="text" name="alamat_wali" class="field-input" placeholder="Nama jalan, nomor rumah">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">RT / RW</label>
-                  <div class="rtrw-group">
-                    <input type="text" pattern="[0-9]*" name="rt_wali" class="field-input" maxlength="3" placeholder="RT">
-                    <span class="rtrw-sep">/</span>
-                    <input type="text" pattern="[0-9]*" name="rw_wali" class="field-input" maxlength="3" placeholder="RW">
-                  </div>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Provinsi</label>
-                  <input type="text" name="provinsi_wali" class="field-input" placeholder="Provinsi">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Kota</label>
-                  <input type="text" name="kota_wali" class="field-input" placeholder="Kota">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Kecamatan</label>
-                  <input type="text" name="kecamatan_wali" class="field-input" placeholder="Kecamatan">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Kelurahan</label>
-                  <input type="text" name="kelurahan_wali" class="field-input" placeholder="Kelurahan">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Kode Pos</label>
-                  <input type="text" pattern="[0-9]*" name="kode_pos_wali" class="field-input" maxlength="5" placeholder="Kode Pos">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Status Tempat Tinggal</label>
-                  <div class="radio-group">
-                    <label class="radio-opt"><input type="radio" name="status_tempat_tinggal_wali" value="Bukan Milik Pribadi"> Bukan Milik Pribadi</label>
-                    <label class="radio-opt"><input type="radio" name="status_tempat_tinggal_wali" value="Milik Pribadi"> Milik Pribadi</label>
-                  </div>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">No. HP Wali</label>
-                  <input type="text" pattern="[0-9]*" name="no_hp_wali" class="field-input" pattern="[0-9]*" placeholder="08xxx">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">No. Telepon Wali</label>
-                  <input type="text" pattern="[0-9]*" name="no_telepon_wali" class="field-input" pattern="[0-9]*" placeholder="Telepon rumah">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Tipe Alamat Wali</label>
-                  <div class="radio-group">
-                    <label class="radio-opt"><input type="radio" name="tipe_alamat_wali" value="Alamat Rumah"> Alamat Rumah</label>
-                    <label class="radio-opt"><input type="radio" name="tipe_alamat_wali" value="Alamat Kost"> Alamat Kost</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <div class="form-nav">
-            <button type="button" class="btn-prev" onclick="goToStep(1)">← Sebelumnya</button>
-            <span class="step-counter">Langkah 2 dari 6</span>
-            <button type="button" class="btn-next" onclick="goToStep(3)">Berikutnya →</button>
-          </div>
-        </div>
-
-        <!-- ======================================================== -->
-        <!-- STEP 3: KONTAK DARURAT                                    -->
-        <!-- ======================================================== -->
-        <div class="form-step" id="step-3">
-          <div class="card-header">
-            <div class="card-header-icon">📞</div>
-            <div>
-              <h2>III. Kontak Darurat</h2>
-              <p>Selain orang tua/wali – untuk keperluan darurat</p>
-            </div>
-          </div>
-          <div class="form-body">
-            <div class="section-block">
-              <div class="section-label">Data Kontak Darurat</div>
-              <div class="field-grid cols-2">
-                <div class="field-group span-2">
-                  <label class="field-label">Nama yang Dihubungi (Selain Wali)</label>
-                  <input type="text" name="nama_kontak_darurat" class="field-input" placeholder="Nama lengkap kontak darurat">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">No. Identitas</label>
-                  <input type="text" pattern="[0-9]*" name="no_identitas_kontak" class="field-input" placeholder="Nomor KTP/identitas">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Hubungan</label>
-                  <div class="radio-group">
-                    <label class="radio-opt"><input type="radio" name="hubungan_kontak" value="Orangtua Kandung/Tiri/Angkat"> Orangtua Kandung/Tiri/Angkat</label>
-                    <label class="radio-opt"><input type="radio" name="hubungan_kontak" value="Ipar dari Istri/Suami"> Ipar dari Istri/Suami</label>
-                    <label class="radio-opt"><input type="radio" name="hubungan_kontak" value="Saudara Kandung/Tiiri/Angkat"> Saudara Kandung/Tiri/Angkat</label>
-                    <label class="radio-opt"><input type="radio" name="hubungan_kontak" value="AnakKandung/Tiri/Angkat"> Anak Kandung/Tiri/Angkat</label>
-                    <label class="radio-opt"><input type="radio" name="hubungan_kontak" value="Suami/Istri"> Suami/Istri</label>
-                    <label class="radio-opt"><input type="radio" name="hubungan_kontak" value="Mertua"> Mertua</label>
-                    <label class="radio-opt"><input type="radio" name="hubungan_kontak" value="Kakek/Nenek"> Kakek/Nenek</label>
-                  </div>
-                </div>
-                <div class="field-group span-2">
-                  <label class="field-label">Alamat</label>
-                  <input type="text" name="alamat_kontak" class="field-input" placeholder="Alamat kontak darurat">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">RT / RW</label>
-                  <div class="rtrw-group">
-                    <input type="text" pattern="[0-9]*" name="rt_kontak" class="field-input" maxlength="3" placeholder="RT">
-                    <span class="rtrw-sep">/</span>
-                    <input type="text" pattern="[0-9]*" name="rw_kontak" class="field-input" maxlength="3" placeholder="RW">
-                  </div>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Provinsi</label>
-                  <input type="text" name="provinsi_kontak" class="field-input" placeholder="Provinsi">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Kota</label>
-                  <input type="text" name="kota_kontak" class="field-input" placeholder="Kota">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Kecamatan</label>
-                  <input type="text" name="kecamatan_kontak" class="field-input" placeholder="Kecamatan">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Kelurahan</label>
-                  <input type="text" name="kelurahan_kontak" class="field-input" placeholder="Kelurahan">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Kode Pos</label>
-                  <input type="text" pattern="[0-9]*" name="kode_pos_kontak" class="field-input" maxlength="5" placeholder="Kode Pos">
-                </div>
-                <div class="field-group">
-                  <label class="field-label">No. Telepon</label>
-                  <input type="text" pattern="[0-9]*" name="no_telepon_kontak" class="field-input" pattern="[0-9]*" placeholder="Telepon kontak darurat">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="form-nav">
-            <button type="button" class="btn-prev" onclick="goToStep(2)">← Sebelumnya</button>
-            <span class="step-counter">Langkah 3 dari 6</span>
-            <button type="button" class="btn-next" onclick="goToStep(4)">Berikutnya →</button>
-          </div>
-        </div>
-
-        <!-- ======================================================== -->
-        <!-- STEP 4: SURAT PERMOHONAN                                  -->
-        <!-- ======================================================== -->
-        <div class="form-step" id="step-4">
-          <div class="card-header">
             <div class="card-header-icon">📄</div>
             <div>
-              <h2>IV. Surat Permohonan KJP Plus</h2>
+              <h2>I. Surat Permohonan KJP Plus</h2>
               <p>Ditujukan kepada Gubernur Provinsi DKI Jakarta</p>
             </div>
           </div>
@@ -1131,9 +582,9 @@ canvas.sig-canvas {
                 <div class="field-group">
                   <label class="field-label">RT / RW</label>
                   <div class="rtrw-group">
-                    <input type="text" pattern="[0-9]*" name="rt_pemohon" class="field-input" maxlength="3" placeholder="RT">
+                    <input type="text" name="rt_pemohon" class="field-input" maxlength="3" placeholder="RT">
                     <span class="rtrw-sep">/</span>
-                    <input type="text" pattern="[0-9]*" name="rw_pemohon" class="field-input" maxlength="3" placeholder="RW">
+                    <input type="text" name="rw_pemohon" class="field-input" maxlength="3" placeholder="RW">
                   </div>
                 </div>
                 <div class="field-group">
@@ -1150,11 +601,11 @@ canvas.sig-canvas {
                 </div>
                 <div class="field-group">
                   <label class="field-label">Kode Pos</label>
-                  <input type="text" pattern="[0-9]*" name="kode_pos_pemohon" class="field-input" maxlength="5" placeholder="Kode Pos">
+                  <input type="text" name="kode_pos_pemohon" class="field-input" maxlength="5" placeholder="Kode Pos">
                 </div>
                 <div class="field-group">
                   <label class="field-label">Telepon / HP Pemohon</label>
-                  <input type="text" pattern="[0-9]*" name="telepon_pemohon" class="field-input" pattern="[0-9]*" placeholder="08xxx">
+                  <input type="text" name="telepon_pemohon" class="field-input" pattern="[0-9]*" placeholder="08xxx">
                 </div>
               </div>
             </div>
@@ -1173,9 +624,9 @@ canvas.sig-canvas {
                 <div class="field-group">
                   <label class="field-label">RT / RW Sekolah</label>
                   <div class="rtrw-group">
-                    <input type="text" pattern="[0-9]*" name="rt_sekolah" class="field-input" maxlength="3" placeholder="RT">
+                    <input type="text" name="rt_sekolah" class="field-input" maxlength="3" placeholder="RT">
                     <span class="rtrw-sep">/</span>
-                    <input type="text" pattern="[0-9]*" name="rw_sekolah" class="field-input" maxlength="3" placeholder="RW">
+                    <input type="text" name="rw_sekolah" class="field-input" maxlength="3" placeholder="RW">
                   </div>
                 </div>
                 <div class="field-group">
@@ -1192,7 +643,7 @@ canvas.sig-canvas {
                 </div>
                 <div class="field-group">
                   <label class="field-label">Kode Pos Sekolah</label>
-                  <input type="text" pattern="[0-9]*" name="kode_pos_sekolah" class="field-input" maxlength="5" placeholder="Kode Pos">
+                  <input type="text" name="kode_pos_sekolah" class="field-input" maxlength="5" placeholder="Kode Pos">
                 </div>
               </div>
             </div>
@@ -1218,20 +669,19 @@ canvas.sig-canvas {
 
           </div>
           <div class="form-nav">
-            <button type="button" class="btn-prev" onclick="goToStep(3)">← Sebelumnya</button>
-            <span class="step-counter">Langkah 4 dari 6</span>
-            <button type="button" class="btn-next" onclick="goToStep(5)">Berikutnya →</button>
+            <span class="step-counter">Langkah 1 dari 3</span>
+            <button type="button" class="btn-next" onclick="goToStep(2)">Berikutnya →</button>
           </div>
         </div>
 
         <!-- ======================================================== -->
-        <!-- STEP 5: SURAT PERNYATAAN                                  -->
+        <!-- STEP 2: SURAT PERNYATAAN                                  -->
         <!-- ======================================================== -->
-        <div class="form-step" id="step-5">
+        <div class="form-step" id="step-2">
           <div class="card-header">
             <div class="card-header-icon">📋</div>
             <div>
-              <h2>V. Surat Pernyataan</h2>
+              <h2>II. Surat Pernyataan</h2>
               <p>Pernyataan Ketaatan Penggunaan KJP Plus & Pernyataan Keluarga Tidak Mampu</p>
             </div>
           </div>
@@ -1362,20 +812,20 @@ canvas.sig-canvas {
 
           </div>
           <div class="form-nav">
-            <button type="button" class="btn-prev" onclick="goToStep(4)">← Sebelumnya</button>
-            <span class="step-counter">Langkah 5 dari 6</span>
-            <button type="button" class="btn-next" onclick="goToStep(6)">Berikutnya →</button>
+            <button type="button" class="btn-prev" onclick="goToStep(1)">← Sebelumnya</button>
+            <span class="step-counter">Langkah 2 dari 3</span>
+            <button type="button" class="btn-next" onclick="goToStep(3)">Berikutnya →</button>
           </div>
         </div>
 
         <!-- ======================================================== -->
-        <!-- STEP 6: BERITA ACARA PENILAIAN                            -->
+        <!-- STEP 3: BERITA ACARA PENILAIAN                            -->
         <!-- ======================================================== -->
-        <div class="form-step" id="step-6">
+        <div class="form-step" id="step-3">
           <div class="card-header">
             <div class="card-header-icon">📊</div>
             <div>
-              <h2>VI. Berita Acara Penilaian</h2>
+              <h2>III. Berita Acara Penilaian</h2>
               <p>Penilaian Kelayakan Calon Penerima Bantuan Sosial</p>
             </div>
           </div>
@@ -1527,8 +977,8 @@ canvas.sig-canvas {
 
           </div>
           <div class="form-nav">
-            <button type="button" class="btn-prev" onclick="goToStep(5)">← Sebelumnya</button>
-            <span class="step-counter">Langkah 6 dari 6</span>
+            <button type="button" class="btn-prev" onclick="goToStep(2)">← Sebelumnya</button>
+            <span class="step-counter">Langkah 3 dari 3</span>
             <button type="submit" class="btn-submit" onclick="collectSignatures()">✓ Kirim Data Pendaftaran</button>
           </div>
         </div>
@@ -1540,7 +990,7 @@ canvas.sig-canvas {
 
 <script>
 // ===== STEP NAVIGATION =====
-const TOTAL_STEPS = 6;
+const TOTAL_STEPS = 3;
 
 function goToStep(n) {
   document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
@@ -1554,20 +1004,7 @@ function goToStep(n) {
     document.querySelectorAll('#step-' + n + ' canvas.sig-canvas').forEach(c => {
       initCanvas(c.dataset.sig);
     });
-  }, 50); 
-}
-
-// ===== MASA BERLAKU TOGGLE =====
-function toggleMasaBerlaku(inputId, cbId) {
-  const input = document.getElementById(inputId);
-  const cb = document.getElementById(cbId);
-  if (cb.checked) {
-    input.value = 'Seumur Hidup';
-    input.disabled = true;
-  } else {
-    input.value = '';
-    input.disabled = false;
-  }
+  }, 50);
 }
 
 // ===== SIGNATURE CANVAS =====
@@ -1580,7 +1017,6 @@ function initCanvas(id) {
   const state = { drawing: false, color: 'black', points: [] };
   sigStates[id] = state;
 
-  // Set actual resolution
   function resize() {
     const rect = canvas.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
@@ -1658,9 +1094,9 @@ function collectSignatures() {
   });
 }
 
-// Init all canvases on load
+// Init canvases on load (step 1 canvases only)
 document.addEventListener('DOMContentLoaded', function() {
-  ['pemohon','ortu','penerima','sptm','ba_siswa','ba_penilai'].forEach(initCanvas);
+  ['pemohon'].forEach(initCanvas);
 });
 </script>
 {% endblock %}

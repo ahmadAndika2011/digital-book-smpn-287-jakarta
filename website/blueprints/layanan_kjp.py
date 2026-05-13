@@ -1,15 +1,37 @@
-from flask import Blueprint, render_template, redirect, flash, request, url_for
+import base64
+from email import header
+import os
+from turtle import rt
+
+from PIL import Image
+from flask import Blueprint, current_app, render_template, redirect, flash, request, url_for
 from datetime import datetime
 from ..models import DatabaseLayananKjp, DatabaseSiswa
 from .. import db
+from io import BytesIO
 
 auth = Blueprint("layanan_kjp", __name__)
 
 
+# def layanan_kjp():
+#     if request.method == "POST":
+#         # cek tanggal lahir murid
+#                 data_kjp = DatabaseLayananKjp(
+#                 )
+#                 db.session.add(data_kjp)
+#                 db.session.commit()
+#                 flash("Success", category="success")
+#             else:
+#                 flash("Tanda tangan belum diisi!", category="error")
+#                 return redirect(url_for("layanan_kjp.layanan_kjp"))
+#     return render_template("layanan-kjp.html")
+
+
+# ???????????????????????????????????????????????????????????????????????????????????????????????????????????/
 @auth.route("/layanan-kjp", methods=["GET", "POST"])
 def layanan_kjp():
     if request.method == "POST":
-        # data siswa
+        # ? data siswa
         nik_murid = request.form.get("nik_murid")
         nama_murid = request.form.get("nama_murid")
         jenis_kelamin_murid = request.form.get("jenis_kelamin_murid")
@@ -36,8 +58,13 @@ def layanan_kjp():
         kode_pos_murid = request.form.get("kode_pos_murid")
         npwp_murid = request.form.get("npwp_murid")
         alamat_murid = request.form.get("alamat_murid")
+        # cek tanggal lahir murid
+        try:
+            valid_tanggal_lahir_murid = datetime.strptime(tanggal_lahir_murid, "%Y-%m-%d")
+        except:
+            valid_tanggal_lahir_murid = None
 
-        # data wali
+        # ? data wali
         nama_wali = request.form.get("nama_wali")
         no_ktp_wali = request.form.get("no_ktp_wali")
         masa_berlaku_ktp_wali = request.form.get("masa_berlaku_ktp_wali")
@@ -65,7 +92,7 @@ def layanan_kjp():
         no_telepon_wali = request.form.get("no_telepon_wali")
         tipe_alamat_wali = request.form.get("tipe_alamat_wali")
 
-        # kontak darurat
+        # ? kontak darurat
         nama_kontak_darurat = request.form.get("nama_kontak_darurat")
         no_identitas_kontak = request.form.get("no_identitas_kontak")
         hubungan_kontak = request.form.get("hubungan_kontak")
@@ -79,11 +106,25 @@ def layanan_kjp():
         kode_pos_kontak = request.form.get("kode_pos_kontak")
         no_telepon_kontak = request.form.get("no_telepon_kontak")
 
-        # cek tanggal lahir murid
-        try:
-            valid_tanggal_lahir_murid = datetime.strptime(tanggal_lahir_murid, "%Y-%m-%d")
-        except:
-            valid_tanggal_lahir_murid = None
+        # ? permohonan
+        nama_pemohon = request.form.get("nama_pemohon", "")
+        alamat_pemohon = request.form.get("alamat_pemohon", "")
+        rt_pemohon = request.form.get("rt_pemohon", "")
+        rw_pemohon = request.form.get("rw_pemohon", "")
+        kelurahan_pemohon = request.form.get("kelurahan_pemohon", "")
+        kecamatan_pemohon = request.form.get("kecamatan_pemohon", "")
+        kota_pemohon = request.form.get("kota_pemohon", "")
+        kode_pos_pemohon = request.form.get("kode_pos_pemohon", "")
+        telepon_pemohon = request.form.get("telepon_pemohon", "")
+        nama_sekolah = request.form.get("nama_sekolah", "")
+        alamat_sekolah = request.form.get("alamat_sekolah", "")
+        rt_sekolah = request.form.get("rt_sekolah", "")
+        rw_sekolah = request.form.get("rw_sekolah", "")
+        kelurahan_sekolah = request.form.get("kelurahan_sekolah", "")
+        kecamatan_sekolah = request.form.get("kecamatan_sekolah", "")
+        kota_sekolah = request.form.get("kota_sekolah", "")
+        kode_pos_sekolah = request.form.get("kode_pos_sekolah", "")
+        ttd_pemohon = request.form.get("ttd_pemohon", "")
 
         cek_nisn_murid_from_database_siswa = DatabaseSiswa.query.filter_by(nisn=nisn_murid).first()
         cek_nisn_murid_from_database_layanan_kjp = DatabaseLayananKjp.query.filter_by(nisn_murid=nisn_murid).first()
@@ -92,14 +133,17 @@ def layanan_kjp():
         if cek_nisn_murid_from_database_layanan_kjp:
             flash("data anda sudah ada di dalam database, mohon tunggu...\nUntuk lebih jelas bisa kontak operator di menu kontak.", category="error")
             return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif not cek_nisn_murid_from_database_siswa:
+            flash("NISN belum terdaftar di database", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif not ttd_pemohon:
+            flash("Mohon masukkan tanda tangan!", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
         elif len(nik_murid) != 16:
             flash("NIK tidak valid!", category="error")
             return redirect(url_for("layanan_kjp.layanan_kjp"))
         elif len(no_kartu_keluarga) != 16:
             flash("No Kartu Keluarga tidak valid!", category="error")
-            return redirect(url_for("layanan_kjp.layanan_kjp"))
-        elif not cek_nisn_murid_from_database_siswa:
-            flash("NISN belum terdaftar di database", category="error")
             return redirect(url_for("layanan_kjp.layanan_kjp"))
         elif len(nisn_murid) != 10:
             flash("NISN tidak valid!", category="error")
@@ -188,8 +232,46 @@ def layanan_kjp():
         elif len(no_telepon_kontak) < 10 or len(no_telepon_kontak) > 12:
             flash("No telepon untuk kontak darurat tidak valid.\n Silahkan cek kebali data kontak darurat anda.", category="error")
             return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif (
+            not nama_pemohon
+            or not alamat_pemohon
+            or not rt_pemohon
+            or not rw_pemohon
+            or not kelurahan_pemohon
+            or not kecamatan_pemohon
+            or not kota_pemohon
+            or not nama_sekolah
+            or not alamat_sekolah
+            or not rt_sekolah
+            or not rw_sekolah
+            or not kelurahan_sekolah
+            or not kecamatan_sekolah
+            or not kota_sekolah
+        ):
+            flash("Data permohonantidak valid!", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif  len(telepon_pemohon) < 10 or len(telepon_pemohon) > 12:
+            flash("No telepon tidak valid!", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif len(kode_pos_pemohon) != 5:
+            flash("Kode pos untuk surat permohonan tidak valid.\n Silahkan cek kebali data kontak darurat anda.", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif len(kode_pos_sekolah) != 5:
+            flash("Kode pos sekolah untuk surat permohonan tidak valid.\n Silahkan cek kebali data kontak darurat anda.", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
         else:
             if not masa_berlaku_identitas:
+                header, encoded = ttd_pemohon.split(",", 1)
+                image_data = base64.b64decode(encoded)
+                image = Image.open(BytesIO(image_data))
+                save_path = os.path.join(
+                    current_app.root_path, "static", "uploads", "ttd")
+                os.makedirs(save_path, exist_ok=True)
+                filename = f"ttd_{nama_pemohon}.png"
+                image.save(os.path.join(save_path, filename))
+
+                ttd_pemohon = f"ttd_{nama_pemohon}.png"
+            
                 data_kjp = DatabaseLayananKjp(
                     nik_murid = nik_murid,
                     no_kartu_keluarga = no_kartu_keluarga,
@@ -260,6 +342,26 @@ def layanan_kjp():
                     kelurahan_kontak = kelurahan_kontak,
                     kode_pos_kontak = kode_pos_kontak,
                     no_telepon_kontak = no_telepon_kontak,
+
+                    # permohonan
+                    nama_pemohon = nama_pemohon,
+                    alamat_pemohon = alamat_pemohon,
+                    rt_pemohon = rt_pemohon,
+                    rw_pemohon = rw_pemohon,
+                    kelurahan_pemohon = kelurahan_pemohon,
+                    kecamatan_pemohon = kecamatan_pemohon,
+                    kota_pemohon = kota_pemohon,
+                    kode_pos_pemohon = kode_pos_pemohon,
+                    telepon_pemohon = telepon_pemohon,
+                    nama_sekolah = nama_sekolah,
+                    alamat_sekolah = alamat_sekolah,
+                    rt_sekolah = rt_sekolah,
+                    rw_sekolah = rw_sekolah,
+                    kelurahan_sekolah = kelurahan_sekolah,
+                    kecamatan_sekolah = kecamatan_sekolah,
+                    kota_sekolah = kota_sekolah,
+                    kode_pos_sekolah = kode_pos_sekolah,
+                    ttd_pemohon = ttd_pemohon,
                 )
                 db.session.add(data_kjp)
             else:
@@ -319,7 +421,7 @@ def layanan_kjp():
                     no_hp_wali = no_hp_wali,
                     no_telepon_wali = no_telepon_wali,
                     tipe_alamat_wali = tipe_alamat_wali,
-                    
+
                     # Kontak darurat
                     nama_kontak_darurat = nama_kontak_darurat,
                     no_identitas_kontak = no_identitas_kontak,
@@ -333,6 +435,26 @@ def layanan_kjp():
                     kelurahan_kontak = kelurahan_kontak,
                     kode_pos_kontak = kode_pos_kontak,
                     no_telepon_kontak = no_telepon_kontak,
+
+                    # permohonan
+                    nama_pemohon = nama_pemohon,
+                    alamat_pemohon = alamat_pemohon,
+                    rt_pemohon = rt_pemohon,
+                    rw_pemohon = rw_pemohon,
+                    kelurahan_pemohon = kelurahan_pemohon,
+                    kecamatan_pemohon = kecamatan_pemohon,
+                    kota_pemohon = kota_pemohon,
+                    kode_pos_pemohon = kode_pos_pemohon,
+                    telepon_pemohon = telepon_pemohon,
+                    nama_sekolah = nama_sekolah,
+                    alamat_sekolah = alamat_sekolah,
+                    rt_sekolah = rt_sekolah,
+                    rw_sekolah = rw_sekolah,
+                    kelurahan_sekolah = kelurahan_sekolah,
+                    kecamatan_sekolah = kecamatan_sekolah,
+                    kota_sekolah = kota_sekolah,
+                    kode_pos_sekolah = kode_pos_sekolah,
+                    ttd_pemohon = ttd_pemohon,
                 )
                 db.session.add(data_kjp)
             db.session.commit()

@@ -33,254 +33,380 @@ import copy
 # ─────────────────────────────────────────
 
 PDF_W = 595.44
-PDF_H = 841.92
+PDF_H = 842
+
 
 def top_to_pdf_y(top, h=PDF_H):
     """Konversi koordinat 'top' (y dari atas) ke koordinat PDF (y dari bawah)."""
+    # return h - top
     return h - top
 
 
 # Field definitions: (page_index, x, pdf_y, max_width, font_size) * 0.479
 # page_index = 0-based (page 0 = halaman 1, page 1 = halaman 2, dst)
 FIELDS_DATA_SISWA = {
-    "nama_murid": {
+    # ? data permohonan
+    "nama_pemohon": {
         "page": 0,
-        "x": 222,
-        "y": top_to_pdf_y(182),
+        "x": 272,  # * 0.466
+        "y": top_to_pdf_y(208),  # * 0.431
         "max_w": 170,
         "font_size": 9,
     },
-    "tempat_lahir_murid": {
+    "alamat_pemohon": {
         "page": 0,
-        "x": 222,
-        "y": top_to_pdf_y(212),
+        "x": 272,
+        "y": top_to_pdf_y(224),
         "max_w": 170,
         "font_size": 9,
     },
-    "nik_murid":{
+    "rt_pemohon": {
         "page": 0,
-        "x": 222,
-        "y": top_to_pdf_y(150),
+        "x": 272,
+        "y": top_to_pdf_y(239),
         "max_w": 170,
         "font_size": 9,
     },
-    "no_kartu_keluarga":{
+    "rw_pemohon": {
         "page": 0,
-        "x": 222,
-        "y": top_to_pdf_y(165),
+        "x": 285,
+        "y": top_to_pdf_y(239),
         "max_w": 170,
         "font_size": 9,
     },
-    "jenis_kelamin_murid":{
+    "kelurahan_pemohon": {
         "page": 0,
-        "x": 0,
-        "y": top_to_pdf_y(0),
+        "x": 272,
+        "y": top_to_pdf_y(252),
         "max_w": 170,
         "font_size": 9,
     },
-    "tanggal_lahir_murid_tanggal_1":{
+    "kecamatan_pemohon": {
         "page": 0,
-        "x": 233,
-        "y": top_to_pdf_y(231),
+        "x": 272,
+        "y": top_to_pdf_y(267),
         "max_w": 170,
         "font_size": 9,
     },
-    "tanggal_lahir_murid_tanggal_2":{
+    "kota_pemohon": {
         "page": 0,
-        "x": 255,
-        "y": top_to_pdf_y(231),
+        "x": 298,
+        "y": top_to_pdf_y(281),
         "max_w": 170,
         "font_size": 9,
     },
-    "tanggal_lahir_murid_bulan_1":{
+    "kode_pos_pemohon": {
         "page": 0,
-        "x": 287,
-        "y": top_to_pdf_y(231),
+        "x": 465,
+        "y": top_to_pdf_y(281),
         "max_w": 170,
         "font_size": 9,
     },
-    "tanggal_lahir_murid_bulan_2":{
+    "telepon_pemohon": {
         "page": 0,
-        "x": 306,
-        "y": top_to_pdf_y(231),
+        "x": 272,
+        "y": top_to_pdf_y(296),
         "max_w": 170,
         "font_size": 9,
     },
-    "tanggal_lahir_murid_tahun_1":{
+    "nama_sekolah": {
         "page": 0,
-        "x": 340,
-        "y": top_to_pdf_y(231),
+        "x": 272,
+        "y": top_to_pdf_y(481),
         "max_w": 170,
         "font_size": 9,
     },
-    "tanggal_lahir_murid_tahun_2":{
+    "alamat_sekolah": {
         "page": 0,
-        "x": 356,
-        "y": top_to_pdf_y(231),
+        "x": 272,
+        "y": top_to_pdf_y(496),
         "max_w": 170,
         "font_size": 9,
     },
-    "tanggal_lahir_murid_tahun_3":{
+    "rt_sekolah": {
         "page": 0,
-        "x": 374,
-        "y": top_to_pdf_y(231),
+        "x": 272,
+        "y": top_to_pdf_y(510),
         "max_w": 170,
         "font_size": 9,
     },
-    "tanggal_lahir_murid_tahun_4":{
+    "rw_sekolah": {
         "page": 0,
-        "x": 394,
-        "y": top_to_pdf_y(231),
+        "x": 285,
+        "y": top_to_pdf_y(510),
         "max_w": 170,
         "font_size": 9,
     },
-    "nama_ibu_kandung_murid":{
+    "kelurahan_sekolah": {
         "page": 0,
-        "x": 222,
-        "y": top_to_pdf_y(243),
+        "x": 272,
+        "y": top_to_pdf_y(524),
         "max_w": 170,
         "font_size": 9,
     },
-    "kelas":{
+    "kecamatan_sekolah": {
         "page": 0,
-        "x": 0,
-        "y": top_to_pdf_y(0),
+        "x": 272,
+        "y": top_to_pdf_y(539),
         "max_w": 170,
         "font_size": 9,
     },
-    "nisn_murid":{
+    "kota_sekolah": {
         "page": 0,
-        "x": 222,
-        "y": top_to_pdf_y(407),
+        "x": 303,
+        "y": top_to_pdf_y(553),
         "max_w": 170,
         "font_size": 9,
     },
-    "masa_berlaku_identitas":{
+    "kode_pos_sekolah": {
         "page": 0,
-        "x": 0,
-        "y": top_to_pdf_y(0),
+        "x": 435,
+        "y": top_to_pdf_y(553),
         "max_w": 170,
         "font_size": 9,
     },
-    "no_hp_murid":{
-        "page": 0,
-        "x": 222,
-        "y": top_to_pdf_y(452),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "no_telepon":{
-        "page": 0,
-        "x": 222,
-        "y": top_to_pdf_y(468),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "alamat_surat":{
-        "page": 0,
-        "x": 0,
-        "y": top_to_pdf_y(0),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "tipe_alamat":{
-        "page": 0,
-        "x": 0,
-        "y": top_to_pdf_y(0),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "status_tempat_tinggal":{
-        "page": 0,
-        "x": 0,
-        "y": top_to_pdf_y(0),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "agama_murid":{
-        "page": 0,
-        "x": 0,
-        "y": top_to_pdf_y(0),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "untuk_disabilitas":{
-        "page": 0,
-        "x": 0,
-        "y": top_to_pdf_y(0),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "pendidikan":{
-        "page": 0,
-        "x": 236,
-        "y": top_to_pdf_y(632),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "npwp_murid":{
-        "page": 0,
-        "x": 222,
-        "y": top_to_pdf_y(423),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "alamat_murid":{
-        "page": 0,
-        "x": 222,
-        "y": top_to_pdf_y(261),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "rt_murid":{
-        "page": 0,
-        "x": 231,
-        "y": top_to_pdf_y(280),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "rw_murid":{
-        "page": 0,
-        "x": 274,
-        "y": top_to_pdf_y(280),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "provinsi_murid":{
-        "page": 0,
-        "x": 222,
-        "y": top_to_pdf_y(291),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "kota_murid":{
-        "page": 0,
-        "x": 222,
-        "y": top_to_pdf_y(306),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "kecamatan_murid":{
-        "page": 0,
-        "x": 222,
-        "y": top_to_pdf_y(320),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "kelurahan_murid":{
-        "page": 0,
-        "x": 222,
-        "y": top_to_pdf_y(337),
-        "max_w": 170,
-        "font_size": 9,
-    },
-    "kode_pos_murid":{
-        "page": 0,
-        "x": 222,
-        "y": top_to_pdf_y(352),
-        "max_w": 170,
-        "font_size": 9,
-    },
+
+    # ? data murid
+    # "nama_murid": {
+    #     "page": 0,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(182),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tempat_lahir_murid": {
+    #     "page": 0,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(212),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "nik_murid":{
+    #     "page": 0,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(150),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "no_kartu_keluarga":{
+    #     "page": 0,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(165),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "jenis_kelamin_murid":{
+    #     "page": 0,
+    #     "x": 0,
+    #     "y": top_to_pdf_y(0),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tanggal_lahir_murid_tanggal_1":{
+    #     "page": 0,
+    #     "x": 233,
+    #     "y": top_to_pdf_y(231),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tanggal_lahir_murid_tanggal_2":{
+    #     "page": 0,
+    #     "x": 255,
+    #     "y": top_to_pdf_y(231),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tanggal_lahir_murid_bulan_1":{
+    #     "page": 0,
+    #     "x": 287,
+    #     "y": top_to_pdf_y(231),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tanggal_lahir_murid_bulan_2":{
+    #     "page": 0,
+    #     "x": 306,
+    #     "y": top_to_pdf_y(231),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tanggal_lahir_murid_tahun_1":{
+    #     "page": 0,
+    #     "x": 340,
+    #     "y": top_to_pdf_y(231),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tanggal_lahir_murid_tahun_2":{
+    #     "page": 0,
+    #     "x": 356,
+    #     "y": top_to_pdf_y(231),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tanggal_lahir_murid_tahun_3":{
+    #     "page": 0,
+    #     "x": 374,
+    #     "y": top_to_pdf_y(231),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tanggal_lahir_murid_tahun_4":{
+    #     "page": 0,
+    #     "x": 394,
+    #     "y": top_to_pdf_y(231),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "nama_ibu_kandung_murid":{
+    #     "page": 0,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(243),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "kelas":{
+    #     "page": 0,
+    #     "x": 0,
+    #     "y": top_to_pdf_y(0),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "nisn_murid":{
+    #     "page": 0,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(407),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "masa_berlaku_identitas":{
+    #     "page": 0,
+    #     "x": 0,
+    #     "y": top_to_pdf_y(0),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "no_hp_murid":{
+    #     "page": 0,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(452),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "no_telepon":{
+    #     "page": 0,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(468),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "alamat_surat":{
+    #     "page": 0,
+    #     "x": 0,
+    #     "y": top_to_pdf_y(0),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "tipe_alamat":{
+    #     "page": 0,
+    #     "x": 0,
+    #     "y": top_to_pdf_y(0),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "status_tempat_tinggal":{
+    #     "page": 0,
+    #     "x": 0,
+    #     "y": top_to_pdf_y(0),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "agama_murid":{
+    #     "page": 0,
+    #     "x": 0,
+    #     "y": top_to_pdf_y(0),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "untuk_disabilitas":{
+    #     "page": 0,
+    #     "x": 0,
+    #     "y": top_to_pdf_y(0),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "pendidikan":{
+    #     "page": 0,
+    #     "x": 236,
+    #     "y": top_to_pdf_y(632),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "npwp_murid":{
+    #     "page": 0,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(423),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "alamat_murid":{
+    #     "page": 0,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(261),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "rt_murid":{
+    #     "page": 0,
+    #     "x": 231,
+    #     "y": top_to_pdf_y(280),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "rw_murid":{
+    #     "page": 0,
+    #     "x": 274,
+    #     "y": top_to_pdf_y(280),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "provinsi_murid":{
+    #     "page": 0,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(291),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "kota_murid":{
+    #     "page": 0,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(306),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "kecamatan_murid":{
+    #     "page": 0,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(320),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "kelurahan_murid":{
+    #     "page": 0,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(337),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+    # "kode_pos_murid":{
+    #     "page": 0,
+    #     "x": 222,
+    #     "y": top_to_pdf_y(352),
+    #     "max_w": 170,
+    #     "font_size": 9,
+    # },
+
+    # ? data wali
     # "nama_wali":{
     #     "page": 2,
     #     "x": 222,
@@ -512,6 +638,8 @@ FIELDS_DATA_SISWA = {
     #     "max_w": 170,
     #     "font_size": 9,
     # },
+
+    # ? data kontak darurat
     # "nama_kontak_darurat":{
     #     "page": 3,
     #     "x": 222,
@@ -623,152 +751,151 @@ def _make_overlay(page_fields, page_w, page_h):
     return PdfReader(packet)
 
 
-def fill_kjp_pdf_data_siswa(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
+def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
     """
         data Murid
     """
-    nama_murid  = siswa.get("nama_murid", "")
-    tempat_lahir_murid  = siswa.get("tempat_lahir_murid", "")
-    jenis_kelamin_murid = siswa.get("jenis_kelamin_murid", "")
-    nik_murid = siswa.get("nik_murid", "")
-    no_kartu_keluarga = siswa.get("no_kartu_keluarga", "")
-    tanggal_lahir_murid = siswa.get("tanggal_lahir_murid", "")
-    nama_ibu_kandung_murid = siswa.get("nama_ibu_kandung_murid", "")
-    kelas = siswa.get("kelas", "")
-    nisn_murid = siswa.get("nisn_murid", "")
-    masa_berlaku_identitas = siswa.get("masa_berlaku_identitas", "")
-    no_hp_murid = siswa.get("no_hp_murid", "")
-    no_telepon = siswa.get("no_telepon", "")
-    alamat_surat = siswa.get("alamat_surat", "")
-    tipe_alamat = siswa.get("tipe_alamat", "")
-    status_tempat_tinggal = siswa.get("status_tempat_tinggal", "")
-    agama_murid = siswa.get("agama_murid", "")
-    untuk_disabilitas = siswa.get("untuk_disabilitas", "")
-    npwp_murid = siswa.get("npwp_murid", "")
-    alamat_murid = siswa.get("alamat_murid", "")
-    rt_murid = siswa.get("rt_murid", "")
-    rw_murid = siswa.get("rw_murid", "")
-    provinsi_murid = siswa.get("provinsi_murid", "")
-    kota_murid = siswa.get("kota_murid", "")
-    kecamatan_murid = siswa.get("kecamatan_murid", "")
-    kelurahan_murid = siswa.get("kelurahan_murid", "")
-    kode_pos_murid = siswa.get("kode_pos_murid", "")
+    # nama_murid  = siswa.get("nama_murid", "")
+    # tempat_lahir_murid  = siswa.get("tempat_lahir_murid", "")
+    # jenis_kelamin_murid = siswa.get("jenis_kelamin_murid", "")
+    # nik_murid = siswa.get("nik_murid", "")
+    # no_kartu_keluarga = siswa.get("no_kartu_keluarga", "")
+    # tanggal_lahir_murid = siswa.get("tanggal_lahir_murid", "")
+    # nama_ibu_kandung_murid = siswa.get("nama_ibu_kandung_murid", "")
+    # kelas = siswa.get("kelas", "")
+    # nisn_murid = siswa.get("nisn_murid", "")
+    # masa_berlaku_identitas = siswa.get("masa_berlaku_identitas", "")
+    # no_hp_murid = siswa.get("no_hp_murid", "")
+    # no_telepon = siswa.get("no_telepon", "")
+    # alamat_surat = siswa.get("alamat_surat", "")
+    # tipe_alamat = siswa.get("tipe_alamat", "")
+    # status_tempat_tinggal = siswa.get("status_tempat_tinggal", "")
+    # agama_murid = siswa.get("agama_murid", "")
+    # untuk_disabilitas = siswa.get("untuk_disabilitas", "")
+    # npwp_murid = siswa.get("npwp_murid", "")
+    # alamat_murid = siswa.get("alamat_murid", "")
+    # rt_murid = siswa.get("rt_murid", "")
+    # rw_murid = siswa.get("rw_murid", "")
+    # provinsi_murid = siswa.get("provinsi_murid", "")
+    # kota_murid = siswa.get("kota_murid", "")
+    # kecamatan_murid = siswa.get("kecamatan_murid", "")
+    # kelurahan_murid = siswa.get("kelurahan_murid", "")
+    # kode_pos_murid = siswa.get("kode_pos_murid", "")
 
-    # Cek Jenis Kelamin
-    if jenis_kelamin_murid == "Laki-laki":
-        FIELDS_DATA_SISWA["jenis_kelamin_murid"]["x"] = 234
-        FIELDS_DATA_SISWA["jenis_kelamin_murid"]["y"] = top_to_pdf_y(200)
-    else:
-        FIELDS_DATA_SISWA["jenis_kelamin_murid"]["x"] = 313
-        FIELDS_DATA_SISWA["jenis_kelamin_murid"]["y"] = top_to_pdf_y(200)
+    # # Cek Jenis Kelamin
+    # if jenis_kelamin_murid == "Laki-laki":
+    #     FIELDS_DATA_SISWA["jenis_kelamin_murid"]["x"] = 234
+    #     FIELDS_DATA_SISWA["jenis_kelamin_murid"]["y"] = top_to_pdf_y(200)
+    # else:
+    #     FIELDS_DATA_SISWA["jenis_kelamin_murid"]["x"] = 313
+    #     FIELDS_DATA_SISWA["jenis_kelamin_murid"]["y"] = top_to_pdf_y(200)
 
-    # Cek kelas
-    if kelas == "7":
-        FIELDS_DATA_SISWA["kelas"]["x"] = 388
-        FIELDS_DATA_SISWA["kelas"]["y"] = top_to_pdf_y(371)
-    elif kelas == "8":
-        FIELDS_DATA_SISWA["kelas"]["x"] = 388
-        FIELDS_DATA_SISWA["kelas"]["y"] = top_to_pdf_y(384)
-    elif kelas == "9":
-        FIELDS_DATA_SISWA["kelas"]["x"] = 388
-        FIELDS_DATA_SISWA["kelas"]["y"] = top_to_pdf_y(396)
-    else:
-        FIELDS_DATA_SISWA["kelas"]["x"] = 0
-        FIELDS_DATA_SISWA["kelas"]["y"] = top_to_pdf_y(0)
+    # # Cek kelas
+    # if kelas == "7":
+    #     FIELDS_DATA_SISWA["kelas"]["x"] = 388
+    #     FIELDS_DATA_SISWA["kelas"]["y"] = top_to_pdf_y(371)
+    # elif kelas == "8":
+    #     FIELDS_DATA_SISWA["kelas"]["x"] = 388
+    #     FIELDS_DATA_SISWA["kelas"]["y"] = top_to_pdf_y(384)
+    # elif kelas == "9":
+    #     FIELDS_DATA_SISWA["kelas"]["x"] = 388
+    #     FIELDS_DATA_SISWA["kelas"]["y"] = top_to_pdf_y(396)
+    # else:
+    #     FIELDS_DATA_SISWA["kelas"]["x"] = 0
+    #     FIELDS_DATA_SISWA["kelas"]["y"] = top_to_pdf_y(0)
 
-    # Cek Masa Berlaku Identitas
-    if masa_berlaku_identitas == "Seumur Hidup":
-        FIELDS_DATA_SISWA["masa_berlaku_identitas"]["x"] = 307
-        FIELDS_DATA_SISWA["masa_berlaku_identitas"]["y"] = top_to_pdf_y(440)
-    else:
-        FIELDS_DATA_SISWA["masa_berlaku_identitas"]["x"] = 222
-        FIELDS_DATA_SISWA["masa_berlaku_identitas"]["y"] = top_to_pdf_y(437)
+    # # Cek Masa Berlaku Identitas
+    # if masa_berlaku_identitas == "Seumur Hidup":
+    #     FIELDS_DATA_SISWA["masa_berlaku_identitas"]["x"] = 307
+    #     FIELDS_DATA_SISWA["masa_berlaku_identitas"]["y"] = top_to_pdf_y(440)
+    # else:
+    #     FIELDS_DATA_SISWA["masa_berlaku_identitas"]["x"] = 222
+    #     FIELDS_DATA_SISWA["masa_berlaku_identitas"]["y"] = top_to_pdf_y(437)
 
-    # Cek Alamat Surat
-    if alamat_surat == "Diambil Sendiri":
-        FIELDS_DATA_SISWA["alamat_surat"]["x"] = 236
-        FIELDS_DATA_SISWA["alamat_surat"]["y"] = top_to_pdf_y(487)
-    elif alamat_surat == "Dikirim":
-        FIELDS_DATA_SISWA["alamat_surat"]["x"] = 344
-        FIELDS_DATA_SISWA["alamat_surat"]["y"] = top_to_pdf_y(487)
+    # # Cek Alamat Surat
+    # if alamat_surat == "Diambil Sendiri":
+    #     FIELDS_DATA_SISWA["alamat_surat"]["x"] = 236
+    #     FIELDS_DATA_SISWA["alamat_surat"]["y"] = top_to_pdf_y(487)
+    # elif alamat_surat == "Dikirim":
+    #     FIELDS_DATA_SISWA["alamat_surat"]["x"] = 344
+    #     FIELDS_DATA_SISWA["alamat_surat"]["y"] = top_to_pdf_y(487)
 
-    # Cek Tipe Alamat
-    if tipe_alamat == "Alamat Rumah":
-        FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 236
-        FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(508)
-    elif tipe_alamat == "Alamat Kantor":
-        FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 236
-        FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(520)
-    elif tipe_alamat == "Alamat Kost":
-        FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 236
-        FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(533)
-    elif tipe_alamat == "Alamat Sesuai KK":
-        FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 236
-        FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(546)
-    elif tipe_alamat == "Alamat Sesuai NPWP":
-        FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 344
-        FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(508)
-    elif tipe_alamat == "Alamat Rusun":
-        FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 344
-        FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(519)
-    elif tipe_alamat == "Alamat Panti":
-        FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 344
-        FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(534)
+    # # Cek Tipe Alamat
+    # if tipe_alamat == "Alamat Rumah":
+    #     FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 236
+    #     FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(508)
+    # elif tipe_alamat == "Alamat Kantor":
+    #     FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 236
+    #     FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(520)
+    # elif tipe_alamat == "Alamat Kost":
+    #     FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 236
+    #     FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(533)
+    # elif tipe_alamat == "Alamat Sesuai KK":
+    #     FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 236
+    #     FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(546)
+    # elif tipe_alamat == "Alamat Sesuai NPWP":
+    #     FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 344
+    #     FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(508)
+    # elif tipe_alamat == "Alamat Rusun":
+    #     FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 344
+    #     FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(519)
+    # elif tipe_alamat == "Alamat Panti":
+    #     FIELDS_DATA_SISWA["tipe_alamat"]["x"] = 344
+    #     FIELDS_DATA_SISWA["tipe_alamat"]["y"] = top_to_pdf_y(534)
 
-    # Cek Status Tempat Tinggal
-    if status_tempat_tinggal == "Bukan Milik Pribadi":
-        FIELDS_DATA_SISWA["status_tempat_tinggal"]["x"] = 237
-        FIELDS_DATA_SISWA["status_tempat_tinggal"]["y"] = top_to_pdf_y(560)
-    elif status_tempat_tinggal == "Milik Pribadi":
-        FIELDS_DATA_SISWA["status_tempat_tinggal"]["x"] = 392
-        FIELDS_DATA_SISWA["status_tempat_tinggal"]["y"] = top_to_pdf_y(560)
+    # # Cek Status Tempat Tinggal
+    # if status_tempat_tinggal == "Bukan Milik Pribadi":
+    #     FIELDS_DATA_SISWA["status_tempat_tinggal"]["x"] = 237
+    #     FIELDS_DATA_SISWA["status_tempat_tinggal"]["y"] = top_to_pdf_y(560)
+    # elif status_tempat_tinggal == "Milik Pribadi":
+    #     FIELDS_DATA_SISWA["status_tempat_tinggal"]["x"] = 392
+    #     FIELDS_DATA_SISWA["status_tempat_tinggal"]["y"] = top_to_pdf_y(560)
 
-    # Cek Agama Murid
-    if agama_murid == "Islam":
-        FIELDS_DATA_SISWA["agama_murid"]["x"] = 310
-        FIELDS_DATA_SISWA["agama_murid"]["y"] = top_to_pdf_y(596)
-    if agama_murid == "Protestan":
-        FIELDS_DATA_SISWA["agama_murid"]["x"] = 310
-        FIELDS_DATA_SISWA["agama_murid"]["y"] = top_to_pdf_y(582)
-    if agama_murid == "Katolik":
-        FIELDS_DATA_SISWA["agama_murid"]["x"] = 391
-        FIELDS_DATA_SISWA["agama_murid"]["y"] = top_to_pdf_y(582)
-    if agama_murid == "Hindu":
-        FIELDS_DATA_SISWA["agama_murid"]["x"] = 237
-        FIELDS_DATA_SISWA["agama_murid"]["y"] = top_to_pdf_y(582)
-    if agama_murid == "Budha":
-        FIELDS_DATA_SISWA["agama_murid"]["x"] = 237
-        FIELDS_DATA_SISWA["agama_murid"]["y"] = top_to_pdf_y(596)
-    if agama_murid == "Lainnya":
-        FIELDS_DATA_SISWA["agama_murid"]["x"] = 391
-        FIELDS_DATA_SISWA["agama_murid"]["y"] = top_to_pdf_y(596)
+    # # Cek Agama Murid
+    # if agama_murid == "Islam":
+    #     FIELDS_DATA_SISWA["agama_murid"]["x"] = 310
+    #     FIELDS_DATA_SISWA["agama_murid"]["y"] = top_to_pdf_y(596)
+    # if agama_murid == "Protestan":
+    #     FIELDS_DATA_SISWA["agama_murid"]["x"] = 310
+    #     FIELDS_DATA_SISWA["agama_murid"]["y"] = top_to_pdf_y(582)
+    # if agama_murid == "Katolik":
+    #     FIELDS_DATA_SISWA["agama_murid"]["x"] = 391
+    #     FIELDS_DATA_SISWA["agama_murid"]["y"] = top_to_pdf_y(582)
+    # if agama_murid == "Hindu":
+    #     FIELDS_DATA_SISWA["agama_murid"]["x"] = 237
+    #     FIELDS_DATA_SISWA["agama_murid"]["y"] = top_to_pdf_y(582)
+    # if agama_murid == "Budha":
+    #     FIELDS_DATA_SISWA["agama_murid"]["x"] = 237
+    #     FIELDS_DATA_SISWA["agama_murid"]["y"] = top_to_pdf_y(596)
+    # if agama_murid == "Lainnya":
+    #     FIELDS_DATA_SISWA["agama_murid"]["x"] = 391
+    #     FIELDS_DATA_SISWA["agama_murid"]["y"] = top_to_pdf_y(596)
 
-    # Cek untuk Disabilitas
-    if untuk_disabilitas == "Tidak Ada":
-        FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 0
-        FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(0)
-    elif untuk_disabilitas == "Tuna Rungu":
-        FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
-        FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(664)
-    elif untuk_disabilitas == "Tuna Netra":
-        FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
-        FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(676)
-    elif untuk_disabilitas == "Tuna Wicara":
-        FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
-        FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(690)
-    elif untuk_disabilitas == "Tuna Daksa":
-        FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
-        FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(703)
-    elif untuk_disabilitas == "Tuna Grahita":
-        FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
-        FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(716)
-    elif untuk_disabilitas == "Tuna Laras":
-        FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
-        FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(729)
-    elif untuk_disabilitas == "Tuna Ganda":
-        FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
-        FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(743)
-
+    # # Cek untuk Disabilitas
+    # if untuk_disabilitas == "Tidak Ada":
+    #     FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 0
+    #     FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(0)
+    # elif untuk_disabilitas == "Tuna Rungu":
+    #     FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
+    #     FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(664)
+    # elif untuk_disabilitas == "Tuna Netra":
+    #     FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
+    #     FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(676)
+    # elif untuk_disabilitas == "Tuna Wicara":
+    #     FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
+    #     FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(690)
+    # elif untuk_disabilitas == "Tuna Daksa":
+    #     FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
+    #     FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(703)
+    # elif untuk_disabilitas == "Tuna Grahita":
+    #     FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
+    #     FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(716)
+    # elif untuk_disabilitas == "Tuna Laras":
+    #     FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
+    #     FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(729)
+    # elif untuk_disabilitas == "Tuna Ganda":
+    #     FIELDS_DATA_SISWA["untuk_disabilitas"]["x"] = 237
+    #     FIELDS_DATA_SISWA["untuk_disabilitas"]["y"] = top_to_pdf_y(743)
 
     """
         data Wali
@@ -804,7 +931,7 @@ def fill_kjp_pdf_data_siswa(siswa: dict, template_path: str = "formulir_kjp.pdf"
     # if masa_berlaku_ktp_wali == "Seumur Hidup":
     #     FIELDS["masa_berlaku_ktp_wali"]["x"] = 311
     #     FIELDS["masa_berlaku_ktp_wali"]["y"] = top_to_pdf_y(131)
-    
+
     # # cek jenis kelamin wali
     # if jenis_kelamin_wali == "Laki-laki":
     #     FIELDS["jenis_kelamin_wali"]["x"] = 239
@@ -898,7 +1025,7 @@ def fill_kjp_pdf_data_siswa(siswa: dict, template_path: str = "formulir_kjp.pdf"
     # elif pendidikan_wali == "S3":
     #     FIELDS["pendidikan_wali"]["x"] = 384
     #     FIELDS["pendidikan_wali"]["y"] = top_to_pdf_y(393)
-    
+
     # # cek jabatan wali
     # if jabatan_wali == "Tetap":
     #     FIELDS["jabatan_wali"]["x"] = 238
@@ -968,45 +1095,87 @@ def fill_kjp_pdf_data_siswa(siswa: dict, template_path: str = "formulir_kjp.pdf"
     #     FIELDS["hubungan_kontak"]["x"] = 226
     #     FIELDS["hubungan_kontak"]["y"] = top_to_pdf_y(186)
 
+    """
+        data permohonan
+    """
+    # nama_pemohon = siswa.get("nama_pemohon", "")
+    # alamat_pemohon = siswa.get("alamat_pemohon", "")
+    # rt_pemohon = siswa.get("rt_pemohon", "")
+    # rw_pemohon = siswa.get("rw_pemohon", "")
+    # kelurahan_pemohon = siswa.get("kelurahan_pemohon", "")
+    # kecamatan_pemohon = siswa.get("kecamatan_pemohon", "")
+    # kota_pemohon = siswa.get("kota_pemohon", "")
+    # kode_pos_pemohon = siswa.get("kode_pos_pemohon", "")
+    # telepon_pemohon = siswa.get("telepon_pemohon", "")
+    # nama_sekolah = siswa.get("nama_sekolah", "")
+    # alamat_sekolah = siswa.get("alamat_sekolah", "")
+    # rt_sekolah = siswa.get("rt_sekolah", "")
+    # rw_sekolah = siswa.get("rw_sekolah", "")
+    # kelurahan_sekolah = siswa.get("kelurahan_sekolah", "")
+    # kecamatan_sekolah = siswa.get("kecamatan_sekolah", "")
+    # kota_sekolah = siswa.get("kota_sekolah", "")
+    # kode_pos_sekolah = siswa.get("kode_pos_sekolah", "")
 
     # Kelompokkan field berdasarkan halaman
     page_data = {}
 
     field_map = [
-        ("nama_murid",     nama_murid),
-        ("tempat_lahir_murid", tempat_lahir_murid),
-        ("nik_murid", nik_murid),
-        ("no_kartu_keluarga", no_kartu_keluarga),
-        ("jenis_kelamin_murid", "✓"),
-        ("tanggal_lahir_murid_tanggal_1", tanggal_lahir_murid.split("-")[2][0]),
-        ("tanggal_lahir_murid_tanggal_2", tanggal_lahir_murid.split("-")[2][1]),
-        ("tanggal_lahir_murid_bulan_1", tanggal_lahir_murid.split("-")[1][0]),
-        ("tanggal_lahir_murid_bulan_2", tanggal_lahir_murid.split("-")[1][1]),
-        ("tanggal_lahir_murid_tahun_1", tanggal_lahir_murid.split("-")[0][0]),
-        ("tanggal_lahir_murid_tahun_2", tanggal_lahir_murid.split("-")[0][1]),
-        ("tanggal_lahir_murid_tahun_3", tanggal_lahir_murid.split("-")[0][2]),
-        ("tanggal_lahir_murid_tahun_4", tanggal_lahir_murid.split("-")[0][3]),
-        ("nama_ibu_kandung_murid", nama_ibu_kandung_murid),
-        ("kelas", "✓"),
-        ("nisn_murid", nisn_murid),
-        ("masa_berlaku_identitas", "✓" if masa_berlaku_identitas == "Seumur Hidup" else masa_berlaku_identitas),
-        ("no_hp_murid", no_hp_murid),
-        ("no_telepon", no_telepon),
-        ("alamat_surat", "✓"),
-        ("tipe_alamat", "✓"),
-        ("status_tempat_tinggal", "✓"),
-        ("agama_murid", "✓"),
-        ("untuk_disabilitas", "" if untuk_disabilitas == "Tidak Ada" else "✓"),
-        ("pendidikan", "✓"),
-        ("npwp_murid", npwp_murid),
-        ("alamat_murid", alamat_murid),
-        ("rt_murid", rt_murid),
-        ("rw_murid", rw_murid),
-        ("provinsi_murid", provinsi_murid),
-        ("kota_murid", kota_murid),
-        ("kecamatan_murid", kecamatan_murid),
-        ("kelurahan_murid", kelurahan_murid),
-        ("kode_pos_murid", kode_pos_murid),
+        # ? data permohonan
+        # ("nama_pemohon", nama_pemohon),
+        # ("alamat_pemohon", alamat_pemohon),
+        # ("rt_pemohon", f"{rt_pemohon} / "),
+        # ("rw_pemohon", rw_pemohon),
+        # ("kelurahan_pemohon", kelurahan_pemohon),
+        # ("kecamatan_pemohon", kecamatan_pemohon),
+        # ("kota_pemohon", kota_pemohon),
+        # ("kode_pos_pemohon", kode_pos_pemohon),
+        # ("telepon_pemohon", telepon_pemohon),
+        # ("nama_sekolah", nama_sekolah),
+        # ("alamat_sekolah", alamat_sekolah),
+        # ("rt_sekolah", f"{rt_sekolah} / "),
+        # ("rw_sekolah", rw_sekolah),
+        # ("kelurahan_sekolah", kelurahan_sekolah),
+        # ("kecamatan_sekolah", kecamatan_pemohon),
+        # ("kota_sekolah", kota_sekolah),
+        # ("kode_pos_sekolah", kode_pos_sekolah),
+
+        # ? data siswa
+        # ("nama_murid",     nama_murid),
+        # ("tempat_lahir_murid", tempat_lahir_murid),
+        # ("nik_murid", nik_murid),
+        # ("no_kartu_keluarga", no_kartu_keluarga),
+        # ("jenis_kelamin_murid", "✓"),
+        # ("tanggal_lahir_murid_tanggal_1", tanggal_lahir_murid.split("-")[2][0]),
+        # ("tanggal_lahir_murid_tanggal_2", tanggal_lahir_murid.split("-")[2][1]),
+        # ("tanggal_lahir_murid_bulan_1", tanggal_lahir_murid.split("-")[1][0]),
+        # ("tanggal_lahir_murid_bulan_2", tanggal_lahir_murid.split("-")[1][1]),
+        # ("tanggal_lahir_murid_tahun_1", tanggal_lahir_murid.split("-")[0][0]),
+        # ("tanggal_lahir_murid_tahun_2", tanggal_lahir_murid.split("-")[0][1]),
+        # ("tanggal_lahir_murid_tahun_3", tanggal_lahir_murid.split("-")[0][2]),
+        # ("tanggal_lahir_murid_tahun_4", tanggal_lahir_murid.split("-")[0][3]),
+        # ("nama_ibu_kandung_murid", nama_ibu_kandung_murid),
+        # ("kelas", "✓"),
+        # ("nisn_murid", nisn_murid),
+        # ("masa_berlaku_identitas", "✓" if masa_berlaku_identitas == "Seumur Hidup" else masa_berlaku_identitas),
+        # ("no_hp_murid", no_hp_murid),
+        # ("no_telepon", no_telepon),
+        # ("alamat_surat", "✓"),
+        # ("tipe_alamat", "✓"),
+        # ("status_tempat_tinggal", "✓"),
+        # ("agama_murid", "✓"),
+        # ("untuk_disabilitas", "" if untuk_disabilitas == "Tidak Ada" else "✓"),
+        # ("pendidikan", "✓"),
+        # ("npwp_murid", npwp_murid),
+        # ("alamat_murid", alamat_murid),
+        # ("rt_murid", rt_murid),
+        # ("rw_murid", rw_murid),
+        # ("provinsi_murid", provinsi_murid),
+        # ("kota_murid", kota_murid),
+        # ("kecamatan_murid", kecamatan_murid),
+        # ("kelurahan_murid", kelurahan_murid),
+        # ("kode_pos_murid", kode_pos_murid),
+
+        # ? data wali
         # ("nama_wali", nama_wali),
         # ("no_ktp_wali", no_ktp_wali),
         # ("masa_berlaku_ktp_wali", "✓" if masa_berlaku_ktp_wali == "Seumur Hidup" else masa_berlaku_ktp_wali),
@@ -1040,6 +1209,8 @@ def fill_kjp_pdf_data_siswa(siswa: dict, template_path: str = "formulir_kjp.pdf"
         # ("no_hp_wali", no_hp_wali),
         # ("no_telepon_wali", no_telepon_wali),
         # ("tipe_alamat_wali", "✓"),
+
+        # ? data kontak darurat
         # ("nama_kontak_darurat", nama_kontak_darurat),
         # ("alamat_kontak", alamat_kontak),
         # ("no_identitas_kontak", no_identitas_kontak),
@@ -1056,7 +1227,7 @@ def fill_kjp_pdf_data_siswa(siswa: dict, template_path: str = "formulir_kjp.pdf"
 
     for field_key, value in field_map:
         cfg = FIELDS_DATA_SISWA[field_key]
-        pg  = cfg["page"]
+        pg = cfg["page"]
         if pg not in page_data:
             page_data[pg] = []
         page_data[pg].append((field_key, value, cfg))
@@ -1071,7 +1242,7 @@ def fill_kjp_pdf_data_siswa(siswa: dict, template_path: str = "formulir_kjp.pdf"
 
         if i in page_data:
             overlay_reader = _make_overlay(page_data[i], page_w, page_h)
-            overlay_page   = overlay_reader.pages[0]
+            overlay_page = overlay_reader.pages[0]
             page.merge_page(overlay_page)
 
         writer.add_page(page)
@@ -1082,4 +1253,75 @@ def fill_kjp_pdf_data_siswa(siswa: dict, template_path: str = "formulir_kjp.pdf"
     return output.read()
 
 
+def fill_kjp_pdf_permohonan(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
+    """
+        data permohonan
+    """
+    nama_pemohon = siswa.get("nama_pemohon", "")
+    alamat_pemohon = siswa.get("alamat_pemohon", "")
+    rt_pemohon = siswa.get("rt_pemohon", "")
+    rw_pemohon = siswa.get("rw_pemohon", "")
+    kelurahan_pemohon = siswa.get("kelurahan_pemohon", "")
+    kecamatan_pemohon = siswa.get("kecamatan_pemohon", "")
+    kota_pemohon = siswa.get("kota_pemohon", "")
+    kode_pos_pemohon = siswa.get("kode_pos_pemohon", "")
+    telepon_pemohon = siswa.get("telepon_pemohon", "")
+    nama_sekolah = siswa.get("nama_sekolah", "")
+    alamat_sekolah = siswa.get("alamat_sekolah", "")
+    rt_sekolah = siswa.get("rt_sekolah", "")
+    rw_sekolah = siswa.get("rw_sekolah", "")
+    kelurahan_sekolah = siswa.get("kelurahan_sekolah", "")
+    kecamatan_sekolah = siswa.get("kecamatan_sekolah", "")
+    kota_sekolah = siswa.get("kota_sekolah", "")
+    kode_pos_sekolah = siswa.get("kode_pos_sekolah", "")
 
+    # Kelompokkan field berdasarkan halaman
+    page_data = {}
+
+    field_map = [
+        # ? data permohonan
+        ("nama_pemohon", nama_pemohon),
+        ("alamat_pemohon", alamat_pemohon),
+        ("rt_pemohon", f"{rt_pemohon} / "),
+        ("rw_pemohon", rw_pemohon),
+        ("kelurahan_pemohon", kelurahan_pemohon),
+        ("kecamatan_pemohon", kecamatan_pemohon),
+        ("kota_pemohon", kota_pemohon),
+        ("kode_pos_pemohon", kode_pos_pemohon),
+        ("telepon_pemohon", telepon_pemohon),
+        ("nama_sekolah", nama_sekolah),
+        ("alamat_sekolah", alamat_sekolah),
+        ("rt_sekolah", f"{rt_sekolah} / "),
+        ("rw_sekolah", rw_sekolah),
+        ("kelurahan_sekolah", kelurahan_sekolah),
+        ("kecamatan_sekolah", kecamatan_pemohon),
+        ("kota_sekolah", kota_sekolah),
+        ("kode_pos_sekolah", kode_pos_sekolah),
+    ]
+
+    for field_key, value in field_map:
+        cfg = FIELDS_DATA_SISWA[field_key]
+        pg = cfg["page"]
+        if pg not in page_data:
+            page_data[pg] = []
+        page_data[pg].append((field_key, value, cfg))
+
+    # Baca template
+    reader = PdfReader(template_path)
+    writer = PdfWriter()
+
+    for i, page in enumerate(reader.pages):
+        page_w = float(page.mediabox.width)
+        page_h = float(page.mediabox.height)
+
+        if i in page_data:
+            overlay_reader = _make_overlay(page_data[i], page_w, page_h)
+            overlay_page = overlay_reader.pages[0]
+            page.merge_page(overlay_page)
+
+        writer.add_page(page)
+
+    output = io.BytesIO()
+    writer.write(output)
+    output.seek(0)
+    return output.read()

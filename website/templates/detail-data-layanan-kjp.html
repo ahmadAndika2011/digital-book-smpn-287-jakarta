@@ -867,7 +867,7 @@
         <div class="ttd-block">
           <div class="ttd-block-label">TTD Pemohon</div>
           {% if item.ttd_pemohon %}
-            <img src="data:image/png;base64,{{ item.ttd_pemohon }}" alt="TTD Pemohon">
+            <img src="/static/uploads/ttd/ttd_{{item.nama_pemohon}}.png" alt="TTD Pemohon">
           {% else %}
             <div class="ttd-block-empty">Tanda tangan belum tersedia</div>
           {% endif %}
