@@ -349,6 +349,17 @@ def layanan_kjp():
                 )
                 db.session.add(data_kjp)
             else:
+                header, encoded = ttd_pemohon.split(",", 1)
+                image_data = base64.b64decode(encoded)
+                image = Image.open(BytesIO(image_data))
+                save_path = os.path.join(
+                    current_app.root_path, "static", "uploads", "ttd")
+                os.makedirs(save_path, exist_ok=True)
+                filename = f"ttd_{nama_pemohon}.png"
+                image.save(os.path.join(save_path, filename))
+
+                ttd_pemohon = f"ttd_{nama_pemohon}.png"
+                
                 data_kjp = DatabaseLayananKjp(
                     nik_murid = nik_murid,
                     no_kartu_keluarga = no_kartu_keluarga,
