@@ -42,11 +42,17 @@ def layanan_kjp():
         kode_pos_murid = request.form.get("kode_pos_murid")
         npwp_murid = request.form.get("npwp_murid")
         alamat_murid = request.form.get("alamat_murid")
-        # cek tanggal lahir murid
+        #* cek tanggal lahir murid
         try:
             valid_tanggal_lahir_murid = datetime.strptime(tanggal_lahir_murid, "%Y-%m-%d")
         except:
             valid_tanggal_lahir_murid = None
+        #* Cek
+        cek_nisn_murid_from_database_siswa = DatabaseSiswa.query.filter_by(nisn=nisn_murid).first()
+        cek_nisn_murid_from_database_layanan_kjp = DatabaseLayananKjp.query.filter_by(nisn_murid=nisn_murid).first()
+        cek_npwp_murid_from_database_layanan_kjp = DatabaseLayananKjp.query.filter_by(npwp_murid=npwp_murid).first()
+        cek_nik_murid_from_database_layanan_kjp = DatabaseLayananKjp.query.filter_by(nik_murid=nik_murid).first()
+        cek_no_kartu_keluarga_from_database_layanan_kjp = DatabaseLayananKjp.query.filter_by(no_kartu_keluarga=no_kartu_keluarga).first()
 
         # ? data wali
         nama_wali = request.form.get("nama_wali")
@@ -75,6 +81,10 @@ def layanan_kjp():
         no_hp_wali = request.form.get("no_hp_wali")
         no_telepon_wali = request.form.get("no_telepon_wali")
         tipe_alamat_wali = request.form.get("tipe_alamat_wali")
+        #* Cek
+        cek_no_ktp_wali_from_database_layanan_kjp = DatabaseLayananKjp.query.filter_by(no_ktp_wali=no_ktp_wali).first()
+        cek_npwp_wali_from_database_layanan_kjp = DatabaseLayananKjp.query.filter_by(npwp_wali=npwp_wali).first()
+        cek_kartu_keluarga_wali_from_database_layanan_kjp = DatabaseLayananKjp.query.filter_by(kartu_keluarga_wali=kartu_keluarga_wali).first()
 
         # ? kontak darurat
         nama_kontak_darurat = request.form.get("nama_kontak_darurat")
@@ -89,6 +99,8 @@ def layanan_kjp():
         kelurahan_kontak = request.form.get("kelurahan_kontak")
         kode_pos_kontak = request.form.get("kode_pos_kontak")
         no_telepon_kontak = request.form.get("no_telepon_kontak")
+        #* Cek
+        cek_no_identitas_kontak_from_database_layanan_kjp = DatabaseLayananKjp.query.filter_by(no_identitas_kontak=no_identitas_kontak).first()
 
         # ? permohonan
         nama_pemohon = request.form.get("nama_pemohon", "")
@@ -110,8 +122,6 @@ def layanan_kjp():
         kode_pos_sekolah = request.form.get("kode_pos_sekolah", "")
         ttd_pemohon = request.form.get("ttd_pemohon", "")
 
-        cek_nisn_murid_from_database_siswa = DatabaseSiswa.query.filter_by(nisn=nisn_murid).first()
-        cek_nisn_murid_from_database_layanan_kjp = DatabaseLayananKjp.query.filter_by(nisn_murid=nisn_murid).first()
 
         # cek
         if cek_nisn_murid_from_database_layanan_kjp:
@@ -119,6 +129,27 @@ def layanan_kjp():
             return redirect(url_for("layanan_kjp.layanan_kjp"))
         elif not cek_nisn_murid_from_database_siswa:
             flash("NISN belum terdaftar di database", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif cek_npwp_murid_from_database_layanan_kjp:
+            flash("NPWP Wali sudah terdaftar di layanan kjp", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif cek_nik_murid_from_database_layanan_kjp:
+            flash("NIK Siswa sudah terdaftar di layanan kjp", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif cek_no_kartu_keluarga_from_database_layanan_kjp:
+            flash("No kartu keluarga siswa sudah terdaftar di layanan kjp", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif cek_no_ktp_wali_from_database_layanan_kjp:
+            flash("No KTP wali sudah terdaftar di layanan kjp", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif cek_npwp_wali_from_database_layanan_kjp:
+            flash("NPWP wali sudah terdaftar di layanan kjp", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif cek_kartu_keluarga_wali_from_database_layanan_kjp:
+            flash("Kartu Keluarga wali sudah terdaftar di layanan kjp", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif cek_no_identitas_kontak_from_database_layanan_kjp:
+            flash("No identitas kontak darurat sudah terdaftar di layanan kjp", category="error")
             return redirect(url_for("layanan_kjp.layanan_kjp"))
         elif not ttd_pemohon:
             flash("Mohon masukkan tanda tangan!", category="error")
