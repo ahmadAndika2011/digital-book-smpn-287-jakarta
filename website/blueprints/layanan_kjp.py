@@ -251,10 +251,10 @@ def layanan_kjp():
                 save_path = os.path.join(
                     current_app.root_path, "static", "uploads", "ttd")
                 os.makedirs(save_path, exist_ok=True)
-                filename = f"ttd_{nama_pemohon}.png"
+                filename = f"ttd_{npwp_wali}.png"
                 image.save(os.path.join(save_path, filename))
 
-                ttd_pemohon = f"ttd_{nama_pemohon}.png"
+                ttd_pemohon = f"ttd_{npwp_wali}.png"
             
                 data_kjp = DatabaseLayananKjp(
                     nik_murid = nik_murid,
@@ -355,11 +355,11 @@ def layanan_kjp():
                 save_path = os.path.join(
                     current_app.root_path, "static", "uploads", "ttd")
                 os.makedirs(save_path, exist_ok=True)
-                filename = f"ttd_{nama_pemohon}.png"
+                filename = f"ttd_{npwp_wali}.png"
                 image.save(os.path.join(save_path, filename))
 
-                ttd_pemohon = f"ttd_{nama_pemohon}.png"
-                
+                ttd_pemohon = f"ttd_{npwp_wali}.png"
+
                 data_kjp = DatabaseLayananKjp(
                     nik_murid = nik_murid,
                     no_kartu_keluarga = no_kartu_keluarga,

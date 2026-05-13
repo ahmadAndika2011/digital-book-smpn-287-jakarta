@@ -1529,7 +1529,8 @@ canvas.sig-canvas {
           <div class="form-nav">
             <button type="button" class="btn-prev" onclick="goToStep(5)">← Sebelumnya</button>
             <span class="step-counter">Langkah 6 dari 6</span>
-            <button type="submit" class="btn-submit" onclick="collectSignatures()">✓ Kirim Data Pendaftaran</button>
+            {# <button type="submit" class="btn-submit" onclick="collectSignatures()">✓ Kirim Data Pendaftaran</button> #}
+            <button type="submit" class="btn-submit" onclick="return collectSignatures()">✓ Kirim Data Pendaftaran</button>
           </div>
         </div>
 
@@ -1540,9 +1541,33 @@ canvas.sig-canvas {
 
 <script>
 // ===== STEP NAVIGATION =====
+//{# const TOTAL_STEPS = 6;
+
+//function goToStep(n) {
+//  document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+ // document.querySelectorAll('.step-btn').forEach(b => b.classList.remove('active'));
+//  document.getElementById('step-' + n).classList.add('active');
+//  document.querySelector('.step-btn[data-step="' + n + '"]').classList.add('active');
+///  document.getElementById('progressBar').style.width = ((n / TOTAL_STEPS) * 100) + '%';
+  //window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  //se/tTimeout(() => {
+  //  document.querySelectorAll('#step-' + n + ' canvas.sig-canvas').forEach(c => {
+    //  initCanvas(c.dataset.sig);
+//    });
+  //}, 50); 
+//} #} #}
+
+// ===== STEP NAVIGATION =====
 const TOTAL_STEPS = 6;
+const savedSignatures = {}; // Tambah ini untuk menyimpan gambar
 
 function goToStep(n) {
+  // Simpan semua signature yang ada sebelum pindah
+  document.querySelectorAll('canvas.sig-canvas').forEach(c => {
+    savedSignatures[c.dataset.sig] = c.toDataURL('image/png');
+  });
+
   document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.step-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('step-' + n).classList.add('active');
@@ -1553,8 +1578,18 @@ function goToStep(n) {
   setTimeout(() => {
     document.querySelectorAll('#step-' + n + ' canvas.sig-canvas').forEach(c => {
       initCanvas(c.dataset.sig);
+      // Restore gambar setelah init
+      if (savedSignatures[c.dataset.sig]) {
+        const img = new Image();
+        img.onload = function() {
+          const ctx = c.getContext('2d');
+          const dpr = window.devicePixelRatio || 1;
+          ctx.drawImage(img, 0, 0, c.getBoundingClientRect().width, c.getBoundingClientRect().height);
+        };
+        img.src = savedSignatures[c.dataset.sig];
+      }
     });
-  }, 50); 
+  }, 50);
 }
 
 // ===== MASA BERLAKU TOGGLE =====
@@ -1636,11 +1671,21 @@ function initCanvas(id) {
   canvas.addEventListener('touchend', endDraw, { passive: false });
 }
 
+//function clearCanvas(id) {
+//  const canvas = document.getElementById('canvas-' + id);
+//  if (!canvas) return;
+//  const ctx = canvas.getContext('2d');
+//  ctx.clearRect(0, 0, canvas.width, canvas.height);
+//  const hiddenInput = document.getElementById('ttd_' + id);
+//  if (hiddenInput) hiddenInput.value = '';
+//}
+
 function clearCanvas(id) {
   const canvas = document.getElementById('canvas-' + id);
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  savedSignatures[id] = null; // Tambah baris ini
   const hiddenInput = document.getElementById('ttd_' + id);
   if (hiddenInput) hiddenInput.value = '';
 }
@@ -1649,13 +1694,54 @@ function changePen(id, color) {
   if (sigStates[id]) sigStates[id].color = color;
 }
 
+//function collectSignatures() {
+//  const canvases = document.querySelectorAll('canvas.sig-canvas');
+//  canvases.forEach(canvas => {
+//    const id = canvas.dataset.sig;
+//    const hidden = document.getElementById('ttd_' + id);
+//    if (hidden) hidden.value = canvas.toDataURL('image/png');
+//  });
+//}
+
+function isCanvasBlank(canvas) {
+  // Canvas kosong jika semua pixel transparan
+  const ctx = canvas.getContext('2d');
+  const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+  for (let i = 3; i < pixels.length; i += 4) {
+    if (pixels[i] > 0) return false; // Ada pixel tidak transparan = ada gambar
+  }
+  return true;
+}
+
 function collectSignatures() {
   const canvases = document.querySelectorAll('canvas.sig-canvas');
   canvases.forEach(canvas => {
     const id = canvas.dataset.sig;
     const hidden = document.getElementById('ttd_' + id);
-    if (hidden) hidden.value = canvas.toDataURL('image/png');
+    if (hidden) {
+      // Kirim string kosong jika canvas blank, bukan data URI
+      hidden.value = isCanvasBlank(canvas) ? '' : canvas.toDataURL('image/png');
+    }
   });
+}
+
+function collectSignatures() {
+  const canvases = document.querySelectorAll('canvas.sig-canvas');
+  canvases.forEach(canvas => {
+    const id = canvas.dataset.sig;
+    const hidden = document.getElementById('ttd_' + id);
+    if (hidden) {
+      hidden.value = isCanvasBlank(canvas) ? '' : canvas.toDataURL('image/png');
+    }
+  });
+
+  // Validasi TTD wajib sebelum submit
+  const ttdPemohon = document.getElementById('ttd_pemohon').value;
+  if (!ttdPemohon) {
+    alert('Mohon masukkan tanda tangan pemohon terlebih dahulu!');
+    return false; // Batalkan submit
+  }
+  return true;
 }
 
 // Init all canvases on load
