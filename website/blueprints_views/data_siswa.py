@@ -5,12 +5,11 @@ from flask_login import current_user
 
 views = Blueprint("data_siswa", __name__)
 
-@views.route("/data-siswa")
-def data_siswa():
-    q = request.args.get("q")
+def get_data_siswa(q=None):
+    database_q = DatabaseSiswa.query
 
     if q:
-        database_siswa = DatabaseSiswa.query.filter(
+        database_q = database_q.filter(
             db.or_(
                 DatabaseSiswa.nama.ilike(f'%{q}%'),
                 DatabaseSiswa.nisn.ilike(f'%{q}%'),
@@ -18,7 +17,16 @@ def data_siswa():
             )
         ).all()
     else:
-        database_siswa = DatabaseSiswa.query.order_by(DatabaseSiswa.nis.asc()).all()
+        database_q = DatabaseSiswa.query.order_by(DatabaseSiswa.nis.asc()).all()
+
+    for siswa in database_q:
+        yield siswa
+
+@views.route("/data-siswa")
+def data_siswa():
+    q = request.args.get("q", "").strip()
+
+    database_siswa = get_data_siswa(q)
     return render_template(
                             "data-siswa.html", 
                             user=current_user, 
