@@ -633,22 +633,7 @@
         </div>
       </div>
 
-      <!-- 4. KJP -->
-      <div class="card-wrapper theme-coral">
-        <div class="svc-card" onclick="toggleCard(this)">
-          <div class="svc-icon-wrap">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <rect x="2" y="5" width="20" height="14" rx="2" stroke="#993C1D" stroke-width="1.8"/>
-              <path d="M2 10h20" stroke="#993C1D" stroke-width="1.8"/>
-              <path d="M6 15h4" stroke="#993C1D" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="svc-body">
-            <p class="svc-title">Layanan KJP</p>
-            <p class="svc-desc">Kartu Jakarta Pintar. Pengelolaan data penerima KJP Plus.</p>
-          </div>
-          <div class="svc-arrow">
-            <span class="svc-tag">Beasiswa</span>
+            <!-- untuk download -->
             {# <form action="{{url_for('dashbord_admin.download_data_kjp_permohonan')}}" method="POST">
                 <button type="submit"
                     title="Download Halaman KJP Murid Ini"
@@ -669,7 +654,6 @@
                     "
                     onmouseover="this.style.backgroundColor='#0f3080'; this.style.transform='scale(1.05)'"
                     onmouseout="this.style.backgroundColor='#0a2463'; this.style.transform='scale(1)'">
-
                     <!-- Ikon download -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2.2"
@@ -681,68 +665,31 @@
                     PERMOHONAN
                 </button>
             </form> #}
-            
-            {# <form method="POST">
-                <button type="submit"
-                    title="Download Halaman KJP Murid Ini"
-                    style="
-                        background-color: #0a2463;
-                        color: white;
-                        display: inline-flex;
-                        align-items: center;
-                        gap: 5px;
-                        padding: 6px 11px;
-                        border: none;
-                        border-radius: 8px;
-                        cursor: pointer;
-                        font-size: 0.72rem;
-                        font-weight: 700;
-                        letter-spacing: 0.4px;
-                        transition: background-color 0.2s, transform 0.2s;
-                    "
-                    onmouseover="this.style.backgroundColor='#0f3080'; this.style.transform='scale(1.05)'"
-                    onmouseout="this.style.backgroundColor='#0a2463'; this.style.transform='scale(1)'">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2.2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                        <polyline points="7 10 12 15 17 10"/>
-                        <line x1="12" y1="15" x2="12" y2="3"/>
-                    </svg>
-                    PERNYATAAN
-                </button>
-              </form> #}
 
-            {# <form method="POST">
-                <button type="submit"
-                    title="Download Halaman KJP Murid Ini"
-                    style="
-                        background-color: #0a2463;
-                        color: white;
-                        display: inline-flex;
-                        align-items: center;
-                        gap: 5px;
-                        padding: 6px 11px;
-                        border: none;
-                        border-radius: 8px;
-                        cursor: pointer;
-                        font-size: 0.72rem;
-                        font-weight: 700;
-                        letter-spacing: 0.4px;
-                        transition: background-color 0.2s, transform 0.2s;
-                    "
-                    onmouseover="this.style.backgroundColor='#0f3080'; this.style.transform='scale(1.05)'"
-                    onmouseout="this.style.backgroundColor='#0a2463'; this.style.transform='scale(1)'">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2.2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                        <polyline points="7 10 12 15 17 10"/>
-                        <line x1="12" y1="15" x2="12" y2="3"/>
-                    </svg>
-                    BERITA ACARA
-                </button>
-            </form> #}
+      <!-- 4. KJP -->
+      <div class="card-wrapper theme-coral">
+        <div class="svc-card" onclick="toggleCard(this)">
+          <div class="svc-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="5" width="20" height="14" rx="2" stroke="#993C1D" stroke-width="1.8"/>
+              <path d="M2 10h20" stroke="#993C1D" stroke-width="1.8"/>
+              <path d="M6 15h4" stroke="#993C1D" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="svc-body">
+            <p class="svc-title">Layanan KJP</p>
+            <p class="svc-desc">Kartu Jakarta Pintar. Pengelolaan data penerima KJP Plus.</p>
+          </div>
+          <div class="svc-arrow">
+            <span class="svc-tag">Beasiswa</span>
+            
+            <a href="{{ url_for('table_kjp.table_kjp') }}" class="btn-action btn-info" title="Lihat Tabel KJP">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+              <path d="M3 9h18M3 15h18M9 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </a>
+
             <div style="display:flex;align-items:center;gap:6px;">
               <span class="svc-count-badge">{{ data_layanan_kjp|length }} data</span>
               <span class="svc-chevron">

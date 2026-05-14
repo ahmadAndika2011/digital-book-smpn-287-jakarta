@@ -22,3 +22,4 @@ from .detail_guru import views as detail_guru
 from .hapus_berita import views as hapus_berita
 from .hapus_guru import views as hapus_guru
 from .hapus_siswa import views as hapus_siswa
+from .table_kjp import views as table_kjp

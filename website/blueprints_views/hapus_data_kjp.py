@@ -23,6 +23,21 @@ def hapus_data_kjp():
             image_path = os.path.join(current_app.root_path, "static/uploads/ttd", data.ttd_pemohon)
             if os.path.exists(image_path):
                 os.remove(image_path)
+
+        if data.ttd_ortu:
+            image_path = os.path.join(current_app.root_path, "static/uploads/ttd", data.ttd_ortu)
+            if os.path.exists(image_path):
+                os.remove(image_path)
+
+        if data.ttd_penerima:
+            image_path = os.path.join(current_app.root_path, "static/uploads/ttd", data.ttd_penerima)
+            if os.path.exists(image_path):
+                os.remove(image_path)
+
+        if data.ttd_sptm:
+            image_path = os.path.join(current_app.root_path, "static/uploads/ttd", data.ttd_sptm)
+            if os.path.exists(image_path):
+                os.remove(image_path)
         
         db.session.delete(data)
         db.session.commit()

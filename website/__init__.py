@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, url_for, redirect, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from urllib.parse import quote_plus
@@ -35,6 +35,10 @@ def create_app():
     app.config["UPLOADS_FOLDER"] = os.path.join(app.root_path, "uploads")
     os.makedirs(app.config["UPLOADS_FOLDER"], exist_ok=True)
 
+    # @app.errorhandler(Exception)
+    # def redirecting(e):
+    #     return render_template("error-page.html")
+
     from .views import views
     from .auth import auth
     app.register_blueprint(views, url_prefix="/")
@@ -60,7 +64,7 @@ def create_app():
     app.register_blueprint(layanan_kunjungan_antar_instansi, url_prefix="/")
     app.register_blueprint(kontak, url_prefix="/")
 
-    from .blueprints_views import dashbord_admin, pilihan_layanan, lihat_data_ppdb, lihat_data_mutasi, lihat_data_pip, lihat_data_kjp, lihat_data_administrasi_sekolah, lihat_data_kunjungan_instansi, hapus_data_ppdb, hapus_data_mutasi, hapus_data_pip, hapus_data_kjp, hapus_data_administrasi_sekolah, hapus_data_kunjungan_antar_instansi, data_siswa, detail_siswa, data_guru, data_berita, template_lulus, detail_berita, detail_guru, hapus_berita, hapus_guru, hapus_siswa
+    from .blueprints_views import dashbord_admin, pilihan_layanan, lihat_data_ppdb, lihat_data_mutasi, lihat_data_pip, lihat_data_kjp, lihat_data_administrasi_sekolah, lihat_data_kunjungan_instansi, hapus_data_ppdb, hapus_data_mutasi, hapus_data_pip, hapus_data_kjp, hapus_data_administrasi_sekolah, hapus_data_kunjungan_antar_instansi, data_siswa, detail_siswa, data_guru, data_berita, template_lulus, detail_berita, detail_guru, hapus_berita, hapus_guru, hapus_siswa, table_kjp
     app.register_blueprint(dashbord_admin, url_prefix="/")
     app.register_blueprint(pilihan_layanan, url_prefix="/")
     app.register_blueprint(lihat_data_ppdb, url_prefix="/")
@@ -85,6 +89,7 @@ def create_app():
     app.register_blueprint(hapus_berita, url_prefix="/")
     app.register_blueprint(hapus_guru, url_prefix="/")
     app.register_blueprint(hapus_siswa, url_prefix="/")
+    app.register_blueprint(table_kjp, url_prefix="/")
 
     from .models import AdminAccount, DatabaseSiswa, NilaiSiswa, AccountSiswa, Berita, DatabaseGuru, DatabaseLayananPpdb, DatabaseLayananMutasi, DatabaseLayananPip, DatabaseLayananKjp, DatabaseLayananAdministrasiSekolah, DatabaseLayananKunjunganAntarInstansi, DatabaseKontakEmail
     with app.app_context():

@@ -122,10 +122,28 @@ def layanan_kjp():
         kode_pos_sekolah = request.form.get("kode_pos_sekolah", "")
         ttd_pemohon = request.form.get("ttd_pemohon", "")
 
+    # ? pernyataan
+        sp_nama_peserta = request.form.get("sp_nama_peserta")
+        sp_sekolah = request.form.get("sp_sekolah")
+        sp_kelas = request.form.get("sp_kelas")
+        sp_nama_ortu = request.form.get("sp_nama_ortu")
+        sp_alamat_rumah = request.form.get("sp_alamat_rumah")
+        ttd_ortu = request.form.get("ttd_ortu")
+        ttd_penerima = request.form.get("ttd_penerima")
+        sptm_nama = request.form.get("sptm_nama")
+        sptm_noktp = request.form.get("sptm_noktp")
+        sptm_pekerjaan = request.form.get("sptm_pekerjaan")
+        sptm_alamat = request.form.get("sptm_alamat")
+        ttd_sptm = request.form.get("ttd_sptm")
+        cek_no_ktp_from_database_layanan_kjp = DatabaseLayananKjp.query.filter_by(sptm_noktp=sptm_noktp).first()
+
 
         # cek
         if cek_nisn_murid_from_database_layanan_kjp:
             flash("data anda sudah ada di dalam database, mohon tunggu...\nUntuk lebih jelas bisa kontak operator di menu kontak.", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        if cek_no_ktp_from_database_layanan_kjp:
+            flash("No KTP anda sudah terdaftar di layanan kjp.", category="error")
             return redirect(url_for("layanan_kjp.layanan_kjp"))
         elif not cek_nisn_murid_from_database_siswa:
             flash("NISN belum terdaftar di database", category="error")
@@ -274,19 +292,72 @@ def layanan_kjp():
         elif len(kode_pos_sekolah) != 5:
             flash("Kode pos sekolah untuk surat permohonan tidak valid.\n Silahkan cek kebali data kontak darurat anda.", category="error")
             return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif (
+            not sp_nama_peserta 
+            or not sp_sekolah
+            or not sp_kelas
+            or not sp_nama_ortu
+            or not sp_alamat_rumah
+            or not sptm_nama
+            or not sptm_pekerjaan
+            or not sptm_alamat
+        ):
+            flash("Data pernyataan ketaatan tidak valid!", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif not ttd_ortu:
+            flash("Tanda tangan orang tua untuk Data pernyataan ketaatan tidak valid!", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif not ttd_penerima:
+            flash("Tanda tangan penerima untuk Data pernyataan ketaatan tidak valid!", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif not ttd_sptm:
+            flash("Tanda tangan pembuat pernyataan untuk Data pernyataan ketaatan tidak valid!", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif len(sptm_noktp) != 16:
+            flash("No KTP wali murid harus terdiri dari 16 digit!", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
         else:
-            if not masa_berlaku_identitas:
-                header, encoded = ttd_pemohon.split(",", 1)
-                image_data = base64.b64decode(encoded)
-                image = Image.open(BytesIO(image_data))
-                save_path = os.path.join(
-                    current_app.root_path, "static", "uploads", "ttd")
-                os.makedirs(save_path, exist_ok=True)
-                filename = f"ttd_{npwp_wali}.png"
-                image.save(os.path.join(save_path, filename))
+            header, encoded = ttd_pemohon.split(",", 1)
+            image_data = base64.b64decode(encoded)
+            image = Image.open(BytesIO(image_data))
+            save_path = os.path.join(
+                current_app.root_path, "static", "uploads", "ttd")
+            os.makedirs(save_path, exist_ok=True)
+            filename = f"ttd_{npwp_wali}_ttd_permohonan.png"
+            image.save(os.path.join(save_path, filename))
+            ttd_pemohon = f"ttd_{npwp_wali}_ttd_permohonan.png"
 
-                ttd_pemohon = f"ttd_{npwp_wali}.png"
-            
+            header, encoded = ttd_ortu.split(",", 1)
+            image_data = base64.b64decode(encoded)
+            image = Image.open(BytesIO(image_data))
+            save_path = os.path.join(
+                current_app.root_path, "static", "uploads", "ttd")
+            os.makedirs(save_path, exist_ok=True)
+            filename = f"ttd_{npwp_wali}_ttd_ortu.png"
+            image.save(os.path.join(save_path, filename))
+            ttd_ortu = f"ttd_{npwp_wali}_ttd_ortu.png"
+
+            header, encoded = ttd_penerima.split(",", 1)
+            image_data = base64.b64decode(encoded)
+            image = Image.open(BytesIO(image_data))
+            save_path = os.path.join(
+                current_app.root_path, "static", "uploads", "ttd")
+            os.makedirs(save_path, exist_ok=True)
+            filename = f"ttd_{npwp_wali}_ttd_penerima.png"
+            image.save(os.path.join(save_path, filename))
+            ttd_penerima = f"ttd_{npwp_wali}_ttd_penerima.png"
+
+            header, encoded = ttd_sptm.split(",", 1)
+            image_data = base64.b64decode(encoded)
+            image = Image.open(BytesIO(image_data))
+            save_path = os.path.join(
+                current_app.root_path, "static", "uploads", "ttd")
+            os.makedirs(save_path, exist_ok=True)
+            filename = f"ttd_{npwp_wali}_ttd_sptm.png"
+            image.save(os.path.join(save_path, filename))
+            ttd_sptm = f"ttd_{npwp_wali}_ttd_sptm.png"
+
+            if not masa_berlaku_identitas:
                 data_kjp = DatabaseLayananKjp(
                     nik_murid = nik_murid,
                     no_kartu_keluarga = no_kartu_keluarga,
@@ -377,20 +448,23 @@ def layanan_kjp():
                     kota_sekolah = kota_sekolah,
                     kode_pos_sekolah = kode_pos_sekolah,
                     ttd_pemohon = ttd_pemohon,
+
+                    # Pernyataan ketaatan
+                    sp_nama_peserta = sp_nama_peserta,
+                    sp_sekolah = sp_sekolah,
+                    sp_kelas = sp_kelas,
+                    sp_nama_ortu = sp_nama_ortu,
+                    sp_alamat_rumah = sp_alamat_rumah,
+                    ttd_ortu = ttd_ortu,
+                    ttd_penerima = ttd_penerima,
+                    sptm_nama = sptm_nama,
+                    sptm_noktp = sptm_noktp,
+                    sptm_pekerjaan = sptm_pekerjaan,
+                    sptm_alamat = sptm_alamat,
+                    ttd_sptm = ttd_sptm,
                 )
                 db.session.add(data_kjp)
             else:
-                header, encoded = ttd_pemohon.split(",", 1)
-                image_data = base64.b64decode(encoded)
-                image = Image.open(BytesIO(image_data))
-                save_path = os.path.join(
-                    current_app.root_path, "static", "uploads", "ttd")
-                os.makedirs(save_path, exist_ok=True)
-                filename = f"ttd_{npwp_wali}.png"
-                image.save(os.path.join(save_path, filename))
-
-                ttd_pemohon = f"ttd_{npwp_wali}.png"
-
                 data_kjp = DatabaseLayananKjp(
                     nik_murid = nik_murid,
                     no_kartu_keluarga = no_kartu_keluarga,
@@ -481,6 +555,20 @@ def layanan_kjp():
                     kota_sekolah = kota_sekolah,
                     kode_pos_sekolah = kode_pos_sekolah,
                     ttd_pemohon = ttd_pemohon,
+
+                    # Pernyataan ketaatan
+                    sp_nama_peserta = sp_nama_peserta,
+                    sp_sekolah = sp_sekolah,
+                    sp_kelas = sp_kelas,
+                    sp_nama_ortu = sp_nama_ortu,
+                    sp_alamat_rumah = sp_alamat_rumah,
+                    ttd_ortu = ttd_ortu,
+                    ttd_penerima = ttd_penerima,
+                    sptm_nama = sptm_nama,
+                    sptm_noktp = sptm_noktp,
+                    sptm_pekerjaan = sptm_pekerjaan,
+                    sptm_alamat = sptm_alamat,
+                    ttd_sptm = ttd_sptm,
                 )
                 db.session.add(data_kjp)
             db.session.commit()

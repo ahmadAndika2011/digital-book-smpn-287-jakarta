@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Halaman Error — SMPN 287 Jakarta</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:      #0d2250;
+      --navy-mid:  #1a3a7a;
+      --navy-light:#2a4fa8;
+      --gold:      #e8a820;
+      --gold-light:#f5c84a;
+      --white:     #ffffff;
+      --muted:     rgba(255,255,255,0.55);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── Background decoration ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 10%, rgba(42,79,168,.45) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 90% 90%, rgba(232,168,32,.12) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    /* ── Header strip ── */
+    header {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px 48px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      backdrop-filter: blur(6px);
+    }
+
+    header .logo-ring {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: grid; place-items: center;
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 18px;
+      color: var(--navy);
+      flex-shrink: 0;
+    }
+
+    header .school-name {
+      line-height: 1.15;
+    }
+    header .school-name strong {
+      display: block;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: .02em;
+    }
+    header .school-name span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ── Main ── */
+    main {
+      flex: 1;
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px;
+    }
+
+    /* big error code */
+    .error-code {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(120px, 22vw, 220px);
+      line-height: 1;
+      letter-spacing: -.04em;
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(255,255,255,.12);
+      position: relative;
+      user-select: none;
+      animation: fadeDown .7s ease both;
+    }
+
+    /* gold accent digit */
+    .error-code .accent {
+      color: var(--gold);
+      -webkit-text-stroke: 0;
+      text-shadow: 0 0 60px rgba(232,168,32,.4);
+    }
+
+    /* floating badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 999px;
+      padding: 6px 18px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 20px;
+      animation: fadeDown .6s .1s ease both;
+    }
+    .badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 1.6s ease infinite;
+    }
+
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: clamp(26px, 5vw, 42px);
+      line-height: 1.2;
+      margin-top: 12px;
+      animation: fadeUp .7s .15s ease both;
+    }
+
+    .subtitle {
+      margin-top: 14px;
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 440px;
+      line-height: 1.7;
+      animation: fadeUp .7s .22s ease both;
+    }
+
+    /* divider */
+    .divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      border-radius: 99px;
+      margin: 28px auto;
+      animation: fadeUp .6s .28s ease both;
+    }
+
+    /* action buttons */
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      animation: fadeUp .7s .32s ease both;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 13px 28px;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s, background .2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+    }
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(232,168,32,.35);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,.08);
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,.18);
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,.14);
+      transform: translateY(-2px);
+    }
+
+    /* info cards */
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 52px;
+      max-width: 680px;
+      animation: fadeUp .7s .4s ease both;
+    }
+
+    .card {
+      flex: 1 1 180px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 14px;
+      padding: 20px 18px;
+      text-align: left;
+      transition: background .2s, transform .2s;
+    }
+    .card:hover {
+      background: rgba(255,255,255,.09);
+      transform: translateY(-3px);
+    }
+    .card-icon {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    .card-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .card-value {
+      font-size: 13px;
+      color: rgba(255,255,255,.75);
+    }
+
+    /* footer strip */
+    footer {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 18px 24px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid rgba(255,255,255,.07);
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: .5; transform: scale(.7); }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 540px) {
+      header { padding: 16px 20px; }
+      .btn   { width: 100%; justify-content: center; }
+      .actions { flex-direction: column; width: 100%; max-width: 320px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-overlay"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-ring">287</div>
+    <div class="school-name">
+      <strong>SMPN 287 Jakarta</strong>
+      <span>SMP Negeri 287 Jakarta</span>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main>
+    <div class="badge">Kesalahan Sistem</div>
+
+    <div class="error-code">
+      4<span class="accent">0</span>4
+    </div>
+
+    <h1 class="title">Halaman Tidak Ditemukan</h1>
+    <p class="subtitle">
+      Maaf, halaman yang Anda cari tidak tersedia atau telah dipindahkan.
+      Silakan kembali ke beranda atau hubungi administrator sekolah.
+    </p>
+
+    <div class="divider"></div>
+
+    <div class="actions">
+      <a href="/" class="btn btn-primary">
+        &#8592; Kembali ke Beranda
+      </a>
+      <a href="/kontak" class="btn btn-secondary">
+        Hubungi Admin
+      </a>
+    </div>
+
+    <!-- Quick info -->
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">📞</div>
+        <div class="card-label">Telepon</div>
+        <div class="card-value">(021) 4891–287</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">✉️</div>
+        <div class="card-label">Email</div>
+        <div class="card-value">info@smpnjkt287@gmail.com</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🕐</div>
+        <div class="card-label">Jam Operasional</div>
+        <div class="card-value">Senin–Jumat, 07.00–15.00 WIB</div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025/2026 SMPN 287 Jakarta &mdash; Membentuk Generasi Cerdas &amp; Berkarakter
+  </footer>
+</body>
+</html>

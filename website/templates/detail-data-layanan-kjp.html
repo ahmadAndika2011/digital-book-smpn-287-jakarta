@@ -867,7 +867,7 @@
         <div class="ttd-block">
           <div class="ttd-block-label">TTD Pemohon</div>
           {% if item.ttd_pemohon %}
-            <img src="/static/uploads/ttd/ttd_{{item.npwp_wali}}.png" alt="TTD Pemohon">
+            <img src="/static/uploads/ttd/ttd_{{item.npwp_wali}}_ttd_permohonan.png" alt="TTD Pemohon">
           {% else %}
             <div class="ttd-block-empty">Tanda tangan belum tersedia</div>
           {% endif %}
@@ -925,7 +925,7 @@
           <div class="ttd-block">
             <div class="ttd-block-label">TTD Orang Tua</div>
             {% if item.ttd_ortu %}
-              <img src="data:image/png;base64,{{ item.ttd_ortu }}" alt="TTD Orang Tua">
+              <img src="/static/uploads/ttd/ttd_{{item.npwp_wali}}_ttd_ortu.png" alt="TTD Orang Tua">
             {% else %}
               <div class="ttd-block-empty">Belum tersedia</div>
             {% endif %}
@@ -933,7 +933,7 @@
           <div class="ttd-block">
             <div class="ttd-block-label">TTD Penerima</div>
             {% if item.ttd_penerima %}
-              <img src="data:image/png;base64,{{ item.ttd_penerima }}" alt="TTD Penerima">
+              <img src="/static/uploads/ttd/ttd_{{item.npwp_wali}}_ttd_penerima.png" alt="TTD Penerima">
             {% else %}
               <div class="ttd-block-empty">Belum tersedia</div>
             {% endif %}
@@ -963,7 +963,7 @@
         <div class="ttd-block" style="margin-top:0.75rem;">
           <div class="ttd-block-label">TTD SPTM</div>
           {% if item.ttd_sptm %}
-            <img src="data:image/png;base64,{{ item.ttd_sptm }}" alt="TTD SPTM">
+            <img src="/static/uploads/ttd/ttd_{{item.npwp_wali}}_ttd_sptm.png" alt="TTD SPTM">
           {% else %}
             <div class="ttd-block-empty">Tanda tangan SPTM belum tersedia</div>
           {% endif %}
