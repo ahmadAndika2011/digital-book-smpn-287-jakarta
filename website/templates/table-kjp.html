@@ -400,8 +400,8 @@ thead th:hover {
         </form>
 
         <!-- Download Semua Data — warna berbeda agar menonjol -->
-        {# <form action="{{ url_for('dashbord_admin.download_data_kjp_semua') }}" method="POST"> #}
-        <form method="POST">
+        {# <form method="POST"> #}
+        <form action="{{ url_for('dashbord_admin.download_data_kjp') }}" method="POST">
             <button type="submit" class="btn-dl" style="background-color: #7b1111;"
                 onmouseover="this.style.backgroundColor='#5a0c0c'; this.style.transform='scale(1.05)'"
                 onmouseout="this.style.backgroundColor='#7b1111'; this.style.transform='scale(1)'">

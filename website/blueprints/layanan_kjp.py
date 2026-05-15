@@ -284,7 +284,7 @@ def layanan_kjp():
             flash("Data permohonantidak valid!", category="error")
             return redirect(url_for("layanan_kjp.layanan_kjp"))
         elif  len(telepon_pemohon) < 10 or len(telepon_pemohon) > 12:
-            flash("No telepon tidak valid!", category="error")
+            flash("No telepon untuk surat permohonan tidak valid tidak valid!", category="error")
             return redirect(url_for("layanan_kjp.layanan_kjp"))
         elif len(kode_pos_pemohon) != 5:
             flash("Kode pos untuk surat permohonan tidak valid.\n Silahkan cek kebali data kontak darurat anda.", category="error")
