@@ -261,15 +261,164 @@ thead th:hover {
     color: white;
     transform: translateY(-2px);
 }
+
+.toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.btn-dl {
+    background-color: #0a2463;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 11px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    transition: background-color 0.2s, transform 0.2s;
+    white-space: nowrap;
+}
 </style>
 
 <div class="wrap">
-  <div class="toolbar">
+  {# <div class="toolbar">
     <h2><i class="ti ti-id-badge"></i> Data Layanan KJP</h2>
     <div class="stats-mini">
-        <span class="badge-red">Total: {{ data|length }} Murid</span>
+        <span class="badge-red">Total: {{ jumlah_siswa }} Murid</span>
     </div>
-  </div>
+  </div> #}
+<div class="toolbar">
+    <h2><i class="ti ti-id-badge"></i> Data Layanan KJP</h2>
+    <div class="toolbar-right">
+
+        <!-- Download Data Murid -->
+        <form method="POST">
+            <button type="submit" class="btn-dl"
+                onmouseover="this.style.backgroundColor='#0f3080'; this.style.transform='scale(1.05)'"
+                onmouseout="this.style.backgroundColor='#0a2463'; this.style.transform='scale(1)'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                DATA MURID
+            </button>
+        </form>
+
+        <!-- Download Data Wali -->
+        {# <form action="{{ url_for('dashbord_admin.download_data_kjp_wali') }}" method="POST"> #}
+        <form method="POST">
+            <button type="submit" class="btn-dl"
+                onmouseover="this.style.backgroundColor='#0f3080'; this.style.transform='scale(1.05)'"
+                onmouseout="this.style.backgroundColor='#0a2463'; this.style.transform='scale(1)'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                DATA WALI
+            </button>
+        </form>
+
+        <!-- Download Data Kontak Darurat -->
+        {# <form action="{{ url_for('dashbord_admin.download_data_kjp_kontak') }}" method="POST"> #}
+        <form method="POST">
+            <button type="submit" class="btn-dl"
+                onmouseover="this.style.backgroundColor='#0f3080'; this.style.transform='scale(1.05)'"
+                onmouseout="this.style.backgroundColor='#0a2463'; this.style.transform='scale(1)'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                KONTAK DARURAT
+            </button>
+        </form>
+
+        <!-- Download Surat Permohonan -->
+        {# <form action="{{ url_for('dashbord_admin.download_data_kjp_permohonan') }}" method="POST"> #}
+        <form method="POST">
+            <button type="submit" class="btn-dl"
+                onmouseover="this.style.backgroundColor='#0f3080'; this.style.transform='scale(1.05)'"
+                onmouseout="this.style.backgroundColor='#0a2463'; this.style.transform='scale(1)'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                PERMOHONAN
+            </button>
+        </form>
+
+        <!-- Download Pernyataan -->
+        {# <form action="{{ url_for('dashbord_admin.download_data_kjp_pernyataan') }}" method="POST"> #}
+        <form method="POST">
+            <button type="submit" class="btn-dl"
+                onmouseover="this.style.backgroundColor='#0f3080'; this.style.transform='scale(1.05)'"
+                onmouseout="this.style.backgroundColor='#0a2463'; this.style.transform='scale(1)'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                PERNYATAAN
+            </button>
+        </form>
+
+        <!-- Download Berita Acara -->
+        {# <form action="{{ url_for('dashbord_admin.download_data_kjp_berita_acara') }}" method="POST"> #}
+        <form method="POST">
+            <button type="submit" class="btn-dl"
+                onmouseover="this.style.backgroundColor='#0f3080'; this.style.transform='scale(1.05)'"
+                onmouseout="this.style.backgroundColor='#0a2463'; this.style.transform='scale(1)'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                BERITA ACARA
+            </button>
+        </form>
+
+        <!-- Download Semua Data — warna berbeda agar menonjol -->
+        {# <form action="{{ url_for('dashbord_admin.download_data_kjp_semua') }}" method="POST"> #}
+        <form method="POST">
+            <button type="submit" class="btn-dl" style="background-color: #7b1111;"
+                onmouseover="this.style.backgroundColor='#5a0c0c'; this.style.transform='scale(1.05)'"
+                onmouseout="this.style.backgroundColor='#7b1111'; this.style.transform='scale(1)'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                SEMUA DATA
+            </button>
+        </form>
+
+        <span class="badge-red">Total: {{ jumlah_siswa }} Murid</span>
+    </div>
+</div>
 
   <div class="tbl-container">
     <div class="tbl-wrap">

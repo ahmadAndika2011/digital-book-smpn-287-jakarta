@@ -26,11 +26,11 @@ def login_page():
             else:
                 greating = "Selamat Sore"
             flash(f"{greating} {check_user.username}", category="success")
+            return redirect(url_for("views.home"))  # langsung ke sini
             # return redirect(url_for("views.data_siswa"))
-            if check_user.role == 'limited':
-                return redirect(url_for("views.home"))  # langsung ke sini
-            else:
-                return redirect(url_for("views.home"))
+            # if check_user.role == 'limited':
+            # else:
+            #     return redirect(url_for("views.home"))
         else:
             flash("Username dan Password Salah!", category="error")
             return redirect(url_for("login_admin.login_page"))

@@ -596,7 +596,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--off-white
             <h3 class="n-title">{{ berita.title }}</h3>
             <div class="n-divider" aria-hidden="true"></div>
             <div class="n-actions">
-              <a href="{{ url_for('views.lihat_berita', id=berita.id) }}"
+              <a href="{{ url_for('detail_berita.detail_berita', id=berita.id) }}"
                  class="n-info-btn"
                  title="{{ berita.title }} — Berita SMPN 287 Jakarta">
                 <svg viewBox="0 0 24 24" fill="none" width="13" height="13" aria-hidden="true">

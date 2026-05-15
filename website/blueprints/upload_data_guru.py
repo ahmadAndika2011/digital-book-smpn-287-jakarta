@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 from .. import db
 from ..models import DatabaseGuru
 import xlrd
+from flask_login import login_required
 
 auth = Blueprint("upload_data_guru", __name__)
 
@@ -13,6 +14,7 @@ def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_FORMAT
 
 @auth.route("/upload-data-guru", methods=["GET", "POST"])
+@login_required
 def upload_data_guru():
     if request.method == "POST":
         file = request.files.get("file")

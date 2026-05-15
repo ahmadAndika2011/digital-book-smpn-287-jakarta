@@ -3,13 +3,11 @@ from flask_login import current_user, login_required
 from ..models import DatabaseLayananMutasi
 import json
 from .. import db
-from ..views import role_required
 
 views = Blueprint("hapus_data_mutasi", __name__)
 
 @views.route("/hapus-data-mutasi", methods=["POST"])
 @login_required
-@role_required("superadmin")
 def hapus_data_mutasi():
     data = json.loads(request.data)
     data_id = data["dataMutasiId"]

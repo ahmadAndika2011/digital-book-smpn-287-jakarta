@@ -134,9 +134,7 @@
           <ul class="dropdown-menu dropdown-smpn">
             <li><a class="dropdown-item-smpn" href="/berita"><i class="fa-solid fa-newspaper"></i> Berita</a></li>
             {%if current_user.is_authenticated%}
-              {%if current_user.role == "superadmin" or current_user.role == "berita"%}
-              <li><a class="dropdown-item-smpn" href="/tambah-berita"><i class="fa-solid fa-newspaper"></i> Tambah Berita</a></li>
-              {%endif%}
+            <li><a class="dropdown-item-smpn" href="/tambah-berita"><i class="fa-solid fa-newspaper"></i> Tambah Berita</a></li>
             {%endif%}
           </ul>
         </li>
@@ -152,9 +150,7 @@
             <li><a class="dropdown-item-smpn" href="/layanan-administrasi-sekolah"><i class="fa-solid fa-layer-group"></i> Layanan Administrasi Sekolah</a></li>
             <li><a class="dropdown-item-smpn" href="/layanan-kunjungan-antar-instansi"><i class="fa-solid fa-layer-group"></i> Kunjungan Instansi</a></li>
             {%if current_user.is_authenticated%}
-              {%if current_user.role == "superadmin"  or current_user.role == "layanan"%}
-              <li><a class="dropdown-item-smpn" href="/dashbord-admin"><i class="fa-solid fa-gauge-high"></i> Dashboard Admin</a></li>
-              {%endif%}
+            <li><a class="dropdown-item-smpn" href="/dashbord-admin"><i class="fa-solid fa-gauge-high"></i> Dashboard Admin</a></li>
             {%endif%}
           </ul>
         </li>

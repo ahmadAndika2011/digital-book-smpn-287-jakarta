@@ -5,7 +5,6 @@ from flask_login import current_user, login_required
 import os
 from werkzeug.utils import secure_filename
 
-from website.views import role_required
 from .. import db
 from ..models import Berita
 
@@ -13,7 +12,6 @@ auth = Blueprint("input_berita", __name__)
 
 @auth.route("/tambah-berita", methods=["GET", "POST"])
 @login_required
-@role_required("superadmin", "berita")
 def tambah_berita():
     if request.method == "POST":
         gambar_1_file = request.files.get("gambar_1")
@@ -50,7 +48,11 @@ def tambah_berita():
             gambar_3_input = ""
 
         video = request.files.get("video")
-        if video:
+        link_youtube_input = request.form.get("link_youtube")
+        if link_youtube_input and video:
+            flash("Tidak boleh upload link video youtube dan upload video secara bersamaan", category="error")
+            return redirect(url_for("input_berita.tambah_berita"))
+        elif video:
             filename = secure_filename(video.filename)
             upload_path = os.path.join("website", "static", "uploads")
             if not os.path.exists(upload_path):
@@ -70,7 +72,8 @@ def tambah_berita():
                 img_1 = gambar_1_input,
                 img_2 = gambar_2_input,
                 img_3 = gambar_3_input,
-                video = video_input
+                video = video_input,
+                link_youtube = link_youtube_input
             )
             db.session.add(input_berita)
             db.session.commit()

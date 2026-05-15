@@ -10,7 +10,6 @@ class AdminAccount(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150))
     secret_pw = db.Column(db.String(150))
-    role = db.Column(db.String(50))
 
 
 class DatabaseSiswa(db.Model, UserMixin):
@@ -60,6 +59,7 @@ class Berita(db.Model, UserMixin):
     img_2 = db.Column(db.String(255))
     img_3 = db.Column(db.String(255))
     video = db.Column(db.String(300))
+    link_youtube=db.Column(db.String(2048))
 
 
 class DatabaseGuru(db.Model, UserMixin):

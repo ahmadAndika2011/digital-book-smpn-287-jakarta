@@ -4,13 +4,11 @@ from .. import db
 from ..models import DatabaseGuru
 import os
 import json
-from ..views import role_required
 
 views = Blueprint("hapus_guru", __name__)
 
 @views.route("/hapus-data-guru", methods=["POST"])
 @login_required
-@role_required("superadmin")
 def hapus_guru():
     guru = json.loads(request.data)
     guruId = guru["guruId"]

@@ -1,13 +1,11 @@
 from flask import Blueprint, render_template, request, jsonify, json, current_app
 import os
-from ..views import role_required
 from .. import db
 from ..models import DatabaseSiswa, AccountSiswa, NilaiSiswa
 
 views = Blueprint("hapus_siswa", __name__)
 
 @views.route("/delete-student", methods=["POST"])
-@role_required("superadmin")
 def hapus_siswa():
     student = json.loads(request.data)
     studentId = student["studentId"]

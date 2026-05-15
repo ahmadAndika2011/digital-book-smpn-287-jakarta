@@ -14,15 +14,15 @@ from werkzeug.security import generate_password_hash
 
 views = Blueprint("views", __name__)
 
-def role_required(*roles):
-    def decorator(f):
-        @wraps(f)
-        def decorated_function(*args, **kwargs):
-            if current_user.role not in roles:
-                abort(403)  # Forbidden
-            return f(*args, **kwargs)
-        return decorated_function
-    return decorator
+# def role_required(*roles):
+#     def decorator(f):
+#         @wraps(f)
+#         def decorated_function(*args, **kwargs):
+#             if current_user.role not in roles:
+#                 abort(403)  # Forbidden
+#             return f(*args, **kwargs)
+#         return decorated_function
+#     return decorator
 
 
 @views.route("/sitemap.xml", methods=["GET"])
@@ -39,13 +39,14 @@ def sitemap():
 
 @views.route("/")
 def home():
+    #? Create Account for admin
     # data_admin = AdminAccount(
-    #     username="berita 1",
-    #     secret_pw=generate_password_hash("witur!%SMPN287%", method="pbkdf2:sha256"),
-    #     role="berita"
+    #     username="20107181SMPN287.",
+    #     secret_pw=generate_password_hash("20107181SMPN287Jakarta!", method="pbkdf2:sha256"),
     # )
     # db.session.add(data_admin)
     # db.session.commit()
+
     jumlah_siswa = DatabaseSiswa.query.count()
     jumlah_guru = DatabaseGuru.query.count()
 

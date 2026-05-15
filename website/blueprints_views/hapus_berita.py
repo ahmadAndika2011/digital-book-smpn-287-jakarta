@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, current_app, jsonify, flash
 from flask_login import login_required
-from ..views import role_required
 from .. import db
 import os
 from ..models import Berita
@@ -11,7 +10,6 @@ views = Blueprint("hapus_berita", __name__)
 
 @views.route("/hapus-berita", methods=["POST"])
 @login_required
-@role_required("superadmin", "berita")
 def hapus_berita():
     berita = json.loads(request.data)
     beritaId = berita["beritaId"]
