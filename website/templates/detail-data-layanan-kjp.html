@@ -1043,7 +1043,7 @@
           <div class="ttd-block">
             <div class="ttd-block-label">TTD Siswa</div>
             {% if item.ttd_ba_siswa %}
-              <img src="data:image/png;base64,{{ item.ttd_ba_siswa }}" alt="TTD Siswa">
+              <img src="/static/uploads/ttd/{{item.ttd_ba_siswa}}" alt="TTD Siswa">
             {% else %}
               <div class="ttd-block-empty">Belum tersedia</div>
             {% endif %}
@@ -1051,7 +1051,7 @@
           <div class="ttd-block">
             <div class="ttd-block-label">TTD Penilai</div>
             {% if item.ttd_ba_penilai %}
-              <img src="data:image/png;base64,{{ item.ttd_ba_penilai }}" alt="TTD Penilai">
+              <img src="/static/uploads/ttd/{{item.ttd_ba_penilai}}" alt="TTD Penilai">
             {% else %}
               <div class="ttd-block-empty">Belum tersedia</div>
             {% endif %}

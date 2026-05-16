@@ -137,6 +137,19 @@ def layanan_kjp():
         ttd_sptm = request.form.get("ttd_sptm")
         cek_no_ktp_from_database_layanan_kjp = DatabaseLayananKjp.query.filter_by(sptm_noktp=sptm_noktp).first()
 
+        #? Berita acara
+        ba_nama_penilai = request.form.get("ba_nama_penilai")
+        ba_jabatan_penilai = request.form.get("ba_jabatan_penilai")
+        ba_nama_siswa = request.form.get("ba_nama_siswa")
+        ba_nik_siswa = request.form.get("ba_nik_siswa")
+        ba_kelas = request.form.get("ba_kelas")
+        ttd_ba_siswa = request.form.get("ttd_ba_siswa")
+        ttd_ba_penilai = request.form.get("ttd_ba_penilai")
+        penilaian_1 = request.form.get("penilaian_1")
+        penilaian_2 = request.form.get("penilaian_2")
+        penilaian_3 = request.form.get("penilaian_3")
+        penilaian_4 = request.form.get("penilaian_4")
+
 
         # cek
         if cek_nisn_murid_from_database_layanan_kjp:
@@ -316,6 +329,24 @@ def layanan_kjp():
         elif len(sptm_noktp) != 16:
             flash("No KTP wali murid harus terdiri dari 16 digit!", category="error")
             return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif (
+            not ba_nama_penilai
+            or not ba_jabatan_penilai
+            or not ba_nama_siswa
+            or not ba_nik_siswa
+            or not ba_kelas
+        ):
+            flash("Data berita acara tidak valid!!", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif len(ba_nik_siswa) != 16:
+            flash("NIK siswa di berita acara tidak valid!!", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif not ttd_ba_siswa:
+            flash("Tanda tangan siswa berita acara tidak valid!!", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
+        elif not ttd_ba_penilai:
+            flash("Tanda tangan penilai berita acara tidak valid!!", category="error")
+            return redirect(url_for("layanan_kjp.layanan_kjp"))
         else:
             header, encoded = ttd_pemohon.split(",", 1)
             image_data = base64.b64decode(encoded)
@@ -356,6 +387,28 @@ def layanan_kjp():
             filename = f"ttd_{npwp_wali}_ttd_sptm.png"
             image.save(os.path.join(save_path, filename))
             ttd_sptm = f"ttd_{npwp_wali}_ttd_sptm.png"
+
+            header, encoded = ttd_ba_siswa.split(",", 1)
+            image_data = base64.b64decode(encoded)
+            image = Image.open(BytesIO(image_data))
+            save_path = os.path.join(
+                current_app.root_path, "static", "uploads", "ttd"
+            )
+            os.makedirs(save_path, exist_ok=True)
+            filename = f"ttd_{nisn_murid}_ttd_ba_siswa.png"
+            image.save(os.path.join(save_path, filename))
+            ttd_ba_siswa = f"ttd_{nisn_murid}_ttd_ba_siswa.png"
+
+            header, encoded = ttd_ba_penilai.split(",", 1)
+            image_data = base64.b64decode(encoded)
+            image = Image.open(BytesIO(image_data))
+            save_path = os.path.join(
+                current_app.root_path, "static", "uploads", "ttd"
+            )
+            os.makedirs(save_path, exist_ok=True)
+            filename = f"ttd_{nisn_murid}_ttd_ba_penilai.png"
+            image.save(os.path.join(save_path, filename))
+            ttd_ba_penilai = f"ttd_{nisn_murid}_ttd_ba_penilai.png"
 
             if not masa_berlaku_identitas:
                 data_kjp = DatabaseLayananKjp(
@@ -462,6 +515,19 @@ def layanan_kjp():
                     sptm_pekerjaan = sptm_pekerjaan,
                     sptm_alamat = sptm_alamat,
                     ttd_sptm = ttd_sptm,
+
+                    # Berita acara
+                    ba_nama_penilai = ba_nama_penilai,
+                    ba_jabatan_penilai = ba_jabatan_penilai,
+                    ba_nama_siswa = ba_nama_siswa,
+                    ba_nik_siswa = ba_nik_siswa,
+                    ba_kelas = ba_kelas,
+                    penilaian_1 = penilaian_1,
+                    penilaian_2 = penilaian_2,
+                    penilaian_3 = penilaian_3,
+                    penilaian_4 = penilaian_4,
+                    ttd_ba_siswa = ttd_ba_siswa,
+                    ttd_ba_penilai = ttd_ba_penilai,
                 )
                 db.session.add(data_kjp)
             else:
@@ -569,6 +635,19 @@ def layanan_kjp():
                     sptm_pekerjaan = sptm_pekerjaan,
                     sptm_alamat = sptm_alamat,
                     ttd_sptm = ttd_sptm,
+
+                    # Berita acara
+                    ba_nama_penilai = ba_nama_penilai,
+                    ba_jabatan_penilai = ba_jabatan_penilai,
+                    ba_nama_siswa = ba_nama_siswa,
+                    ba_nik_siswa = ba_nik_siswa,
+                    ba_kelas = ba_kelas,
+                    penilaian_1 = penilaian_1,
+                    penilaian_2 = penilaian_2,
+                    penilaian_3 = penilaian_3,
+                    penilaian_4 = penilaian_4,
+                    ttd_ba_siswa = ttd_ba_siswa,
+                    ttd_ba_penilai = ttd_ba_penilai,
                 )
                 db.session.add(data_kjp)
             db.session.commit()

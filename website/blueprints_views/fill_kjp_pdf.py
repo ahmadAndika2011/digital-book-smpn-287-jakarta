@@ -687,17 +687,10 @@ FIELDS_DATA_SISWA = {
         "max_w": 170,
         "font_size": 9,
     },
-    "alamat_peserta_didik_pemohon": {
-        "page": 4,
-        "x": 276,
-        "y": top_to_pdf_y_for_folio(456),
-        "max_w": 170,
-        "font_size": 9,
-    },
     "jenis_kelamin_peserta_didik_pemohon": {
         "page": 4,
-        "x": 276,
-        "y": top_to_pdf_y_for_folio(0),
+        "x": 0,
+        "y": top_to_pdf_y_for_folio(442),
         "max_w": 170,
         "font_size": 9,
     },
@@ -1230,6 +1223,11 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
     kode_pos_sekolah = siswa.get("kode_pos_sekolah", "")
     ttd_pemohon = siswa.get("ttd_pemohon", "")
 
+    if jenis_kelamin_murid == "Laki-laki":
+        FIELDS_DATA_SISWA["jenis_kelamin_peserta_didik_pemohon"]["x"] = 280
+    elif jenis_kelamin_murid == "Perempuan":
+        FIELDS_DATA_SISWA["jenis_kelamin_peserta_didik_pemohon"]["x"] = 333
+
     # Kelompokkan field berdasarkan halaman
     page_data = {}
 
@@ -1329,6 +1327,16 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
         ("kota_pemohon", kota_pemohon),
         ("kode_pos_pemohon", kode_pos_pemohon),
         ("telepon_pemohon", telepon_pemohon),
+        ("nama_peserta_didik_pemohon", nama_murid),
+        ("tempat_tanggal_lahir_peserta_didik_pemohon", f"{tempat_lahir_murid}, {tanggal_lahir_murid}"),
+        ("jenis_kelamin_peserta_didik_pemohon", "==============="),
+        ("alamat_peserta_didik_pemohon", alamat_murid),
+        ("rt_peserta_didik_pemohon", rt_murid),
+        ("rw_peserta_didik_pemohon", rw_murid),
+        ("kelurahan_peserta_didik_pemohon", kelurahan_murid),
+        ("kecamatan_peserta_didik_pemohon", kecamatan_murid),
+        ("kota_peserta_didik_pemohon", kota_murid),
+        ("kode_pos_peserta_didik_pemohon", kode_pos_murid),
         ("nama_sekolah", nama_sekolah),
         ("alamat_sekolah", alamat_sekolah),
         ("rt_sekolah", f"{rt_sekolah} / "),

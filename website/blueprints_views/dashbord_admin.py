@@ -149,6 +149,20 @@ def download_data_kjp():
                     "kota_sekolah": siswa.kota_sekolah or "",
                     "kode_pos_sekolah": siswa.kode_pos_sekolah or "",
                     "ttd_pemohon": siswa.ttd_pemohon or "",
+
+                    #? data surat pernyataan
+                    "sp_nama_peserta": siswa.sp_nama_peserta or "",
+                    "sp_sekolah": siswa.sp_sekolah or "",
+                    "sp_kelas": siswa.sp_kelas or "",
+                    "sp_nama_ortu": siswa.sp_nama_ortu or "",
+                    "sp_alamat_rumah": siswa.sp_alamat_rumah or "",
+                    "ttd_ortu": siswa.ttd_ortu or "",
+                    "ttd_penerima": siswa.ttd_penerima or "",
+                    "sptm_nama": siswa.sptm_nama or "",
+                    "sptm_noktp": siswa.sptm_noktp or "",
+                    "sptm_pekerjaan": siswa.sptm_pekerjaan or "",
+                    "sptm_alamat": siswa.sptm_alamat or "",
+                    "ttd_sptm": siswa.ttd_sptm or "",
                 }
 
                 # Isi formulir PDF dengan data siswa
