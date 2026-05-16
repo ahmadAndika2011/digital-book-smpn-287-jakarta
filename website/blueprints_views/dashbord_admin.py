@@ -163,6 +163,19 @@ def download_data_kjp():
                     "sptm_pekerjaan": siswa.sptm_pekerjaan or "",
                     "sptm_alamat": siswa.sptm_alamat or "",
                     "ttd_sptm": siswa.ttd_sptm or "",
+
+                    #? Berita acara
+                    "ba_nama_penilai": siswa.ba_nama_penilai or "",
+                    "ba_jabatan_penilai": siswa.ba_jabatan_penilai or "",
+                    "ba_nama_siswa": siswa.ba_nama_siswa or "",
+                    "ba_nik_siswa": siswa.ba_nik_siswa or "",
+                    "ba_kelas": siswa.ba_kelas or "",
+                    "penilaian_1": siswa.penilaian_1 or "",
+                    "penilaian_2": siswa.penilaian_2 or "",
+                    "penilaian_3": siswa.penilaian_3 or "",
+                    "penilaian_4": siswa.penilaian_4 or "",
+                    "ttd_ba_siswa": siswa.ttd_ba_siswa or "",
+                    "ttd_ba_penilai": siswa.ttd_ba_penilai or "",
                 }
 
                 # Isi formulir PDF dengan data siswa

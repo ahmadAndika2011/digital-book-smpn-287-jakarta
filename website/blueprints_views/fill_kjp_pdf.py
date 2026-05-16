@@ -17,6 +17,7 @@ Cara pakai di Flask:
 """
 
 import io
+from flask import request
 from pypdf import PdfReader, PdfWriter
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
@@ -808,6 +809,170 @@ FIELDS_DATA_SISWA = {
         "img_w": 100,  
         "img_h": 50,  
     },
+
+    #? Data surat pernyataan
+    "sp_nama_peserta": {
+        "page": 5,
+        "x": 250,
+        "y": top_to_pdf_y_for_folio(204),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "sp_sekolah": {
+        "page": 5,
+        "x": 250,
+        "y": top_to_pdf_y_for_folio(222),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "sp_kelas": {
+        "page": 5,
+        "x": 297,
+        "y": top_to_pdf_y_for_folio(241),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "sp_nama_ortu": {
+        "page": 5,
+        "x": 250,
+        "y": top_to_pdf_y_for_folio(262),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "sp_alamat_rumah": {
+        "page": 5,
+        "x": 250,
+        "y": top_to_pdf_y_for_folio(283),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "ttd_ortu": {
+        "page": 5,
+        "x": 126,
+        "y": top_to_pdf_y_for_folio(702),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "ttd_penerima": {
+        "page": 5,
+        "x": 380,
+        "y": top_to_pdf_y_for_folio(702),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "sptm_nama": {
+        "page": 6,
+        "x": 185,
+        "y": top_to_pdf_y_for_folio(148),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "sptm_noktp": {
+        "page": 6,
+        "x": 185,
+        "y": top_to_pdf_y_for_folio(167),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "sptm_pekerjaan": {
+        "page": 6,
+        "x": 185,
+        "y": top_to_pdf_y_for_folio(184),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "sptm_alamat": {
+        "page": 6,
+        "x": 185,
+        "y": top_to_pdf_y_for_folio(201),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "ttd_sptm": {
+        "page": 6,
+        "x": 410,
+        "y": top_to_pdf_y_for_folio(662),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "sptm_nama_peserta_didik": {
+        "page": 6,
+        "x": 258,
+        "y": top_to_pdf_y_for_folio(270),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "sptm_tempat_tanggal_lahir_peserta_didik": {
+        "page": 6,
+        "x": 258,
+        "y": top_to_pdf_y_for_folio(287),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "sptm_nisn_peserta_didik": {
+        "page": 6,
+        "x": 258,
+        "y": top_to_pdf_y_for_folio(302),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "sptm_kelas_peserta_didik": {
+        "page": 6,
+        "x": 258,
+        "y": top_to_pdf_y_for_folio(320),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "sptm_sekolah_peserta_didik": {
+        "page": 6,
+        "x": 258,
+        "y": top_to_pdf_y_for_folio(341),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "sptm_alamat_peserta_didik": {
+        "page": 6,
+        "x": 258,
+        "y": top_to_pdf_y_for_folio(356),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
 }
 
 
@@ -817,7 +982,7 @@ def _make_overlay(page_fields, page_w, page_h):
     c = canvas.Canvas(packet, pagesize=(page_w, page_h))
 
     # Field yang berisi gambar (bukan teks)
-    IMAGE_FIELDS = {"ttd_pemohon", "ttd_sekolah"}  # tambah lainnya jika ada
+    IMAGE_FIELDS = {"ttd_pemohon", "ttd_sekolah", "ttd_ortu", "ttd_penerima", "ttd_sptm"}  # tambah lainnya jika ada
 
     for field_name, value, cfg in page_fields:
         font_size = cfg.get("font_size", 10)
@@ -1162,9 +1327,9 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
         FIELDS_DATA_SISWA["tipe_alamat_wali"]["x"] = 347
         FIELDS_DATA_SISWA["tipe_alamat_wali"]["y"] = top_to_pdf_y(600)
 
-    # """
-    #     Data Kontak Darurat
-    # """
+    """
+        Data Kontak Darurat
+    """
     nama_kontak_darurat = siswa.get("nama_kontak_darurat", "")
     no_identitas_kontak = siswa.get("no_identitas_kontak", "")
     alamat_kontak = siswa.get("alamat_kontak", "")
@@ -1227,6 +1392,22 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
         FIELDS_DATA_SISWA["jenis_kelamin_peserta_didik_pemohon"]["x"] = 280
     elif jenis_kelamin_murid == "Perempuan":
         FIELDS_DATA_SISWA["jenis_kelamin_peserta_didik_pemohon"]["x"] = 333
+
+    """
+        data surat pernyataan
+    """
+    sp_nama_peserta = siswa.get("sp_nama_peserta", "")
+    sp_sekolah = siswa.get("sp_sekolah", "")
+    sp_kelas = siswa.get("sp_kelas", "")
+    sp_nama_ortu = siswa.get("sp_nama_ortu", "")
+    sp_alamat_rumah = siswa.get("sp_alamat_rumah", "")
+    ttd_ortu = siswa.get("ttd_ortu", "")
+    ttd_penerima = siswa.get("ttd_penerima", "")
+    sptm_nama = siswa.get("sptm_nama", "")
+    sptm_noktp = siswa.get("sptm_noktp", "")
+    sptm_pekerjaan = siswa.get("sptm_pekerjaan", "")
+    sptm_alamat = siswa.get("sptm_alamat", "")
+    ttd_sptm = siswa.get("ttd_sptm", "")
 
     # Kelompokkan field berdasarkan halaman
     page_data = {}
@@ -1329,7 +1510,7 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
         ("telepon_pemohon", telepon_pemohon),
         ("nama_peserta_didik_pemohon", nama_murid),
         ("tempat_tanggal_lahir_peserta_didik_pemohon", f"{tempat_lahir_murid}, {tanggal_lahir_murid}"),
-        ("jenis_kelamin_peserta_didik_pemohon", "==============="),
+        ("jenis_kelamin_peserta_didik_pemohon", "========"),
         ("alamat_peserta_didik_pemohon", alamat_murid),
         ("rt_peserta_didik_pemohon", rt_murid),
         ("rw_peserta_didik_pemohon", rw_murid),
@@ -1347,6 +1528,26 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
         ("kode_pos_sekolah", kode_pos_sekolah),
         ("kode_pos_sekolah", kode_pos_sekolah),
         ("ttd_pemohon", get_upload_path(ttd_pemohon)),
+
+        #? Data surat pernyataan
+        ("sp_nama_peserta", sp_nama_peserta),
+        ("sp_sekolah", sp_sekolah),
+        ("sp_kelas", sp_kelas),
+        ("sp_nama_ortu", sp_nama_ortu),
+        ("sp_alamat_rumah", sp_alamat_rumah),
+        ("ttd_ortu", get_upload_path(ttd_ortu)),
+        ("ttd_penerima", get_upload_path(ttd_penerima)),
+        ("sptm_nama", sptm_nama),
+        ("sptm_noktp", sptm_noktp),
+        ("sptm_pekerjaan", sptm_pekerjaan),
+        ("sptm_alamat", sptm_alamat),
+        ("ttd_sptm", get_upload_path(ttd_sptm)),
+        ("sptm_nama_peserta_didik", nama_murid),
+        ("sptm_tempat_tanggal_lahir_peserta_didik", f"{tempat_lahir_murid}, {tanggal_lahir_murid}"),
+        ("sptm_nisn_peserta_didik", nisn_murid),
+        ("sptm_kelas_peserta_didik", kelas),
+        ("sptm_sekolah_peserta_didik", nama_sekolah),
+        ("sptm_alamat_peserta_didik", alamat_murid),
     ]
 
     for field_key, value in field_map:
