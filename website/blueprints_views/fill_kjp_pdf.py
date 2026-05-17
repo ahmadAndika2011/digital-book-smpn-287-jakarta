@@ -47,6 +47,9 @@ def top_to_pdf_y(top, h=PDF_H):
 def top_to_pdf_y_for_folio(top):
     return 936.00 - top
 
+def top_to_pdf_y_for_f4(top):
+    return 792.00 - top
+
 
 # Field definitions: (page_index, x, pdf_y, max_width, font_size) * 0.479
 # page_index = 0-based (page 0 = halaman 1, page 1 = halaman 2, dst)
@@ -973,6 +976,107 @@ FIELDS_DATA_SISWA = {
         "img_w": 100,  
         "img_h": 50,  
     },
+
+    #? Berita Acara
+    "ba_nama_penilai": {
+        "page": 7,
+        "x": 187,
+        "y": top_to_pdf_y_for_f4(153),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "ba_jabatan_penilai": {
+        "page": 7,
+        "x": 187,
+        "y": top_to_pdf_y_for_f4(168),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "ba_nama_siswa": {
+        "page": 7,
+        "x": 187,
+        "y": top_to_pdf_y_for_f4(226),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "ba_nik_siswa": {
+        "page": 7,
+        "x": 187,
+        "y": top_to_pdf_y_for_f4(240),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "ba_kelas": {
+        "page": 7,
+        "x": 187,
+        "y": top_to_pdf_y_for_f4(255),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "penilaian_1": {
+        "page": 7,
+        "x": 0,
+        "y": top_to_pdf_y_for_f4(348),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "penilaian_2": {
+        "page": 7,
+        "x": 0,
+        "y": top_to_pdf_y_for_f4(398),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "penilaian_3": {
+        "page": 7,
+        "x": 0,
+        "y": top_to_pdf_y_for_f4(436),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "penilaian_4": {
+        "page": 7,
+        "x": 0,
+        "y": top_to_pdf_y_for_f4(473),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "ttd_ba_siswa": {
+        "page": 7,
+        "x": 90,
+        "y": top_to_pdf_y_for_f4(600),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "ttd_ba_penilai": {
+        "page": 7,
+        "x": 380,
+        "y": top_to_pdf_y_for_f4(600),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
 }
 
 
@@ -982,7 +1086,7 @@ def _make_overlay(page_fields, page_w, page_h):
     c = canvas.Canvas(packet, pagesize=(page_w, page_h))
 
     # Field yang berisi gambar (bukan teks)
-    IMAGE_FIELDS = {"ttd_pemohon", "ttd_sekolah", "ttd_ortu", "ttd_penerima", "ttd_sptm"}  # tambah lainnya jika ada
+    IMAGE_FIELDS = {"ttd_pemohon", "ttd_sekolah", "ttd_ortu", "ttd_penerima", "ttd_sptm", "ttd_ba_siswa", "ttd_ba_penilai"}  # tambah lainnya jika ada
 
     for field_name, value, cfg in page_fields:
         font_size = cfg.get("font_size", 10)
@@ -1409,6 +1513,45 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
     sptm_alamat = siswa.get("sptm_alamat", "")
     ttd_sptm = siswa.get("ttd_sptm", "")
 
+    """
+        Data Berita Acara
+    """
+    ba_nama_penilai = siswa.get("ba_nama_penilai", "")
+    ba_jabatan_penilai = siswa.get("ba_jabatan_penilai", "")
+    ba_nama_siswa = siswa.get("ba_nama_siswa", "")
+    ba_nik_siswa = siswa.get("ba_nik_siswa", "")
+    ba_kelas = siswa.get("ba_kelas", "")
+    penilaian_1 = siswa.get("penilaian_1", "")
+    penilaian_2 = siswa.get("penilaian_2", "")
+    penilaian_3 = siswa.get("penilaian_3", "")
+    penilaian_4 = siswa.get("penilaian_4", "")
+    ttd_ba_siswa = siswa.get("ttd_ba_siswa", "")
+    ttd_ba_penilai = siswa.get("ttd_ba_penilai", "")
+
+    # Cek penilaian 1
+    if penilaian_1 == "YA":
+        FIELDS_DATA_SISWA["penilaian_1"]["x"] = 489
+    elif penilaian_1 == "TIDAK":
+        FIELDS_DATA_SISWA["penilaian_1"]["x"] = 516
+
+    # Cek penilaian 2
+    if penilaian_2 == "YA":
+        FIELDS_DATA_SISWA["penilaian_2"]["x"] = 489
+    elif penilaian_2 == "TIDAK":
+        FIELDS_DATA_SISWA["penilaian_2"]["x"] = 516
+
+    # Cek penilaian 3
+    if penilaian_3 == "YA":
+        FIELDS_DATA_SISWA["penilaian_3"]["x"] = 489
+    elif penilaian_3 == "TIDAK":
+        FIELDS_DATA_SISWA["penilaian_3"]["x"] = 516
+
+    # Cek penilaian 4
+    if penilaian_4 == "YA":
+        FIELDS_DATA_SISWA["penilaian_4"]["x"] = 489
+    elif penilaian_4 == "TIDAK":
+        FIELDS_DATA_SISWA["penilaian_4"]["x"] = 516
+
     # Kelompokkan field berdasarkan halaman
     page_data = {}
 
@@ -1548,6 +1691,19 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
         ("sptm_kelas_peserta_didik", kelas),
         ("sptm_sekolah_peserta_didik", nama_sekolah),
         ("sptm_alamat_peserta_didik", alamat_murid),
+
+        #? Berita Acara
+        ("ba_nama_penilai", ba_nama_penilai),
+        ("ba_jabatan_penilai", ba_jabatan_penilai),
+        ("ba_nama_siswa", ba_nama_siswa),
+        ("ba_nik_siswa", ba_nik_siswa),
+        ("ba_kelas", ba_kelas),
+        ("penilaian_1", "——" if penilaian_1 == "YA" else "———"),
+        ("penilaian_2", "——" if penilaian_2 == "YA" else "———"),
+        ("penilaian_3", "——" if penilaian_3 == "YA" else "———"),
+        ("penilaian_4", "——" if penilaian_4 == "YA" else "———"),
+        ("ttd_ba_siswa", get_upload_path(ttd_ba_siswa)),
+        ("ttd_ba_penilai", get_upload_path(ttd_ba_penilai)),
     ]
 
     for field_key, value in field_map:
