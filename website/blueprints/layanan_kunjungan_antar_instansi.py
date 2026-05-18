@@ -37,5 +37,8 @@ def layanan_kunjungan_antar_instansi():
             )
             db.session.add(data)
             db.session.commit()
+        
+        flash("Data Berhasil ditambahkan.", category="success")
+        return redirect(url_for("views.home"))
 
     return render_template("layanan-kunjungan-antar-instansi.html")

@@ -445,3 +445,68 @@ def download_data_mutasi():
         )
 
     return redirect(url_for("dashbord_admin.dashbord_admin"))
+
+
+@views.route("/download-data-administrasi-sekolah", methods=["POST"])
+@login_required
+def download_data_administrasi_sekolah():
+    if request.method == "POST":
+        data_administrasi_sekolah = DatabaseLayananAdministrasiSekolah.query.all()
+        list_data = []
+
+        for data in data_administrasi_sekolah:
+            list_data.append({
+                "tanggal_pengajuan": data.tanggal_pengajuan,
+                "nama": data.nama,
+                "tanggal_pengambilan": data.tanggal_pengambilan,
+                "no_telepon": data.no_telepon,
+                "keterangan": data.keterangan
+            })
+        
+        df = pd.DataFrame(list_data)
+        output = io.BytesIO()
+        with pd.ExcelWriter(output, engine="openpyxl") as writer:
+            df.to_excel(writer, index=False, sheet_name="DATA_ADMINISTRASI_SEKOLAH")
+        
+        output.seek(0)
+
+        return send_file(
+            output,
+            mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            as_attachment=True,
+            download_name=f"DATA_ADMINISTRASI_SEKOLAH_{datetime.now().year}.xlsx"
+        )
+
+    return redirect(url_for("dashbord_admin.dashbord_admin"))
+
+
+@views.route("/download-data-kunjungan-antar-instansi", methods=["POST"])
+@login_required
+def download_data_kunjungan_antar_instansi():
+    if request.method == "POST":
+        data_kunjungan_antar_instansi = DatabaseLayananKunjunganAntarInstansi.query.all()
+        list_data = []
+        
+        for data in data_kunjungan_antar_instansi:
+            list_data.append({
+                "tanggal": data.tanggal,
+                "nama": data.nama,
+                "jabatan": data.jabatan,
+                "no_telepon": data.no_telepon,
+                "keterangan": data.keterangan
+            })
+        df = pd.DataFrame(list_data)
+
+        output = io.BytesIO()
+        with pd.ExcelWriter(output, engine="openpyxl") as writer:
+            df.to_excel(writer, index=False, sheet_name="DATA_KUNJUNGAN_ANTAR_INSTANSI")
+        
+        output.seek(0)
+
+        return send_file(
+            output,
+            mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            as_attachment=True,
+            download_name=f"DATA_KUNJUNGAN_ANTAR_INSTANSI_{datetime.now().year}.xlsx"
+        )
+    return login_required(url_for("dashbord_admin.dashbord_admin"))
