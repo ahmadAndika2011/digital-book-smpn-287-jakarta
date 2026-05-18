@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, request, send_file
 from flask_login import current_user, login_required
 from pandas import read_sql_query
-
 from ..models import DatabaseLayananPpdb, DatabaseLayananMutasi, DatabaseLayananPip, DatabaseLayananKjp, DatabaseLayananAdministrasiSekolah, DatabaseLayananKunjunganAntarInstansi
 import pandas as pd
 from .. import db
@@ -10,6 +9,7 @@ import os
 import zipfile
 from datetime import datetime
 from .fill_kjp_pdf import fill_kjp_pdf_berita_acara, fill_kjp_pdf, fill_kjp_pdf_surat_pernyataan, fill_kjp_pdf_permohonan
+import pandas as pd
 
 PDF_TEMPLATE_PATH = os.path.join(
     os.path.dirname(__file__),
@@ -374,6 +374,68 @@ def download_data_kjp_permohonan():
             mimetype="application/zip",
             as_attachment=True,
             download_name=f"KJP_PLUS_DATA_SISWA_PERMOHONAN_{datetime.now().year}.zip"
+        )
+
+    return redirect(url_for("dashbord_admin.dashbord_admin"))
+
+
+@views.route("/download-data-ppdb", methods=["POST"])
+def download_data_ppdb():
+    if request.method == "POST":
+        data_ppdb = DatabaseLayananPpdb.query.all()
+        list_data = []
+        for data in data_ppdb:
+            list_data.append({
+                "tanggal": data.tanggal,
+                "nama_calon_siswa": data.nama_calon_siswa,
+                "no_telepon": data.no_telepon,
+                "keterangan": data.keterangan
+            })
+
+        df = pd.DataFrame(list_data)
+
+        output = io.BytesIO()
+        with pd.ExcelWriter(output, engine="openpyxl") as writer:
+            df.to_excel(writer, index=False, sheet_name="Data_PPDB")
+        
+        output.seek(0)
+
+        return send_file(
+            output,
+            mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            as_attachment=True,
+            download_name=f"DATA_PPDB_{datetime.now().year}.xlsx"
+        )
+
+    return redirect(url_for("dashbord_admin.dashbord_admin"))
+
+@views.route("/download-data-mutasi", methods=["POST"])
+def download_data_mutasi():
+    if request.method == "POST":
+        data_mutasi = DatabaseLayananMutasi.query.all()
+        list_data = []
+        for data in data_mutasi:
+            list_data.append({
+                "tanggal": data.tanggal,
+                "nama": data.nama,
+                "sekolah_asal": data.sekolah_asal,
+                "no_telepon": data.no_telepon,
+                "jenis_mutasi": data.jenis_mutasi,
+                "keterangan": data.keterangan,
+            })
+
+        df = pd.DataFrame(list_data)
+        output = io.BytesIO()
+        with pd.ExcelWriter(output, engine="openpyxl") as writer:
+            df.to_excel(writer, index=False, sheet_name="DATA_MUTASI")
+        
+        output.seek(0)
+
+        return send_file(
+            output,
+            mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            as_attachment=True,
+            download_name=f"DATA_MUTASI_{datetime.now().year}.xlsx"
         )
 
     return redirect(url_for("dashbord_admin.dashbord_admin"))

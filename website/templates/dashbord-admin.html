@@ -468,6 +468,11 @@
           </div>
           <div class="svc-arrow">
             <span class="svc-tag">Pendaftaran</span>
+            <form action="{{url_for('dashbord_admin.download_data_ppdb')}}" method="POST">
+              <button class="btn-download" style="background:#639922; color:#fff; display:flex; align-items:center; gap:5px; padding:5px 12px; border-radius:20px; border:none; cursor:pointer; font-size:12px; font-weight:500;">
+                <i class="ti ti-download"></i> 
+              </button>
+            </form>
             <div style="display:flex;align-items:center;gap:6px;">
               <span class="svc-count-badge">{{ data_layanan_ppdb|length }} data</span>
               <span class="svc-chevron">
@@ -526,6 +531,11 @@
           </div>
           <div class="svc-arrow">
             <span class="svc-tag">Perpindahan</span>
+            <form action="{{url_for('dashbord_admin.download_data_mutasi')}}" method="POST">
+              <button class="btn-download" style="background:#185FA5; color:#fff; display:flex; align-items:center; gap:5px; padding:5px 12px; border-radius:20px; border:none; cursor:pointer; font-size:12px; font-weight:500;">
+                <i class="ti ti-download"></i> 
+              </button>
+            </form>
             <div style="display:flex;align-items:center;gap:6px;">
               <span class="svc-count-badge">{{ data_layanan_mutasi|length }} data</span>
               <span class="svc-chevron">
@@ -629,39 +639,6 @@
         </div>
       </div>
 
-            <!-- untuk download -->
-            {# <form action="{{url_for('dashbord_admin.download_data_kjp_permohonan')}}" method="POST">
-                <button type="submit"
-                    title="Download Halaman KJP Murid Ini"
-                    style="
-                        background-color: #0a2463;
-                        color: white;
-                        display: inline-flex;
-                        align-items: center;
-                        gap: 5px;
-                        padding: 6px 11px;
-                        border: none;
-                        border-radius: 8px;
-                        cursor: pointer;
-                        font-size: 0.72rem;
-                        font-weight: 700;
-                        letter-spacing: 0.4px;
-                        transition: background-color 0.2s, transform 0.2s;
-                    "
-                    onmouseover="this.style.backgroundColor='#0f3080'; this.style.transform='scale(1.05)'"
-                    onmouseout="this.style.backgroundColor='#0a2463'; this.style.transform='scale(1)'">
-                    <!-- Ikon download -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2.2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                        <polyline points="7 10 12 15 17 10"/>
-                        <line x1="12" y1="15" x2="12" y2="3"/>
-                    </svg>
-                    PERMOHONAN
-                </button>
-            </form> #}
-
       <!-- 4. KJP -->
       <div class="card-wrapper theme-coral">
         <div class="svc-card" onclick="toggleCard(this)">
@@ -744,6 +721,9 @@
           </div>
           <div class="svc-arrow">
             <span class="svc-tag">Dokumen</span>
+            <button class="btn-download" style="background:#534AB7; color:#fff; display:flex; align-items:center; gap:5px; padding:5px 12px; border-radius:20px; border:none; cursor:pointer; font-size:12px; font-weight:500;">
+              <i class="ti ti-download"></i> 
+            </button>
             <div style="display:flex;align-items:center;gap:6px;">
               <span class="svc-count-badge">{{ data_layanan_administrasi_sekolah|length }} data</span>
               <span class="svc-chevron">
@@ -802,6 +782,9 @@
           </div>
           <div class="svc-arrow">
             <span class="svc-tag">Kunjungan</span>
+            <button class="btn-download" style="background:#0F6E56; color:#fff; display:flex; align-items:center; gap:5px; padding:5px 12px; border-radius:20px; border:none; cursor:pointer; font-size:12px; font-weight:500;">
+              <i class="ti ti-download"></i> 
+            </button>
             <div style="display:flex;align-items:center;gap:6px;">
               <span class="svc-count-badge">{{ data_layanan_kunjungan_antar_instansi|length }} data</span>
               <span class="svc-chevron">
