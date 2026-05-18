@@ -299,7 +299,7 @@ thead th:hover {
     <div class="toolbar-right">
 
         <!-- Download Data Murid -->
-        <form method="POST">
+        {# <form method="POST">
             <button type="submit" class="btn-dl"
                 onmouseover="this.style.backgroundColor='#0f3080'; this.style.transform='scale(1.05)'"
                 onmouseout="this.style.backgroundColor='#0a2463'; this.style.transform='scale(1)'">
@@ -312,11 +312,12 @@ thead th:hover {
                 </svg>
                 DATA MURID
             </button>
-        </form>
+        </form> #}
 
         <!-- Download Data Wali -->
         {# <form action="{{ url_for('dashbord_admin.download_data_kjp_wali') }}" method="POST"> #}
-        <form method="POST">
+        {# ? #}
+        {# <form method="POST">
             <button type="submit" class="btn-dl"
                 onmouseover="this.style.backgroundColor='#0f3080'; this.style.transform='scale(1.05)'"
                 onmouseout="this.style.backgroundColor='#0a2463'; this.style.transform='scale(1)'">
@@ -329,11 +330,12 @@ thead th:hover {
                 </svg>
                 DATA WALI
             </button>
-        </form>
+        </form> #}
 
         <!-- Download Data Kontak Darurat -->
         {# <form action="{{ url_for('dashbord_admin.download_data_kjp_kontak') }}" method="POST"> #}
-        <form method="POST">
+        {# ? #}
+        {# <form method="POST">
             <button type="submit" class="btn-dl"
                 onmouseover="this.style.backgroundColor='#0f3080'; this.style.transform='scale(1.05)'"
                 onmouseout="this.style.backgroundColor='#0a2463'; this.style.transform='scale(1)'">
@@ -346,11 +348,11 @@ thead th:hover {
                 </svg>
                 KONTAK DARURAT
             </button>
-        </form>
+        </form> #}
 
         <!-- Download Surat Permohonan -->
-        {# <form action="{{ url_for('dashbord_admin.download_data_kjp_permohonan') }}" method="POST"> #}
-        <form method="POST">
+        {# <form method="POST"> #}
+        <form action="{{ url_for('dashbord_admin.download_data_kjp_permohonan') }}" method="POST">
             <button type="submit" class="btn-dl"
                 onmouseover="this.style.backgroundColor='#0f3080'; this.style.transform='scale(1.05)'"
                 onmouseout="this.style.backgroundColor='#0a2463'; this.style.transform='scale(1)'">
@@ -366,8 +368,8 @@ thead th:hover {
         </form>
 
         <!-- Download Pernyataan -->
-        {# <form action="{{ url_for('dashbord_admin.download_data_kjp_pernyataan') }}" method="POST"> #}
-        <form method="POST">
+        {# <form method="POST"> #}
+        <form action="{{ url_for('dashbord_admin.download_data_kjp_surat_pernyataan') }}" method="POST">
             <button type="submit" class="btn-dl"
                 onmouseover="this.style.backgroundColor='#0f3080'; this.style.transform='scale(1.05)'"
                 onmouseout="this.style.backgroundColor='#0a2463'; this.style.transform='scale(1)'">
@@ -383,8 +385,8 @@ thead th:hover {
         </form>
 
         <!-- Download Berita Acara -->
-        {# <form action="{{ url_for('dashbord_admin.download_data_kjp_berita_acara') }}" method="POST"> #}
-        <form method="POST">
+        {# <form method="POST"> #}
+        <form action="{{ url_for('dashbord_admin.download_data_kjp_berita_acara') }}" method="POST">
             <button type="submit" class="btn-dl"
                 onmouseover="this.style.backgroundColor='#0f3080'; this.style.transform='scale(1.05)'"
                 onmouseout="this.style.backgroundColor='#0a2463'; this.style.transform='scale(1)'">

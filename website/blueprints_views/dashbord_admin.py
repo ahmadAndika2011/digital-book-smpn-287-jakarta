@@ -9,7 +9,7 @@ import io
 import os
 import zipfile
 from datetime import datetime
-from .fill_kjp_pdf import fill_kjp_pdf_permohonan, fill_kjp_pdf
+from .fill_kjp_pdf import fill_kjp_pdf_berita_acara, fill_kjp_pdf, fill_kjp_pdf_surat_pernyataan, fill_kjp_pdf_permohonan
 
 PDF_TEMPLATE_PATH = os.path.join(
     os.path.dirname(__file__),
@@ -17,10 +17,22 @@ PDF_TEMPLATE_PATH = os.path.join(
     "kjp_format.pdf"
 )
 
+PDF_TEMPLATE_PATH_BERITA_ACARA = os.path.join(
+    os.path.dirname(__file__),
+    "..", "static", "uploads",
+    "kjp_format_berita_acara_page.pdf"
+)
+
 PDF_TEMPLATE_PATH_PERMOHONAN = os.path.join(
     os.path.dirname(__file__),
     "..", "static", "uploads",
-    "kjp-format-permohonan.pdf"
+    "kjp_format_permohonan_page.pdf"
+)
+
+PDF_TEMPLATE_PATH_SURAT_PERNYATAAN = os.path.join(
+    os.path.dirname(__file__),
+    "..", "static", "uploads",
+    "kjp_format_surat_pernyataan_page.pdf"
 )
 
 views = Blueprint("dashbord_admin", __name__)
@@ -200,59 +212,168 @@ def download_data_kjp():
 
     return redirect(url_for("dashbord_admin.dashbord_admin"))
 
-# # ? data permohonan
-# @views.route("/download-data-kjp-permohonan", methods=["POST"])
-# def download_data_kjp_permohonan():
-#     if request.method == "POST":
-#         # Ambil semua data siswa KJP dari database
-#         semua_siswa = DatabaseLayananKjp.query.all()
 
-#         # Buat file ZIP di memori (RAM), isinya 1 PDF per siswa
-#         zip_buffer = io.BytesIO()
-#         with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zf:
-#             for siswa in semua_siswa:
-#                 # Ubah objek database menjadi dictionary
-#                 siswa_dict = {
-#                     "id":         siswa.id,
-#                     # ? data permohonan
-#                     "nama_pemohon": siswa.nama_pemohon or "",
-#                     "alamat_pemohon": siswa.alamat_pemohon or "",
-#                     "rt_pemohon": siswa.rt_pemohon or "",
-#                     "rw_pemohon": siswa.rw_pemohon or "",
-#                     "kelurahan_pemohon": siswa.kelurahan_pemohon or "",
-#                     "kecamatan_pemohon": siswa.kecamatan_pemohon or "",
-#                     "kota_pemohon": siswa.kota_pemohon or "",
-#                     "kode_pos_pemohon": siswa.kode_pos_pemohon or "",
-#                     "telepon_pemohon": siswa.telepon_pemohon or "",
-#                     "nama_sekolah": siswa.nama_sekolah or "",
-#                     "alamat_sekolah": siswa.alamat_sekolah or "",
-#                     "rt_sekolah": siswa.rt_sekolah or "",
-#                     "rw_sekolah": siswa.rw_sekolah or "",
-#                     "kelurahan_sekolah": siswa.kelurahan_sekolah or "",
-#                     "kecamatan_sekolah": siswa.kecamatan_sekolah or "",
-#                     "kota_sekolah": siswa.kota_sekolah or "",
-#                     "kode_pos_sekolah": siswa.kode_pos_sekolah or "",
-#                     "ttd_pemohon": siswa.ttd_pemohon or "",
-#                 }
+@views.route("/download-data-kjp-berita-acara", methods=["POST"])
+def download_data_kjp_berita_acara():
+    if request.method == "POST":
+        # Ambil semua data siswa KJP dari database
+        semua_siswa = DatabaseLayananKjp.query.all()
 
-#                 # Isi formulir PDF dengan data siswa
-#                 pdf_bytes = fill_kjp_pdf_permohonan(
-#                     siswa_dict, template_path=PDF_TEMPLATE_PATH_PERMOHONAN)
+        # Buat file ZIP di memori (RAM), isinya 1 PDF per siswa
+        zip_buffer = io.BytesIO()
+        with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zf:
+            for siswa in semua_siswa:
+                # Ubah objek database menjadi dictionary
+                siswa_dict = {
+                    "id":         siswa.id,
 
-#                 # Simpan PDF ke dalam ZIP dengan nama file berdasarkan nama siswa
-#                 nama_file = (
-#                     siswa.nama_murid or f"siswa_{siswa.id}").replace(" ", "_")
-#                 zf.writestr(
-#                     f"KJP_{nama_file}_{datetime.now().year}.pdf", pdf_bytes)
+                    #? Berita acara
+                    "ba_nama_penilai": siswa.ba_nama_penilai or "",
+                    "ba_jabatan_penilai": siswa.ba_jabatan_penilai or "",
+                    "ba_nama_siswa": siswa.ba_nama_siswa or "",
+                    "ba_nik_siswa": siswa.ba_nik_siswa or "",
+                    "ba_kelas": siswa.ba_kelas or "",
+                    "penilaian_1": siswa.penilaian_1 or "",
+                    "penilaian_2": siswa.penilaian_2 or "",
+                    "penilaian_3": siswa.penilaian_3 or "",
+                    "penilaian_4": siswa.penilaian_4 or "",
+                    "ttd_ba_siswa": siswa.ttd_ba_siswa or "",
+                    "ttd_ba_penilai": siswa.ttd_ba_penilai or "",
+                }
 
-#         zip_buffer.seek(0)
+                # Isi formulir PDF dengan data siswa
+                pdf_bytes = fill_kjp_pdf_berita_acara(
+                    siswa_dict, template_path=PDF_TEMPLATE_PATH_BERITA_ACARA)
 
-#         # Kirim file ZIP ke browser untuk didownload
-#         return send_file(
-#             zip_buffer,
-#             mimetype="application/zip",
-#             as_attachment=True,
-#             download_name=f"KJP_PLUS_DATA_SISWA_{datetime.now().year}.zip"
-#         )
+                # Simpan PDF ke dalam ZIP dengan nama file berdasarkan nama siswa
+                nama_file = (
+                    siswa.nama_murid or f"siswa_{siswa.id}").replace(" ", "_")
+                zf.writestr(
+                    f"KJP_BERITA_ACARA_{nama_file}_{datetime.now().year}.pdf", pdf_bytes)
 
-#     return redirect(url_for("dashbord_admin.dashbord_admin"))
+        zip_buffer.seek(0)
+
+        # Kirim file ZIP ke browser untuk didownload
+        return send_file(
+            zip_buffer,
+            mimetype="application/zip",
+            as_attachment=True,
+            download_name=f"KJP_PLUS_DATA_SISWA_BERITA_ACARA_{datetime.now().year}.zip"
+        )
+
+    return redirect(url_for("dashbord_admin.dashbord_admin"))
+
+
+@views.route("/download-data-kjp-surat-pernyataan", methods=["POST"])
+def download_data_kjp_surat_pernyataan():
+    if request.method == "POST":
+        # Ambil semua data siswa KJP dari database
+        semua_siswa = DatabaseLayananKjp.query.all()
+
+        # Buat file ZIP di memori (RAM), isinya 1 PDF per siswa
+        zip_buffer = io.BytesIO()
+        with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zf:
+            for siswa in semua_siswa:
+                # Ubah objek database menjadi dictionary
+                siswa_dict = {
+                    "id":         siswa.id,
+
+                    #? data surat pernyataan
+                    "sp_nama_peserta": siswa.sp_nama_peserta or "",
+                    "sp_sekolah": siswa.sp_sekolah or "",
+                    "sp_kelas": siswa.sp_kelas or "",
+                    "sp_nama_ortu": siswa.sp_nama_ortu or "",
+                    "sp_alamat_rumah": siswa.sp_alamat_rumah or "",
+                    "ttd_ortu": siswa.ttd_ortu or "",
+                    "ttd_penerima": siswa.ttd_penerima or "",
+                }
+
+                # Isi formulir PDF dengan data siswa
+                pdf_bytes = fill_kjp_pdf_surat_pernyataan(
+                    siswa_dict, template_path=PDF_TEMPLATE_PATH_SURAT_PERNYATAAN)
+
+                # Simpan PDF ke dalam ZIP dengan nama file berdasarkan nama siswa
+                nama_file = (
+                    siswa.nama_murid or f"siswa_{siswa.id}").replace(" ", "_")
+                zf.writestr(
+                    f"KJP_SURAT_PERNYATAAN_{nama_file}_{datetime.now().year}.pdf", pdf_bytes)
+
+        zip_buffer.seek(0)
+
+        # Kirim file ZIP ke browser untuk didownload
+        return send_file(
+            zip_buffer,
+            mimetype="application/zip",
+            as_attachment=True,
+            download_name=f"KJP_PLUS_DATA_SISWA_SURAT_PERNYATAAN_{datetime.now().year}.zip"
+        )
+
+    return redirect(url_for("dashbord_admin.dashbord_admin"))
+
+
+@views.route("/download-data-kjp-permohonan", methods=["POST"])
+def download_data_kjp_permohonan():
+    if request.method == "POST":
+        # Ambil semua data siswa KJP dari database
+        semua_siswa = DatabaseLayananKjp.query.all()
+
+        # Buat file ZIP di memori (RAM), isinya 1 PDF per siswa
+        zip_buffer = io.BytesIO()
+        with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zf:
+            for siswa in semua_siswa:
+                # Ubah objek database menjadi dictionary
+                siswa_dict = {
+                    "id":         siswa.id,
+
+                    # ? data permohonan
+                    "nama_pemohon": siswa.nama_pemohon or "",
+                    "alamat_pemohon": siswa.alamat_pemohon or "",
+                    "rt_pemohon": siswa.rt_pemohon or "",
+                    "rw_pemohon": siswa.rw_pemohon or "",
+                    "kelurahan_pemohon": siswa.kelurahan_pemohon or "",
+                    "kecamatan_pemohon": siswa.kecamatan_pemohon or "",
+                    "kota_pemohon": siswa.kota_pemohon or "",
+                    "kode_pos_pemohon": siswa.kode_pos_pemohon or "",
+                    "telepon_pemohon": siswa.telepon_pemohon or "",
+                    "nama_sekolah": siswa.nama_sekolah or "",
+                    "alamat_sekolah": siswa.alamat_sekolah or "",
+                    "rt_sekolah": siswa.rt_sekolah or "",
+                    "rw_sekolah": siswa.rw_sekolah or "",
+                    "kelurahan_sekolah": siswa.kelurahan_sekolah or "",
+                    "kecamatan_sekolah": siswa.kecamatan_sekolah or "",
+                    "kota_sekolah": siswa.kota_sekolah or "",
+                    "kode_pos_sekolah": siswa.kode_pos_sekolah or "",
+                    "ttd_pemohon": siswa.ttd_pemohon or "",
+                    "jenis_kelamin_murid": siswa.jenis_kelamin_murid or "",
+                    "nama_murid": siswa.nama_murid or "",
+                    "tempat_lahir_murid": siswa.tempat_lahir_murid or "",
+                    "tanggal_lahir_murid": siswa.tanggal_lahir_murid or "",
+                    "alamat_murid": siswa.alamat_murid or "",
+                    "rt_murid": siswa.rt_murid or "",
+                    "rw_murid": siswa.rw_murid or "",
+                    "kota_murid": siswa.kota_murid or "",
+                    "kelurahan_murid": siswa.kelurahan_murid or "",
+                    "kode_pos_murid": siswa.kode_pos_murid or "",
+                }
+
+                # Isi formulir PDF dengan data siswa
+                pdf_bytes = fill_kjp_pdf_permohonan(
+                    siswa_dict, template_path=PDF_TEMPLATE_PATH_PERMOHONAN)
+
+                # Simpan PDF ke dalam ZIP dengan nama file berdasarkan nama siswa
+                nama_file = (
+                    siswa.nama_murid or f"siswa_{siswa.id}").replace(" ", "_")
+                zf.writestr(
+                    f"KJP_PERMOHONAN_{nama_file}_{datetime.now().year}.pdf", pdf_bytes)
+
+        zip_buffer.seek(0)
+
+        # Kirim file ZIP ke browser untuk didownload
+        return send_file(
+            zip_buffer,
+            mimetype="application/zip",
+            as_attachment=True,
+            download_name=f"KJP_PLUS_DATA_SISWA_PERMOHONAN_{datetime.now().year}.zip"
+        )
+
+    return redirect(url_for("dashbord_admin.dashbord_admin"))

@@ -39,16 +39,15 @@ PDF_W = 595.44
 PDF_H = 842
 
 
-def top_to_pdf_y(top, h=PDF_H):
-    """Konversi koordinat 'top' (y dari atas) ke koordinat PDF (y dari bawah)."""
-    # return h - top
-    return h - top
+def top_to_pdf_y(top):
+    return 842.00 - top
 
 def top_to_pdf_y_for_folio(top):
     return 936.00 - top
 
 def top_to_pdf_y_for_f4(top):
     return 792.00 - top
+
 
 
 # Field definitions: (page_index, x, pdf_y, max_width, font_size) * 0.479
@@ -1080,6 +1079,381 @@ FIELDS_DATA_SISWA = {
 }
 
 
+FIELDS_DATA_SISWA_SURAT_PERMOHONAN = {
+    # ? data permohonan
+    "nama_pemohon": {
+        "page": 0,
+        "x": 276, 
+        "y": top_to_pdf_y_for_folio(233), 
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "alamat_pemohon": {
+        "page": 0,
+        "x": 276,
+        "y": top_to_pdf_y_for_folio(249),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "rt_pemohon": {
+        "page": 0,
+        "x": 276,
+        "y": top_to_pdf_y_for_folio(264),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "rw_pemohon": {
+        "page": 0,
+        "x": 290,
+        "y": top_to_pdf_y_for_folio(264),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kelurahan_pemohon": {
+        "page": 0,
+        "x": 276,
+        "y": top_to_pdf_y_for_folio(281),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kecamatan_pemohon": {
+        "page": 0,
+        "x": 276,
+        "y": top_to_pdf_y_for_folio(296),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kota_pemohon": {
+        "page": 0,
+        "x": 309,
+        "y": top_to_pdf_y_for_folio(313),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kode_pos_pemohon": {
+        "page": 0,
+        "x": 466,
+        "y": top_to_pdf_y_for_folio(313),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "telepon_pemohon": {
+        "page": 0,
+        "x": 276,
+        "y": top_to_pdf_y_for_folio(328),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "nama_peserta_didik_pemohon": {
+        "page": 0,
+        "x": 276,
+        "y": top_to_pdf_y_for_folio(408),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "tempat_tanggal_lahir_peserta_didik_pemohon": {
+        "page": 0,
+        "x": 276,
+        "y": top_to_pdf_y_for_folio(425),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "jenis_kelamin_peserta_didik_pemohon": {
+        "page": 0,
+        "x": 0,
+        "y": top_to_pdf_y_for_folio(442),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "alamat_peserta_didik_pemohon": {
+        "page": 0,
+        "x": 276,
+        "y": top_to_pdf_y_for_folio(456),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "rt_peserta_didik_pemohon": {
+        "page": 0,
+        "x": 276,
+        "y": top_to_pdf_y_for_folio(472),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "rw_peserta_didik_pemohon": {
+        "page": 0,
+        "x": 290,
+        "y": top_to_pdf_y_for_folio(472),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kelurahan_peserta_didik_pemohon": {
+        "page": 0,
+        "x": 276,
+        "y": top_to_pdf_y_for_folio(488),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kecamatan_peserta_didik_pemohon": {
+        "page": 0,
+        "x": 276,
+        "y": top_to_pdf_y_for_folio(503),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kota_peserta_didik_pemohon": {
+        "page": 0,
+        "x": 309,
+        "y": top_to_pdf_y_for_folio(519),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kode_pos_peserta_didik_pemohon": {
+        "page": 0,
+        "x": 466,
+        "y": top_to_pdf_y_for_folio(519),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "nama_sekolah": {
+        "page": 0,
+        "x": 276,
+        "y": top_to_pdf_y_for_folio(536),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "alamat_sekolah": {
+        "page": 0,
+        "x": 276,
+        "y": top_to_pdf_y_for_folio(551),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "rt_sekolah": {
+        "page": 0,
+        "x": 276,
+        "y": top_to_pdf_y_for_folio(568),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "rw_sekolah": {
+        "page": 0,
+        "x": 290,
+        "y": top_to_pdf_y_for_folio(568),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kelurahan_sekolah": {
+        "page": 0,
+        "x": 276,
+        "y": top_to_pdf_y_for_folio(582),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kecamatan_sekolah": {
+        "page": 0,
+        "x": 276,
+        "y": top_to_pdf_y_for_folio(599),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kota_sekolah": {
+        "page": 0,
+        "x": 309,
+        "y": top_to_pdf_y_for_folio(614),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "kode_pos_sekolah": {
+        "page": 0,
+        "x": 466,
+        "y": top_to_pdf_y_for_folio(614),
+        "max_w": 170,
+        "font_size": 9,
+    },
+    "ttd_pemohon": {
+        "page": 0,
+        "x": 390,
+        "y": top_to_pdf_y_for_folio(870),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+}
+
+FIELDS_DATA_SISWA_SURAT_PERNYATAAN = {
+    #? Data surat pernyataan
+    "sp_nama_peserta": {
+        "page": 0,
+        "x": 250,
+        "y": top_to_pdf_y_for_folio(204),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "sp_sekolah": {
+        "page": 0,
+        "x": 250,
+        "y": top_to_pdf_y_for_folio(222),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "sp_kelas": {
+        "page": 0,
+        "x": 297,
+        "y": top_to_pdf_y_for_folio(241),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "sp_nama_ortu": {
+        "page": 0,
+        "x": 250,
+        "y": top_to_pdf_y_for_folio(262),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "sp_alamat_rumah": {
+        "page": 0,
+        "x": 250,
+        "y": top_to_pdf_y_for_folio(283),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "ttd_ortu": {
+        "page": 0,
+        "x": 126,
+        "y": top_to_pdf_y_for_folio(702),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "ttd_penerima": {
+        "page": 0,
+        "x": 380,
+        "y": top_to_pdf_y_for_folio(702),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+}
+
+
+FIELDS_DATA_SISWA_BERITA_ACARA = {
+    #? Berita Acara
+    "ba_nama_penilai": {
+        "page": 0,
+        "x": 187,
+        "y": top_to_pdf_y_for_f4(154),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "ba_jabatan_penilai": {
+        "page": 0,
+        "x": 187,
+        "y": top_to_pdf_y_for_f4(168),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "ba_nama_siswa": {
+        "page": 0,
+        "x": 187,
+        "y": top_to_pdf_y_for_f4(226),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "ba_nik_siswa": {
+        "page": 0,
+        "x": 187,
+        "y": top_to_pdf_y_for_f4(240),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "ba_kelas": {
+        "page": 0,
+        "x": 187,
+        "y": top_to_pdf_y_for_f4(255),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "penilaian_1": {
+        "page": 0,
+        "x": 0,
+        "y": top_to_pdf_y_for_f4(348),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "penilaian_2": {
+        "page": 0,
+        "x": 0,
+        "y": top_to_pdf_y_for_f4(398),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "penilaian_3": {
+        "page": 0,
+        "x": 0,
+        "y": top_to_pdf_y_for_f4(436),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "penilaian_4": {
+        "page": 0,
+        "x": 0,
+        "y": top_to_pdf_y_for_f4(473),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "ttd_ba_siswa": {
+        "page": 0,
+        "x": 90,
+        "y": top_to_pdf_y_for_f4(600),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+    "ttd_ba_penilai": {
+        "page": 0,
+        "x": 380,
+        "y": top_to_pdf_y_for_f4(600),
+        "max_w": 170,
+        "font_size": 9,
+        "img_w": 100,  
+        "img_h": 50,  
+    },
+}
+
+
+
 def _make_overlay(page_fields, page_w, page_h):
     """Buat overlay PDF transparan berisi teks/gambar untuk satu halaman."""
     packet = io.BytesIO()
@@ -1734,6 +2108,149 @@ def fill_kjp_pdf(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
     return output.read()
 
 
+
+
+def fill_kjp_pdf_berita_acara(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
+    """
+        Data Berita Acara
+    """
+    ba_nama_penilai = siswa.get("ba_nama_penilai", "")
+    ba_jabatan_penilai = siswa.get("ba_jabatan_penilai", "")
+    ba_nama_siswa = siswa.get("ba_nama_siswa", "")
+    ba_nik_siswa = siswa.get("ba_nik_siswa", "")
+    ba_kelas = siswa.get("ba_kelas", "")
+    penilaian_1 = siswa.get("penilaian_1", "")
+    penilaian_2 = siswa.get("penilaian_2", "")
+    penilaian_3 = siswa.get("penilaian_3", "")
+    penilaian_4 = siswa.get("penilaian_4", "")
+    ttd_ba_siswa = siswa.get("ttd_ba_siswa", "")
+    ttd_ba_penilai = siswa.get("ttd_ba_penilai", "")
+
+    # Cek penilaian 1
+    if penilaian_1 == "YA":
+        FIELDS_DATA_SISWA_BERITA_ACARA["penilaian_1"]["x"] = 489
+    elif penilaian_1 == "TIDAK":
+        FIELDS_DATA_SISWA_BERITA_ACARA["penilaian_1"]["x"] = 516
+
+    # Cek penilaian 2
+    if penilaian_2 == "YA":
+        FIELDS_DATA_SISWA_BERITA_ACARA["penilaian_2"]["x"] = 489
+    elif penilaian_2 == "TIDAK":
+        FIELDS_DATA_SISWA_BERITA_ACARA["penilaian_2"]["x"] = 516
+
+    # Cek penilaian 3
+    if penilaian_3 == "YA":
+        FIELDS_DATA_SISWA_BERITA_ACARA["penilaian_3"]["x"] = 489
+    elif penilaian_3 == "TIDAK":
+        FIELDS_DATA_SISWA_BERITA_ACARA["penilaian_3"]["x"] = 516
+
+    # Cek penilaian 4
+    if penilaian_4 == "YA":
+        FIELDS_DATA_SISWA_BERITA_ACARA["penilaian_4"]["x"] = 489
+    elif penilaian_4 == "TIDAK":
+        FIELDS_DATA_SISWA_BERITA_ACARA["penilaian_4"]["x"] = 516
+
+    # Kelompokkan field berdasarkan halaman
+    page_data = {}
+
+    field_map = [
+        #? Berita Acara
+        ("ba_nama_penilai", ba_nama_penilai),
+        ("ba_jabatan_penilai", ba_jabatan_penilai),
+        ("ba_nama_siswa", ba_nama_siswa),
+        ("ba_nik_siswa", ba_nik_siswa),
+        ("ba_kelas", ba_kelas),
+        ("penilaian_1", "——" if penilaian_1 == "YA" else "———"),
+        ("penilaian_2", "——" if penilaian_2 == "YA" else "———"),
+        ("penilaian_3", "——" if penilaian_3 == "YA" else "———"),
+        ("penilaian_4", "——" if penilaian_4 == "YA" else "———"),
+        ("ttd_ba_siswa", get_upload_path(ttd_ba_siswa)),
+        ("ttd_ba_penilai", get_upload_path(ttd_ba_penilai)),
+    ]
+
+    for field_key, value in field_map:
+        cfg = FIELDS_DATA_SISWA_BERITA_ACARA[field_key]
+        pg = cfg["page"]
+        if pg not in page_data:
+            page_data[pg] = []
+        page_data[pg].append((field_key, value, cfg))
+
+    # Baca template
+    reader = PdfReader(template_path)
+    writer = PdfWriter()
+
+    for i, page in enumerate(reader.pages):
+        page_w = float(page.mediabox.width)
+        page_h = float(page.mediabox.height)
+
+        if i in page_data:
+            overlay_reader = _make_overlay(page_data[i], page_w, page_h)
+            overlay_page = overlay_reader.pages[0]
+            page.merge_page(overlay_page)
+
+        writer.add_page(page)
+
+    output = io.BytesIO()
+    writer.write(output)
+    output.seek(0)
+    return output.read()
+
+
+def fill_kjp_pdf_surat_pernyataan(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
+    """
+        data surat pernyataan
+    """
+    sp_nama_peserta = siswa.get("sp_nama_peserta", "")
+    sp_sekolah = siswa.get("sp_sekolah", "")
+    sp_kelas = siswa.get("sp_kelas", "")
+    sp_nama_ortu = siswa.get("sp_nama_ortu", "")
+    sp_alamat_rumah = siswa.get("sp_alamat_rumah", "")
+    ttd_ortu = siswa.get("ttd_ortu", "")
+    ttd_penerima = siswa.get("ttd_penerima", "")
+
+
+    # Kelompokkan field berdasarkan halaman
+    page_data = {}
+
+    field_map = [
+        #? Data surat pernyataan
+        ("sp_nama_peserta", sp_nama_peserta),
+        ("sp_sekolah", sp_sekolah),
+        ("sp_kelas", sp_kelas),
+        ("sp_nama_ortu", sp_nama_ortu),
+        ("sp_alamat_rumah", sp_alamat_rumah),
+        ("ttd_ortu", get_upload_path(ttd_ortu)),
+        ("ttd_penerima", get_upload_path(ttd_penerima)),
+    ]
+
+    for field_key, value in field_map:
+        cfg = FIELDS_DATA_SISWA_SURAT_PERNYATAAN[field_key]
+        pg = cfg["page"]
+        if pg not in page_data:
+            page_data[pg] = []
+        page_data[pg].append((field_key, value, cfg))
+
+    # Baca template
+    reader = PdfReader(template_path)
+    writer = PdfWriter()
+
+    for i, page in enumerate(reader.pages):
+        page_w = float(page.mediabox.width)
+        page_h = float(page.mediabox.height)
+
+        if i in page_data:
+            overlay_reader = _make_overlay(page_data[i], page_w, page_h)
+            overlay_page = overlay_reader.pages[0]
+            page.merge_page(overlay_page)
+
+        writer.add_page(page)
+
+    output = io.BytesIO()
+    writer.write(output)
+    output.seek(0)
+    return output.read()
+
+
 def fill_kjp_pdf_permohonan(siswa: dict, template_path: str = "formulir_kjp.pdf") -> bytes:
     """
         data permohonan
@@ -1756,6 +2273,23 @@ def fill_kjp_pdf_permohonan(siswa: dict, template_path: str = "formulir_kjp.pdf"
     kota_sekolah = siswa.get("kota_sekolah", "")
     kode_pos_sekolah = siswa.get("kode_pos_sekolah", "")
     ttd_pemohon = siswa.get("ttd_pemohon", "")
+    # ? BEDA
+    jenis_kelamin_murid = siswa.get("jenis_kelamin_murid", "")
+    nama_murid  = siswa.get("nama_murid", "")
+    tempat_lahir_murid  = siswa.get("tempat_lahir_murid", "")
+    tanggal_lahir_murid = siswa.get("tanggal_lahir_murid", "")
+    alamat_murid = siswa.get("alamat_murid", "")
+    rt_murid = siswa.get("rt_murid", "")
+    rw_murid = siswa.get("rw_murid", "")
+    kota_murid = siswa.get("kota_murid", "")
+    kecamatan_murid = siswa.get("kecamatan_murid", "")
+    kelurahan_murid = siswa.get("kelurahan_murid", "")
+    kode_pos_murid = siswa.get("kode_pos_murid", "")
+
+    if jenis_kelamin_murid == "Laki-laki":
+        FIELDS_DATA_SISWA_SURAT_PERMOHONAN["jenis_kelamin_peserta_didik_pemohon"]["x"] = 280
+    elif jenis_kelamin_murid == "Perempuan":
+        FIELDS_DATA_SISWA_SURAT_PERMOHONAN["jenis_kelamin_peserta_didik_pemohon"]["x"] = 333
 
 
     # Kelompokkan field berdasarkan halaman
@@ -1772,20 +2306,30 @@ def fill_kjp_pdf_permohonan(siswa: dict, template_path: str = "formulir_kjp.pdf"
         ("kota_pemohon", kota_pemohon),
         ("kode_pos_pemohon", kode_pos_pemohon),
         ("telepon_pemohon", telepon_pemohon),
+        ("nama_peserta_didik_pemohon", nama_murid),
+        ("tempat_tanggal_lahir_peserta_didik_pemohon", f"{tempat_lahir_murid}, {tanggal_lahir_murid}"),
+        ("jenis_kelamin_peserta_didik_pemohon", "========"),
+        ("alamat_peserta_didik_pemohon", alamat_murid),
+        ("rt_peserta_didik_pemohon", rt_murid),
+        ("rw_peserta_didik_pemohon", rw_murid),
+        ("kelurahan_peserta_didik_pemohon", kelurahan_murid),
+        ("kecamatan_peserta_didik_pemohon", kecamatan_murid),
+        ("kota_peserta_didik_pemohon", kota_murid),
+        ("kode_pos_peserta_didik_pemohon", kode_pos_murid),
         ("nama_sekolah", nama_sekolah),
         ("alamat_sekolah", alamat_sekolah),
         ("rt_sekolah", f"{rt_sekolah} / "),
         ("rw_sekolah", rw_sekolah),
         ("kelurahan_sekolah", kelurahan_sekolah),
-        ("kecamatan_sekolah", kecamatan_pemohon),
+        ("kecamatan_sekolah", kecamatan_sekolah),
         ("kota_sekolah", kota_sekolah),
         ("kode_pos_sekolah", kode_pos_sekolah),
-        # ("ttd_pemohon", f"/static/uploads/ttd/{ttd_pemohon}"),
+        ("kode_pos_sekolah", kode_pos_sekolah),
         ("ttd_pemohon", get_upload_path(ttd_pemohon)),
     ]
 
     for field_key, value in field_map:
-        cfg = FIELDS_DATA_SISWA[field_key]
+        cfg = FIELDS_DATA_SISWA_SURAT_PERMOHONAN[field_key]
         pg = cfg["page"]
         if pg not in page_data:
             page_data[pg] = []
