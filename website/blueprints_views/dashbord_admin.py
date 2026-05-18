@@ -58,6 +58,7 @@ def dashbord_admin():
 
 
 @views.route("/download-data-kjp", methods=["POST"])
+@login_required
 def download_data_kjp():
     if request.method == "POST":
         # Ambil semua data siswa KJP dari database
@@ -214,6 +215,7 @@ def download_data_kjp():
 
 
 @views.route("/download-data-kjp-berita-acara", methods=["POST"])
+@login_required
 def download_data_kjp_berita_acara():
     if request.method == "POST":
         # Ambil semua data siswa KJP dari database
@@ -265,6 +267,7 @@ def download_data_kjp_berita_acara():
 
 
 @views.route("/download-data-kjp-surat-pernyataan", methods=["POST"])
+@login_required
 def download_data_kjp_surat_pernyataan():
     if request.method == "POST":
         # Ambil semua data siswa KJP dari database
@@ -312,6 +315,7 @@ def download_data_kjp_surat_pernyataan():
 
 
 @views.route("/download-data-kjp-permohonan", methods=["POST"])
+@login_required
 def download_data_kjp_permohonan():
     if request.method == "POST":
         # Ambil semua data siswa KJP dari database
@@ -380,6 +384,7 @@ def download_data_kjp_permohonan():
 
 
 @views.route("/download-data-ppdb", methods=["POST"])
+@login_required
 def download_data_ppdb():
     if request.method == "POST":
         data_ppdb = DatabaseLayananPpdb.query.all()
@@ -410,6 +415,7 @@ def download_data_ppdb():
     return redirect(url_for("dashbord_admin.dashbord_admin"))
 
 @views.route("/download-data-mutasi", methods=["POST"])
+@login_required
 def download_data_mutasi():
     if request.method == "POST":
         data_mutasi = DatabaseLayananMutasi.query.all()
