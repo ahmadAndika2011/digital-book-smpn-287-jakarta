@@ -16,19 +16,14 @@ def buat_akun():
             if not check_nis_from_account:
                 if password:
                     hash_password = generate_password_hash(password, method="pbkdf2:sha256")
-                    check_password_from_account = AccountSiswa.query.filter_by(password = hash_password)
-                    if not check_password_from_account:
-                        account_siswa = AccountSiswa(
-                            nis=nis,
-                            password=hash_password
-                        )
-                        db.session.add(account_siswa)
-                        db.session.commit()
-                        flash("Akun berhasil dibuat!", category="success")
-                        return redirect(url_for('buat_akun_siswa.buat_akun'))
-                    else:
-                        flash("Password sudah ada!", category="error")
-                        return redirect(url_for('buat_akun_siswa.buat_akun'))
+                    account_siswa = AccountSiswa(
+                        nis=nis,
+                        password=hash_password
+                    )
+                    db.session.add(account_siswa)
+                    db.session.commit()
+                    flash("Akun berhasil dibuat!", category="success")
+                    return redirect(url_for('buat_akun_siswa.buat_akun'))
                 else:
                     flash("Password tidak boleh kosong!", category="error")
                     return redirect(url_for('buat_akun_siswa.buat_akun'))
