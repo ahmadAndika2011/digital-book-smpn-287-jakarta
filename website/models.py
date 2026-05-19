@@ -79,6 +79,7 @@ class DatabaseLayananPpdb(db.Model, UserMixin):
     tanggal = db.Column(db.String(150))
     nama_calon_siswa = db.Column(db.String(200))
     no_telepon = db.Column(db.String(20))
+    keperluan = db.Column(db.String(300))
     keterangan = db.Column(db.String(300))
 
 

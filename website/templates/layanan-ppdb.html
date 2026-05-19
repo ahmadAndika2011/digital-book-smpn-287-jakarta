@@ -364,7 +364,7 @@
           </svg>
         </div>
         <div>
-          <h2>Layanan Absensi PPDB</h2>
+          <h2>Layanan Absensi SPMB</h2>
           <p>Semua field bertanda <span style="color:#D85A30;font-weight:600;">*</span> wajib diisi</p>
         </div>
       </div>
@@ -409,9 +409,20 @@
                 <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/>
                 <path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
               </svg>
-              Nama Calon Siswa <span class="field-req">*</span>
+              Nama Calon Siswa / Orang Tua<span class="field-req">*</span>
             </label>
             <input type="text" id="nama_calon_siswa" name="nama_calon_siswa" class="field-input" placeholder="Masukkan nama lengkap sesuai akta kelahiran" maxlength="200" required />
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="keterangan">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                <path d="M8 6h13M8 12h9M8 18h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+              KEPERLUAN
+            </label>
+            <textarea id="keperluan" name="keperluan" class="field-input" placeholder="Informasi tambahan, catatan khusus, atau kondisi yang perlu diketahui pihak sekolah (opsional)" maxlength="300"></textarea>
+            <div class="char-counter" id="keperluan-count">0 / 300</div>
           </div>
 
           <div class="field-group">

@@ -11,6 +11,7 @@ def layanan_ppdb():
         tanggal_input = request.form.get("tanggal")
         no_telepon_input = request.form.get("no_telepon")
         nama_calon_siswa_input = request.form.get("nama_calon_siswa")
+        keperluan_input = request.form.get("keperluan")
         keterangan_input = request.form.get("keterangan")
 
         try:
@@ -27,11 +28,15 @@ def layanan_ppdb():
         elif len(nama_calon_siswa_input) < 1:
             flash("Nama calon siswa harus di isi.", category="error")
             return redirect(url_for("layanan_ppdb.layanan_ppdb"))
+        elif len(keperluan_input) < 1:
+            flash("Form keperluan harus di isi.", category="error")
+            return redirect(url_for("layanan_ppdb.layanan_ppdb"))
         else:
             data = DatabaseLayananPpdb(
                 tanggal=tanggal_input,
                 nama_calon_siswa=nama_calon_siswa_input,
                 no_telepon=no_telepon_input,
+                keperluan=keperluan_input,
                 keterangan=keterangan_input
             )
             db.session.add(data)
