@@ -5,7 +5,7 @@ from .. import db
 
 auth = Blueprint("layanan_ppdb", __name__)
 
-@auth.route("/layanan-ppdb", methods=["GET", "POST"])
+@auth.route("/layanan-spmb", methods=["GET", "POST"])
 def layanan_ppdb():
     if request.method == "POST":
         tanggal_input = request.form.get("tanggal")
