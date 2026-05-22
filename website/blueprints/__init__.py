@@ -16,3 +16,5 @@ from .layanan_kjp import auth as layanan_kjp
 from .layanan_administrasi_sekolah import auth as layanan_administrasi_sekolah
 from .layanan_kunjungan_antar_instansi import auth as layanan_kunjungan_antar_instansi
 from .kontak import auth as kontak
+from .feedbacks import auth as feedbacks
+from .jawab_feedback import auth as jawab_feedback

@@ -413,8 +413,329 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--off-white
 .faq-item p { font-size: .84rem; color: var(--muted); line-height: 1.75; }
 
 /* ════════════════════════════════
-   RESPONSIVE
+   TANYA JAWAB
 ════════════════════════════════ */
+.qa-section {
+  background: var(--off-white);
+  padding: 70px 40px;
+  border-top: 1px solid rgba(10,36,99,.06);
+}
+.qa-section-inner { max-width: 1000px; margin: 0 auto; }
+
+.qa-card {
+  background: var(--white);
+  border: 1px solid rgba(10,36,99,.09);
+  border-radius: 18px;
+  padding: 32px;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+.qa-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.qa-field { display: flex; flex-direction: column; gap: 6px; }
+.qa-field.full { grid-column: 1 / -1; }
+.qa-label {
+  font-size: .78rem; font-weight: 700;
+  color: var(--navy); letter-spacing: .5px;
+}
+.qa-field input,
+.qa-field select,
+.qa-field textarea {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: .88rem;
+  padding: 11px 16px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(10,36,99,.14);
+  background: var(--off-white);
+  color: var(--text);
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.qa-field input:focus,
+.qa-field select:focus,
+.qa-field textarea:focus {
+  outline: none;
+  border-color: var(--navy-mid);
+  box-shadow: 0 0 0 3px rgba(15,48,128,.1);
+  background: var(--white);
+}
+.qa-field textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+.qa-char { font-size: .72rem; color: var(--muted); text-align: right; margin-top: 3px; }
+
+.qa-submit {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold); color: var(--navy);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700; font-size: .88rem;
+  padding: 12px 28px; border-radius: 50px;
+  border: none; cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 16px rgba(232,184,75,.35);
+}
+.qa-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+.qa-submit:active { transform: scale(.98); }
+.qa-submit:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+
+.qa-spinning { display: inline-block; animation: spin .9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.qa-list { display: flex; flex-direction: column; gap: 16px; margin-top: 2rem; }
+.qa-item {
+  background: var(--white);
+  border: 1px solid rgba(10,36,99,.08);
+  border-radius: 18px;
+  padding: 22px 26px;
+  box-shadow: var(--shadow-sm);
+  animation: fadeUp .35s ease both;
+}
+.qa-item-header {
+  display: flex; align-items: center;
+  gap: 12px; margin-bottom: 12px;
+}
+.qa-avatar {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  background: var(--blue-soft);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .8rem; font-weight: 800; color: var(--navy);
+}
+.qa-item-name {
+  font-weight: 700; font-size: .9rem; color: var(--navy); line-height: 1.2;
+}
+.qa-item-peran {
+  font-size: .72rem; color: var(--muted);
+}
+.qa-item-time {
+  font-size: .72rem; color: var(--muted); margin-left: auto;
+}
+.qa-item-q {
+  font-size: .88rem; color: var(--text);
+  line-height: 1.65; padding-left: 52px; margin-bottom: 12px;
+}
+.qa-item-a {
+  background: var(--gold-pale);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 12px 12px 0;
+  padding: 12px 16px;
+  margin-left: 52px;
+}
+.qa-item-a-label {
+  font-size: .68rem; font-weight: 800; color: var(--navy);
+  text-transform: uppercase; letter-spacing: 1.5px;
+  margin-bottom: 5px;
+}
+.qa-item-a-text {
+  font-size: .85rem; color: var(--text); line-height: 1.7;
+}
+.qa-item-a-text.loading { color: var(--muted); font-style: italic; }
+
+/* ════════════════════════════════
+   SURVEI KEPUASAN
+════════════════════════════════ */
+.kp-section {
+  background: var(--off-white);
+  padding: 70px 40px;
+  border-top: 1px solid rgba(10,36,99,.06);
+}
+.kp-section-inner { max-width: 1000px; margin: 0 auto; }
+
+.kp-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px; margin-bottom: 2rem;
+}
+.kp-stat {
+  background: var(--white);
+  border: 1px solid rgba(10,36,99,.08);
+  border-radius: 14px; padding: 20px;
+  text-align: center; box-shadow: var(--shadow-sm);
+}
+.kp-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem; font-weight: 800; color: var(--navy);
+}
+.kp-stat-lbl { font-size: .72rem; color: var(--muted); margin-top: 4px; }
+
+.kp-card {
+  background: var(--white);
+  border: 1px solid rgba(10,36,99,.09);
+  border-radius: 18px; padding: 32px;
+  box-shadow: var(--shadow-sm); margin-bottom: 1rem;
+}
+.kp-row {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; margin-bottom: 16px;
+}
+.kp-field { margin-bottom: 20px; }
+.kp-label {
+  display: block; font-size: .78rem;
+  font-weight: 700; color: var(--navy);
+  letter-spacing: .5px; margin-bottom: 8px;
+}
+.kp-label .opt { font-weight: 400; color: var(--muted); }
+.kp-field input,
+.kp-field select,
+.kp-field textarea {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: .88rem; padding: 11px 16px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(10,36,99,.14);
+  background: var(--off-white); color: var(--text);
+  width: 100%; box-sizing: border-box;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.kp-field input:focus,
+.kp-field select:focus,
+.kp-field textarea:focus {
+  outline: none; border-color: var(--navy-mid);
+  box-shadow: 0 0 0 3px rgba(15,48,128,.1);
+  background: var(--white);
+}
+.kp-field textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+
+.rating-group {
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
+.rating-opt { display: none; }
+.rating-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 12px 10px; flex: 1; min-width: 90px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(10,36,99,.12);
+  background: var(--off-white); cursor: pointer;
+  transition: all var(--transition); user-select: none;
+}
+.rating-btn:hover { border-color: var(--navy); background: var(--blue-soft); }
+.rating-btn .r-icon { font-size: 26px; transition: transform .15s; }
+.rating-btn .r-label {
+  font-size: .72rem; font-weight: 600;
+  color: var(--muted); text-align: center; line-height: 1.3;
+}
+.rating-opt:checked + .rating-btn { border-width: 2px; }
+.rating-opt.r-5:checked + .rating-btn { border-color: #1D9E75; background: #E1F5EE; }
+.rating-opt.r-5:checked + .rating-btn .r-label { color: #085041; }
+.rating-opt.r-4:checked + .rating-btn { border-color: #639922; background: #EAF3DE; }
+.rating-opt.r-4:checked + .rating-btn .r-label { color: #27500A; }
+.rating-opt.r-3:checked + .rating-btn { border-color: #BA7517; background: #FAEEDA; }
+.rating-opt.r-3:checked + .rating-btn .r-label { color: #633806; }
+.rating-opt.r-2:checked + .rating-btn { border-color: #D85A30; background: #FAECE7; }
+.rating-opt.r-2:checked + .rating-btn .r-label { color: #712B13; }
+.rating-opt.r-1:checked + .rating-btn { border-color: #E24B4A; background: #FCEBEB; }
+.rating-opt.r-1:checked + .rating-btn .r-label { color: #791F1F; }
+.rating-opt:checked + .rating-btn .r-icon { transform: scale(1.2); }
+
+.kp-submit {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold); color: var(--navy);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700; font-size: .88rem;
+  padding: 12px 28px; border-radius: 50px; border: none;
+  cursor: pointer; transition: var(--transition);
+  box-shadow: 0 4px 16px rgba(232,184,75,.35);
+}
+.kp-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+.kp-submit:active { transform: scale(.98); }
+.kp-submit:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+.kp-err {
+  font-size: .8rem; color: #dc2626;
+  display: none; padding: 6px 0;
+}
+
+.kp-list { display: flex; flex-direction: column; gap: 14px; margin-top: 2rem; }
+.kp-item {
+  background: var(--white);
+  border: 1px solid rgba(10,36,99,.08);
+  border-radius: 18px; padding: 20px 24px;
+  box-shadow: var(--shadow-sm); animation: fadeUp .35s ease both;
+}
+.kp-item-top {
+  display: flex; align-items: center;
+  gap: 12px; margin-bottom: 10px;
+}
+.kp-avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--blue-soft); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .8rem; font-weight: 800; color: var(--navy);
+}
+.kp-item-name { font-weight: 700; font-size: .9rem; color: var(--navy); }
+.kp-item-meta { font-size: .72rem; color: var(--muted); }
+.kp-item-time { font-size: .72rem; color: var(--muted); margin-left: auto; }
+.kp-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: .75rem; font-weight: 700;
+  padding: 4px 12px; border-radius: 50px;
+  margin-left: 50px; margin-bottom: 6px;
+  border: 1px solid;
+}
+.kp-saran {
+  font-size: .84rem; color: var(--muted);
+  margin-left: 50px; margin-top: 6px;
+  padding: 9px 14px; line-height: 1.6;
+  background: var(--off-white); border-radius: 10px;
+  border-left: 3px solid rgba(10,36,99,.12);
+}
+
+/* Styling Pembungkus Section Feedback */
+.kp-section {
+  padding: 60px 0;
+  background-color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+}
+.kp-section-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Styling Pembungkus Section Feedback */
+.kp-section {
+  padding: 60px 0;
+  background-color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+}
+.kp-section-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Penyesuaian agar kartu feedback serasi jika ada tanggapan di bawahnya */
+.faq-item {
+  background: #ffffff;
+  border: 1px solid #e2ecf5;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(44, 95, 138, 0.02);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.faq-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(44, 95, 138, 0.06);
+}
+
+/* ════════════════════════════════
+  RESPONSIVE
+════════════════════════════════ */
+@media (max-width: 600px) {
+  .kp-section { padding: 56px 20px; }
+  .kp-card { padding: 20px 16px; }
+  .kp-row { grid-template-columns: 1fr; }
+  .kp-stats { grid-template-columns: 1fr 1fr; }
+  .rating-btn { min-width: 56px; padding: 10px 6px; }
+  .rating-btn .r-label { font-size: .65rem; }
+  .kp-badge, .kp-saran { margin-left: 0; }
+}
+@media (max-width: 600px) {
+  .qa-section { padding: 56px 20px; }
+  .qa-row { grid-template-columns: 1fr; }
+  .qa-card { padding: 22px 18px; }
+  .qa-item-q, .qa-item-a { padding-left: 0; margin-left: 0; }
+}
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; }
   .hero-badge-card { display: none; }
@@ -520,7 +841,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--off-white
         </div>
         <div class="about-pill">
           <strong>Lokasi</strong>
-          <span>Jakarta, DKI Jakarta</span>
+          <span>Jakarta Timur, DKI Jakarta</span>
         </div>
         <div class="about-pill">
           <strong>Jenjang</strong>
@@ -728,7 +1049,62 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--off-white
 </section>
 
 <!-- ══ FAQ / SEO RICH TEXT ══ -->
-<section class="faq-section" aria-labelledby="faq-heading">
+<section class="kp-section" aria-labelledby="kp-heading">
+  <div class="kp-section-inner">
+    <div class="reveal mb-5 text-center">
+      <div class="section-tag">💬 Ulasan Layanan</div>
+      <h2 class="section-heading" id="kp-heading">Apa Kata Mereka?</h2>
+      <p class="section-sub">Berikut adalah ulasan dan feedback transparan dari masyarakat mengenai layanan digital SMPN 287 Jakarta.</p>
+    </div>
+
+    <div class="faq-grid">
+      {% for fb in feedbacks %}
+        <div class="faq-item reveal d-flex flex-column justify-content-between">
+          <div>
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h3 class="m-0" style="font-size: 16px; font-weight: 700; color: #1c3d5e;">{{ fb.nama }}</h3>
+              <span class="badge bg-light text-primary border" style="font-size: 11px;">{{ fb.sebagai }}</span>
+            </div>
+            
+            <div class="mb-3" style="font-size: 12px; color: #64748b;">
+              <span class="me-2"><i class="fa-solid fa-layer-group"></i> {{ fb.layanan }}</span>
+              <div>
+                {% if fb.tingkat_kepuasan == 'sangat puas' %}
+                  <span class="text-success fw-bold">😄 Sangat Puas</span>
+                {% elif fb.tingkat_kepuasan == 'puas' %}
+                  <span class="text-success fw-bold">🙂 Puas</span>
+                {% elif fb.tingkat_kepuasan == 'biasa saja' %}
+                  <span class="text-warning fw-bold">😐 Biasa Saja</span>
+                {% else %}
+                  <span class="text-danger fw-bold">😕 Kurang Puas</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <p class="mb-3" style="font-style: italic; color: #475569; font-size: 13.5px; line-height: 1.5;">
+              "{{ fb.saran if fb.saran else 'Memberikan penilaian tanpa saran tertulis.' }}"
+            </p>
+          </div>
+
+          {% if fb.jawaban %}
+            <div class="mt-2 pt-3 border-top" style="background: #f8fafc; margin: 0 -20px -20px -20px; padding: 15px 20px; border-radius: 0 0 8px 8px;">
+              <label class="d-block fw-bold text-muted mb-1" style="font-size: 11px;"><i class="fa-solid fa-reply text-warning"></i> TANGGAPAN SEKOLAH:</label>
+              <p class="m-0 text-dark" style="font-size: 12.5px; line-height: 1.4;">
+                {{ fb.jawaban }}
+              </p>
+            </div>
+          {% endif %}
+        </div>
+      {% else %}
+        <div class="col-12 text-center py-5 text-muted">
+          <i class="fa-solid fa-comment-slash d-block mb-2" style="font-size: 32px;"></i>
+          <p>Belum ada ulasan atau feedback yang ditampilkan.</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{# <section class="faq-section" aria-labelledby="faq-heading">
   <div class="faq-section-inner">
     <div class="reveal">
       <div class="section-tag">❓ FAQ</div>
@@ -761,6 +1137,116 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--off-white
         <p>Anda dapat menghubungi <strong>SMPN 287 Jakarta</strong> melalui halaman Kontak Sekolah pada website ini, atau datang langsung ke kantor administrasi SMP Negeri 287 Jakarta pada hari dan jam kerja.</p>
       </div>
     </div>
+  </div>
+</section> #}
+
+<!-- ══ SURVEI KEPUASAN ══ -->
+<section class="kp-section" aria-labelledby="kp-heading">
+  <div class="kp-section-inner">
+    <div class="reveal">
+      <div class="section-tag">⭐ Survei Kepuasan</div>
+      <h2 class="section-heading" id="kp-heading">Penilaian Kepuasan Layanan</h2>
+      <p class="section-sub">Bantu kami meningkatkan kualitas layanan SMPN 287 Jakarta dengan memberikan penilaian Anda.</p>
+    </div>
+
+    <div id="kp-stats-box" class="kp-stats reveal" style="display:none">
+      <div class="kp-stat">
+        <div class="kp-stat-num" id="st-total">0</div>
+        <div class="kp-stat-lbl">Total Responden</div>
+      </div>
+      <div class="kp-stat">
+        <div class="kp-stat-num" id="st-puas">0%</div>
+        <div class="kp-stat-lbl">Puas &amp; Sangat Puas</div>
+      </div>
+      <div class="kp-stat">
+        <div class="kp-stat-num" id="st-avg">—</div>
+        <div class="kp-stat-lbl">Rating Rata-rata</div>
+      </div>
+    </div>
+
+    <form action="{{url_for('feedbacks.feedbacks')}}" method="POST">
+      <div class="kp-card reveal">
+        <div class="kp-row">
+          <div class="kp-field">
+            <label class="kp-label" for="kp-nama">Nama Lengkap</label>
+            <input type="text" id="kp-nama" name="nama" placeholder="Nama Anda" maxlength="80" autocomplete="name" required>
+          </div>
+          <div class="kp-field">
+            <label class="kp-label" for="kp-peran">Anda Sebagai</label>
+            <select id="kp-peran" name="sebagai" required>
+              <option value="" disabled selected hidden>Pilih peran...</option>
+              <option value="Orang tua / wali">Orang tua / wali</option>
+              <option value="Siswa">Siswa</option>
+              <option value="Calon siswa">Calon siswa</option>
+              <option value="Guru / staf">Guru / staf</option>
+              <option value="Masyarakat umum">Masyarakat umum</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="kp-field">
+          <label class="kp-label" for="kp-layanan">Layanan yang Dinilai</label>
+          <select id="kp-layanan" name="layanan" required>
+            <option value="" disabled selected hidden>Pilih layanan...</option>
+            <option value="Layanan umum sekolah">Layanan umum sekolah</option>
+            <option value="SPMB">SPMB</option>
+            <option value="Layanan KJP">Layanan KJP</option>
+            <option value="Layanan PIP">Layanan PIP</option>
+            <option value="Layanan mutasi">Layanan mutasi</option>
+            <option value="Administrasi sekolah">Administrasi sekolah</option>
+            <option value="Cek kelulusan">Cek kelulusan</option>
+            <option value="Kunjungan antar instansi">Kunjungan antar instansi</option>
+          </select>
+        </div>
+
+        <div class="kp-field">
+          <label class="kp-label">Tingkat Kepuasan</label>
+          <div class="rating-group" role="radiogroup" aria-label="Pilih tingkat kepuasan">
+            <input class="rating-opt r-5" type="radio" name="tingkat_kepuasan" id="r5" value="sangat puas" required>
+            <label class="rating-btn" for="r5">
+              <span class="r-icon">😄</span>
+              <span class="r-label">Sangat Puas</span>
+            </label>
+            <input class="rating-opt r-4" type="radio" name="tingkat_kepuasan" id="r4" value="puas">
+            <label class="rating-btn" for="r4">
+              <span class="r-icon">🙂</span>
+              <span class="r-label">Puas</span>
+            </label>
+            <input class="rating-opt r-3" type="radio" name="tingkat_kepuasan" id="r3" value="biasa saja">
+            <label class="rating-btn" for="r3">
+              <span class="r-icon">😐</span>
+              <span class="r-label">Biasa Saja</span>
+            </label>
+            <input class="rating-opt r-2" type="radio" name="tingkat_kepuasan" id="r2" value="tidak puas">
+            <label class="rating-btn" for="r2">
+              <span class="r-icon">😕</span>
+              <span class="r-label">Tidak Puas</span>
+            </label>
+            <input class="rating-opt r-1" type="radio" name="tingkat_kepuasan" id="r1" value="sangat tidak puas">
+            <label class="rating-btn" for="r1">
+              <span class="r-icon">😞</span>
+              <span class="r-label">Sangat Tidak Puas</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="kp-field">
+          <label class="kp-label" for="kp-saran">
+            Saran / Masukan <span class="opt">(opsional)</span>
+          </label>
+          <textarea id="kp-saran"
+            placeholder="Tuliskan saran atau masukan Anda untuk perbaikan layanan…"
+            maxlength="400" name="saran"></textarea>
+        </div>
+
+        <button type="submit" class="kp-submit" id="kp-btn">
+          ✉️ Kirim Penilaian
+        </button>
+        <p class="kp-err" id="kp-err">Mohon lengkapi nama dan pilih tingkat kepuasan.</p>
+      </div>
+    </form>
+
+    <div class="kp-list" id="kp-list"></div>
   </div>
 </section>
 

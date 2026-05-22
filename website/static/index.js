@@ -96,3 +96,14 @@ function deleteDataKunjunganAntarInstansi(dataKunjunganAntarInstansiId){
         })
     }
 }
+
+function deleteFeedback(feedbackId){
+    if(confirm("Yakin hapus feedback? ")){
+        fetch("/hapus-feedback", {
+            method: "POST",
+            body: JSON.stringify({feedbackId: feedbackId})
+        }).then((_res) => {
+            window.location.href = "/dashbord-feedbacks"
+        })
+    }
+}

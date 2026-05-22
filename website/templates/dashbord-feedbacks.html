@@ -1,0 +1,235 @@
+{%extends "base.html"%}
+{%block title%}Dashbord Feedbacks{%endblock%}
+
+{%block content%}
+<style>
+/* Container Utama */
+.fb-dashboard-container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 0 15px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.fb-header {
+  margin-bottom: 25px;
+  border-bottom: 2px solid #dde8f0;
+  padding-bottom: 10px;
+}
+
+.fb-title {
+  color: #1c3d5e;
+  font-weight: 700;
+  font-size: 20px;
+  margin: 0;
+}
+
+.fb-subtitle {
+  color: #6b8aaa;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+/* Pembungkus List Kartu */
+.fb-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Elemen Kartu Feedback */
+.fb-card-item {
+  background: #ffffff;
+  border: 1px solid #e2ecf5;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(44, 95, 138, 0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.fb-card-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(44, 95, 138, 0.08);
+}
+
+.fb-card-body {
+  flex: 1;
+  padding-right: 20px;
+}
+
+/* Meta Data Atas */
+.fb-meta-top {
+  display: flex;
+  gap: 15px;
+  font-size: 11px;
+  color: #7a92a8;
+  margin-bottom: 6px;
+}
+
+.fb-user-role {
+  font-weight: 600;
+  color: #2c5f8a;
+}
+
+.fb-user-name {
+  color: #1c3d5e;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 4px 0 8px 0;
+}
+
+.fb-text-saran {
+  font-size: 13.5px;
+  color: #4a5d6e;
+  font-style: italic;
+  margin: 10px 0 0 0;
+  line-height: 1.4;
+}
+
+/* Badge Status Kepuasan */
+.badge-status {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 50px;
+}
+.puas-sangat { background-color: #e6f9ed; color: #166534; }
+.puas-biasa { background-color: #f0fdf4; color: #1e8343; }
+.biasa { background-color: #fef9c3; color: #854d0e; }
+.tidak-puas { background-color: #fee2e2; color: #991b1b; }
+.sangat-tidak-puas { background-color: #fde2e2; color: #b91c1c; }
+
+/* Sisi Tombol Jawab Kanan */
+.fb-card-actions {
+  flex-shrink: 0;
+}
+
+.btn-fb-reply {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background-color: #2c5f8a;
+  color: #ffffff;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.btn-fb-reply:hover {
+  background-color: #1c4a70;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+/* Keadaan Kosong */
+.fb-empty-state {
+  text-align: center;
+  padding: 40px;
+  background: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  border-radius: 8px;
+  color: #64748b;
+}
+.fb-empty-state i {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+/* Tombol Hapus Bulat Minimalis */
+.btn-fb-delete {
+  background: transparent;
+  border: 1px solid #fee2e2;
+  color: #ef4444;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.btn-fb-delete:hover {
+  background-color: #ef4444;
+  border-color: #ef4444;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);
+}
+
+/* Responsif Mobile */
+@media (max-width: 576px) {
+  .fb-card-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  .fb-card-actions {
+    width: 100%;
+  }
+  .btn-fb-reply {
+    width: 100%;
+    justify-content: center;
+  }
+}
+</style>
+<div class="fb-dashboard-container">
+  <div class="fb-header">
+    <h3 class="fb-title"><i class="fa-solid fa-comments"></i> Daftar Masukan & Kritis Masyarakat</h3>
+    <p class="fb-subtitle">Total terdapat beberapa penilaian dari pengguna layanan SMPN 287 Jakarta.</p>
+  </div>
+
+  <div class="fb-list-wrapper">
+    {% for fb in feedbacks %}
+      <div class="fb-card-item">
+        <div class="fb-card-body">
+          <div class="fb-meta-top">
+            <span class="fb-user-role"><i class="fa-solid fa-user"></i> {{ fb.sebagai }}</span>
+            <span class="fb-service-tag"><i class="fa-solid fa-layer-group"></i> Layanannya: <strong>{{ fb.layanan }}</strong></span>
+          </div>
+          
+          <h5 class="fb-user-name">{{ fb.nama }}</h5>
+          
+          <div class="fb-rating-badge">
+            {% if fb.tingkat_kepuasan == 'sangat puas' %}
+              <span class="badge-status puas-sangat">😄 Sangat Puas</span>
+            {% elif fb.tingkat_kepuasan == 'puas' %}
+              <span class="badge-status puas-biasa">🙂 Puas</span>
+            {% elif fb.tingkat_kepuasan == 'biasa saja' %}
+              <span class="badge-status biasa">😐 Biasa Saja</span>
+            {% elif fb.tingkat_kepuasan == 'tidak puas' %}
+              <span class="badge-status tidak-puas">😕 Tidak Puas</span>
+            {% else %}
+              <span class="badge-status sangat-tidak-puas">😞 Sangat Tidak Puas</span>
+            {% endif %}
+          </div>
+
+          <p class="fb-text-saran">
+            "{{ fb.saran if fb.saran else 'Tidak ada saran tertulis.' }}"
+          </p>
+        </div>
+
+        <div class="fb-card-actions">
+            <a href="{{ url_for('jawab_feedback.jawab_feedback', id=fb.id) }}" class="btn-fb-reply">Jawab</a>
+            <button type="button" class="btn-fb-delete" onclick="deleteFeedback({{fb.id}})" title="Hapus Feedback">
+                <i class="fa-solid fa-trash-can"></i>
+            </button>
+        </div>
+      </div>
+    {% else %}
+      <div class="fb-empty-state">
+        <i class="fa-solid fa-comment-slash"></i>
+        <p>Belum ada feedback atau penilaian yang masuk ke database.</p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{%endblock%}

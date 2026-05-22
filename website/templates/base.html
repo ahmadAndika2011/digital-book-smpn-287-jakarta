@@ -31,10 +31,10 @@
         <i class="fa-solid fa-envelope" style="opacity:0.75; font-size:10px;"></i>
         info@smpn287-jkt.sch.id
       </span>
-      <span class="d-flex align-items-center gap-2 d-none d-md-flex">
+      {# <span class="d-flex align-items-center gap-2 d-none d-md-flex">
           © 2026 SMPN 287 Jakarta | Powered by 
             <a href="https://www.instagram.com/ahmad_andika110311/" target="_blank" class="dev-name">@ahmad_andika110311</a>
-      </span>
+      </span> #}
       <span class="d-flex align-items-center gap-2 d-none d-xl-flex">
         <i class="fa-solid fa-clock" style="opacity:0.75; font-size:10px;"></i>
         Senin–Jumat, 07.00–15.00 WIB
@@ -50,7 +50,7 @@
 </div>
 
 <!-- ===== MAIN NAVBAR ===== -->
-<nav class="navbar navbar-expand-lg" id="mainNavbar" style="
+{# <nav class="navbar navbar-expand-lg" id="mainNavbar" style="
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -195,6 +195,147 @@
 
     </div>
   </div>
+</nav> #}
+
+<nav class="navbar navbar-expand-lg" id="mainNavbar" style="
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #f5f8fc;
+  border-bottom: 3px solid #c8a94a;
+  padding: 0;
+  transition: box-shadow 0.3s;
+">
+  <div class="container" style="padding: 0 12px;">
+
+    <a href="/" style="text-decoration:none; display:flex; align-items:center; gap:10px; py-1; flex-shrink: 0;">
+      <div style="
+        width: 38px; height: 38px; border-radius: 50%;
+        background: white; border: 2px solid #c8a94a;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0; overflow: hidden;
+      ">
+        <img src="{{ url_for('static', filename='img/logo_smpn_287_9808980908.png') }}"
+             alt="Logo SMPN 287"
+             style="width:34px; height:34px; object-fit:contain;">
+      </div>
+      <div style="line-height: 1.1;">
+        <div style="font-size:13px; font-weight:700; color:#1c3d5e; letter-spacing:0.2px; white-space:nowrap;">
+          SMPN 287 JAKARTA
+        </div>
+        <div style="font-size:9.5px; color:#6b8aaa; white-space:nowrap;">
+          Powered by <span style="color:#c8a94a; font-weight:600; font-style:italic;">@ahmad_andika110311</span>
+        </div>
+      </div>
+    </a>
+
+    <button class="navbar-toggler border-0 ms-auto" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navbarMain"
+            aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation"
+            style="padding:4px 8px;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 30 30">
+        <path stroke="#2c5f8a" stroke-linecap="round" stroke-miterlimit="10"
+              stroke-width="2.5" d="M4 7h22M4 15h22M4 23h22"/>
+      </svg>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMain">
+
+      <div class="d-none d-lg-block" style="width:1px; height:24px; background:#d6e0ea; margin:0 8px; flex-shrink:0;"></div>
+
+      <ul class="navbar-nav align-items-lg-stretch mb-0" style="flex-wrap:nowrap;">
+        <li class="nav-item">
+          <a class="nav-link-smpn" href="/">Beranda</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link-smpn dropdown-toggle" href="#"
+             data-bs-toggle="dropdown" aria-expanded="false">Tentang</a>
+          <ul class="dropdown-menu dropdown-smpn">
+            <li><a class="dropdown-item-smpn" href="/profil-sekolah"><i class="fa-solid fa-circle-info"></i> Profil Sekolah</a></li>
+            <li><a class="dropdown-item-smpn" href="/kepala-sekolah"><i class="fa-solid fa-user-tie"></i> Kepala Sekolah</a></li>
+            <li><a class="dropdown-item-smpn" href="/struktur-organisasi"><i class="fa-solid fa-sitemap"></i> Struktur Organisasi</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link-smpn dropdown-toggle" href="#"
+             data-bs-toggle="dropdown" aria-expanded="false">Guru/Staf</a>
+          <ul class="dropdown-menu dropdown-smpn">
+            <li><a class="dropdown-item-smpn" href="/data-guru"><i class="fa-solid fa-chalkboard-user"></i> Data Guru</a></li>
+            {% if current_user.is_authenticated %}
+            <li><a class="dropdown-item-smpn" href="/tambah-data-guru"><i class="fa-solid fa-upload"></i> Tambah Data Guru</a></li>
+            <li><a class="dropdown-item-smpn" href="/upload-data-guru"><i class="fa-solid fa-upload"></i> Upload Data Guru</a></li>
+            {% endif %}
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link-smpn" href="/data-siswa">Siswa</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link-smpn" href="/cek-kelulusan-siswa">Cek Kelulusan</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link-smpn dropdown-toggle" href="#"
+             data-bs-toggle="dropdown" aria-expanded="false">Media</a>
+          <ul class="dropdown-menu dropdown-smpn">
+            <li><a class="dropdown-item-smpn" href="/berita"><i class="fa-solid fa-newspaper"></i> Berita</a></li>
+            {% if current_user.is_authenticated %}
+            <li><a class="dropdown-item-smpn" href="/tambah-berita"><i class="fa-solid fa-newspaper"></i> Tambah Berita</a></li>
+            {% endif %}
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link-smpn dropdown-toggle" href="#"
+             data-bs-toggle="dropdown" aria-expanded="false">Layanan Kami</a>
+          <ul class="dropdown-menu dropdown-smpn">
+            <li><a class="dropdown-item-smpn" href="/layanan-spmb"><i class="fa-solid fa-layer-group"></i> Layanan SPMB</a></li>
+            <li><a class="dropdown-item-smpn" href="/layanan-mutasi"><i class="fa-solid fa-layer-group"></i> Layanan Mutasi</a></li>
+            <li><a class="dropdown-item-smpn" href="/layanan-pip"><i class="fa-solid fa-layer-group"></i> Layanan PIP</a></li>
+            <li><a class="dropdown-item-smpn" href="/layanan-kjp"><i class="fa-solid fa-layer-group"></i> Layanan KJP</a></li>
+            <li><a class="dropdown-item-smpn" href="/layanan-administrasi-sekolah"><i class="fa-solid fa-layer-group"></i> Layanan Administrasi Sekolah</a></li>
+            <li><a class="dropdown-item-smpn" href="/layanan-kunjungan-antar-instansi"><i class="fa-solid fa-layer-group"></i> Kunjungan Instansi</a></li>
+            {% if current_user.is_authenticated %}
+            <li><a class="dropdown-item-smpn" href="/dashbord-admin"><i class="fa-solid fa-gauge-high"></i> Dashboard Admin</a></li>
+            {% endif %}
+          </ul>
+        </li>
+
+        {%if current_user.is_authenticated%}
+        <li class="nav-item">
+          <a class="nav-link-smpn" href="/dashbord-feedbacks">Feedbacks</a>
+        </li>
+        {%endif%}
+
+        <li class="nav-item">
+          <a class="nav-link-smpn" href="/kontak">Kontak</a>
+        </li>
+      </ul>
+
+      <div class="d-flex align-items-center gap-2 ms-lg-auto my-2 my-lg-0">
+        <a href="/buat-akun" class="btn-smpn-outline">
+          <i class="fa-solid fa-user-plus"></i>
+          <span class="d-none d-xl-inline">Akun</span>
+        </a>
+        {% if current_user.is_authenticated %}
+          <a href="/logout" class="btn-smpn-solid">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+          </a>
+        {% else %}
+          <a href="/login" class="btn-smpn-solid">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            <span>Admin</span>
+          </a>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
 </nav>
 
 <!-- ===== STYLES ===== -->
@@ -208,20 +349,21 @@
   }
   .topbar-sosmed:hover { background: rgba(255,255,255,0.28); color: white; }
 
-  .nav-link-smpn {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 16px 11px;
-    color: #3a5a7a;
-    text-decoration: none;
-    font-size: 12.5px;
-    font-weight: 500;
-    white-space: nowrap;
-    border-bottom: 3px solid transparent;
-    margin-bottom: -3px;
-    transition: color 0.2s, border-color 0.2s;
-  }
+.nav-link-smpn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  /* PERBAIKAN: Mengurangi padding atas-bawah dari 16px menjadi 10px, kiri-kanan menyesuaikan */
+  padding: 13px 9px; 
+  color: #3a5a7a;
+  text-decoration: none;
+  font-size: 13.5px; /* Dikecilkan sedikit dari 12.5px */
+  font-weight: 500;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -3px;
+  transition: color 0.2s, border-color 0.2s;
+}
   .nav-link-smpn:hover,
   .nav-link-smpn:focus,
   .nav-link-smpn.active {
@@ -255,17 +397,37 @@
   .dropdown-item-smpn i { color: #c8a94a; width: 16px; text-align: center; font-size: 12px; }
   .dropdown-item-smpn:hover { background: #eef4fb; padding-left: 20px; color: #1c3d5e; }
 
-  .btn-smpn-solid {
+.btn-smpn-solid {
+  display: flex; align-items: center; gap: 6px;
+  padding: 4px 10px; /* Diperkecil dari 6px 14px */
+  background: #2c5f8a; color: white;
+  border-radius: 50px; /* Dibuat melengkung sempurna agar lebih modern */
+  font-size: 11.5px; font-weight: 600;
+  text-decoration: none; white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.btn-smpn-outline {
+  display: flex; align-items: center; gap: 6px;
+  padding: 3.5px 9px; /* Diperkecil dari 5px 12px */
+  background: transparent; color: #2c5f8a;
+  border: 1.5px solid #2c5f8a; 
+  border-radius: 50px; /* Dibuat melengkung sempurna */
+  font-size: 11.5px; font-weight: 600;
+  text-decoration: none; white-space: nowrap;
+  transition: all 0.2s;
+}
+  {# .btn-smpn-solid {
     display: flex; align-items: center; gap: 6px;
     padding: 6px 14px;
     background: #2c5f8a; color: white;
     border-radius: 6px; font-size: 12.5px; font-weight: 600;
     text-decoration: none; white-space: nowrap;
     transition: background 0.2s;
-  }
+  } #}
   .btn-smpn-solid:hover { background: #1c4a70; color: white; }
 
-  .btn-smpn-outline {
+  {# .btn-smpn-outline {
     display: flex; align-items: center; gap: 6px;
     padding: 5px 12px;
     background: transparent; color: #2c5f8a;
@@ -273,7 +435,7 @@
     font-size: 12.5px; font-weight: 600;
     text-decoration: none; white-space: nowrap;
     transition: all 0.2s;
-  }
+  } #}
   .btn-smpn-outline:hover { background: #2c5f8a; color: white; }
 
   /* Mobile */

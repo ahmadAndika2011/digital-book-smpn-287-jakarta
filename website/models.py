@@ -73,6 +73,15 @@ class DatabaseGuru(db.Model, UserMixin):
     jabatan = db.Column(db.String(100))
     tahun_masuk = db.Column(db.String(100))
 
+class DatabaseFeedbacks(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    nama = db.Column(db.String(150))
+    sebagai = db.Column(db.String(150))
+    layanan = db.Column(db.String(150))
+    tingkat_kepuasan = db.Column(db.String(150))
+    saran = db.Column(db.String(300))
+    jawaban = db.Column(db.String(300))
+
 
 class DatabaseLayananPpdb(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
