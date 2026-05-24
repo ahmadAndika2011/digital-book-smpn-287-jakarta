@@ -12,9 +12,11 @@ auth = Blueprint("update_data_guru", __name__)
 @auth.route("/update-data-guru/<int:id>", methods=["GET", "POST"])
 @login_required
 def update_data_guru(id):
-    if request.method == "POST":
-        guru = DatabaseGuru.query.get(id)
+    guru = DatabaseGuru.query.get(id)
+    mapel = ["Bahasa Indonesia", "Bahasa Inggris", "Matematika", "Agama Islam", "Agama Kristen", "Ilmu Pengetahuan Alam", "Ilmu Pengetahuan Sosial", "Pendidikan Jasmani Olahraga dan Kesehatan", "Pendidikan Pancasila", "Prakarya", "Informatika"]
+    status = ["PNS", "PPPK", "KKI"]
 
+    if request.method == "POST":
         gambar_file = request.files.get("gambar")
         if gambar_file and gambar_file.filename:
             filename = secure_filename(gambar_file.filename)
@@ -62,4 +64,4 @@ def update_data_guru(id):
         db.session.commit()
         return redirect(url_for("detail_guru.detail_guru", id=guru.id))
 
-    return render_template("update-data-guru.html", user=current_user)
+    return render_template("update-data-guru.html", user=current_user, guru=guru, mapel=mapel, status=status)

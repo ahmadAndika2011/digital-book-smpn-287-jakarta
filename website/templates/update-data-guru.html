@@ -29,7 +29,7 @@
             <div class="row g-3">
               <div class="col-md-8">
                 <label for="name" class="form-label fw-semibold">Nama Lengkap</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama lengkap">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama lengkap" value="{{guru.name}}">
               </div>
             </div>
 
@@ -37,9 +37,15 @@
               <div class="col-md-6">
                 <label for="mapel" class="form-label fw-semibold">Mata Pelajaran</label>
                   <select class="form-select" id="mapel" name="mapel">
-                        <option value="" disabled selected>Mata Pelajaran</option>
-                        <option>Bahasa Indonesia</option>
-                        <option>Bahasa Inggris</option>
+                        <option value="" disabled {{'' if guru.mapel else 'selected'}}>Mata Pelajaran</option>
+                        {%for m in mapel%}
+                          {%if guru.mapel == m%}
+                            <option selected>{{m}}</option>
+                          {%else%}
+                            <option>{{m}}</option>
+                          {%endif%}
+                        {%endfor%}
+                        {# <option>Bahasa Inggris</option>
                         <option>Matematika</option>
                         <option>Agama Islam</option>
                         <option>Agama Kristen</option>
@@ -48,7 +54,7 @@
                         <option>Pendidikan Jasmani Olahraga dan Kesehatan</option>
                         <option>Pendidikan Pancasila</option>
                         <option>Prakarya</option>
-                        <option>Informatika</option>
+                        <option>Informatika</option> #}
                       </select>
               </div>
             </div>
@@ -56,32 +62,45 @@
             <div class="row g-3">
               <div class="col-md-8">
                 <label for="nip" class="form-label fw-semibold">NIP</label>
-                <input type="text" pattern="[0-9]*" class="form-control" id="nip" name="nip" placeholder="Masukkan NIP">
+                <input type="text" pattern="[0-9]*" class="form-control" id="nip" name="nip" placeholder="Masukkan NIP" value="{{guru.nip}}">
               </div>
               <div class="col-md-8">
                 <label for="nrk" class="form-label fw-semibold">NRK</label>
-                <input type="text" pattern="[0-9]*" class="form-control" id="nrk" name="nrk" placeholder="Masukkan nrk">
+                <input type="text" pattern="[0-9]*" class="form-control" id="nrk" name="nrk" placeholder="Masukkan nrk" value="{{guru.nrk}}">
               </div>
             </div>
 
             <div class="row g-3">
               <div class="col-md-8">
+                {# <label for="status" class="form-label fw-semibold">Status</label>
+                <input type="text" class="form-control" id="status" name="status" placeholder="Masukkan status"> #}
                 <label for="status" class="form-label fw-semibold">Status</label>
-                <input type="text" class="form-control" id="status" name="status" placeholder="Masukkan status">
+                  <select class="form-select" id="status" name="status">
+                        <option value="" disabled {{'' if guru.status else'selected'}}>Status</option>
+                        {%for s in status%}
+                          {%if guru.status == s%}
+                            <option selected>{{s}}</option>
+                          {%else%}
+                            <option>{{s}}</option>
+                          {%endif%}
+                        {%endfor%}
+                        {# <option>PPPK</option>
+                        <option>KKI</option> #}
+                      </select>
               </div>
             </div>
 
             <div class="row g-3">
                 <div class="col-md-8">
                     <label for="jabatan" class="form-label fw-semibold">Jabatan</label>
-                    <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="Masukkan jabatan di sekolah">
+                    <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="Masukkan jabatan di sekolah" value="{{guru.jabatan}}">
                 </div>
             </div>
 
             <div class="row g-3">
                 <div class="col-md-8">
                     <label for="tahun_masuk" class="form-label fw-semibold">Tahun Masuk</label>
-                    <input type="number" class="form-control" id="tahun_masuk" name="tahun_masuk" placeholder="Masukkan tahun pertama masuk sekolah">
+                    <input type="number" class="form-control" id="tahun_masuk" name="tahun_masuk" placeholder="Masukkan tahun pertama masuk sekolah" value="{{guru.tahun_masuk}}">
                 </div>
             </div>
 
