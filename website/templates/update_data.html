@@ -1,6 +1,6 @@
 {%extends "base.html"%}
 
-{%block title%}Input Data{%endblock%}
+{%block title%}Input Data | SMPN 287 Jakarta — SMP Negeri 287 Jakarta Timur | Sekolah Menengah Pertama Negeri{%endblock%}
 
 {%block content%}
 <div class="container py-4">
@@ -30,7 +30,7 @@
             <div class="row g-3">
               <div class="col-md-8">
                 <label for="name" class="form-label fw-semibold">Nama Lengkap</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama lengkap">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama lengkap" value="{{student.nama}}">
               </div>
             </div>
 
@@ -38,11 +38,11 @@
             <div class="row g-3 mt-1">
               <div class="col-md-6">
                 <label for="nisn" class="form-label fw-semibold">NISN</label>
-                <input type="text" pattern="[0-9]*" class="form-control" id="nisn" name="nisn" placeholder="10 digit NISN">
+                <input type="text" pattern="[0-9]*" class="form-control" id="nisn" name="nisn" placeholder="10 digit NISN" value="{{student.nisn}}">
               </div>
               <div class="col-md-6">
                 <label for="nis" class="form-label fw-semibold">NIS</label>
-                <input type="text" pattern="[0-9]*" class="form-control" id="nis" name="nis" placeholder="Nomor Induk Sekolah">
+                <input type="text" pattern="[0-9]*" class="form-control" id="nis" name="nis" placeholder="Nomor Induk Sekolah" value="{{student.nis}}">
               </div>
             </div>
 
@@ -50,11 +50,11 @@
             <div class="row g-3 mt-1">
               <div class="col-md-6">
                 <label for="tanggal_lahir" class="form-label fw-semibold">Tanggal Lahir</label>
-                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir">
+                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" value="{{student.tanggal_lahir}}">
               </div>
               <div class="col-md-6">
                 <label for="tempat_lahir" class="form-label fw-semibold">Tempat Lahir</label>
-                <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Kota kelahiran">
+                <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Kota kelahiran" value="{{student.tempat_lahir}}">
               </div>
             </div>
 
@@ -63,51 +63,70 @@
               <div class="col-md-6">
                 <label for="agama" class="form-label fw-semibold">Agama</label>
                 <select class="form-select" id="agama" name="agama">
-                  <option value="" disabled selected>Pilih agama</option>
-                  <option>Islam</option>
-                  <option>Kristen</option>
+                  <option value="" disabled {{'' if student.agama else 'selected'}}>Pilih agama</option>
+                  {%for agama in agama_siswa%}
+                    {%if student.agama == agama%}
+                      <option selected>{{agama}}</option>
+                    {%else%}
+                      <option>{{agama}}</option>
+                    {%endif%}
+                  {%endfor%}
+                  {# <option>Kristen</option>
                   <option>Katolik</option>
                   <option>Hindu</option>
                   <option>Buddha</option>
-                  <option>Konghucu</option>
+                  <option>Konghucu</option> #}
                 </select>
               </div>
               <div class="col-md-6">
                 <label for="sekolah_asal" class="form-label fw-semibold">Sekolah Asal</label>
-                <input type="text" class="form-control" id="sekolah_asal" name="sekolah_asal" placeholder="Nama SD asal">
+                <input type="text" class="form-control" id="sekolah_asal" name="sekolah_asal" placeholder="Nama SD asal" value="{{student.sekolah_asal}}">
               </div>
             </div>
 
             <div class="row g-3">
-              <div class="col-md-6">
+              {# <div class="col-md-6">
                 <label for="lulus" class="form-label fw-semibold">Lulus</label>
-                <input type="text" class="form-control" id="lulus" name="lulus" placeholder="Ya/Tidak">
+                <input type="text" class="form-control" id="lulus" name="lulus" placeholder="Ya/Tidak" value="{{student.lulus}}">
+              </div> #}
+                <div class="col-md-6">
+                <label for="lulus" class="form-label fw-semibold">Lulus</label>
+                <select class="form-select" id="lulus" name="lulus">
+                  <option value="" disabled {{'' if student.lulus else 'selected'}}>Lulus / Tidak</option>
+                  {%for lulus in siswa_lulus%}
+                    {%if student.lulus == lulus%}
+                      <option selected>{{lulus}}</option>
+                    {%else%}
+                      <option>{{lulus}}</option>
+                    {%endif%}
+                  {%endfor%}
+                </select>
               </div>
               <div class="col-md-6">
                 <label for="alamat" class="form-label fw-semibold">alamat</label>
-                <input type="text" class="form-control" id="alamat" name="alamat" >
+                <input type="text" class="form-control" id="alamat" name="alamat" value="{{student.alamat}}">
               </div>
             </div>
 
             <div class="row g-3">
               <div class="col-md-6">
                 <label for="rt" class="form-label fw-semibold">rt</label>
-                <input type="number" class="form-control" id="rt" name="rt" >
+                <input type="text" pattern="[0-9]*" class="form-control" id="rt" name="rt" value="{{student.rt}}" >
               </div>
               <div class="col-md-6">
                 <label for="rw" class="form-label fw-semibold">rw</label>
-                <input type="number" class="form-control" id="rw" name="rw" >
+                <input type="text" pattern="[0-9]*" class="form-control" id="rw" name="rw" value="{{student.rw}}" >
               </div>
             </div>
 
             <div class="row g-3">
               <div class="col-md-6">
                 <label for="kelurahan" class="form-label fw-semibold">kelurahan</label>
-                <input type="text" class="form-control" id="kelurahan" name="kelurahan" >
+                <input type="text" class="form-control" id="kelurahan" name="kelurahan" value="{{student.kelurahan}}" >
               </div>
               <div class="col-md-6">
                 <label for="kecamatan" class="form-label fw-semibold">kecamatan</label>
-                <input type="text" class="form-control" id="kecamatan" name="kecamatan" >
+                <input type="text" class="form-control" id="kecamatan" name="kecamatan" value="{{student.kecamatan}}" >
               </div>
             </div>
 
@@ -147,52 +166,52 @@
                <div class="col-md-6">
                  <label for="n_agama" class="nilai-label">Agama</label>
                  <input type="number" class="nilai-input form-control" id="n_agama" name="n_agama"
-                       placeholder="0 – 100" min="0" max="100">
+                       placeholder="0 – 100" min="0" max="100" value="{{nilai_siswa.agama}}">
                </div>
                <div class="col-md-6">
                  <label for="n_pancasila" class="nilai-label">PPKN / Pancasila</label>
                  <input type="number" class="nilai-input form-control" id="n_pancasila" name="n_pancasila"
-                       placeholder="0 – 100" min="0" max="100">
+                       placeholder="0 – 100" min="0" max="100" value="{{nilai_siswa.pancasila}}">
                </div>
                <div class="col-md-6">
                  <label for="n_indonesia" class="nilai-label">Bahasa Indonesia</label>
                  <input type="number" class="nilai-input form-control" id="n_indonesia" name="n_indonesia"
-                       placeholder="0 – 100" min="0" max="100">
+                       placeholder="0 – 100" min="0" max="100" value="{{nilai_siswa.indonesia}}">
                </div>
                <div class="col-md-6">
                  <label for="n_matematika" class="nilai-label">Matematika</label>
                  <input type="number" class="nilai-input form-control" id="n_matematika" name="n_matematika"
-                       placeholder="0 – 100" min="0" max="100">
+                       placeholder="0 – 100" min="0" max="100" value="{{nilai_siswa.matematika}}">
                </div>
                <div class="col-md-6">
                  <label for="n_ipa" class="nilai-label">IPA</label>
                  <input type="number" class="nilai-input form-control" id="n_ipa" name="n_ipa"
-                       placeholder="0 – 100" min="0" max="100">
+                       placeholder="0 – 100" min="0" max="100" value="{{nilai_siswa.ipa}}">
                </div>
                <div class="col-md-6">
                  <label for="n_ips" class="nilai-label">IPS</label>
                  <input type="number" class="nilai-input form-control" id="n_ips" name="n_ips"
-                       placeholder="0 – 100" min="0" max="100">
+                       placeholder="0 – 100" min="0" max="100" value="{{nilai_siswa.ips}}">
                </div>
                <div class="col-md-6">
                  <label for="n_inggris" class="nilai-label">Bahasa Inggris</label>
                  <input type="number" class="nilai-input form-control" id="n_inggris" name="n_inggris"
-                       placeholder="0 – 100" min="0" max="100">
+                       placeholder="0 – 100" min="0" max="100" value="{{nilai_siswa.inggris}}">
                </div>
                <div class="col-md-6">
                  <label for="n_seni_budaya" class="nilai-label">Seni Budaya</label>
                  <input type="number" class="nilai-input form-control" id="n_seni_budaya" name="n_seni_budaya"
-                       placeholder="0 – 100" min="0" max="100">
+                       placeholder="0 – 100" min="0" max="100" value="{{nilai_siswa.seni_budaya}}">
                </div>
                <div class="col-md-6">
                  <label for="n_olahraga" class="nilai-label">Olahraga</label>
                  <input type="number" class="nilai-input form-control" id="n_olahraga" name="n_olahraga"
-                       placeholder="0 – 100" min="0" max="100">
+                       placeholder="0 – 100" min="0" max="100" value="{{nilai_siswa.olahraga}}">
                </div>
                <div class="col-md-6">
                  <label for="n_prakarya" class="nilai-label">Prakarya</label>
                  <input type="number" class="nilai-input form-control" id="n_prakarya" name="n_prakarya"
-                       placeholder="0 – 100" min="0" max="100">
+                       placeholder="0 – 100" min="0" max="100" value="{{nilai_siswa.prakarya}}">
                </div>
              </div>
            </div>

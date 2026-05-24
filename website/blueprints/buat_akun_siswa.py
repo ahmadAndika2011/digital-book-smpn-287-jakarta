@@ -2,10 +2,12 @@ from flask import Blueprint, render_template, flash, request, redirect, url_for
 from ..models import DatabaseSiswa, AccountSiswa
 from werkzeug.security import generate_password_hash,check_password_hash
 from .. import db
+from flask_login import login_required
 
 auth = Blueprint("buat_akun_siswa", __name__)
 
 @auth.route("/buat-akun", methods=["GET", "POST"])
+@login_required
 def buat_akun():
     if request.method == "POST":
         nis = request.form.get("nis")

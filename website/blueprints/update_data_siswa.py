@@ -19,6 +19,8 @@ def allowed_file(filename):
 def update_data(id):
     student = DatabaseSiswa.query.get(id)
     nilai_siswa = NilaiSiswa.query.filter_by(nisn=student.nisn).first()
+    agama_siswa = ["Islam", "Kristen", "Katolik", "Hindu", 'Buddha', 'Konghucu']
+    lulus=["Ya", "Tidak"]
 
     if request.method == "POST":
         """
@@ -261,4 +263,4 @@ def update_data(id):
         db.session.commit()
         return redirect(url_for("data_siswa.data_siswa"))
 
-    return render_template("update_data.html", user=current_user)
+    return render_template("update_data.html", user=current_user, student=student, nilai_siswa=nilai_siswa, agama_siswa=agama_siswa, siswa_lulus=lulus)
