@@ -27,11 +27,11 @@ def tambah_nilai_siswa():
         cek_nama_siswa = DatabaseSiswa.query.filter_by(nama=name).first()
         cek_nisn_siswa = DatabaseSiswa.query.filter_by(nisn=nisn).first()
 
-        if len(nisn) != 10:
-            flash("NISN harus terdiri dari 10 digit", category="error")
-            return redirect(url_for("tambah_nilai_siswa.tambah_nilai_siswa"))
-        elif not cek_nama_siswa:
+        if not cek_nama_siswa:
             flash("Nama siswa belum ada di database", category="error")
+            return redirect(url_for("tambah_nilai_siswa.tambah_nilai_siswa"))
+        elif len(nisn) != 10:
+            flash("NISN harus terdiri dari 10 digit", category="error")
             return redirect(url_for("tambah_nilai_siswa.tambah_nilai_siswa"))
         elif not cek_nisn_siswa:
             flash("NISN siswa belum ada di database", category="error")
@@ -63,7 +63,7 @@ def tambah_nilai_siswa():
                 int(n_olahraga)  +
                 int(n_tik)  
             ) / 10
-            
+
             nilai_siswa = DatabaseNilaiSiswa(
                 nama_siswa = name,
                 nisn_siswa = nisn,
