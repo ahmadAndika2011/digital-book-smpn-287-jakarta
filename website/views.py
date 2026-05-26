@@ -8,7 +8,7 @@ from functools import wraps
 from website.blueprints import feedbacks
 from . import db
 from flask_login import login_required, current_user
-from .models import DatabaseSiswa, NilaiSiswa, AccountSiswa, AdminAccount, Berita, DatabaseGuru, DatabaseKontakEmail, DatabaseFeedbacks
+from .models import DatabaseSiswa, DatabaseNilaiSiswa, AccountSiswa, AdminAccount, Berita, DatabaseGuru, DatabaseKontakEmail, DatabaseFeedbacks
 import json
 import base64
 from datetime import datetime

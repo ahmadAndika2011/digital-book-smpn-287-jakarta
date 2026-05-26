@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify, json, current_app
 import os
 from .. import db
-from ..models import DatabaseSiswa, AccountSiswa, NilaiSiswa
+from ..models import DatabaseSiswa, AccountSiswa, DatabaseNilaiSiswa
 
 views = Blueprint("hapus_siswa", __name__)
 
@@ -24,12 +24,13 @@ def hapus_siswa():
 
     # hapus nilai
     nisn = DatabaseSiswa.query.filter_by(id=studentId).first().nisn
-    nilai_siswa = NilaiSiswa.query.filter_by(nisn=nisn).first()
+    nilai_siswa = DatabaseNilaiSiswa.query.filter_by(nisn=nisn).first()
 
     # hapus data student
-    if student and nilai_siswa:
+    if student :
+        if nilai_siswa:
+            db.session.delete(nilai_siswa)
         db.session.delete(student)
-        db.session.delete(nilai_siswa)
         if account_siswa:
             db.session.delete(account_siswa)
         db.session.commit()

@@ -30,9 +30,10 @@ class DatabaseSiswa(db.Model, UserMixin):
     lulus = db.Column(db.String(20))
 
 
-class NilaiSiswa(db.Model, UserMixin):
+class DatabaseNilaiSiswa(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    nisn = db.Column(db.String(30))
+    nama_siswa = db.Column(db.String(150))
+    nisn_siswa = db.Column(db.String(30))
     agama = db.Column(db.String(50))
     pancasila = db.Column(db.String(50))
     indonesia = db.Column(db.String(50))
@@ -40,9 +41,10 @@ class NilaiSiswa(db.Model, UserMixin):
     ipa = db.Column(db.String(50))
     ips = db.Column(db.String(50))
     inggris = db.Column(db.String(50))
-    seni_budaya = db.Column(db.String(50))
+    seni_tari = db.Column(db.String(50))
     olahraga = db.Column(db.String(50))
-    prakarya = db.Column(db.String(50))
+    tik = db.Column(db.String(50))
+    rata_rata = db.Column(db.String(50))
 
 
 class AccountSiswa(db.Model, UserMixin):

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, request, current_app
 from flask_login import login_required, current_user
 import pandas as pd
-from ..models import DatabaseSiswa, NilaiSiswa
+from ..models import DatabaseSiswa, DatabaseNilaiSiswa
 import os
 from werkzeug.utils import secure_filename
 from datetime import datetime
@@ -17,7 +17,7 @@ def allowed_file(filename):
 @login_required
 def update_data_student(id):
     student = DatabaseSiswa.query.get(id)
-    nilai_siswa = NilaiSiswa.query.filter_by(nisn=student.nisn).first()
+    nilai_siswa = DatabaseNilaiSiswa.query.filter_by(nisn=student.nisn).first()
     agama_siswa = ["Islam", "Kristen", "Katolik", "Hindu", 'Buddha', 'Konghucu']
     lulus=["Ya", "Tidak"]
 

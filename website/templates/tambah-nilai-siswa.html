@@ -8,7 +8,7 @@
     <div class="col-12 col-md-10 col-lg-8">
 
       <h4 class="fw-bold mb-4">
-        <i class="fa-solid fa-user-plus me-2"></i>Input Data Siswa
+        <i class="fa-solid fa-user-plus me-2"></i>Tambah Nilai Siswa
       </h4>
 
       <form method="POST" enctype="multipart/form-data">
@@ -16,15 +16,15 @@
         <!-- SECTION: Data Pribadi -->
         <div class="card shadow-sm mb-4">
           <div class="card-header bg-dark text-white fw-bold">
-            <i class="fa-solid fa-id-card me-2"></i>Data Pribadi
+            <i class="fa-solid fa-id-card me-2"></i>Data Siswa
           </div>
           <div class="card-body">
 
             <!-- Foto -->
-            <div class="mb-3">
+            {# <div class="mb-3">
               <label for="gambar" class="form-label fw-semibold">Foto Siswa</label>
               <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*">
-            </div>
+            </div> #}
 
             <!-- Nama & Kelas -->
             <div class="row g-3">
@@ -32,22 +32,22 @@
                 <label for="name" class="form-label fw-semibold">Nama Lengkap</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama lengkap">
               </div>
-            </div>
-
-            <!-- NISN & NIS -->
-            <div class="row g-3 mt-1">
               <div class="col-md-6">
                 <label for="nisn" class="form-label fw-semibold">NISN</label>
                 <input type="text" pattern="[0-9]*" class="form-control" id="nisn" name="nisn" placeholder="10 digit NISN">
               </div>
+            </div>
+
+            <!-- NISN & NIS -->
+            {# <div class="row g-3 mt-1">
               <div class="col-md-6">
                 <label for="nis" class="form-label fw-semibold">NIS</label>
                 <input type="text" pattern="[0-9]*" class="form-control" id="nis" name="nis" placeholder="Nomor Induk Sekolah">
               </div>
-            </div>
+            </div> #}
 
             <!-- Tanggal & Tempat Lahir -->
-            <div class="row g-3 mt-1">
+            {# <div class="row g-3 mt-1">
               <div class="col-md-6">
                 <label for="tanggal_lahir" class="form-label fw-semibold">Tanggal Lahir</label>
                 <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir">
@@ -56,10 +56,10 @@
                 <label for="tempat_lahir" class="form-label fw-semibold">Tempat Lahir</label>
                 <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Kota kelahiran">
               </div>
-            </div>
+            </div> #}
 
             <!-- Agama & Sekolah Asal -->
-            <div class="row g-3 mt-1">
+            {# <div class="row g-3 mt-1">
               <div class="col-md-6">
                 <label for="agama" class="form-label fw-semibold">Agama</label>
                 <select class="form-select" id="agama" name="agama">
@@ -76,9 +76,9 @@
                 <label for="sekolah_asal" class="form-label fw-semibold">Sekolah Asal</label>
                 <input type="text" class="form-control" id="sekolah_asal" name="sekolah_asal" placeholder="Nama SD asal">
               </div>
-            </div>
-            
-            <div class="row g-3">
+            </div> #}
+             
+            {# <div class="row g-3">
               <div class="col-md-6">
                 <label for="lulus" class="form-label fw-semibold">Lulus</label>
                 <input type="text" class="form-control" id="lulus" name="lulus" placeholder="Ya/Tidak">
@@ -87,9 +87,9 @@
                 <label for="alamat" class="form-label fw-semibold">alamat</label>
                 <input type="text" class="form-control" id="alamat" name="alamat" >
               </div>
-            </div>
+            </div> #}
 
-            <div class="row g-3">
+            {# <div class="row g-3">
               <div class="col-md-6">
                 <label for="rt" class="form-label fw-semibold">rt</label>
                 <input type="number" class="form-control" id="rt" name="rt" >
@@ -98,9 +98,9 @@
                 <label for="rw" class="form-label fw-semibold">rw</label>
                 <input type="number" class="form-control" id="rw" name="rw" >
               </div>
-            </div>
+            </div> #}
 
-            <div class="row g-3">
+            {# <div class="row g-3">
               <div class="col-md-6">
                 <label for="kelurahan" class="form-label fw-semibold">kelurahan</label>
                 <input type="text" class="form-control" id="kelurahan" name="kelurahan" >
@@ -109,15 +109,15 @@
                 <label for="kecamatan" class="form-label fw-semibold">kecamatan</label>
                 <input type="text" class="form-control" id="kecamatan" name="kecamatan" >
               </div>
-            </div>
+            </div> #}
 
           </div>
         </div>
 
         <!-- SECTION: Nilai -->
-        {# <div class="card shadow-sm mb-4">
+        <div class="card shadow-sm mb-4">
           <div class="card-header bg-dark text-white fw-bold">
-            <i class="fa-solid fa-book-open me-2"></i>Nilai Akademik
+            <i class="fa-solid fa-book-open me-2"></i>Nilai Sidanira
           </div>
           <div class="card-body">
             <div class="row g-3">
@@ -151,20 +151,20 @@
                 <input type="number" class="form-control" id="n_inggris" name="n_inggris" placeholder="0 - 100" min="0" max="100">
               </div>
               <div class="col-md-6">
-                <label for="n_seni_budaya" class="form-label fw-semibold">Seni Budaya</label>
-                <input type="number" class="form-control" id="n_seni_budaya" name="n_seni_budaya" placeholder="0 - 100" min="0" max="100">
+                <label for="n_seni_tari" class="form-label fw-semibold">Seni Tari</label>
+                <input type="number" class="form-control" id="n_seni_tari" name="n_seni_tari" placeholder="0 - 100" min="0" max="100">
               </div>
               <div class="col-md-6">
                 <label for="n_olahraga" class="form-label fw-semibold">Olahraga</label>
                 <input type="number" class="form-control" id="n_olahraga" name="n_olahraga" placeholder="0 - 100" min="0" max="100">
               </div>
               <div class="col-md-6">
-                <label for="n_prakarya" class="form-label fw-semibold">Prakarya</label>
-                <input type="number" class="form-control" id="n_prakarya" name="n_prakarya" placeholder="0 - 100" min="0" max="100">
+                <label for="n_tik" class="form-label fw-semibold">TIK</label>
+                <input type="number" class="form-control" id="n_tik" name="n_tik" placeholder="0 - 100" min="0" max="100">
               </div>
             </div>
           </div>
-        </div> #}
+        </div>
 
         <!-- Tombol Submit -->
         <div class="d-flex justify-content-end gap-2 mb-5">

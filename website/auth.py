@@ -5,7 +5,7 @@ from click.utils import R
 from flask import Blueprint, render_template, redirect, request_started, url_for, request, current_app, flash
 from flask_login import login_user, login_required, logout_user, current_user
 from flask_wtf import file
-from .models import AdminAccount, DatabaseSiswa, NilaiSiswa, AccountSiswa, Berita, DatabaseGuru
+from .models import AdminAccount, DatabaseSiswa, DatabaseNilaiSiswa, AccountSiswa, Berita, DatabaseGuru
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from . import db, mail
@@ -86,22 +86,22 @@ def upload_file():
                             lulus=row["lulus"].title(),
                         )
 
-                        nilai_siswa = NilaiSiswa(
-                            nisn=row["nisn"],
-                            agama="",
-                            pancasila="",
-                            indonesia="",
-                            matematika="",
-                            ipa="",
-                            ips="",
-                            inggris="",
-                            seni_budaya="",
-                            olahraga="",
-                            prakarya="",
-                        )
+                        # nilai_siswa = NilaiSiswa(
+                        #     nisn=row["nisn"],
+                        #     agama="",
+                        #     pancasila="",
+                        #     indonesia="",
+                        #     matematika="",
+                        #     ipa="",
+                        #     ips="",
+                        #     inggris="",
+                        #     seni_budaya="",
+                        #     olahraga="",
+                        #     prakarya="",
+                        # )
                         try:
                             db.session.add(data_siswa)
-                            db.session.add(nilai_siswa)
+                            # db.session.add(nilai_siswa)
                             db.session.commit()
                         except Exception as e:
                             db.session.rollback()
@@ -156,22 +156,22 @@ def upload_file():
                             lulus=row["lulus"].title(),
                         )
 
-                        nilai_siswa = NilaiSiswa(
-                            nisn=row["nisn"],
-                            agama="",
-                            pancasila="",
-                            indonesia="",
-                            matematika="",
-                            ipa="",
-                            ips="",
-                            inggris="",
-                            seni_budaya="",
-                            olahraga="",
-                            prakarya="",
-                        )
+                        # nilai_siswa = NilaiSiswa(
+                        #     nisn=row["nisn"],
+                        #     agama="",
+                        #     pancasila="",
+                        #     indonesia="",
+                        #     matematika="",
+                        #     ipa="",
+                        #     ips="",
+                        #     inggris="",
+                        #     seni_budaya="",
+                        #     olahraga="",
+                        #     prakarya="",
+                        # )
                         try:
                             db.session.add(data_siswa)
-                            db.session.add(nilai_siswa)
+                            # db.session.add(nilai_siswa)
                             db.session.commit()  # commit per siswa, dalam try/except
                         except Exception as e:
                             db.session.rollback()

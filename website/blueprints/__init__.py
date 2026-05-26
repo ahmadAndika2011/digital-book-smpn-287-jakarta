@@ -18,3 +18,4 @@ from .layanan_kunjungan_antar_instansi import auth as layanan_kunjungan_antar_in
 from .kontak import auth as kontak
 from .feedbacks import auth as feedbacks
 from .jawab_feedback import auth as jawab_feedback
+from .tambah_nilai_siswa import auth as tambah_nilai_siswa

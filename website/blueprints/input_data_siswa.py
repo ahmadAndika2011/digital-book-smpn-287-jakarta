@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 import os
 from werkzeug.utils import secure_filename
 
-from ..models import DatabaseSiswa, NilaiSiswa
+from ..models import DatabaseSiswa, DatabaseNilaiSiswa
 from datetime import datetime
 from .. import db
 
@@ -43,16 +43,16 @@ def input():
         check_duplicate_nis = DatabaseSiswa.query.filter_by(
             nis=nis_input).first()
         # input Nilai Murid
-        n_agama_input = request.form.get("n_agama")
-        n_pancasila_input = request.form.get("n_pancasila")
-        n_indonesia_input = request.form.get("n_indonesia")
-        n_matematika_input = request.form.get("n_matematika")
-        n_ipa_input = request.form.get("n_ipa")
-        n_ips_input = request.form.get("n_ips")
-        n_inggris_input = request.form.get("n_inggris")
-        n_seni_budaya_input = request.form.get("n_seni_budaya")
-        n_olahraga_input = request.form.get("n_olahraga")
-        n_prakarya_input = request.form.get("n_prakarya")
+        # n_agama_input = request.form.get("n_agama")
+        # n_pancasila_input = request.form.get("n_pancasila")
+        # n_indonesia_input = request.form.get("n_indonesia")
+        # n_matematika_input = request.form.get("n_matematika")
+        # n_ipa_input = request.form.get("n_ipa")
+        # n_ips_input = request.form.get("n_ips")
+        # n_inggris_input = request.form.get("n_inggris")
+        # n_seni_budaya_input = request.form.get("n_seni_budaya")
+        # n_olahraga_input = request.form.get("n_olahraga")
+        # n_prakarya_input = request.form.get("n_prakarya")
 
         try:
             valid_date = datetime.strptime(tanggal_lahir_input, "%Y-%m-%d")
@@ -86,21 +86,21 @@ def input():
                 sekolah_asal=sekolah_asal_input,
                 lulus=lulus_input.title()
             )
-            nilai_siswa = NilaiSiswa(
-                nisn=nisn_input,
-                agama=n_agama_input,
-                pancasila=n_pancasila_input,
-                indonesia=n_indonesia_input,
-                matematika=n_matematika_input,
-                ipa=n_ipa_input,
-                ips=n_ips_input,
-                inggris=n_inggris_input,
-                seni_budaya=n_seni_budaya_input,
-                olahraga=n_olahraga_input,
-                prakarya=n_prakarya_input
-            )
+            # nilai_siswa = DatabaseNilaiSiswa(
+            #     nisn=nisn_input,
+            #     agama=n_agama_input,
+            #     pancasila=n_pancasila_input,
+            #     indonesia=n_indonesia_input,
+            #     matematika=n_matematika_input,
+            #     ipa=n_ipa_input,
+            #     ips=n_ips_input,
+            #     inggris=n_inggris_input,
+            #     seni_budaya=n_seni_budaya_input,
+            #     olahraga=n_olahraga_input,
+            #     prakarya=n_prakarya_input
+            # )
             db.session.add(data_siswa)
-            db.session.add(nilai_siswa)
+            # db.session.add(nilai_siswa)
             db.session.commit()
             flash("Berhasil tambah data.", category="success")
 
