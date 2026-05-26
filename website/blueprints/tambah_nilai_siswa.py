@@ -23,18 +23,6 @@ def tambah_nilai_siswa():
         n_seni_tari = request.form.get("n_seni_tari", "")
         n_olahraga = request.form.get("n_olahraga", "")
         n_tik = request.form.get("n_tik", "")
-        rata_rata = (
-            int(n_agama) + 
-            int(n_pancasila) + 
-            int(n_indonesia) + 
-            int(n_matematika) + 
-            int(n_ipa) + 
-            int(n_ips) + 
-            int(n_inggris) + 
-            int(n_seni_tari) + 
-            int(n_olahraga)  +
-            int(n_tik)  
-        ) / 10
 
         cek_nama_siswa = DatabaseSiswa.query.filter_by(nama=name).first()
         cek_nisn_siswa = DatabaseSiswa.query.filter_by(nisn=nisn).first()
@@ -63,6 +51,19 @@ def tambah_nilai_siswa():
             cek_nama_siswa and
             cek_nisn_siswa
         ):
+            rata_rata = (
+                int(n_agama) + 
+                int(n_pancasila) + 
+                int(n_indonesia) + 
+                int(n_matematika) + 
+                int(n_ipa) + 
+                int(n_ips) + 
+                int(n_inggris) + 
+                int(n_seni_tari) + 
+                int(n_olahraga)  +
+                int(n_tik)  
+            ) / 10
+            
             nilai_siswa = DatabaseNilaiSiswa(
                 nama_siswa = name,
                 nisn_siswa = nisn,
