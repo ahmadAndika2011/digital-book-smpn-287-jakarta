@@ -24,7 +24,7 @@ def hapus_siswa():
 
     # hapus nilai
     nisn = DatabaseSiswa.query.filter_by(id=studentId).first()
-    nilai_siswa = DatabaseNilaiSiswa.query.filter_by(nisn_siswa=nisn).first()
+    nilai_siswa = DatabaseNilaiSiswa.query.filter_by(nisn_siswa=nisn.nisn).first()
 
     # hapus data student
     if student :
