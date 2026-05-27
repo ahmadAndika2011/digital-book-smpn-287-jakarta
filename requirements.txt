@@ -4,6 +4,7 @@ charset-normalizer
 click
 colorama
 dnspython
+docx2pdf
 et_xmlfile
 Flask
 Flask-Login
@@ -15,6 +16,7 @@ Flask-WTF
 greenlet
 itsdangerous
 Jinja2
+lxml
 MarkupSafe
 msgspec
 mysql-connector-python
@@ -22,13 +24,17 @@ mysqlclient
 numpy
 openpyxl
 pandas
+pdf2image
 pillow
 pypdf
 python-dateutil
+python-docx
 python-dotenv
+pywin32
 reportlab
 six
 SQLAlchemy
+tqdm
 typing_extensions
 tzdata
 Werkzeug
