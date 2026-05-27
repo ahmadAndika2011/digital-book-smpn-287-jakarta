@@ -25,21 +25,22 @@ def upload_nilai_siswa():
                 file.save(save_path)
                 filename = secure_filename(file.filename)
                 df = pd.read_excel(save_path)
-                new_df = df[["Nama Siswa", "Rata-Rata", "Rata-Rata.1", "Rata-Rata.2", "Rata-Rata.3", "Rata-Rata.4", "Rata-Rata.5", "Rata-Rata.6", "Rata-Rata.7", "Rata-Rata.8", "Rata-Rata.9"]].dropna().reset_index(drop=True)
-                new_df = new_df.rename(columns={
-                    "Rata-Rata": "pkn",
-                    "Rata-Rata.1": "b_indonesia",
-                    "Rata-Rata.2": "matematika",
-                    "Rata-Rata.3": "ipa",
-                    "Rata-Rata.4": "ips",
-                    "Rata-Rata.5": "b_inggris",
-                    "Rata-Rata.6": "agama",
-                    "Rata-Rata.7": "pjok",
-                    "Rata-Rata.8": "tik",
-                    "Rata-Rata.9": "seni_tari",
-                })
+                df = df.dropna(subset=['Nama Siswa'])
+                # new_df = df[["Nama Siswa", "Rata-Rata", "Rata-Rata.1", "Rata-Rata.2", "Rata-Rata.3", "Rata-Rata.4", "Rata-Rata.5", "Rata-Rata.6", "Rata-Rata.7", "Rata-Rata.8", "Rata-Rata.9"]].dropna().reset_index(drop=True)
+                # new_df = new_df.rename(columns={
+                #     "Rata-Rata": "pkn",
+                #     "Rata-Rata.1": "b_indonesia",
+                #     "Rata-Rata.2": "matematika",
+                #     "Rata-Rata.3": "ipa",
+                #     "Rata-Rata.4": "ips",
+                #     "Rata-Rata.5": "b_inggris",
+                #     "Rata-Rata.6": "agama",
+                #     "Rata-Rata.7": "pjok",
+                #     "Rata-Rata.8": "tik",
+                #     "Rata-Rata.9": "seni_tari",
+                # })
 
-                for index, row in new_df.iterrows():
+                for index, row in df.iterrows():
                     cek_nama_siswa = DatabaseSiswa.query.filter_by(nama=row["Nama Siswa"]).first()
                     if not cek_nama_siswa:
                         flash("Nama siswa belum ada di database", category="error")
@@ -58,31 +59,31 @@ def upload_nilai_siswa():
                         return redirect(url_for("data_siswa.data_siswa"))
                     else:
                         rata_rata = (
-                            int(row["pkn"]) +
-                            int(row["b_indonesia"]) +
-                            int(row["matematika"]) +
-                            int(row["ipa"]) +
-                            int(row["ips"]) +
-                            int(row["b_inggris"]) +
-                            int(row["agama"]) +
-                            int(row["pjok"]) +
-                            int(row["tik"]) +
-                            int(row["seni_tari"]) 
+                            int(row["rata_rata_pancasila"]) +
+                            int(row["rata_rata_b_indonesia"]) +
+                            int(row["rata_rata_matematika"]) +
+                            int(row["rata_rata_ipa"]) +
+                            int(row["rata_rata_ips"]) +
+                            int(row["rata_rata_b_inggris"]) +
+                            int(row["rata_rata_agama"]) +
+                            int(row["rata_rata_olahraga"]) +
+                            int(row["rata_rata_tik"]) +
+                            int(row["rata_rata_seni_tari"]) 
                         ) / 10
 
                         nilai_siswa = DatabaseNilaiSiswa(
                             nama_siswa = row["Nama Siswa"],
                             nisn_siswa = cek_nama_siswa.nisn,
-                            agama = row["agama"],
-                            pancasila = row["pkn"],
-                            indonesia = row["b_indonesia"],
-                            matematika = row["matematika"],
-                            ipa = row["ipa"],
-                            ips = row["ips"],
-                            inggris = row["b_inggris"],
-                            seni_tari = row["seni_tari"],
-                            olahraga = row["pjok"],
-                            tik = row["tik"],
+                            agama = f"{round(int(row["rata_rata_agama"]), 2)}",
+                            pancasila = f"{round(int(row["rata_rata_pancasila"]), 2)}",
+                            indonesia = f"{round(int(row["rata_rata_b_indonesia"]), 2)}",
+                            matematika = f"{round(int(row["rata_rata_matematika"]), 2)}",
+                            ipa = f"{round(int(row["rata_rata_ipa"]), 2)}",
+                            ips = f"{round(int(row["rata_rata_ips"]), 2)}",
+                            inggris = f"{round(int(row["rata_rata_b_inggris"]), 2)}",
+                            seni_tari = f"{round(int(row["rata_rata_seni_tari"]), 2)}",
+                            olahraga = f"{round(int(row["rata_rata_olahraga"]), 2)}",
+                            tik = f"{round(int(row["rata_rata_tik"]), 2)}",
                             rata_rata = f"{rata_rata}",
                         )
                         db.session.add(nilai_siswa)
