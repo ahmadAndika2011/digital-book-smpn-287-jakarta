@@ -30,7 +30,6 @@ pypdf
 python-dateutil
 python-docx
 python-dotenv
-pywin32
 reportlab
 six
 SQLAlchemy
