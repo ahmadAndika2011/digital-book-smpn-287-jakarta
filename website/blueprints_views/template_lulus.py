@@ -10,4 +10,5 @@ def template_lulus():
 
     data_siswa = DatabaseSiswa.query.filter_by(nama = name).first()
     data_nilai_siswa = DatabaseNilaiSiswa.query.filter_by(nama_siswa = name).first()
-    return render_template("template-lulus.html", name=name, lulus=lulus)
+
+    return render_template("template-lulus.html", name=name, lulus=lulus, data_siswa = data_siswa, data_nilai_siswa = data_nilai_siswa)
