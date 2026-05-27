@@ -26,7 +26,7 @@ def tambah_nilai_siswa():
 
         cek_nama_siswa = DatabaseSiswa.query.filter_by(nama=name).first()
         cek_nisn_siswa = DatabaseSiswa.query.filter_by(nisn=nisn).first()
-        cek_nama_siswa_from_nilai = DatabaseSiswa.query.filter_by(nama_siswa=name).first()
+        cek_nama_siswa_from_nilai = DatabaseNilaiSiswa.query.filter_by(nama_siswa=name).first()
 
         if not cek_nama_siswa_from_nilai:
             flash("Data ini sudah ada di database", category="error")
