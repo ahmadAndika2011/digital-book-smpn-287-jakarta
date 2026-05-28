@@ -12,6 +12,7 @@ Flask-Mail
 Flask-Session
 Flask-Sitemap
 Flask-SQLAlchemy
+flask-talisman
 Flask-WTF
 greenlet
 itsdangerous
@@ -30,6 +31,7 @@ pypdf
 python-dateutil
 python-docx
 python-dotenv
+pywin32
 reportlab
 six
 SQLAlchemy
