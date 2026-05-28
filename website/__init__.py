@@ -39,27 +39,38 @@ def create_app():
     mail.init_app(app)
 
     csp = {
-    'default-src': '\'self\'',
+    'default-src': ["'self'"],
+    
     'script-src': [
-        '\'self\'',
-        'https://cdn.jsdelivr.net',      # Mengizinkan JS Bootstrap / Alpine.js dari CDN
-        'https://code.jquery.com',       # Mengizinkan jQuery jika pakai
+        "'self'",
+        "'unsafe-inline'",       # Untuk inline script
+        "cdn.jsdelivr.net",      # Bootstrap JS / Alpine.js
+        "cdnjs.cloudflare.com",  # Library lain
     ],
+    
     'style-src': [
-        '\'self\'',
-        '\'unsafe-inline\'',             # Mengizinkan tag <style> atau inline style CSS bawaan template
-        'https://cdn.jsdelivr.net',      # Mengizinkan CSS Bootstrap dari CDN
-        'https://fonts.googleapis.com',   # Mengizinkan Google Fonts
+        "'self'",
+        "'unsafe-inline'",       # Untuk inline style
+        "cdn.jsdelivr.net",      # Bootstrap CSS
+        "fonts.googleapis.com",  # Google Fonts CSS
     ],
+    
     'font-src': [
-        '\'self\'',
-        'https://fonts.gstatic.com',     # Mengizinkan file font Google
+        "'self'",
+        "fonts.gstatic.com",     # Google Fonts file
+        "cdn.jsdelivr.net",
+        "data:",
     ],
+    
     'img-src': [
-        '\'self\'',
-        'data:',                         # Mengizinkan gambar dalam format base64
-    ]
-} if IS_PRODUCTION else None
+        "'self'",
+        "data:",                 # Base64 image
+        "*",                     # Semua sumber gambar
+    ],
+    
+    'connect-src': ["'self'"],
+} 
+    # if IS_PRODUCTION else None
 
     talisman.init_app(app, force_https=IS_PRODUCTION, content_security_policy=csp)
 
