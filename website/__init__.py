@@ -6,17 +6,23 @@ import os
 from flask_mail import Mail
 from dotenv import load_dotenv
 from werkzeug.middleware.proxy_fix import ProxyFix
+from flask_talisman import Talisman
 
 load_dotenv()
 
 db = SQLAlchemy()
-
 mail = Mail()
+talisman = Talisman()
 
 def create_app():
     app = Flask(__name__)
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
-    app.config["PREFERRED_URL_SCHEME"] = "https"
+
+    IS_PRODUCTION = os.getenv('FLASK_ENV') == 'production'
+    app.config["PREFERRED_URL_SCHEME"] = 'https' if IS_PRODUCTION else 'http'
+    app.config['SESSION_COOKIE_HTTPONLY'] = True
+    app.config['SESSION_COOKIE_SECURE'] = IS_PRODUCTION 
+    app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
     app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
@@ -31,6 +37,31 @@ def create_app():
     app.config['MAIL_USERNAME'] = os.getenv("MAIL_USERNAME")
     app.config['MAIL_PASSWORD'] = os.getenv("MAIL_PASSWORD")
     mail.init_app(app)
+
+    csp = {
+    'default-src': '\'self\'',
+    'script-src': [
+        '\'self\'',
+        'https://cdn.jsdelivr.net',      # Mengizinkan JS Bootstrap / Alpine.js dari CDN
+        'https://code.jquery.com',       # Mengizinkan jQuery jika pakai
+    ],
+    'style-src': [
+        '\'self\'',
+        '\'unsafe-inline\'',             # Mengizinkan tag <style> atau inline style CSS bawaan template
+        'https://cdn.jsdelivr.net',      # Mengizinkan CSS Bootstrap dari CDN
+        'https://fonts.googleapis.com',   # Mengizinkan Google Fonts
+    ],
+    'font-src': [
+        '\'self\'',
+        'https://fonts.gstatic.com',     # Mengizinkan file font Google
+    ],
+    'img-src': [
+        '\'self\'',
+        'data:',                         # Mengizinkan gambar dalam format base64
+    ]
+} if IS_PRODUCTION else None
+
+    talisman.init_app(app, force_https=IS_PRODUCTION, content_security_policy=csp)
 
     app.config["UPLOADS_FOLDER"] = os.path.join(app.root_path, "static", "uploads")
     os.makedirs(app.config["UPLOADS_FOLDER"], exist_ok=True)
