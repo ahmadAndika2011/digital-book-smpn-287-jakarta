@@ -22,7 +22,7 @@ def layanan_ppdb():
         if valid_tanggal_input == None:
             flash("Format Tanggal tidak valid.", category="error")
             return redirect(url_for("layanan_ppdb.layanan_ppdb"))
-        elif len(no_telepon_input) > 12 or len(no_telepon_input) < 10:
+        elif len(no_telepon_input) > 13 or len(no_telepon_input) < 10:
             flash("No Telpon Tidak valid.", category="error")
             return redirect(url_for("layanan_ppdb.layanan_ppdb"))
         elif len(nama_calon_siswa_input) < 1:
