@@ -169,7 +169,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama {{data}}</th>
-                        <th>Mata Pelajaran</th>
+                        {# <th>Mata Pelajaran</th> #}
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -179,7 +179,7 @@
                     <tr>
                         <td>{{ loop.index }}</td>
                         <td>{{ guru.name }}</td>
-                        <td>{{ guru.mapel }}</td>
+                        {# <td>{{ guru.mapel }}</td> #}
                         <td>
                             {% if guru.status == 'PNS' %}
                                 <span class="badge-status pns">PNS</span>
@@ -190,11 +190,11 @@
                             {% endif %}
                         </td>
                         <td>
-                            <a href="{{ url_for('detail_guru.detail_guru', id=guru.id) }}" class="btn btn-info btn-sm">
+                            <a href="{{ url_for('detail_tendik.detail_tendik', id=guru.id) }}" class="btn btn-info btn-sm">
                                 Info
                             </a>
 
-                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteGuru('{{ guru.id }}')">
+                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteTendik('{{ guru.id }}')">
                                 Hapus
                             </button>
                         </td>

@@ -31,6 +31,17 @@ function deleteGuru(guruId){
     }
 }
 
+function deleteTendik(guruId){
+    if(confirm("Yakin hapus data Guru? ")){
+        fetch("/hapus-data-tendik", {
+            method: "POST",
+            body: JSON.stringify({guruId: guruId})
+        }).then((_res) => {
+            window.location.href = "/data-tendik"
+        })
+    }
+}
+
 function deleteDataPpdb(dataPpdbId){
     if(confirm("Yakin hapus data PPDB? ")){
         fetch("/hapus-data-ppdb", {

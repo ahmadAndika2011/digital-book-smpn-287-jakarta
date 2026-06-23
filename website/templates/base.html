@@ -115,9 +115,12 @@
              data-bs-toggle="dropdown" aria-expanded="false">Guru/Staff</a>
           <ul class="dropdown-menu dropdown-smpn">
             <li><a class="dropdown-item-smpn" href="/data-guru"><i class="fa-solid fa-chalkboard-user"></i> Data Guru</a></li>
+            <li><a class="dropdown-item-smpn" href="/data-tendik"><i class="fa-solid fa-chalkboard-user"></i> Data Tendik</a></li>
             {% if current_user.is_authenticated %}
             <li><a class="dropdown-item-smpn" href="/tambah-data-guru"><i class="fa-solid fa-upload"></i> Tambah Data Guru</a></li>
+            <li><a class="dropdown-item-smpn" href="/tambah-data-tendik"><i class="fa-solid fa-upload"></i> Tambah Data Tendik</a></li>
             <li><a class="dropdown-item-smpn" href="/upload-data-guru"><i class="fa-solid fa-upload"></i> Upload Data Guru</a></li>
+            <li><a class="dropdown-item-smpn" href="/upload-data-tendik"><i class="fa-solid fa-upload"></i> Upload Data Tendik</a></li>
             {% endif %}
           </ul>
         </li>

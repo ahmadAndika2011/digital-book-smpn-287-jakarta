@@ -41,4 +41,6 @@ def data_guru():
                            list_data_guru=list_data_guru, 
                            jumlah_status_pns=jumlah_status_pns, 
                            jumlah_status_kki=jumlah_status_kki, 
-                           jumlah_status_p3k=jumlah_status_p3k)
+                           jumlah_status_p3k=jumlah_status_p3k,
+                           data="Guru",
+                           detail="detail_guru")

@@ -25,3 +25,6 @@ from .hapus_siswa import views as hapus_siswa
 from .table_kjp import views as table_kjp
 from .data_feedbacks_user import views as data_feedbacks_user
 from .hapus_feedback import views as hapus_feedback
+from .data_tendik import views as data_tendik
+from .detail_tendik import views as detail_tendik
+from .hapus_tendik import views as hapus_tendik

@@ -75,6 +75,17 @@ class DatabaseGuru(db.Model, UserMixin):
     jabatan = db.Column(db.String(100))
     tahun_masuk = db.Column(db.String(100))
 
+class DatabaseTendik(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    image = db.Column(db.String(255))
+    name = db.Column(db.String(150))
+    nip = db.Column(db.String(18))
+    nrk = db.Column(db.String(6))
+    status = db.Column(db.String(100))
+    jabatan = db.Column(db.String(100))
+    bagian = db.Column(db.String(100))
+    tahun_masuk = db.Column(db.String(100))
+
 class DatabaseFeedbacks(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     nama = db.Column(db.String(150))
