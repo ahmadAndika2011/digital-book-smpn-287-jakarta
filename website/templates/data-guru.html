@@ -185,8 +185,12 @@
                                 <span class="badge-status pns">PNS</span>
                             {% elif guru.status == 'PPPK' %}
                                 <span class="badge-status pppk">PPPK</span>
-                            {% else %}
+                            {% elif guru.status == 'KKI' %}
                                 <span class="badge-status kki">KKI</span>
+                            {% elif guru.status == 'HONOR MURNI' %}
+                                <span class="badge-status kki">HONOR MURNI</span>
+                            {% else %}
+                                <span class="badge-status kki">Tidak Ada</span>
                             {% endif %}
                         </td>
                         <td>

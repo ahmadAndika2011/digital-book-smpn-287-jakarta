@@ -13,7 +13,7 @@ auth = Blueprint("update_data_guru", __name__)
 def update_data_guru(id):
     guru = DatabaseGuru.query.get(id)
     mapel = ["Bahasa Indonesia", "Bahasa Inggris", "Matematika", "Agama Islam", "Agama Kristen", "Ilmu Pengetahuan Alam", "Ilmu Pengetahuan Sosial", "Pendidikan Jasmani Olahraga dan Kesehatan", "Pendidikan Pancasila", "Prakarya", "Informatika"]
-    status = ["PNS", "PPPK", "KKI"]
+    status = ["PNS", "PPPK", "KKI", "Honor Murni"]
 
     if request.method == "POST":
         gambar_file = request.files.get("gambar")

@@ -12,7 +12,7 @@ auth = Blueprint("update_data_tendik", __name__)
 @login_required
 def update_data_tendik(id):
     guru = DatabaseTendik.query.get(id)
-    status = ["PNS", "PPPK", "KKI"]
+    status = ["PNS", "PPPK", "KKI", "Honor Murni"]
 
     if request.method == "POST":
         gambar_file = request.files.get("gambar")
