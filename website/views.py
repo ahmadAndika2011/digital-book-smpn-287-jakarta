@@ -8,7 +8,7 @@ from functools import wraps
 from website.blueprints import feedbacks
 from . import db
 from flask_login import login_required, current_user
-from .models import DatabaseSiswa, DatabaseNilaiSiswa, AccountSiswa, AdminAccount, Berita, DatabaseGuru, DatabaseKontakEmail, DatabaseFeedbacks
+from .models import DatabaseSiswa, DatabaseNilaiSiswa, DatabaseTendik, AccountSiswa, AdminAccount, Berita, DatabaseGuru, DatabaseKontakEmail, DatabaseFeedbacks
 import json
 import base64
 from datetime import datetime
@@ -70,7 +70,8 @@ def home():
 def profil_sekolah():
     jumlah_siswa = DatabaseSiswa.query.count()
     jumlah_guru = DatabaseGuru.query.count()
-    return render_template("profil-sekolah.html", jumlah_siswa=jumlah_siswa, jumlah_guru=jumlah_guru)
+    jumlah_tendik = DatabaseTendik.query.count()
+    return render_template("profil-sekolah.html", jumlah_siswa=jumlah_siswa, jumlah_guru=jumlah_guru+jumlah_tendik)
 
 #? Struktur organisasi
 @views.route("/struktur-organisasi")
