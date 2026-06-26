@@ -53,6 +53,7 @@ def home():
 
     jumlah_siswa = DatabaseSiswa.query.count()
     jumlah_guru = DatabaseGuru.query.count()
+    jumlah_tendik = DatabaseTendik.query.count()
 
     berita_list = Berita.query.all()
 
@@ -62,7 +63,7 @@ def home():
             db.session.delete(email)
         db.session.commit()
 
-    return render_template("home.html", user=current_user, jumlah_siswa=jumlah_siswa, berita_list=berita_list, jumlah_guru=jumlah_guru, feedbacks=feedbacks)
+    return render_template("home.html", user=current_user, jumlah_siswa=jumlah_siswa, berita_list=berita_list, jumlah_guru=jumlah_guru+jumlah_tendik, feedbacks=feedbacks)
 
 
 #? Profil sekolah
