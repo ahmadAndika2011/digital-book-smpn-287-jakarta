@@ -51,7 +51,7 @@ def home():
 
     feedbacks = DatabaseFeedbacks.query.all()
 
-    jumlah_siswa = DatabaseSiswa.query.count()
+    jumlah_siswa = DatabaseSiswa.query.filter_by(active="iya").count()
     jumlah_guru = DatabaseGuru.query.count()
     jumlah_tendik = DatabaseTendik.query.count()
 

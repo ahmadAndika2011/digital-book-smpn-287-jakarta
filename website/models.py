@@ -28,6 +28,7 @@ class DatabaseSiswa(db.Model, UserMixin):
     kecamatan = db.Column(db.String(200))
     sekolah_asal = db.Column(db.String(150))
     lulus = db.Column(db.String(20))
+    active = db.Column(db.String(10))
 
 
 class DatabaseNilaiSiswa(db.Model, UserMixin):
@@ -61,7 +62,7 @@ class Berita(db.Model, UserMixin):
     img_2 = db.Column(db.String(255))
     img_3 = db.Column(db.String(255))
     video = db.Column(db.String(300))
-    link_youtube=db.Column(db.String(2048))
+    link_youtube = db.Column(db.String(2048))
 
 
 class DatabaseGuru(db.Model, UserMixin):
@@ -75,6 +76,7 @@ class DatabaseGuru(db.Model, UserMixin):
     jabatan = db.Column(db.String(100))
     tahun_masuk = db.Column(db.String(100))
 
+
 class DatabaseTendik(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     image = db.Column(db.String(255))
@@ -85,6 +87,7 @@ class DatabaseTendik(db.Model, UserMixin):
     jabatan = db.Column(db.String(100))
     bagian = db.Column(db.String(100))
     tahun_masuk = db.Column(db.String(100))
+
 
 class DatabaseFeedbacks(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -245,7 +248,7 @@ class DatabaseLayananKjp(db.Model, UserMixin):
     penilaian_2 = db.Column(db.String(5))
     penilaian_3 = db.Column(db.String(5))
     penilaian_4 = db.Column(db.String(5))
-    ttd_ba_siswa = db.Column(db.Text)  
+    ttd_ba_siswa = db.Column(db.Text)
     ttd_ba_penilai = db.Column(db.Text)
 
 
