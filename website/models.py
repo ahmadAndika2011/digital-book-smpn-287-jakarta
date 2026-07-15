@@ -1,6 +1,8 @@
 from email.policy import default
 from enum import unique
 
+from sqlalchemy import Column, Integer
+
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.dialects.mysql import LONGBLOB
@@ -46,6 +48,36 @@ class DatabaseNilaiSiswa(db.Model, UserMixin):
     olahraga = db.Column(db.String(50))
     tik = db.Column(db.String(50))
     rata_rata = db.Column(db.String(50))
+
+class DatabaseLegerSiswa(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    nama = db.Column(db.String(30))
+    nisn = db.Column(db.String(30))
+    agama_islam = db.Column(db.String(10))	
+    agama_kristen	= db.Column(db.String(10))
+    pkn =	db.Column(db.String(10)) 
+    b_indo = db.Column(db.String(10))	
+    matematika = db.Column(db.String(10))
+    ipa = db.Column(db.String(10))
+    ips = db.Column(db.String(10))
+    b_inggris = db.Column(db.String(10))
+    pjok = db.Column(db.String(10))
+    informatika = db.Column(db.String(10))
+    seni_budaya = db.Column(db.String(10))
+    sakit = db.Column(db.String(10))
+    izin = db.Column(db.String(10))
+    alpha = db.Column(db.String(10))
+    rohkris = db.Column(db.String(10))
+    rohis = db.Column(db.String(10))
+    basket = db.Column(db.String(10))
+    takraw = db.Column(db.String(10))
+    futsal = db.Column(db.String(10))
+    silat = db.Column(db.String(10))
+    taekwondo = db.Column(db.String(10))
+    pramuka	= db.Column(db.String(10))
+    pmr	= db.Column(db.String(10))
+    marching_band = db.Column(db.String(10))
+
 
 
 class AccountSiswa(db.Model, UserMixin):

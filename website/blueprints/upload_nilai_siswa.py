@@ -13,7 +13,8 @@ ALLOWED_FORMAT = ["xlsx", "xls"]
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_FORMAT
 
-@auth.route("upload-nilai-siswa", methods=["GET", "POST"])
+@auth.route("/upload-nilai-siswa", methods=["GET", "POST"])
+@login_required
 def upload_nilai_siswa():
     if request.method == "POST":
         file = request.files.get("file")
@@ -26,19 +27,6 @@ def upload_nilai_siswa():
                 filename = secure_filename(file.filename)
                 df = pd.read_excel(save_path)
                 df = df.dropna(subset=['Nama Siswa'])
-                # new_df = df[["Nama Siswa", "Rata-Rata", "Rata-Rata.1", "Rata-Rata.2", "Rata-Rata.3", "Rata-Rata.4", "Rata-Rata.5", "Rata-Rata.6", "Rata-Rata.7", "Rata-Rata.8", "Rata-Rata.9"]].dropna().reset_index(drop=True)
-                # new_df = new_df.rename(columns={
-                #     "Rata-Rata": "pkn",
-                #     "Rata-Rata.1": "b_indonesia",
-                #     "Rata-Rata.2": "matematika",
-                #     "Rata-Rata.3": "ipa",
-                #     "Rata-Rata.4": "ips",
-                #     "Rata-Rata.5": "b_inggris",
-                #     "Rata-Rata.6": "agama",
-                #     "Rata-Rata.7": "pjok",
-                #     "Rata-Rata.8": "tik",
-                #     "Rata-Rata.9": "seni_tari",
-                # })
 
                 for index, row in df.iterrows():
                     cek_nama_siswa = DatabaseSiswa.query.filter_by(nama=row["Nama Siswa"]).first()

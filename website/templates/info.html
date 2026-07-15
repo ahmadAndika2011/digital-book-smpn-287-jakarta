@@ -1,3 +1,99 @@
+{# {%extends "base.html"%}
+{%block title%}Profil Siswa | SMPN 287 Jakarta — SMP Negeri 287 Jakarta Timur | Sekolah Menengah Pertama Negeri{%endblock%}
+
+{%block content%}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+
+      <!-- Hero Card Profil -->
+      <div class="card shadow-sm mb-4 border-0 position-relative overflow-hidden">
+        <div style="height: 4px; background: linear-gradient(90deg, #1D9E75, #378ADD);"></div>
+
+        <div class="card-body text-center pt-4 pb-2">
+          {% if student.image %}
+          <img src="{{ url_for('static', filename='uploads/' + student.image) }}"
+               class="rounded-circle mb-3 border border-3 border-white shadow-sm"
+               style="width: 88px; height: 88px; object-fit: cover;" alt="Foto Siswa">
+          {% else %}
+          <div class="rounded-circle bg-primary bg-opacity-10 d-flex align-items-center justify-content-center mx-auto mb-3"
+               style="width: 88px; height: 88px;">
+            <i class="fa-solid fa-user fa-2x text-primary"></i>
+          </div>
+          {% endif %}
+
+          <h5 class="fw-semibold mb-0">{{ student.nama }}</h5>
+          <p class="text-muted small mb-3">{{ student.sekolah_asal }}</p>
+        </div>
+
+        <!-- Info Grid -->
+        <div class="card-body pt-0">
+          <div class="row g-2">
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">NISN</div>
+                <div class="fw-semibold small">{{ student.nisn }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">NIS</div>
+                <div class="fw-semibold small">{{ student.nis }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Tanggal Lahir</div>
+                <div class="fw-semibold small">{{ student.tanggal_lahir }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Tempat Lahir</div>
+                <div class="fw-semibold small">{{ student.tempat_lahir }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Agama</div>
+                <div class="fw-semibold small">{{ student.agama }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">RT / RW</div>
+                <div class="fw-semibold small">{{ student.rt }} / {{ student.rw }}</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Alamat</div>
+                <div class="fw-semibold small">{{ student.alamat }}, Kel. {{ student.kelurahan }}, Kec. {{ student.kecamatan }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% if user.is_authenticated %}
+        <div class="card-footer bg-transparent border-top d-flex justify-content-end gap-2 py-3">
+          <a href="{{ url_for('update_data_per_siswa.update_data_student', id=student.id) }}"
+             class="btn btn-sm btn-outline-primary px-3">
+            <i class="fa-solid fa-pen-to-square me-1"></i> Edit
+          </a>
+          <button type="button" class="btn btn-sm btn-outline-danger px-3"
+                  onclick="deleteStudent({{ student.id }}); deleteNilaiStudent({{ nilai.nisn }});">
+            <i class="fa-solid fa-trash me-1"></i> Hapus
+          </button>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock%} #}
+
+
+
 {%extends "base.html"%}
 {%block title%}Profil Siswa | SMPN 287 Jakarta — SMP Negeri 287 Jakarta Timur | Sekolah Menengah Pertama Negeri{%endblock%}
 
@@ -88,40 +184,185 @@
         {% endif %}
       </div>
 
-      <!-- Card Nilai -->
-      {# <div class="card shadow-sm border-0">
-        <div class="card-header bg-white border-bottom d-flex align-items-center gap-2 py-3">
-          <span class="rounded-circle d-inline-block bg-success" style="width:8px;height:8px;"></span>
-          <span class="fw-semibold small">Nilai Akademik</span>
+      <!-- ===== CARD NILAI AKADEMIK ===== -->
+      <div class="card shadow-sm mb-4 border-0 overflow-hidden">
+        <div style="height: 4px; background: linear-gradient(90deg, #1D9E75, #378ADD);"></div>
+        <div class="card-header bg-white border-0 pt-4 pb-2">
+          <h6 class="fw-semibold mb-0"><i class="fa-solid fa-chart-simple me-2 text-primary"></i>Nilai Akademik</h6>
         </div>
+        <div class="card-body pt-0">
+          <div class="row g-2">
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Pendidikan Agama Islam</div>
+                <div class="fw-semibold small">{{ nilai.agama_islam }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Pendidikan Agama Kristen</div>
+                <div class="fw-semibold small">{{ nilai.agama_kristen }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">PKN</div>
+                <div class="fw-semibold small">{{ nilai.pkn }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Bahasa Indonesia</div>
+                <div class="fw-semibold small">{{ nilai.b_indo }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Matematika</div>
+                <div class="fw-semibold small">{{ nilai.matematika }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">IPA</div>
+                <div class="fw-semibold small">{{ nilai.ipa }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">IPS</div>
+                <div class="fw-semibold small">{{ nilai.ips }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Bahasa Inggris</div>
+                <div class="fw-semibold small">{{ nilai.b_inggris }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">PJOK</div>
+                <div class="fw-semibold small">{{ nilai.pjok }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Informatika</div>
+                <div class="fw-semibold small">{{ nilai.informatika }}</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Seni Budaya</div>
+                <div class="fw-semibold small">{{ nilai.seni_budaya }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <ul class="list-group list-group-flush">
-          {% set mata_pelajaran = [
-            ('Pendidikan Agama', nilai.agama),
-            ('PPKn', nilai.pancasila),
-            ('Bahasa Indonesia', nilai.indonesia),
-            ('Matematika', nilai.matematika),
-            ('Ilmu Pengetahuan Alam', nilai.ipa),
-            ('Ilmu Pengetahuan Sosial', nilai.ips),
-            ('Bahasa Inggris', nilai.inggris),
-            ('Seni Budaya', nilai.seni_budaya),
-            ('Olahraga', nilai.olahraga),
-            ('Prakarya', nilai.prakarya),
-          ] %}
-          {% for mapel, skor in mata_pelajaran %}
-          <li class="list-group-item d-flex justify-content-between align-items-center py-2 px-3">
-            <span class="small text-secondary">{{ mapel }}</span>
-            {% if skor is not none and skor | int >= 85 %}
-              <span class="badge rounded-pill text-success bg-success bg-opacity-10 px-3">{{ skor }}</span>
-            {% elif skor is not none and skor | int >= 75 %}
-              <span class="badge rounded-pill text-primary bg-primary bg-opacity-10 px-3">{{ skor }}</span>
-            {% else %}
-              <span class="badge rounded-pill text-warning bg-warning bg-opacity-10 px-3">{{ skor }}</span>
-            {% endif %}
-          </li>
-          {% endfor %}
-        </ul>
-      </div> #}
+      <!-- ===== CARD KEHADIRAN ===== -->
+      <div class="card shadow-sm mb-4 border-0 overflow-hidden">
+        <div style="height: 4px; background: linear-gradient(90deg, #1D9E75, #378ADD);"></div>
+        <div class="card-header bg-white border-0 pt-4 pb-2">
+          <h6 class="fw-semibold mb-0"><i class="fa-solid fa-calendar-check me-2 text-primary"></i>Kehadiran</h6>
+        </div>
+        <div class="card-body pt-0">
+          <div class="row g-2">
+            <div class="col-4">
+              <div class="rounded-3 p-2 px-3 bg-light text-center">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Sakit</div>
+                <div class="fw-semibold">{{ nilai.sakit }}</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="rounded-3 p-2 px-3 bg-light text-center">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Izin</div>
+                <div class="fw-semibold">{{ nilai.izin }}</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="rounded-3 p-2 px-3 bg-light text-center">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Alpha</div>
+                <div class="fw-semibold">{{ nilai.alpha }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CARD EKSTRAKURIKULER ===== -->
+      <div class="card shadow-sm mb-4 border-0 overflow-hidden">
+        <div style="height: 4px; background: linear-gradient(90deg, #1D9E75, #378ADD);"></div>
+        <div class="card-header bg-white border-0 pt-4 pb-2">
+          <h6 class="fw-semibold mb-0"><i class="fa-solid fa-medal me-2 text-primary"></i>Ekstrakurikuler</h6>
+        </div>
+        <div class="card-body pt-0">
+          <div class="row g-2">
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Rohani Islam</div>
+                <div class="fw-semibold small">{{ nilai.rohkris }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Rohani Islam</div>
+                <div class="fw-semibold small">{{ nilai.rohis }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Basket</div>
+                <div class="fw-semibold small">{{ nilai.basket }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Takraw</div>
+                <div class="fw-semibold small">{{ nilai.takraw }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Futsal</div>
+                <div class="fw-semibold small">{{ nilai.futsal }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Silat</div>
+                <div class="fw-semibold small">{{ nilai.silat }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Taekwondo</div>
+                <div class="fw-semibold small">{{ nilai.taekwondo }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Pramuka</div>
+                <div class="fw-semibold small">{{ nilai.pramuka }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">PMR</div>
+                <div class="fw-semibold small">{{ nilai.pmr }}</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="rounded-3 p-2 px-3 bg-light">
+                <div class="text-uppercase text-muted" style="font-size: 10px; letter-spacing: .05em;">Marching Band</div>
+                <div class="fw-semibold small">{{ nilai.marching_band }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>

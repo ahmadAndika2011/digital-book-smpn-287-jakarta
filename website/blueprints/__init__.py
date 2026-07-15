@@ -23,3 +23,4 @@ from .upload_nilai_siswa import auth as upload_nilai_siswa
 from .input_data_tendik import auth as input_data_tendik
 from .update_data_tendik import auth as update_data_tendik
 from .upload_data_tendik import auth as upload_data_tendik
+from .upload_leger_siswa import auth as upload_leger_siswa

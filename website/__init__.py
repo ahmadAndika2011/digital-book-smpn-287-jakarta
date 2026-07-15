@@ -86,7 +86,7 @@ def create_app():
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(auth, url_prefix="/")
 
-    from .blueprints import login_siswa, login_admin, logout, input_data_siswa, update_data_siswa, update_data_per_siswa, buat_akun_siswa, input_berita, input_data_guru, upload_data_guru, update_data_guru, layanan_ppdb, layanan_mutasi, layanan_pip, layanan_kjp, layanan_administrasi_sekolah, layanan_kunjungan_antar_instansi, kontak, feedbacks, jawab_feedback, tambah_nilai_siswa, upload_nilai_siswa, input_data_tendik, update_data_tendik, upload_data_tendik
+    from .blueprints import login_siswa, login_admin, logout, upload_leger_siswa, input_data_siswa, update_data_siswa, update_data_per_siswa, buat_akun_siswa, input_berita, input_data_guru, upload_data_guru, update_data_guru, layanan_ppdb, layanan_mutasi, layanan_pip, layanan_kjp, layanan_administrasi_sekolah, layanan_kunjungan_antar_instansi, kontak, feedbacks, jawab_feedback, tambah_nilai_siswa, upload_nilai_siswa, input_data_tendik, update_data_tendik, upload_data_tendik
     app.register_blueprint(login_siswa, url_prefix="/")
     app.register_blueprint(login_admin, url_prefix="/")
     app.register_blueprint(logout, url_prefix="/")
@@ -112,6 +112,7 @@ def create_app():
     app.register_blueprint(input_data_tendik, url_prefix="/")
     app.register_blueprint(update_data_tendik, url_prefix="/")
     app.register_blueprint(upload_data_tendik, url_prefix="/")
+    app.register_blueprint(upload_leger_siswa, url_prefix="/")
 
     from .blueprints_views import dashbord_admin, data_tendik, pilihan_layanan, lihat_data_ppdb, lihat_data_mutasi, lihat_data_pip, lihat_data_kjp, lihat_data_administrasi_sekolah, lihat_data_kunjungan_instansi, hapus_data_ppdb, hapus_data_mutasi, hapus_data_pip, hapus_data_kjp, hapus_data_administrasi_sekolah, hapus_data_kunjungan_antar_instansi, data_siswa, detail_siswa, data_guru, data_berita, template_lulus, detail_berita, detail_guru, hapus_berita, hapus_guru, hapus_siswa, table_kjp, data_feedbacks_user, hapus_feedback, detail_tendik, hapus_tendik
     app.register_blueprint(dashbord_admin, url_prefix="/")
@@ -145,7 +146,7 @@ def create_app():
     app.register_blueprint(detail_tendik, url_prefix="/")
     app.register_blueprint(hapus_tendik, url_prefix="/")
 
-    from .models import AdminAccount, DatabaseSiswa, DatabaseNilaiSiswa, AccountSiswa, Berita, DatabaseGuru, DatabaseLayananPpdb, DatabaseLayananMutasi, DatabaseLayananPip, DatabaseLayananKjp, DatabaseLayananAdministrasiSekolah, DatabaseLayananKunjunganAntarInstansi, DatabaseKontakEmail, DatabaseFeedbacks
+    from .models import AdminAccount, DatabaseSiswa, DatabaseLegerSiswa, DatabaseNilaiSiswa, AccountSiswa, Berita, DatabaseGuru, DatabaseLayananPpdb, DatabaseLayananMutasi, DatabaseLayananPip, DatabaseLayananKjp, DatabaseLayananAdministrasiSekolah, DatabaseLayananKunjunganAntarInstansi, DatabaseKontakEmail, DatabaseFeedbacks
     with app.app_context():
         db.create_all()
 
