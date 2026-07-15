@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}Arsip Guru | SMPN 287 Jakarta — SMP Negeri 287 Jakarta Timur | Sekolah Menengah Pertama Negeri{% endblock %}
+
+{% block content %}
+<div class="arsip-wrapper">
+  <div class="arsip-card">
+    <h1>Data Arsip Guru</h1>
+    <p>Daftar arsip guru yang telah ditambahkan.</p>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="table-responsive">
+      <table class="table-arsip">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama Guru</th>
+            <th>NRK</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in arsip_guru %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ data.nama }}</td>
+            <td>{{ data.nrk }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="3" class="empty-row">Belum ada data arsip guru.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<style>
+  .arsip-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px;
+    background-color: #f5f6fa;
+  }
+
+  .arsip-card {
+    width: 100%;
+    max-width: 900px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .arsip-card h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a2a5e;
+    margin-bottom: 6px;
+  }
+
+  .arsip-card p {
+    color: #6b7280;
+    margin-bottom: 24px;
+  }
+
+  .alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  .alert-success {
+    background-color: #dcfce7;
+    color: #15803d;
+    border: 1px solid #86efac;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .table-arsip {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+
+  .table-arsip thead th {
+    background-color: #1a2a5e;
+    color: #ffffff;
+    text-align: left;
+    padding: 14px 16px;
+    font-weight: 600;
+  }
+
+  .table-arsip thead th:first-child {
+    border-radius: 8px 0 0 0;
+  }
+
+  .table-arsip thead th:last-child {
+    border-radius: 0 8px 0 0;
+  }
+
+  .table-arsip tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+    transition: background-color 0.15s ease;
+  }
+
+  .table-arsip tbody tr:hover {
+    background-color: #f9fafb;
+  }
+
+  .table-arsip tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .table-arsip td {
+    padding: 14px 16px;
+    color: #374151;
+  }
+
+  .table-arsip td:first-child {
+    color: #9ca3af;
+    font-weight: 500;
+  }
+
+  .empty-row {
+    text-align: center;
+    color: #9ca3af;
+    padding: 30px 16px;
+    font-style: italic;
+  }
+</style>
+{% endblock %}

@@ -1,7 +1,7 @@
 from email.policy import default
 from enum import unique
 
-from sqlalchemy import Column, Integer
+from sqlalchemy import Column, Integer, JSON
 
 from . import db
 from flask_login import UserMixin
@@ -77,6 +77,12 @@ class DatabaseLegerSiswa(db.Model, UserMixin):
     pramuka	= db.Column(db.String(10))
     pmr	= db.Column(db.String(10))
     marching_band = db.Column(db.String(10))
+
+class DatabaseArsipGuru(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    nama = db.Column(db.String(100))
+    nrk = db.Column(db.String(6))
+    list_nama_data = db.Column(JSON)
 
 
 

@@ -129,8 +129,19 @@
           <a class="nav-link-smpn" href="/data-siswa">Siswa</a>
         </li>
 
-        <li class="nav-item">
+        {# <li class="nav-item">
           <a class="nav-link-smpn" href="/cek-kelulusan-siswa">Cek Kelulusan</a>
+        </li> #}
+
+        <li class="nav-item dropdown">
+          <a class="nav-link-smpn dropdown-toggle" href="#"
+             data-bs-toggle="dropdown" aria-expanded="false">Arsip Sekolah</a>
+          <ul class="dropdown-menu dropdown-smpn">
+            {% if current_user.is_authenticated %}
+            <li><a class="dropdown-item-smpn" href="/arsip-guru"><i class="fa-solid fa-newspaper"></i> Arsip Guru</a></li>
+            <li><a class="dropdown-item-smpn" href="/tambah-arsip-guru"><i class="fa-solid fa-newspaper"></i> Tambah Arsip Guru</a></li>
+            {% endif %}
+          </ul>
         </li>
 
         <li class="nav-item dropdown">

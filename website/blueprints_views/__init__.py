@@ -28,3 +28,4 @@ from .hapus_feedback import views as hapus_feedback
 from .data_tendik import views as data_tendik
 from .detail_tendik import views as detail_tendik
 from .hapus_tendik import views as hapus_tendik
+from .arsip_guru import views as arsip_guru

@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+
+{% block title %}Tambah Arsip Guru | SMP Negeri 287 Jakarta — SMP Negeri 287 Jakarta Timur | Sekolah Menengah Pertama Negeri{% endblock %}
+
+{% block content %}
+<style>
+  .arsip-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0f1c3a 0%, #16234a 100%);
+    padding: 48px 16px;
+    display: flex;
+    justify-content: center;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+
+  .arsip-card {
+    width: 100%;
+    max-width: 620px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    padding: 36px 40px;
+  }
+
+  .arsip-card h1 {
+    margin: 0 0 4px 0;
+    font-size: 26px;
+    font-weight: 700;
+    color: #0f1c3a;
+  }
+
+  .arsip-card p.subtitle {
+    margin: 0 0 28px 0;
+    color: #64748b;
+    font-size: 14px;
+  }
+
+  .flash-msg {
+    margin-bottom: 18px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .flash-msg.error {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+  }
+  .flash-msg.success {
+    background: #dcfce7;
+    color: #15803d;
+    border: 1px solid #86efac;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+  }
+
+  .form-group input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1.5px solid #cbd5e1;
+    background: #ffffff !important;
+    color: #0f1c3a !important;
+    caret-color: #0f1c3a;
+    font-size: 15px;
+    -webkit-text-fill-color: #0f1c3a;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .form-group input[type="text"]::placeholder {
+    color: #94a3b8;
+    opacity: 1;
+  }
+
+  .form-group input[type="text"]:focus {
+    outline: none;
+    border-color: #eab308;
+    box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.25);
+  }
+
+  .item-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .item-row input {
+    flex: 1;
+  }
+
+  .btn-remove {
+    flex-shrink: 0;
+    width: 42px;
+    border: none;
+    border-radius: 10px;
+    background: #fee2e2;
+    color: #dc2626;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-remove:hover {
+    background: #fecaca;
+  }
+
+  .btn-add {
+    border: none;
+    background: none;
+    color: #b45309;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 6px 0;
+  }
+  .btn-add:hover {
+    color: #92400e;
+    text-decoration: underline;
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .btn-cancel {
+    flex: 1;
+    text-align: center;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1.5px solid #cbd5e1;
+    color: #334155;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: background 0.15s;
+  }
+  .btn-cancel:hover {
+    background: #f1f5f9;
+  }
+
+  .btn-submit {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: #eab308;
+    color: #1e1b0d;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-submit:hover {
+    background: #d4a107;
+  }
+</style>
+
+<div class="arsip-wrapper">
+  <div class="arsip-card">
+    <h1>Tambah Arsip Guru</h1>
+    <p class="subtitle">Isi data guru dan daftar arsip yang ingin ditambahkan.</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash-msg {% if category == 'error' %}error{% else %}success{% endif %}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('tambah_arsip_guru.tambah_arsip_guru') }}" id="formArsipGuru" enctype="multipart/form-data">
+
+      <div class="form-group">
+        <label for="nama">Nama Guru</label>
+        <input type="text" id="nama" name="nama" required placeholder="Masukkan nama guru" autocomplete="off">
+      </div>
+
+      <div class="form-group">
+        <label for="nrk">NRK</label>
+        <input type="text" id="nrk" name="nrk" maxlength="6" required placeholder="Nomor Registrasi Kepegawaian (6 digit)" autocomplete="off">
+      </div>
+
+      <div class="form-group">
+        <label>Pilih Arsip</label>
+        <div id="listDataWrapper">
+          <div class="item-row">
+            <input type="file" name="nama_data" placeholder="Contoh: Ijazah S1" autocomplete="off">
+            {# <button type="button" class="btn-remove" onclick="removeRow(this)">&times;</button> #}
+          </div>
+        </div>
+        {# <button type="button" class="btn-add" onclick="addRow()">+ Tambah item</button> #}
+      </div>
+
+      <div class="form-actions">
+        {# <a href="{{ url_for('tambah_arsip_guru.tambah_arsip_guru') if False else url_for('tambah_arsip_guru.tambah_arsip_guru') }}" class="btn-cancel">Batal</a> #}
+      </div>
+    <button type="submit" class="btn-submit">Simpan</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  function addRow() {
+    const wrapper = document.getElementById('listDataWrapper');
+    const row = document.createElement('div');
+    row.className = 'item-row';
+    row.innerHTML = `
+      <input type="text" name="nama_data[]" placeholder="Contoh: Sertifikat Pelatihan" autocomplete="off">
+      <button type="button" class="btn-remove" onclick="removeRow(this)">&times;</button>`;
+    wrapper.appendChild(row);
+  }
+
+  function removeRow(btn) {
+    const rows = document.querySelectorAll('.item-row');
+    if (rows.length > 1) {
+      btn.closest('.item-row').remove();
+    }
+  }
+</script>
+{% endblock %}
