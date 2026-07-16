@@ -171,6 +171,45 @@
     color: white;
     text-decoration: none;
   }
+
+    .delete-btn { background: #fee2e2; color: #dc2626; }
+  .delete-btn:hover { background: #fecaca; box-shadow: 0 3px 8px rgba(220,38,38,0.25); }
+
+  .action-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    text-decoration: none;
+    background: transparent;
+    padding: 0;
+  }
+  .action-btn svg { width: 15px; height: 15px; }
+  .action-btn:hover { transform: translateY(-1px); text-decoration: none; }
+
+  .btn-aksi {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background-color: #1a2a5e;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+.btn-aksi:hover {
+  background-color: #24377d;
+  color: #ffffff;
+}
 </style>
 
 <div class="dag-wrap">
@@ -228,6 +267,9 @@
                                 download>
                                     Download
                                 </a>
+                                <button class="action-btn delete-btn" onclick="deleteDataArsipGuru({{guru.id}}, '{{data}}')" title="Hapus">
+                                    <svg viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
                             </td>
                         </tr>
                         {% endfor %}

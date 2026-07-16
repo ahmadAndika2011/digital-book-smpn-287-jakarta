@@ -30,3 +30,5 @@ from .detail_tendik import views as detail_tendik
 from .hapus_tendik import views as hapus_tendik
 from .arsip_guru import views as arsip_guru
 from .detail_arsip_guru import views as detail_arsip_guru
+from .hapus_arsip_guru import views as hapus_arsip_guru
+from .hapus_data_arsip_guru import views as hapus_data_arsip_guru

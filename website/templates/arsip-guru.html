@@ -36,9 +36,9 @@
               <a href="{{ url_for('detail_arsip_guru.detail_arsip_guru', id=data.id) }}" class="btn-aksi">
                 <i class="bi bi-info-circle"></i>
               </a>
-              {# <a class="btn-aksi">
-                <i class="bi bi-info-circle"></i>
-              </a> #}
+              <button class="action-btn delete-btn" onclick="deleteArsipGuru({{data.id}})" title="Hapus">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
             </td>
           </tr>
           {% else %}
@@ -53,6 +53,26 @@
 </div>
 
 <style>
+  .delete-btn { background: #fee2e2; color: #dc2626; }
+  .delete-btn:hover { background: #fecaca; box-shadow: 0 3px 8px rgba(220,38,38,0.25); }
+
+  .action-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    text-decoration: none;
+    background: transparent;
+    padding: 0;
+  }
+  .action-btn svg { width: 15px; height: 15px; }
+  .action-btn:hover { transform: translateY(-1px); text-decoration: none; }
+
   .btn-aksi {
   display: inline-flex;
   align-items: center;

@@ -31,6 +31,34 @@ function deleteGuru(guruId){
     }
 }
 
+function deleteArsipGuru(guruId){
+    if(confirm("Yakin hapus data Arsip Guru? ")){
+        fetch("/hapus-arsip-guru", {
+            method: "POST",
+            body: JSON.stringify({guruId: guruId})
+        }).then((_res) => {
+            window.location.href = "/arsip-guru"
+        })
+    }
+}
+
+function deleteDataArsipGuru(guruId, filename){
+    if(confirm("Yakin hapus data Arsip Guru? ")){
+        fetch("/hapus-data-arsip-guru", {
+            method: "POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({
+                guruId : guruId,
+                filename: filename
+            })
+        }).then((_res) => {
+            location.reload();
+        })
+    }
+}
+
 function deleteTendik(guruId){
     if(confirm("Yakin hapus data Guru? ")){
         fetch("/hapus-data-tendik", {

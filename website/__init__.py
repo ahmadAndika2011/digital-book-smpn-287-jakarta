@@ -116,8 +116,10 @@ def create_app():
     app.register_blueprint(upload_leger_siswa, url_prefix="/")
     app.register_blueprint(tambah_arsip_guru, url_prefix="/")
 
-    from .blueprints_views import dashbord_admin, detail_arsip_guru, arsip_guru, data_tendik, pilihan_layanan, lihat_data_ppdb, lihat_data_mutasi, lihat_data_pip, lihat_data_kjp, lihat_data_administrasi_sekolah, lihat_data_kunjungan_instansi, hapus_data_ppdb, hapus_data_mutasi, hapus_data_pip, hapus_data_kjp, hapus_data_administrasi_sekolah, hapus_data_kunjungan_antar_instansi, data_siswa, detail_siswa, data_guru, data_berita, template_lulus, detail_berita, detail_guru, hapus_berita, hapus_guru, hapus_siswa, table_kjp, data_feedbacks_user, hapus_feedback, detail_tendik, hapus_tendik
+    from .blueprints_views import dashbord_admin, hapus_data_arsip_guru, hapus_arsip_guru, detail_arsip_guru, arsip_guru, data_tendik, pilihan_layanan, lihat_data_ppdb, lihat_data_mutasi, lihat_data_pip, lihat_data_kjp, lihat_data_administrasi_sekolah, lihat_data_kunjungan_instansi, hapus_data_ppdb, hapus_data_mutasi, hapus_data_pip, hapus_data_kjp, hapus_data_administrasi_sekolah, hapus_data_kunjungan_antar_instansi, data_siswa, detail_siswa, data_guru, data_berita, template_lulus, detail_berita, detail_guru, hapus_berita, hapus_guru, hapus_siswa, table_kjp, data_feedbacks_user, hapus_feedback, detail_tendik, hapus_tendik
+    app.register_blueprint(hapus_data_arsip_guru, url_prefix="/")
     app.register_blueprint(detail_arsip_guru, url_prefix="/")
+    app.register_blueprint(hapus_arsip_guru, url_prefix="/")
     app.register_blueprint(arsip_guru, url_prefix="/")
     app.register_blueprint(dashbord_admin, url_prefix="/")
     app.register_blueprint(pilihan_layanan, url_prefix="/")
