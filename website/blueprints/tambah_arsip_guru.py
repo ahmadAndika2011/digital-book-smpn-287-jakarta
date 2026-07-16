@@ -22,40 +22,33 @@ def tambah_arsip_guru():
     if request.method == "POST":
         nama = request.form.get("nama")
         nrk = request.form.get("nrk")
-        file = request.files.get("nama_data")
+        error = DatabaseArsipGuru.query.filter_by(nrk=nrk).first()
+
+        if error:
+            flash("Data Sudah ada di database Arsip Guru", category="error")
+            return redirect(url_for("tambah_arsip_guru.tambah_arsip_guru"))
 
         if not nama or not nrk:
-            flash("Nama dan NRK wajib diisi")
+            flash("Nama dan NRK wajib diisi", category="error")
             return redirect(url_for("tambah_arsip_guru.tambah_arsip_guru"))
         
         if len(nama) < 1:
-            flash("Nama wajib diisi")
+            flash("Nama wajib diisi", category="error")
             return redirect(url_for("tambah_arsip_guru.tambah_arsip_guru"))
         
         if len(nrk) != 6:
-            flash("NRK harus sama dengan 6")
+            flash("NRK harus sama dengan 6", category="error")
             return redirect(url_for("tambah_arsip_guru.tambah_arsip_guru"))
-
-        if not file or file.filename == '' or not allowed_file(file.filename):
-            flash("Silakan pilih file arsip yang valid")
-            return redirect(url_for("tambah_arsip_guru.tambah_arsip_guru"))
-
-        filename = secure_filename(file.filename)
-
-        upload_path = os.path.join(current_app.root_path, 'static', 'uploads')
-        os.makedirs(upload_path, exist_ok=True)
-
-        file.save(os.path.join(upload_path, filename))
 
         new_arsip = DatabaseArsipGuru(
             nama=nama,
             nrk=nrk,
-            list_nama_data=filename
+            list_nama_data=[]
         )
         db.session.add(new_arsip)
 
         db.session.commit()
-        flash("success tambah arsip guru")
+        flash("success tambah arsip guru", category="success")
         return redirect(url_for("tambah_arsip_guru.tambah_arsip_guru"))
         
     return render_template("tambah-arsip-guru.html")

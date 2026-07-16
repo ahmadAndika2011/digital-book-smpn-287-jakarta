@@ -2,7 +2,7 @@ from email.policy import default
 from enum import unique
 
 from sqlalchemy import Column, Integer, JSON
-
+from sqlalchemy.ext.mutable import MutableList
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.dialects.mysql import LONGBLOB
@@ -82,7 +82,7 @@ class DatabaseArsipGuru(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     nama = db.Column(db.String(100))
     nrk = db.Column(db.String(6))
-    list_nama_data = db.Column(JSON)
+    list_nama_data = db.Column(MutableList.as_mutable(JSON), default=list)
 
 
 

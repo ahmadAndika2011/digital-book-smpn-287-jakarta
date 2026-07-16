@@ -25,3 +25,4 @@ from .update_data_tendik import auth as update_data_tendik
 from .upload_data_tendik import auth as upload_data_tendik
 from .upload_leger_siswa import auth as upload_leger_siswa
 from .tambah_arsip_guru import auth as tambah_arsip_guru
+from .tambah_file_arsip import auth as tambah_file_arsip

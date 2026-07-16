@@ -6,11 +6,14 @@ from werkzeug.utils import secure_filename
 from flask import current_app
 from .. import db
 
-views = Blueprint("arsip_guru", __name__)
 
-@views.route("/arsip-guru")
+views = Blueprint("detail_arsip_guru", __name__)
+
+@views.route("/detail-arsip-guru/<int:id>")
 @login_required
-def arsip_guru():
-    arsip_guru = DatabaseArsipGuru.query.all()
+def detail_arsip_guru(id):
+    data = DatabaseArsipGuru.query.get(id)
+    if not data:
+        return "Data Arsip Guru tidak di temukan", 404
+    return render_template("detail-arsip-guru.html", guru=data)
 
-    return render_template("arsip-guru.html", arsip_guru=arsip_guru)

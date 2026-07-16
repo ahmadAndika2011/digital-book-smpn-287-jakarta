@@ -23,6 +23,7 @@
             <th>No</th>
             <th>Nama Guru</th>
             <th>NRK</th>
+            <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
@@ -31,6 +32,14 @@
             <td>{{ loop.index }}</td>
             <td>{{ data.nama }}</td>
             <td>{{ data.nrk }}</td>
+            <td>
+              <a href="{{ url_for('detail_arsip_guru.detail_arsip_guru', id=data.id) }}" class="btn-aksi">
+                <i class="bi bi-info-circle"></i>
+              </a>
+              {# <a class="btn-aksi">
+                <i class="bi bi-info-circle"></i>
+              </a> #}
+            </td>
           </tr>
           {% else %}
           <tr>
@@ -44,6 +53,25 @@
 </div>
 
 <style>
+  .btn-aksi {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background-color: #1a2a5e;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+.btn-aksi:hover {
+  background-color: #24377d;
+  color: #ffffff;
+}
+
   .arsip-wrapper {
     display: flex;
     justify-content: center;
