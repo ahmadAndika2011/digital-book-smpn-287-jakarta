@@ -81,9 +81,14 @@ class DatabaseLegerSiswa(db.Model, UserMixin):
 class DatabaseArsipGuru(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     nama = db.Column(db.String(100))
-    nrk = db.Column(db.String(6))
+    nip = db.Column(db.String(18))
     list_nama_data = db.Column(MutableList.as_mutable(JSON), default=list)
 
+class DatabaseArsipIjazah(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    nisn = db.Column(db.String(10))
+    nama_arsip = db.Column(db.String(255))
+    tahun = db.Column(db.String(20))
 
 
 class AccountSiswa(db.Model, UserMixin):

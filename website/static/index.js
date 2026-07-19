@@ -42,6 +42,23 @@ function deleteArsipGuru(guruId){
     }
 }
 
+function deleteDataArsipIjazah(id, filename){
+    if(confirm("Yakin hapus data Arsip Ijazah? ")){
+        fetch("/hapus-data-arsip-ijazah", {
+            method: "POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({
+                id : id,
+                filename: filename,
+            })
+        }).then((_res) => {
+            location.reload();
+        })
+    }
+}
+
 function deleteDataArsipGuru(guruId, filename){
     if(confirm("Yakin hapus data Arsip Guru? ")){
         fetch("/hapus-data-arsip-guru", {

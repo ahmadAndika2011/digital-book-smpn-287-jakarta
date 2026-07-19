@@ -32,3 +32,6 @@ from .arsip_guru import views as arsip_guru
 from .detail_arsip_guru import views as detail_arsip_guru
 from .hapus_arsip_guru import views as hapus_arsip_guru
 from .hapus_data_arsip_guru import views as hapus_data_arsip_guru
+from .pilih_arsip_ijazah import views as pilih_arsip_ijazah
+from .arsip_ijazah import views as arsip_ijazah
+from .hapus_data_arsip_ijazah import views as hapus_data_arsip_ijazah

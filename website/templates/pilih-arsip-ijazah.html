@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Pilih Arsip Ijazah | SMPN 287 Jakarta — SMP Negeri 287 Jakarta Timur | Sekolah Menengah Pertama Negeri{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-4">Pilih Arsip Ijazah</h2>
+
+    <div class="row g-4">
+        {% for tahun in daftar_tahun_ajaran %}
+        <div class="col-md-4 col-sm-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-archive fs-1 text-primary mb-3"></i>
+                    <h5 class="card-title">Arsip {{ tahun.label }}</h5>
+                    <p class="card-text text-muted">Tahun Ajaran {{ tahun.label }}</p>
+                    {# <a class="btn btn-primary">
+                        Lihat Arsip
+                    </a> #}
+                    <a href="{{ url_for('arsip_ijazah.arsip_ijazah', tahun_ajaran=tahun.slug) }}" class="btn btn-primary">
+                        Lihat Arsip
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12">
+            <p class="text-center text-muted">Belum ada data arsip tahun ajaran.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -21,28 +21,28 @@ def allowed_file(filename):
 def tambah_arsip_guru():
     if request.method == "POST":
         nama = request.form.get("nama")
-        nrk = request.form.get("nrk")
-        error = DatabaseArsipGuru.query.filter_by(nrk=nrk).first()
+        nip = request.form.get("nip")
+        error = DatabaseArsipGuru.query.filter_by(nip=nip).first()
 
         if error:
             flash("Data Sudah ada di database Arsip Guru", category="error")
             return redirect(url_for("tambah_arsip_guru.tambah_arsip_guru"))
 
-        if not nama or not nrk:
-            flash("Nama dan NRK wajib diisi", category="error")
+        if not nama or not nip:
+            flash("Nama dan NIP wajib diisi", category="error")
             return redirect(url_for("tambah_arsip_guru.tambah_arsip_guru"))
         
         if len(nama) < 1:
             flash("Nama wajib diisi", category="error")
             return redirect(url_for("tambah_arsip_guru.tambah_arsip_guru"))
         
-        if len(nrk) != 6:
-            flash("NRK harus sama dengan 6", category="error")
+        if len(nip) != 18:
+            flash("NIP harus sama dengan 18", category="error")
             return redirect(url_for("tambah_arsip_guru.tambah_arsip_guru"))
 
         new_arsip = DatabaseArsipGuru(
             nama=nama,
-            nrk=nrk,
+            nip=nip,
             list_nama_data=[]
         )
         db.session.add(new_arsip)

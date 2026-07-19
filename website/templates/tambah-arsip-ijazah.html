@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Tambah Arsip Guru | SMP Negeri 287 Jakarta — SMP Negeri 287 Jakarta Timur | Sekolah Menengah Pertama Negeri{% endblock %}
+{% block title %}Tambah Arsip Ijazah | SMP Negeri 287 Jakarta — SMP Negeri 287 Jakarta Timur | Sekolah Menengah Pertama Negeri{% endblock %}
 
 {% block content %}
 <style>
@@ -171,8 +171,8 @@
 
 <div class="arsip-wrapper">
   <div class="arsip-card">
-    <h1>Tambah Arsip Guru</h1>
-    <p class="subtitle">Isi data guru dan daftar arsip yang ingin ditambahkan.</p>
+    <h1>Tambah Arsip Ijazah</h1>
+    <p class="subtitle">Isi data Ijazah dan daftar arsip yang ingin ditambahkan.</p>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
@@ -184,16 +184,16 @@
       {% endif %}
     {% endwith %}
 
-    <form method="POST" action="{{ url_for('tambah_arsip_guru.tambah_arsip_guru') }}" id="formArsipGuru" enctype="multipart/form-data">
+    <form method="POST" action="{{ url_for('tambah_arsip_ijazah.tambah_arsip_ijazah', tahun=tahun) }}" id="formArsipIjazah" enctype="multipart/form-data">
 
       <div class="form-group">
-        <label for="nama">Nama Guru</label>
-        <input type="text" id="nama" name="nama" required placeholder="Masukkan nama guru" autocomplete="off">
+        <label for="nisn">NISN</label>
+        <input type="text" maxlength="10" id="nisn" name="nisn" required placeholder="Masukkan NISN murid" autocomplete="off">
       </div>
 
       <div class="form-group">
-        <label for="nip">NIP</label>
-        <input type="text" id="nip" name="nip" maxlength="18" required placeholder="Nomor Induk pegawai (18 digit)" autocomplete="off">
+        <label for="arsip">Arsip</label>
+        <input type="file" id="arsip" name="arsip" maxlength="18" required placeholder="Nomor Registrasi Kepegawaian (6 digit)" autocomplete="off">
       </div>
     <button type="submit" class="btn-submit">Simpan</button>
 
