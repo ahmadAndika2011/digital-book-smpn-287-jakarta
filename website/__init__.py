@@ -27,8 +27,8 @@ def create_app():
     app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
     # app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+mysqlconnector://root:@localhost/database_smpn_287"
-    app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+mysqlconnector://root:{quote_plus(os.getenv('DB_PASSWORD'))}@202.155.19.242/{os.getenv('DB_NAME')}"
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+mysqlconnector://root:{quote_plus(os.getenv('DB_PASSWORD'))}@202.155.19.242/{os.getenv('DB_NAME')}"
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
 
     app.config['MAIL_SERVER'] = os.getenv("MAIL_SERVER")
