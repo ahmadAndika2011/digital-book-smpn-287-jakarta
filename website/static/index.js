@@ -120,6 +120,17 @@ function deleteDataPip(dataPipId){
     }
 }
 
+function deleteDataKjpBaru(dataKjpId){
+    if(confirm("Yakin Hapus Data KJP? ")){
+        fetch("/hapus-data-kjp-baru", {
+            method: "POST",
+            body: JSON.stringify({dataKjpId: dataKjpId})
+        }).then((_res) => {
+            window.location.href = "/table-kjp-baru"
+        })
+    }
+}
+
 function deleteDataKjp(dataKjpId){
     if(confirm("Yakin Hapus Data KJP? ")){
         fetch("/hapus-data-kjp", {

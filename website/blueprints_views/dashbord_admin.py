@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, request, send_file
 from flask_login import current_user, login_required
 from pandas import read_sql_query
-from ..models import DatabaseLayananPpdb, DatabaseLayananMutasi, DatabaseLayananPip, DatabaseLayananKjp, DatabaseLayananAdministrasiSekolah, DatabaseLayananKunjunganAntarInstansi
+from ..models import DatabaseLayananPpdb, DatabaseLayananKjpBaru, DatabaseLayananMutasi, DatabaseLayananPip, DatabaseLayananKjp, DatabaseLayananAdministrasiSekolah, DatabaseLayananKunjunganAntarInstansi
 import pandas as pd
 from .. import db
 import io
@@ -9,7 +9,14 @@ import os
 import zipfile
 from datetime import datetime
 from .fill_kjp_pdf import fill_kjp_pdf_berita_acara, fill_kjp_pdf, fill_kjp_pdf_surat_pernyataan, fill_kjp_pdf_permohonan
+from .fill_kjp_baru_pdf import fill_kjp_baru_pdf
 import pandas as pd
+
+PDF_TEMPLATE_PATH_BARU = os.path.join(
+    os.path.dirname(__file__),
+    "..", "static", "uploads",
+    "format-kjp.pdf"
+)
 
 PDF_TEMPLATE_PATH = os.path.join(
     os.path.dirname(__file__),
@@ -44,6 +51,7 @@ def dashbord_admin():
     data_layanan_mutasi = DatabaseLayananMutasi.query.all()
     data_layanan_pip = DatabaseLayananPip.query.all()
     data_layanan_kjp = DatabaseLayananKjp.query.all()
+    data_layanan_kjp_baru = DatabaseLayananKjpBaru.query.all()
     data_layanan_administrasi_sekolah = DatabaseLayananAdministrasiSekolah.query.all()
     data_layanan_kunjungan_antar_instansi = DatabaseLayananKunjunganAntarInstansi.query.all()
     return render_template("dashbord-admin.html",
@@ -52,10 +60,84 @@ def dashbord_admin():
                            data_layanan_mutasi=data_layanan_mutasi,
                            data_layanan_pip=data_layanan_pip,
                            data_layanan_kjp=data_layanan_kjp,
+                           data_layanan_kjp_baru=data_layanan_kjp_baru,
                            data_layanan_administrasi_sekolah=data_layanan_administrasi_sekolah,
                            data_layanan_kunjungan_antar_instansi=data_layanan_kunjungan_antar_instansi
                            )
 
+
+@views.route("/download-data-kjp", methods=["POST"])
+@login_required
+def download_data_kjp_baru():
+    if request.method == "POST":
+        # Ambil semua data siswa KJP dari database
+        semua_siswa = DatabaseLayananKjpBaru.query.all()
+
+        # Buat file ZIP di memori (RAM), isinya 1 PDF per siswa
+        zip_buffer = io.BytesIO()
+        with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zf:
+            for siswa in semua_siswa:
+                # Ubah objek database menjadi dictionary
+                siswa_dict = {
+                    "id": siswa.id,
+                    "tanggal_surat": siswa.tanggal_surat or "",
+                    "pemohon_nama": siswa.pemohon_nama or "",
+                    "pemohon_alamat": siswa.pemohon_alamat or "",
+                    "pemohon_rt_rw": siswa.pemohon_rt_rw or "",
+                    "pemohon_kelurahan": siswa.pemohon_kelurahan or "",
+                    "pemohon_kecamatan": siswa.pemohon_kecamatan or "",
+                    "pemohon_kota":siswa.pemohon_kota or "",
+                    "pemohon_kode_pos":siswa.pemohon_kode_pos or "",
+                    "pemohon_telpon":siswa.pemohon_telpon or "",
+                    "peserta_didik_nama":siswa.peserta_didik_nama or "",
+                    "peserta_didik_tempat_lahir":siswa.peserta_didik_tempat_lahir or "",
+                    "peserta_didik_tanggal_lahir":siswa.peserta_didik_tanggal_lahir or "",
+                    "peserta_didik_jenis_kelamin":siswa.peserta_didik_jenis_kelamin or "",
+                    "peserta_didik_alamat":siswa.peserta_didik_alamat or "",
+                    "peserta_didik_rt_rw":siswa.peserta_didik_rt_rw or "",
+                    "peserta_didik_kelurahan":siswa.peserta_didik_kelurahan or "",
+                    "peserta_didik_kecamatan":siswa.peserta_didik_kecamatan or "",
+                    "peserta_didik_kota":siswa.peserta_didik_kota or "",
+                    "peserta_didik_kode_pos":siswa.peserta_didik_kode_pos or "",
+                    "sekolah_nama":siswa.sekolah_nama or "",
+                    "sekolah_alamat":siswa.sekolah_alamat or "",
+                    "sekolah_rt_rw":siswa.sekolah_rt_rw or "",
+                    "sekolah_kelurahan":siswa.sekolah_kelurahan or "",
+                    "sekolah_kecamatan":siswa.sekolah_kecamatan or "",
+                    "sekolah_kota":siswa.sekolah_kota or "",
+                    "sekolah_kode_pos":siswa.sekolah_kode_pos or "",
+                    "ttd_nama_lengkap":siswa.ttd_nama_lengkap or "",
+                    "ttd_tanda_tangan":siswa.ttd_tanda_tangan or "",
+                    "pernyataan_nama_peserta_didik":siswa.pernyataan_nama_peserta_didik or "",
+                    "pernyataan_nisn":siswa.pernyataan_nisn or "",
+                    "pernyataan_kelas":siswa.pernyataan_kelas or "",
+                    "pernyataan_sekolah":siswa.pernyataan_sekolah or "",
+                    "pernyataan_nama_orang_tua":siswa.pernyataan_nama_orang_tua or "",
+                    "pernyataan_alamat":siswa.pernyataan_alamat or "",
+                    "pernyataan_ttd_orang_tua":siswa.pernyataan_ttd_orang_tua or "",
+                    "pernyataan_ttd_penerima":siswa.pernyataan_ttd_penerima or ""
+                }
+
+                # Isi formulir PDF dengan data siswa
+                pdf_bytes = fill_kjp_baru_pdf(siswa_dict, template_path=PDF_TEMPLATE_PATH_BARU)
+
+                # Simpan PDF ke dalam ZIP dengan nama file berdasarkan nama siswa
+                nama_file = (
+                    siswa.peserta_didik_nama or f"siswa_{siswa.id}").replace(" ", "_")
+                zf.writestr(
+                    f"KJP_{nama_file}_{datetime.now().year}.pdf", pdf_bytes)
+
+        zip_buffer.seek(0)
+
+        # Kirim file ZIP ke browser untuk didownload
+        return send_file(
+            zip_buffer,
+            mimetype="application/zip",
+            as_attachment=True,
+            download_name=f"KJP_PLUS_DATA_SISWA_{datetime.now().year}.zip"
+        )
+
+    return redirect(url_for("table_kjp_baru.table_kjp_baru"))
 
 @views.route("/download-data-kjp", methods=["POST"])
 @login_required

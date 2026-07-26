@@ -35,3 +35,5 @@ from .hapus_data_arsip_guru import views as hapus_data_arsip_guru
 from .pilih_arsip_ijazah import views as pilih_arsip_ijazah
 from .arsip_ijazah import views as arsip_ijazah
 from .hapus_data_arsip_ijazah import views as hapus_data_arsip_ijazah
+from .table_kjp_baru import views as table_kjp_baru
+from .hapus_data_kjp_baru import views as hapus_data_kjp_baru

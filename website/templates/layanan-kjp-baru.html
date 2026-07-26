@@ -1,0 +1,293 @@
+{% extends "base.html" %}
+{% block title %}Layanan KJP Sekolah | SMPN 287 Jakarta — SMP Negeri 287 Jakarta Timur | Sekolah Menengah Pertama Negeri{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-white">
+      <h4 class="mb-0 text-center">Surat Permohonan Bantuan Sosial Biaya Pendidikan</h4>
+    </div>
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('layanan_kjp_baru.layanan_kjp_baru') if url_for is defined else '#' }}" enctype="multipart/form-data" novalidate>
+
+        <!-- Kop Surat -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Tanggal Surat</label>
+            <input type="date" class="form-control" name="tanggal_surat" value="" required>
+          </div>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- Data Pemohon -->
+        <h5 class="mb-3">A. Data Pemohon (Yang Bertanda Tangan)</h5>
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <label class="form-label">Nama</label>
+            <input type="text" class="form-control" name="pemohon_nama" >
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <label class="form-label">Alamat</label>
+            <textarea class="form-control" name="pemohon_alamat" rows="2" required>{{ form.pemohon_alamat if form is defined else '' }}</textarea>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-3">
+            <label class="form-label">RT/RW</label>
+            <input type="text" class="form-control" name="pemohon_rt_rw" placeholder="001/002" >
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Kelurahan</label>
+            <input type="text" class="form-control" name="pemohon_kelurahan" >
+          </div>
+          <div class="col-md-5">
+            <label class="form-label">Kecamatan</label>
+            <input type="text" class="form-control" name="pemohon_kecamatan" >
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Kota</label>
+            <input type="text" class="form-control" name="pemohon_kota" >
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Kode Pos</label>
+            <input type="text" class="form-control" name="pemohon_kode_pos" >
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label class="form-label">Telpon/HP</label>
+            <input type="tel" class="form-control" name="pemohon_telpon" >
+          </div>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- Data Peserta Didik -->
+        <h5 class="mb-3">C. Data Peserta Didik (Anak)</h5>
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <label class="form-label">Nama</label>
+            <input type="text" class="form-control" name="peserta_didik_nama">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Tempat Lahir</label>
+            <input type="text" class="form-control" name="peserta_didik_tempat_lahir">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Tanggal Lahir</label>
+            <input type="date" class="form-control" name="peserta_didik_tanggal_lahir">
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label d-block">Jenis Kelamin</label>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="peserta_didik_jenis_kelamin" id="jk1" value="laki-laki">
+            <label class="form-check-label" for="jk1">Laki-laki</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="peserta_didik_jenis_kelamin" id="jk2" value="perempuan">
+            <label class="form-check-label" for="jk2">Perempuan</label>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <label class="form-label">Alamat</label>
+            <textarea class="form-control" name="peserta_didik_alamat" rows="2"></textarea>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-3">
+            <label class="form-label">RT/RW</label>
+            <input type="text" class="form-control" name="peserta_didik_rt_rw" placeholder="001/002">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Kelurahan</label>
+            <input type="text" class="form-control" name="peserta_didik_kelurahan">
+          </div>
+          <div class="col-md-5">
+            <label class="form-label">Kecamatan</label>
+            <input type="text" class="form-control" name="peserta_didik_kecamatan">
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label class="form-label">Kota</label>
+            <input type="text" class="form-control" name="peserta_didik_kota">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Kode Pos</label>
+            <input type="text" class="form-control" name="peserta_didik_kode_pos">
+          </div>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- Data Sekolah -->
+        <h5 class="mb-3">D. Data Sekolah/Madrasah</h5>
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <label class="form-label">Nama Sekolah/Madrasah</label>
+            <input type="text" class="form-control" name="sekolah_nama">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <label class="form-label">Alamat Sekolah/Madrasah</label>
+            <textarea class="form-control" name="sekolah_alamat" rows="2"></textarea>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-3">
+            <label class="form-label">RT/RW</label>
+            <input type="text" class="form-control" name="sekolah_rt_rw" placeholder="001/002">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Kelurahan</label>
+            <input type="text" class="form-control" name="sekolah_kelurahan">
+          </div>
+          <div class="col-md-5">
+            <label class="form-label">Kecamatan</label>
+            <input type="text" class="form-control" name="sekolah_kecamatan">
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label class="form-label">Kota</label>
+            <input type="text" class="form-control" name="sekolah_kota">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Kode Pos</label>
+            <input type="text" class="form-control" name="sekolah_kode_pos">
+          </div>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- Lampiran & Pernyataan -->
+        <h5 class="mb-3">E. Lampiran &amp; Pernyataan</h5>
+        <div class="mb-3">
+          <label class="form-label" for="lampiran_kk">Lampiran Fotokopi Kartu Keluarga (2 lembar)</label>
+          <input class="form-control" type="file" name="lampiran_kk" id="lampiran_kk" accept=".pdf,.jpg,.jpeg,.png" required><br>
+          <small class="text-muted">Unggah file fotokopi Kartu Keluarga (format PDF/JPG/PNG, maks. 2 halaman/lembar).</small><br>
+            <small class="form-check-label" for="setuju_publikasi">
+              Saya menyatakan tidak keberatan data-data di atas diumumkan pada papan pengumuman
+              di Satuan Pendidikan, internet, dan/atau media cetak sebagai calon penerima bantuan.
+            </small>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- Tanda Tangan Pemohon -->
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label class="form-label">Nama Lengkap Pemohon (Tanda Tangan)</label>
+            <input type="text" class="form-control" name="ttd_nama_lengkap" required><br>
+            <input class="form-control" type="file" name="ttd_tanda_tangan" id="ttd_tanda_tangan" accept="image/png" required>
+            <small class="text-muted">
+                Format yang didukung: PNG.
+            </small>
+          </div>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- Surat Pernyataan Ketaatan Penggunaan Bantuan -->
+        <h5 class="mb-3">F. Surat Pernyataan Ketaatan Penggunaan Bantuan Sosial Biaya Pendidikan</h5>
+        <p class="text-muted">
+          Dalam rangka penggunaan Bantuan Sosial Biaya Pendidikan berupa Biaya Personal dan/atau
+          Biaya Penyelenggaraan Pendidikan dan/atau Biaya Pendidikan Masuk Sekolah bagi Peserta Didik,
+          yang bertanda tangan di bawah ini menerangkan dan menyatakan hal-hal berikut.
+        </p>
+
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <label class="form-label">Nama Peserta Didik</label>
+            <input type="text" class="form-control" name="pernyataan_nama_peserta_didik">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">NISN</label>
+            <input type="text" class="form-control" name="pernyataan_nisn">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Kelas</label>
+            <input type="text" class="form-control" name="pernyataan_kelas">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <label class="form-label">Sekolah</label>
+            <input type="text" class="form-control" name="pernyataan_sekolah">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <label class="form-label">Nama Orang Tua/Wali</label>
+            <input type="text" class="form-control" name="pernyataan_nama_orang_tua">
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <label class="form-label">Alamat Tempat Tinggal</label>
+            <textarea class="form-control" name="pernyataan_alamat" rows="2"></textarea>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <ol>
+            <li class="mb-2">
+              Bersedia memanfaatkan Bantuan Sosial Biaya Pendidikan berupa Biaya Personal dan/atau
+              Biaya Penyelenggaraan Pendidikan dan/atau Biaya Pendidikan Masuk Sekolah bagi Peserta Didik,
+              dalam rangka menuntut ilmu di sekolah sesuai dengan ketentuan yang berlaku.
+            </li>
+            <li class="mb-2">
+              Setiap bulan akan melaporkan penggunaan berupa Biaya Personal dan/atau Biaya Penyelenggaraan
+              Pendidikan dan/atau Biaya Pendidikan Masuk Sekolah bagi Peserta Didik melalui satuan
+              pendidikan secara jujur, transparan, dan bertanggungjawab.
+            </li>
+            <li class="mb-2">
+              Apabila saya melanggar hal-hal yang telah saya nyatakan dalam surat pernyataan ini, maka
+              saya bersedia dikenakan sanksi berupa penarikan bantuan/penghentian bantuan/pengembalian bantuan.
+            </li>
+          </ol>
+        </div>
+
+        <div class="form-check mb-4">
+          <input class="form-check-input" type="checkbox" name="pernyataan_setuju" id="pernyataan_setuju" value="1" required>
+          <label class="form-check-label" for="pernyataan_setuju">
+            Saya menyatakan menyetujui dan bersedia mematuhi seluruh pernyataan di atas.
+          </label>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Tanda Tangan Orang Tua/Wali</label>
+            <input class="form-control" type="file" name="pernyataan_ttd_orang_tua" accept="image/png" required>
+            <small class="text-muted">Format yang didukung: PNG.</small>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Tanda Tangan Penerima Bantuan (Peserta Didik)</label>
+            <input class="form-control" type="file" name="pernyataan_ttd_penerima" accept="image/png" required>
+            <small class="text-muted">Format yang didukung: PNG.</small>
+          </div>
+        </div>
+        <small class="text-muted">Silahkan berikan materai ke pihak TU</small>
+        
+
+        <div class="d-flex justify-content-end gap-2">
+          <button type="reset" class="btn btn-outline-secondary">Reset</button>
+          <button type="submit" class="btn btn-primary">Kirim Permohonan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

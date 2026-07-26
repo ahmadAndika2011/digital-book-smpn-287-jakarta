@@ -1,0 +1,352 @@
+{% extends "base.html" %}
+{% block title %}Table KJP | SMPN 287 Jakarta — SMP Negeri 287 Jakarta Timur | Sekolah Menengah Pertama Negeri{% endblock %}
+
+{% block content %}
+<style>
+    :root {
+        --primary-red: #8B1A1A; /* Aksen merah gelap sesuai gambar */
+        --bg-light: #f8f9fa;
+        --text-dark: #333;
+        --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .wrap {
+        padding: 30px;
+        background-color: var(--bg-light);
+        min-height: 100vh;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        border-bottom: 2px solid var(--primary-red);
+        padding-bottom: 10px;
+    }
+
+    .toolbar h2 {
+        color: var(--primary-red);
+        margin: 0;
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
+    .tbl-container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+        overflow: hidden; /* Agar border radius memotong tabel */
+        border: 1px solid #eee;
+    }
+
+    .tbl-wrap {
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+
+
+/* Update pada bagian CSS */
+
+thead {
+    background-color: var(--primary-red);
+}
+
+thead th {
+    color: white; /* Warna teks default di header */
+    padding: 15px 20px;
+    font-weight: 600;
+    transition: none; /* Menghapus transisi agar tidak ada flicker warna */
+}
+
+/* Kunci agar saat row di header di-hover, warna teks TIDAK berubah */
+thead tr:hover {
+    background-color: var(--primary-red) !important;
+}
+
+thead tr:hover th {
+    color: white !important; /* Memaksa teks tetap putih/terang di atas background merah */
+}
+
+/* Untuk body tabel, kita gunakan warna hover yang sangat soft agar teks tetap gelap */
+tbody tr:hover {
+    background-color: rgba(139, 26, 26, 0.05); /* Merah sangat transparan */
+}
+
+tbody tr:hover td {
+    color: var(--text-dark) !important; /* Memastikan teks isi tabel tetap hitam/gelap */
+}
+    th {
+        padding: 15px 20px;
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+    }
+
+    td {
+        padding: 15px 20px;
+        border-bottom: 1px solid #f0f0f0;
+        color: #555;
+        font-size: 0.9rem;
+    }
+
+    tr:hover {
+        background-color: #fff5f5; /* Hover effect kemerahan tipis */
+    }
+
+    /* Styling Aksi Buttons */
+    .btn-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        margin-right: 5px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .btn-view {
+        background-color: #fff0f0;
+        color: var(--primary-red);
+    }
+
+    .btn-view:hover {
+        background-color: var(--primary-red);
+        color: white;
+    }
+
+    .btn-delete {
+        background-color: #fee2e2;
+        color: #dc2626;
+    }
+
+    .btn-delete:hover {
+        background-color: #dc2626;
+        color: white;
+    }
+
+    /* Badge untuk Kelas atau Status */
+    .badge-red {
+        background: #fdf2f2;
+        color: var(--primary-red);
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        border: 1px solid #f8d7da;
+    }
+
+/* Container untuk tombol aksi agar rapi */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.btn-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Tombol Detail (Warna Merah Khas SMPN 287) */
+.btn-view {
+    background-color: #fcecea; /* Background merah sangat muda */
+    color: #8B1A1A;            /* Warna merah gelap sesuai gambar */
+}
+
+.btn-view:hover {
+    background-color: #8B1A1A; /* Berubah jadi merah gelap */
+    color: #ffffff !important; /* Di sini tetap putih agar terbaca di bg gelap */
+    transform: translateY(-2px);
+}
+
+/* Tombol Trash (Warna Merah Terang/Danger) */
+.btn-delete {
+    background-color: #fff5f5;
+    color: #e03131;
+}
+
+.btn-delete:hover {
+    background-color: #e03131;
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(224, 49, 49, 0.2);
+}
+
+/* Kunci agar icon di dalam table head TIDAK berubah saat di-hover */
+thead th:hover {
+    color: white !important;
+}
+
+.btn-action i{
+    font-size: 22px;
+}
+
+.btn-view:hover{
+    background: #e8f1ff;
+    color: #2563eb;
+}
+
+.btn-delete:hover{
+    background: #ffeaea;
+    color: #dc2626;
+}
+
+.action-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-action{
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+/* ICON */
+.btn-action i{
+    font-size: 22px;
+    line-height: 1;
+}
+
+/* DETAIL */
+.btn-view{
+    background: #eef4ff;
+    color: #2563eb;
+}
+
+.btn-view:hover{
+    background: #2563eb;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* DELETE */
+.btn-delete{
+    background: #fff1f2;
+    color: #dc2626;
+}
+
+.btn-delete:hover{
+    background: #dc2626;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.btn-dl {
+    background-color: #0a2463;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 11px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    transition: background-color 0.2s, transform 0.2s;
+    white-space: nowrap;
+}
+</style>
+
+<div class="wrap">
+<div class="toolbar">
+    <h2><i class="ti ti-id-badge"></i> Data Layanan KJP</h2>
+    <div class="toolbar-right">
+        <span class="badge-red">Total: {{ jumlah_siswa }} Murid</span>
+
+        <form action="{{ url_for('dashbord_admin.download_data_kjp_baru') }}" method="POST">
+            <button type="submit" class="btn-dl" style="background-color: #7b1111;"
+                onmouseover="this.style.backgroundColor='#5a0c0c'; this.style.transform='scale(1.05)'"
+                onmouseout="this.style.backgroundColor='#7b1111'; this.style.transform='scale(1)'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                SEMUA DATA
+            </button>
+        </form>
+
+    </div>
+</div>
+
+  <div class="tbl-container">
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>NISN</th>
+            <th>Nama Murid</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in data %}
+          <tr>
+            <td><strong>{{ loop.index }}</strong></td>
+            <td>{{ row.pernyataan_nisn }}</td>
+            <td style="font-weight: 500; color: #222;">{{ row.peserta_didik_nama }}</td>
+            <td>
+                {# <div class="action-buttons"> #}
+
+                    <!-- Tombol Hapus -->
+                    <button type="button"
+                            onclick="deleteDataKjpBaru({{ row.id }})"
+                            class="btn-action btn-delete">
+
+                        <i class="ti ti-trash"></i>
+
+                    </button>
+
+                {# </div> #}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
