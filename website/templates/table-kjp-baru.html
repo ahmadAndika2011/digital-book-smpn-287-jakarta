@@ -329,18 +329,22 @@ thead th:hover {
             <td>{{ row.pernyataan_nisn }}</td>
             <td style="font-weight: 500; color: #222;">{{ row.peserta_didik_nama }}</td>
             <td>
-                {# <div class="action-buttons"> #}
+                <div class="action-buttons">
 
                     <!-- Tombol Hapus -->
+                    <a href="{{ url_for('download_kk.download_kk', filename=row.lampiran_kk) }}"
+                        class="btn-action btn-download">
+                            <i class="ti ti-download"></i>
+                    </a>
+
                     <button type="button"
                             onclick="deleteDataKjpBaru({{ row.id }})"
                             class="btn-action btn-delete">
 
                         <i class="ti ti-trash"></i>
-
                     </button>
 
-                {# </div> #}
+                </div>
             </td>
           </tr>
           {% endfor %}

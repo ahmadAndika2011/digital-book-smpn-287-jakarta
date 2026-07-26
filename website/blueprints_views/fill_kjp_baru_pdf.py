@@ -210,7 +210,7 @@ FIELDS_DATA_SISWA = {
     "pernyataan_nisn": {
         "page": 1,
         "x": 220,
-        "y": 570,
+        "y": 572,
         "max_w": 170,
         "font_size": 9,
     },
@@ -224,21 +224,21 @@ FIELDS_DATA_SISWA = {
     "pernyataan_sekolah": {
         "page": 1,
         "x": 220,
-        "y": 550,
+        "y": 555,
         "max_w": 170,
         "font_size": 9,
     },
     "pernyataan_nama_orang_tua": {
         "page": 1,
         "x": 220,
-        "y": 520,
+        "y": 525,
         "max_w": 170,
         "font_size": 9,
     },
     "pernyataan_alamat": {
         "page": 1,
         "x": 220,
-        "y": 510,
+        "y": 508,
         "max_w": 170,
         "font_size": 9,
     },

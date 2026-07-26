@@ -59,6 +59,7 @@ def layanan_kjp_baru():
 
         #? GAMBAR
         lampiran_kk = request.files.get("lampiran_kk")
+        lampiran_kjp = request.files.get("lampiran_kjp")
         ttd_tanda_tangan = request.files.get("ttd_tanda_tangan")
         pernyataan_ttd_orang_tua = request.files.get("pernyataan_ttd_orang_tua")
         pernyataan_ttd_penerima = request.files.get("pernyataan_ttd_penerima")
@@ -71,6 +72,17 @@ def layanan_kjp_baru():
             lampiran_kk = filename
         else:
             flash("KK belum di masukkan", category="error")
+            return redirect(url_for("layanan_kjp_baru.layanan_kjp_baru"))
+        
+        if lampiran_kjp:
+            filename = secure_filename(lampiran_kjp.filename)
+            upload_path = os.path.join("website", "static", "uploads")
+            if not os.path.exists(upload_path):
+                os.makedirs(upload_path)
+            lampiran_kjp.save(os.path.join("website/static/uploads", filename))
+            lampiran_kjp = filename
+        else:
+            flash("KJP belum di masukkan", category="error")
             return redirect(url_for("layanan_kjp_baru.layanan_kjp_baru"))
 
         if ttd_tanda_tangan:
@@ -133,7 +145,8 @@ def layanan_kjp_baru():
             sekolah_kecamatan = fields["sekolah_kecamatan"],
             sekolah_kota = fields["sekolah_kota"],
             sekolah_kode_pos = fields["sekolah_kode_pos"],
-            sekolah_kk = lampiran_kk,
+            lampiran_kk = lampiran_kk,
+            lampiran_kjp = lampiran_kjp,
             ttd_nama_lengkap = fields["ttd_nama_lengkap"],
             ttd_tanda_tangan = ttd_tanda_tangan,
             pernyataan_nama_peserta_didik = fields["pernyataan_nama_peserta_didik"],
