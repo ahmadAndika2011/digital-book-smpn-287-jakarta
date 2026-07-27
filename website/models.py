@@ -199,7 +199,7 @@ class DatabaseLayananKjpBaru(db.Model, UserMixin):
     sekolah_kota = db.Column(db.String(100))
     sekolah_kode_pos = db.Column(db.String(10))
     lampiran_kk = db.Column(db.String(255))
-    lampiran_kjp = db.Column(db.String(255))
+    lampiran_ktp = db.Column(db.String(255))
     ttd_nama_lengkap = db.Column(db.String(150))
     ttd_tanda_tangan = db.Column(db.String(255))
     pernyataan_nama_peserta_didik = db.Column(db.String(255))

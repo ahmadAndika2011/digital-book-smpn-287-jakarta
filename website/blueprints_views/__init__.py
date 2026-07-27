@@ -38,3 +38,4 @@ from .hapus_data_arsip_ijazah import views as hapus_data_arsip_ijazah
 from .table_kjp_baru import views as table_kjp_baru
 from .hapus_data_kjp_baru import views as hapus_data_kjp_baru
 from .download_kk import views as download_kk
+from .download_ktp import views as download_ktp

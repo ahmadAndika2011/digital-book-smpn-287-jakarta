@@ -17,12 +17,20 @@ def hapus_data_kjp_baru():
     data = DatabaseLayananKjpBaru.query.get(data_id)
 
     if data:
-        if data.sekolah_kk:
-            image_path = os.path.join(current_app.root_path, "static/uploads", data.sekolah_kk)
+        if data.lampiran_kk:
+            image_path = os.path.join(current_app.root_path, "static/uploads", data.lampiran_kk)
             if os.path.exists(image_path):
                 os.remove(image_path)
         print(image_path)
         print(os.path.exists(image_path))
+
+        if data.lampiran_ktp:
+                image_path = os.path.join(current_app.root_path, "static/uploads", data.lampiran_ktp)
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+                print(image_path)
+                print(os.path.exists(image_path))
+          
   
         if data.ttd_tanda_tangan:
             image_path = os.path.join(current_app.root_path, "static/uploads", data.ttd_tanda_tangan)

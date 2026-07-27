@@ -285,6 +285,20 @@ thead th:hover {
     transition: background-color 0.2s, transform 0.2s;
     white-space: nowrap;
 }
+
+.btn-kk {
+    color: #2563eb; /* biru untuk KK */
+}
+.btn-kk:hover {
+    background-color: #dbeafe;
+}
+
+.btn-kjp {
+    color: #16a34a; /* hijau untuk KJP */
+}
+.btn-kjp:hover {
+    background-color: #dcfce7;
+}
 </style>
 
 <div class="wrap">
@@ -331,12 +345,17 @@ thead th:hover {
             <td>
                 <div class="action-buttons">
 
-                    <!-- Tombol Hapus -->
                     <a href="{{ url_for('download_kk.download_kk', filename=row.lampiran_kk) }}"
-                        class="btn-action btn-download">
+                        class="btn-action btn-download" title="download kk">
                             <i class="ti ti-download"></i>
                     </a>
 
+                    <a href="{{ url_for('download_kk.download_ktp', filename=row.lampiran_ktp) }}"
+                        class="btn-action btn-download" title="download ktp">
+                            <i class="ti ti-download"></i>
+                    </a>
+
+                    <!-- Tombol Hapus -->
                     <button type="button"
                             onclick="deleteDataKjpBaru({{ row.id }})"
                             class="btn-action btn-delete">
