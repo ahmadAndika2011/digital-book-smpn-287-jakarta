@@ -86,9 +86,9 @@ def create_app():
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(auth, url_prefix="/")
 
-    from .blueprints import login_siswa, tambah_file_arsip, layanan_kjp_baru, tambah_arsip_ijazah, login_admin, logout, tambah_arsip_guru, upload_leger_siswa, input_data_siswa, update_data_siswa, update_data_per_siswa, buat_akun_siswa, input_berita, input_data_guru, upload_data_guru, update_data_guru, layanan_ppdb, layanan_mutasi, layanan_pip, layanan_kjp, layanan_administrasi_sekolah, layanan_kunjungan_antar_instansi, kontak, feedbacks, jawab_feedback, tambah_nilai_siswa, upload_nilai_siswa, input_data_tendik, update_data_tendik, upload_data_tendik
+    from .blueprints import login_siswa, tambah_file_arsip, tambah_arsip_ijazah, login_admin, logout, tambah_arsip_guru, upload_leger_siswa, input_data_siswa, update_data_siswa, update_data_per_siswa, buat_akun_siswa, input_berita, input_data_guru, upload_data_guru, update_data_guru, layanan_ppdb, layanan_mutasi, layanan_pip, layanan_kjp, layanan_administrasi_sekolah, layanan_kunjungan_antar_instansi, kontak, feedbacks, jawab_feedback, tambah_nilai_siswa, upload_nilai_siswa, input_data_tendik, update_data_tendik, upload_data_tendik
     app.register_blueprint(tambah_arsip_ijazah, url_prefix="/")
-    app.register_blueprint(layanan_kjp_baru, url_prefix="/")
+    # app.register_blueprint(layanan_kjp_baru, url_prefix="/")
     app.register_blueprint(tambah_file_arsip, url_prefix="/")
     app.register_blueprint(login_siswa, url_prefix="/")
     app.register_blueprint(login_admin, url_prefix="/")
